@@ -1,0 +1,1441 @@
+date,menu_item,category,portions_sold,latent_demand,portions_prepared,food_discarded,stockout_flag,day_of_week,attendance_index,campus_event,weather,temperature_c,promotion_flag,cost_per_portion,selling_price
+2026-04-01,Pav Bhaji,Lunch / Snack,81,87,81,0,1,Wednesday,1.02,0,Hot / Humid,36.2,1,35.0,75.0
+2026-04-01,Idli Sambar,Breakfast / Light,64,64,72,8,0,Wednesday,1.02,0,Hot / Humid,36.2,1,22.0,50.0
+2026-04-01,Veg Thali,Lunch Meals,93,93,106,13,0,Wednesday,1.02,0,Hot / Humid,36.2,1,65.0,130.0
+2026-04-01,Veg Grilled Sandwich,Snack,58,72,58,0,1,Wednesday,1.02,0,Hot / Humid,36.2,1,28.0,60.0
+2026-04-01,Rajma Rice Bowl,Lunch Meals,74,74,76,2,0,Wednesday,1.02,0,Hot / Humid,36.2,1,45.0,95.0
+2026-04-01,Poha,Breakfast / Light,56,56,65,9,0,Wednesday,1.02,0,Hot / Humid,36.2,1,18.0,40.0
+2026-04-01,Masala Dosa,All-Day,67,67,69,2,0,Wednesday,1.02,0,Hot / Humid,36.2,1,32.0,70.0
+2026-04-01,Fresh Fruit Juice,Beverage,54,69,54,0,1,Wednesday,1.02,0,Hot / Humid,36.2,1,30.0,65.0
+2026-04-02,Pav Bhaji,Lunch / Snack,58,58,81,23,0,Thursday,0.98,0,Sunny / Mild,28.6,0,35.0,75.0
+2026-04-02,Idli Sambar,Breakfast / Light,59,59,72,13,0,Thursday,0.98,0,Sunny / Mild,28.6,0,22.0,50.0
+2026-04-02,Veg Thali,Lunch Meals,95,95,106,11,0,Thursday,0.98,0,Sunny / Mild,28.6,0,65.0,130.0
+2026-04-02,Veg Grilled Sandwich,Snack,53,53,58,5,0,Thursday,0.98,0,Sunny / Mild,28.6,0,28.0,60.0
+2026-04-02,Rajma Rice Bowl,Lunch Meals,68,68,76,8,0,Thursday,0.98,0,Sunny / Mild,28.6,0,45.0,95.0
+2026-04-02,Poha,Breakfast / Light,49,49,65,16,0,Thursday,0.98,0,Sunny / Mild,28.6,0,18.0,40.0
+2026-04-02,Masala Dosa,All-Day,69,70,69,0,1,Thursday,0.98,0,Sunny / Mild,28.6,0,32.0,70.0
+2026-04-02,Fresh Fruit Juice,Beverage,46,46,54,8,0,Thursday,0.98,0,Sunny / Mild,28.6,0,30.0,65.0
+2026-04-03,Pav Bhaji,Lunch / Snack,78,78,81,3,0,Friday,1.0,0,Sunny / Mild,26.2,0,35.0,75.0
+2026-04-03,Idli Sambar,Breakfast / Light,57,57,72,15,0,Friday,1.0,0,Sunny / Mild,26.2,0,22.0,50.0
+2026-04-03,Veg Thali,Lunch Meals,99,99,106,7,0,Friday,1.0,0,Sunny / Mild,26.2,0,65.0,130.0
+2026-04-03,Veg Grilled Sandwich,Snack,58,60,58,0,1,Friday,1.0,0,Sunny / Mild,26.2,0,28.0,60.0
+2026-04-03,Rajma Rice Bowl,Lunch Meals,66,66,76,10,0,Friday,1.0,0,Sunny / Mild,26.2,0,45.0,95.0
+2026-04-03,Poha,Breakfast / Light,55,55,65,10,0,Friday,1.0,0,Sunny / Mild,26.2,0,18.0,40.0
+2026-04-03,Masala Dosa,All-Day,69,73,69,0,1,Friday,1.0,0,Sunny / Mild,26.2,0,32.0,70.0
+2026-04-03,Fresh Fruit Juice,Beverage,48,48,54,6,0,Friday,1.0,0,Sunny / Mild,26.2,0,30.0,65.0
+2026-04-04,Pav Bhaji,Lunch / Snack,41,41,50,9,0,Saturday,0.65,0,Sunny / Mild,30.5,0,35.0,75.0
+2026-04-04,Idli Sambar,Breakfast / Light,23,23,45,22,0,Saturday,0.65,0,Sunny / Mild,30.5,0,22.0,50.0
+2026-04-04,Veg Thali,Lunch Meals,36,36,66,30,0,Saturday,0.65,0,Sunny / Mild,30.5,0,65.0,130.0
+2026-04-04,Veg Grilled Sandwich,Snack,15,15,36,21,0,Saturday,0.65,0,Sunny / Mild,30.5,0,28.0,60.0
+2026-04-04,Rajma Rice Bowl,Lunch Meals,24,24,48,24,0,Saturday,0.65,0,Sunny / Mild,30.5,0,45.0,95.0
+2026-04-04,Poha,Breakfast / Light,29,29,41,12,0,Saturday,0.65,0,Sunny / Mild,30.5,0,18.0,40.0
+2026-04-04,Masala Dosa,All-Day,35,35,43,8,0,Saturday,0.65,0,Sunny / Mild,30.5,0,32.0,70.0
+2026-04-04,Fresh Fruit Juice,Beverage,24,24,34,10,0,Saturday,0.65,0,Sunny / Mild,30.5,0,30.0,65.0
+2026-04-05,Pav Bhaji,Lunch / Snack,19,19,50,31,0,Sunday,0.39,0,Sunny / Mild,27.4,0,35.0,75.0
+2026-04-05,Idli Sambar,Breakfast / Light,16,16,45,29,0,Sunday,0.39,0,Sunny / Mild,27.4,0,22.0,50.0
+2026-04-05,Veg Thali,Lunch Meals,30,30,66,36,0,Sunday,0.39,0,Sunny / Mild,27.4,0,65.0,130.0
+2026-04-05,Veg Grilled Sandwich,Snack,17,17,36,19,0,Sunday,0.39,0,Sunny / Mild,27.4,0,28.0,60.0
+2026-04-05,Rajma Rice Bowl,Lunch Meals,8,8,48,40,0,Sunday,0.39,0,Sunny / Mild,27.4,0,45.0,95.0
+2026-04-05,Poha,Breakfast / Light,19,19,41,22,0,Sunday,0.39,0,Sunny / Mild,27.4,0,18.0,40.0
+2026-04-05,Masala Dosa,All-Day,16,16,43,27,0,Sunday,0.39,0,Sunny / Mild,27.4,0,32.0,70.0
+2026-04-05,Fresh Fruit Juice,Beverage,11,11,34,23,0,Sunday,0.39,0,Sunny / Mild,27.4,0,30.0,65.0
+2026-04-06,Pav Bhaji,Lunch / Snack,81,82,81,0,1,Monday,1.03,0,Sunny / Mild,30.1,0,35.0,75.0
+2026-04-06,Idli Sambar,Breakfast / Light,72,84,72,0,1,Monday,1.03,0,Sunny / Mild,30.1,0,22.0,50.0
+2026-04-06,Veg Thali,Lunch Meals,90,90,106,16,0,Monday,1.03,0,Sunny / Mild,30.1,0,65.0,130.0
+2026-04-06,Veg Grilled Sandwich,Snack,52,52,58,6,0,Monday,1.03,0,Sunny / Mild,30.1,0,28.0,60.0
+2026-04-06,Rajma Rice Bowl,Lunch Meals,72,72,76,4,0,Monday,1.03,0,Sunny / Mild,30.1,0,45.0,95.0
+2026-04-06,Poha,Breakfast / Light,65,76,65,0,1,Monday,1.03,0,Sunny / Mild,30.1,0,18.0,40.0
+2026-04-06,Masala Dosa,All-Day,61,61,69,8,0,Monday,1.03,0,Sunny / Mild,30.1,0,32.0,70.0
+2026-04-06,Fresh Fruit Juice,Beverage,49,49,54,5,0,Monday,1.03,0,Sunny / Mild,30.1,0,30.0,65.0
+2026-04-07,Pav Bhaji,Lunch / Snack,59,59,81,22,0,Tuesday,0.94,0,Hot / Humid,36.5,0,35.0,75.0
+2026-04-07,Idli Sambar,Breakfast / Light,60,60,72,12,0,Tuesday,0.94,0,Hot / Humid,36.5,0,22.0,50.0
+2026-04-07,Veg Thali,Lunch Meals,88,88,106,18,0,Tuesday,0.94,0,Hot / Humid,36.5,0,65.0,130.0
+2026-04-07,Veg Grilled Sandwich,Snack,51,51,58,7,0,Tuesday,0.94,0,Hot / Humid,36.5,0,28.0,60.0
+2026-04-07,Rajma Rice Bowl,Lunch Meals,52,52,76,24,0,Tuesday,0.94,0,Hot / Humid,36.5,0,45.0,95.0
+2026-04-07,Poha,Breakfast / Light,57,57,65,8,0,Tuesday,0.94,0,Hot / Humid,36.5,0,18.0,40.0
+2026-04-07,Masala Dosa,All-Day,68,68,69,1,0,Tuesday,0.94,0,Hot / Humid,36.5,0,32.0,70.0
+2026-04-07,Fresh Fruit Juice,Beverage,54,65,54,0,1,Tuesday,0.94,0,Hot / Humid,36.5,0,30.0,65.0
+2026-04-08,Pav Bhaji,Lunch / Snack,78,78,81,3,0,Wednesday,1.08,0,Sunny / Mild,28.1,0,35.0,75.0
+2026-04-08,Idli Sambar,Breakfast / Light,67,67,72,5,0,Wednesday,1.08,0,Sunny / Mild,28.1,0,22.0,50.0
+2026-04-08,Veg Thali,Lunch Meals,106,116,106,0,1,Wednesday,1.08,0,Sunny / Mild,28.1,0,65.0,130.0
+2026-04-08,Veg Grilled Sandwich,Snack,46,46,58,12,0,Wednesday,1.08,0,Sunny / Mild,28.1,0,28.0,60.0
+2026-04-08,Rajma Rice Bowl,Lunch Meals,76,81,76,0,1,Wednesday,1.08,0,Sunny / Mild,28.1,0,45.0,95.0
+2026-04-08,Poha,Breakfast / Light,65,65,65,0,0,Wednesday,1.08,0,Sunny / Mild,28.1,0,18.0,40.0
+2026-04-08,Masala Dosa,All-Day,69,76,69,0,1,Wednesday,1.08,0,Sunny / Mild,28.1,0,32.0,70.0
+2026-04-08,Fresh Fruit Juice,Beverage,49,49,54,5,0,Wednesday,1.08,0,Sunny / Mild,28.1,0,30.0,65.0
+2026-04-09,Pav Bhaji,Lunch / Snack,76,76,81,5,0,Thursday,0.96,0,Rainy / Low Footfall,26.0,0,35.0,75.0
+2026-04-09,Idli Sambar,Breakfast / Light,58,58,72,14,0,Thursday,0.96,0,Rainy / Low Footfall,26.0,0,22.0,50.0
+2026-04-09,Veg Thali,Lunch Meals,90,90,106,16,0,Thursday,0.96,0,Rainy / Low Footfall,26.0,0,65.0,130.0
+2026-04-09,Veg Grilled Sandwich,Snack,40,40,58,18,0,Thursday,0.96,0,Rainy / Low Footfall,26.0,0,28.0,60.0
+2026-04-09,Rajma Rice Bowl,Lunch Meals,66,66,76,10,0,Thursday,0.96,0,Rainy / Low Footfall,26.0,0,45.0,95.0
+2026-04-09,Poha,Breakfast / Light,65,65,65,0,0,Thursday,0.96,0,Rainy / Low Footfall,26.0,0,18.0,40.0
+2026-04-09,Masala Dosa,All-Day,69,74,69,0,1,Thursday,0.96,0,Rainy / Low Footfall,26.0,0,32.0,70.0
+2026-04-09,Fresh Fruit Juice,Beverage,27,27,54,27,0,Thursday,0.96,0,Rainy / Low Footfall,26.0,0,30.0,65.0
+2026-04-10,Pav Bhaji,Lunch / Snack,81,88,81,0,1,Friday,0.98,0,Sunny / Mild,28.1,0,35.0,75.0
+2026-04-10,Idli Sambar,Breakfast / Light,64,64,72,8,0,Friday,0.98,0,Sunny / Mild,28.1,0,22.0,50.0
+2026-04-10,Veg Thali,Lunch Meals,93,93,106,13,0,Friday,0.98,0,Sunny / Mild,28.1,0,65.0,130.0
+2026-04-10,Veg Grilled Sandwich,Snack,58,61,58,0,1,Friday,0.98,0,Sunny / Mild,28.1,0,28.0,60.0
+2026-04-10,Rajma Rice Bowl,Lunch Meals,57,57,76,19,0,Friday,0.98,0,Sunny / Mild,28.1,0,45.0,95.0
+2026-04-10,Poha,Breakfast / Light,54,54,65,11,0,Friday,0.98,0,Sunny / Mild,28.1,0,18.0,40.0
+2026-04-10,Masala Dosa,All-Day,59,59,69,10,0,Friday,0.98,0,Sunny / Mild,28.1,0,32.0,70.0
+2026-04-10,Fresh Fruit Juice,Beverage,43,43,54,11,0,Friday,0.98,0,Sunny / Mild,28.1,0,30.0,65.0
+2026-04-11,Pav Bhaji,Lunch / Snack,40,40,50,10,0,Saturday,0.69,0,Sunny / Mild,29.5,0,35.0,75.0
+2026-04-11,Idli Sambar,Breakfast / Light,35,35,45,10,0,Saturday,0.69,0,Sunny / Mild,29.5,0,22.0,50.0
+2026-04-11,Veg Thali,Lunch Meals,35,35,66,31,0,Saturday,0.69,0,Sunny / Mild,29.5,0,65.0,130.0
+2026-04-11,Veg Grilled Sandwich,Snack,17,17,36,19,0,Saturday,0.69,0,Sunny / Mild,29.5,0,28.0,60.0
+2026-04-11,Rajma Rice Bowl,Lunch Meals,35,35,48,13,0,Saturday,0.69,0,Sunny / Mild,29.5,0,45.0,95.0
+2026-04-11,Poha,Breakfast / Light,30,30,41,11,0,Saturday,0.69,0,Sunny / Mild,29.5,0,18.0,40.0
+2026-04-11,Masala Dosa,All-Day,43,47,43,0,1,Saturday,0.69,0,Sunny / Mild,29.5,0,32.0,70.0
+2026-04-11,Fresh Fruit Juice,Beverage,24,24,34,10,0,Saturday,0.69,0,Sunny / Mild,29.5,0,30.0,65.0
+2026-04-12,Pav Bhaji,Lunch / Snack,31,31,50,19,0,Sunday,0.42,0,Sunny / Mild,28.4,0,35.0,75.0
+2026-04-12,Idli Sambar,Breakfast / Light,25,25,45,20,0,Sunday,0.42,0,Sunny / Mild,28.4,0,22.0,50.0
+2026-04-12,Veg Thali,Lunch Meals,29,29,66,37,0,Sunday,0.42,0,Sunny / Mild,28.4,0,65.0,130.0
+2026-04-12,Veg Grilled Sandwich,Snack,12,12,36,24,0,Sunday,0.42,0,Sunny / Mild,28.4,0,28.0,60.0
+2026-04-12,Rajma Rice Bowl,Lunch Meals,31,31,48,17,0,Sunday,0.42,0,Sunny / Mild,28.4,0,45.0,95.0
+2026-04-12,Poha,Breakfast / Light,10,10,41,31,0,Sunday,0.42,0,Sunny / Mild,28.4,0,18.0,40.0
+2026-04-12,Masala Dosa,All-Day,23,23,43,20,0,Sunday,0.42,0,Sunny / Mild,28.4,0,32.0,70.0
+2026-04-12,Fresh Fruit Juice,Beverage,26,26,34,8,0,Sunday,0.42,0,Sunny / Mild,28.4,0,30.0,65.0
+2026-04-13,Pav Bhaji,Lunch / Snack,64,64,81,17,0,Monday,0.95,0,Sunny / Mild,29.0,0,35.0,75.0
+2026-04-13,Idli Sambar,Breakfast / Light,62,62,72,10,0,Monday,0.95,0,Sunny / Mild,29.0,0,22.0,50.0
+2026-04-13,Veg Thali,Lunch Meals,91,91,106,15,0,Monday,0.95,0,Sunny / Mild,29.0,0,65.0,130.0
+2026-04-13,Veg Grilled Sandwich,Snack,44,44,58,14,0,Monday,0.95,0,Sunny / Mild,29.0,0,28.0,60.0
+2026-04-13,Rajma Rice Bowl,Lunch Meals,68,68,76,8,0,Monday,0.95,0,Sunny / Mild,29.0,0,45.0,95.0
+2026-04-13,Poha,Breakfast / Light,60,60,65,5,0,Monday,0.95,0,Sunny / Mild,29.0,0,18.0,40.0
+2026-04-13,Masala Dosa,All-Day,69,69,69,0,0,Monday,0.95,0,Sunny / Mild,29.0,0,32.0,70.0
+2026-04-13,Fresh Fruit Juice,Beverage,42,42,54,12,0,Monday,0.95,0,Sunny / Mild,29.0,0,30.0,65.0
+2026-04-14,Pav Bhaji,Lunch / Snack,81,87,81,0,1,Tuesday,0.98,0,Rainy / Low Footfall,26.4,0,35.0,75.0
+2026-04-14,Idli Sambar,Breakfast / Light,45,45,72,27,0,Tuesday,0.98,0,Rainy / Low Footfall,26.4,0,22.0,50.0
+2026-04-14,Veg Thali,Lunch Meals,81,81,106,25,0,Tuesday,0.98,0,Rainy / Low Footfall,26.4,0,65.0,130.0
+2026-04-14,Veg Grilled Sandwich,Snack,50,50,58,8,0,Tuesday,0.98,0,Rainy / Low Footfall,26.4,0,28.0,60.0
+2026-04-14,Rajma Rice Bowl,Lunch Meals,46,46,76,30,0,Tuesday,0.98,0,Rainy / Low Footfall,26.4,0,45.0,95.0
+2026-04-14,Poha,Breakfast / Light,65,66,65,0,1,Tuesday,0.98,0,Rainy / Low Footfall,26.4,0,18.0,40.0
+2026-04-14,Masala Dosa,All-Day,69,71,69,0,1,Tuesday,0.98,0,Rainy / Low Footfall,26.4,0,32.0,70.0
+2026-04-14,Fresh Fruit Juice,Beverage,34,34,54,20,0,Tuesday,0.98,0,Rainy / Low Footfall,26.4,0,30.0,65.0
+2026-04-15,Pav Bhaji,Lunch / Snack,81,102,81,0,1,Wednesday,1.29,1,Hot / Humid,38.3,1,35.0,75.0
+2026-04-15,Idli Sambar,Breakfast / Light,72,84,72,0,1,Wednesday,1.29,1,Hot / Humid,38.3,1,22.0,50.0
+2026-04-15,Veg Thali,Lunch Meals,106,124,106,0,1,Wednesday,1.29,1,Hot / Humid,38.3,1,65.0,130.0
+2026-04-15,Veg Grilled Sandwich,Snack,58,77,58,0,1,Wednesday,1.29,1,Hot / Humid,38.3,1,28.0,60.0
+2026-04-15,Rajma Rice Bowl,Lunch Meals,76,88,76,0,1,Wednesday,1.29,1,Hot / Humid,38.3,1,45.0,95.0
+2026-04-15,Poha,Breakfast / Light,65,77,65,0,1,Wednesday,1.29,1,Hot / Humid,38.3,1,18.0,40.0
+2026-04-15,Masala Dosa,All-Day,69,76,69,0,1,Wednesday,1.29,1,Hot / Humid,38.3,1,32.0,70.0
+2026-04-15,Fresh Fruit Juice,Beverage,54,99,54,0,1,Wednesday,1.29,1,Hot / Humid,38.3,1,30.0,65.0
+2026-04-16,Pav Bhaji,Lunch / Snack,81,92,81,0,1,Thursday,1.37,1,Hot / Humid,33.6,0,35.0,75.0
+2026-04-16,Idli Sambar,Breakfast / Light,72,93,72,0,1,Thursday,1.37,1,Hot / Humid,33.6,0,22.0,50.0
+2026-04-16,Veg Thali,Lunch Meals,106,139,106,0,1,Thursday,1.37,1,Hot / Humid,33.6,0,65.0,130.0
+2026-04-16,Veg Grilled Sandwich,Snack,58,67,58,0,1,Thursday,1.37,1,Hot / Humid,33.6,0,28.0,60.0
+2026-04-16,Rajma Rice Bowl,Lunch Meals,76,98,76,0,1,Thursday,1.37,1,Hot / Humid,33.6,0,45.0,95.0
+2026-04-16,Poha,Breakfast / Light,65,82,65,0,1,Thursday,1.37,1,Hot / Humid,33.6,0,18.0,40.0
+2026-04-16,Masala Dosa,All-Day,69,90,69,0,1,Thursday,1.37,1,Hot / Humid,33.6,0,32.0,70.0
+2026-04-16,Fresh Fruit Juice,Beverage,54,104,54,0,1,Thursday,1.37,1,Hot / Humid,33.6,0,30.0,65.0
+2026-04-17,Pav Bhaji,Lunch / Snack,81,82,81,0,1,Friday,0.99,0,Sunny / Mild,27.2,0,35.0,75.0
+2026-04-17,Idli Sambar,Breakfast / Light,63,63,72,9,0,Friday,0.99,0,Sunny / Mild,27.2,0,22.0,50.0
+2026-04-17,Veg Thali,Lunch Meals,97,97,106,9,0,Friday,0.99,0,Sunny / Mild,27.2,0,65.0,130.0
+2026-04-17,Veg Grilled Sandwich,Snack,58,64,58,0,1,Friday,0.99,0,Sunny / Mild,27.2,0,28.0,60.0
+2026-04-17,Rajma Rice Bowl,Lunch Meals,73,73,76,3,0,Friday,0.99,0,Sunny / Mild,27.2,0,45.0,95.0
+2026-04-17,Poha,Breakfast / Light,57,57,65,8,0,Friday,0.99,0,Sunny / Mild,27.2,0,18.0,40.0
+2026-04-17,Masala Dosa,All-Day,69,70,69,0,1,Friday,0.99,0,Sunny / Mild,27.2,0,32.0,70.0
+2026-04-17,Fresh Fruit Juice,Beverage,46,46,54,8,0,Friday,0.99,0,Sunny / Mild,27.2,0,30.0,65.0
+2026-04-18,Pav Bhaji,Lunch / Snack,38,38,50,12,0,Saturday,0.84,0,Sunny / Mild,29.6,0,35.0,75.0
+2026-04-18,Idli Sambar,Breakfast / Light,43,43,45,2,0,Saturday,0.84,0,Sunny / Mild,29.6,0,22.0,50.0
+2026-04-18,Veg Thali,Lunch Meals,42,42,66,24,0,Saturday,0.84,0,Sunny / Mild,29.6,0,65.0,130.0
+2026-04-18,Veg Grilled Sandwich,Snack,36,36,36,0,0,Saturday,0.84,0,Sunny / Mild,29.6,0,28.0,60.0
+2026-04-18,Rajma Rice Bowl,Lunch Meals,46,46,48,2,0,Saturday,0.84,0,Sunny / Mild,29.6,0,45.0,95.0
+2026-04-18,Poha,Breakfast / Light,36,36,41,5,0,Saturday,0.84,0,Sunny / Mild,29.6,0,18.0,40.0
+2026-04-18,Masala Dosa,All-Day,34,34,43,9,0,Saturday,0.84,0,Sunny / Mild,29.6,0,32.0,70.0
+2026-04-18,Fresh Fruit Juice,Beverage,23,23,34,11,0,Saturday,0.84,0,Sunny / Mild,29.6,0,30.0,65.0
+2026-04-19,Pav Bhaji,Lunch / Snack,27,27,50,23,0,Sunday,0.38,0,Sunny / Mild,28.8,0,35.0,75.0
+2026-04-19,Idli Sambar,Breakfast / Light,19,19,45,26,0,Sunday,0.38,0,Sunny / Mild,28.8,0,22.0,50.0
+2026-04-19,Veg Thali,Lunch Meals,24,24,66,42,0,Sunday,0.38,0,Sunny / Mild,28.8,0,65.0,130.0
+2026-04-19,Veg Grilled Sandwich,Snack,10,10,36,26,0,Sunday,0.38,0,Sunny / Mild,28.8,0,28.0,60.0
+2026-04-19,Rajma Rice Bowl,Lunch Meals,20,20,48,28,0,Sunday,0.38,0,Sunny / Mild,28.8,0,45.0,95.0
+2026-04-19,Poha,Breakfast / Light,17,17,41,24,0,Sunday,0.38,0,Sunny / Mild,28.8,0,18.0,40.0
+2026-04-19,Masala Dosa,All-Day,11,11,43,32,0,Sunday,0.38,0,Sunny / Mild,28.8,0,32.0,70.0
+2026-04-19,Fresh Fruit Juice,Beverage,15,15,34,19,0,Sunday,0.38,0,Sunny / Mild,28.8,0,30.0,65.0
+2026-04-20,Pav Bhaji,Lunch / Snack,64,64,81,17,0,Monday,1.03,0,Hot / Humid,36.9,0,35.0,75.0
+2026-04-20,Idli Sambar,Breakfast / Light,72,72,72,0,0,Monday,1.03,0,Hot / Humid,36.9,0,22.0,50.0
+2026-04-20,Veg Thali,Lunch Meals,91,91,106,15,0,Monday,1.03,0,Hot / Humid,36.9,0,65.0,130.0
+2026-04-20,Veg Grilled Sandwich,Snack,56,56,58,2,0,Monday,1.03,0,Hot / Humid,36.9,0,28.0,60.0
+2026-04-20,Rajma Rice Bowl,Lunch Meals,65,65,76,11,0,Monday,1.03,0,Hot / Humid,36.9,0,45.0,95.0
+2026-04-20,Poha,Breakfast / Light,65,93,65,0,1,Monday,1.03,0,Hot / Humid,36.9,0,18.0,40.0
+2026-04-20,Masala Dosa,All-Day,67,67,69,2,0,Monday,1.03,0,Hot / Humid,36.9,0,32.0,70.0
+2026-04-20,Fresh Fruit Juice,Beverage,54,77,54,0,1,Monday,1.03,0,Hot / Humid,36.9,0,30.0,65.0
+2026-04-21,Pav Bhaji,Lunch / Snack,81,92,81,0,1,Tuesday,1.05,0,Rainy / Low Footfall,23.7,0,35.0,75.0
+2026-04-21,Idli Sambar,Breakfast / Light,52,52,72,20,0,Tuesday,1.05,0,Rainy / Low Footfall,23.7,0,22.0,50.0
+2026-04-21,Veg Thali,Lunch Meals,83,83,106,23,0,Tuesday,1.05,0,Rainy / Low Footfall,23.7,0,65.0,130.0
+2026-04-21,Veg Grilled Sandwich,Snack,44,44,58,14,0,Tuesday,1.05,0,Rainy / Low Footfall,23.7,0,28.0,60.0
+2026-04-21,Rajma Rice Bowl,Lunch Meals,61,61,76,15,0,Tuesday,1.05,0,Rainy / Low Footfall,23.7,0,45.0,95.0
+2026-04-21,Poha,Breakfast / Light,65,83,65,0,1,Tuesday,1.05,0,Rainy / Low Footfall,23.7,0,18.0,40.0
+2026-04-21,Masala Dosa,All-Day,63,63,69,6,0,Tuesday,1.05,0,Rainy / Low Footfall,23.7,0,32.0,70.0
+2026-04-21,Fresh Fruit Juice,Beverage,36,36,54,18,0,Tuesday,1.05,0,Rainy / Low Footfall,23.7,0,30.0,65.0
+2026-04-22,Pav Bhaji,Lunch / Snack,63,63,81,18,0,Wednesday,0.92,0,Sunny / Mild,26.2,0,35.0,75.0
+2026-04-22,Idli Sambar,Breakfast / Light,66,66,72,6,0,Wednesday,0.92,0,Sunny / Mild,26.2,0,22.0,50.0
+2026-04-22,Veg Thali,Lunch Meals,98,98,106,8,0,Wednesday,0.92,0,Sunny / Mild,26.2,0,65.0,130.0
+2026-04-22,Veg Grilled Sandwich,Snack,42,42,58,16,0,Wednesday,0.92,0,Sunny / Mild,26.2,0,28.0,60.0
+2026-04-22,Rajma Rice Bowl,Lunch Meals,65,65,76,11,0,Wednesday,0.92,0,Sunny / Mild,26.2,0,45.0,95.0
+2026-04-22,Poha,Breakfast / Light,57,57,65,8,0,Wednesday,0.92,0,Sunny / Mild,26.2,0,18.0,40.0
+2026-04-22,Masala Dosa,All-Day,53,53,69,16,0,Wednesday,0.92,0,Sunny / Mild,26.2,0,32.0,70.0
+2026-04-22,Fresh Fruit Juice,Beverage,45,45,54,9,0,Wednesday,0.92,0,Sunny / Mild,26.2,0,30.0,65.0
+2026-04-23,Pav Bhaji,Lunch / Snack,67,67,81,14,0,Thursday,1.0,0,Sunny / Mild,29.2,0,35.0,75.0
+2026-04-23,Idli Sambar,Breakfast / Light,51,51,72,21,0,Thursday,1.0,0,Sunny / Mild,29.2,0,22.0,50.0
+2026-04-23,Veg Thali,Lunch Meals,106,108,106,0,1,Thursday,1.0,0,Sunny / Mild,29.2,0,65.0,130.0
+2026-04-23,Veg Grilled Sandwich,Snack,49,49,58,9,0,Thursday,1.0,0,Sunny / Mild,29.2,0,28.0,60.0
+2026-04-23,Rajma Rice Bowl,Lunch Meals,76,82,76,0,1,Thursday,1.0,0,Sunny / Mild,29.2,0,45.0,95.0
+2026-04-23,Poha,Breakfast / Light,53,53,65,12,0,Thursday,1.0,0,Sunny / Mild,29.2,0,18.0,40.0
+2026-04-23,Masala Dosa,All-Day,61,61,69,8,0,Thursday,1.0,0,Sunny / Mild,29.2,0,32.0,70.0
+2026-04-23,Fresh Fruit Juice,Beverage,50,50,54,4,0,Thursday,1.0,0,Sunny / Mild,29.2,0,30.0,65.0
+2026-04-24,Pav Bhaji,Lunch / Snack,81,88,81,0,1,Friday,1.04,0,Sunny / Mild,26.9,0,35.0,75.0
+2026-04-24,Idli Sambar,Breakfast / Light,62,62,72,10,0,Friday,1.04,0,Sunny / Mild,26.9,0,22.0,50.0
+2026-04-24,Veg Thali,Lunch Meals,106,116,106,0,1,Friday,1.04,0,Sunny / Mild,26.9,0,65.0,130.0
+2026-04-24,Veg Grilled Sandwich,Snack,58,68,58,0,1,Friday,1.04,0,Sunny / Mild,26.9,0,28.0,60.0
+2026-04-24,Rajma Rice Bowl,Lunch Meals,62,62,76,14,0,Friday,1.04,0,Sunny / Mild,26.9,0,45.0,95.0
+2026-04-24,Poha,Breakfast / Light,65,66,65,0,1,Friday,1.04,0,Sunny / Mild,26.9,0,18.0,40.0
+2026-04-24,Masala Dosa,All-Day,69,78,69,0,1,Friday,1.04,0,Sunny / Mild,26.9,0,32.0,70.0
+2026-04-24,Fresh Fruit Juice,Beverage,54,55,54,0,1,Friday,1.04,0,Sunny / Mild,26.9,0,30.0,65.0
+2026-04-25,Pav Bhaji,Lunch / Snack,30,30,50,20,0,Saturday,0.62,0,Sunny / Mild,29.8,0,35.0,75.0
+2026-04-25,Idli Sambar,Breakfast / Light,33,33,45,12,0,Saturday,0.62,0,Sunny / Mild,29.8,0,22.0,50.0
+2026-04-25,Veg Thali,Lunch Meals,40,40,66,26,0,Saturday,0.62,0,Sunny / Mild,29.8,0,65.0,130.0
+2026-04-25,Veg Grilled Sandwich,Snack,19,19,36,17,0,Saturday,0.62,0,Sunny / Mild,29.8,0,28.0,60.0
+2026-04-25,Rajma Rice Bowl,Lunch Meals,31,31,48,17,0,Saturday,0.62,0,Sunny / Mild,29.8,0,45.0,95.0
+2026-04-25,Poha,Breakfast / Light,8,8,41,33,0,Saturday,0.62,0,Sunny / Mild,29.8,0,18.0,40.0
+2026-04-25,Masala Dosa,All-Day,22,22,43,21,0,Saturday,0.62,0,Sunny / Mild,29.8,0,32.0,70.0
+2026-04-25,Fresh Fruit Juice,Beverage,21,21,34,13,0,Saturday,0.62,0,Sunny / Mild,29.8,0,30.0,65.0
+2026-04-26,Pav Bhaji,Lunch / Snack,16,16,50,34,0,Sunday,0.35,0,Sunny / Mild,29.1,0,35.0,75.0
+2026-04-26,Idli Sambar,Breakfast / Light,18,18,45,27,0,Sunday,0.35,0,Sunny / Mild,29.1,0,22.0,50.0
+2026-04-26,Veg Thali,Lunch Meals,32,32,66,34,0,Sunday,0.35,0,Sunny / Mild,29.1,0,65.0,130.0
+2026-04-26,Veg Grilled Sandwich,Snack,6,6,36,30,0,Sunday,0.35,0,Sunny / Mild,29.1,0,28.0,60.0
+2026-04-26,Rajma Rice Bowl,Lunch Meals,26,26,48,22,0,Sunday,0.35,0,Sunny / Mild,29.1,0,45.0,95.0
+2026-04-26,Poha,Breakfast / Light,15,15,41,26,0,Sunday,0.35,0,Sunny / Mild,29.1,0,18.0,40.0
+2026-04-26,Masala Dosa,All-Day,10,10,43,33,0,Sunday,0.35,0,Sunny / Mild,29.1,0,32.0,70.0
+2026-04-26,Fresh Fruit Juice,Beverage,15,15,34,19,0,Sunday,0.35,0,Sunny / Mild,29.1,0,30.0,65.0
+2026-04-27,Pav Bhaji,Lunch / Snack,68,68,81,13,0,Monday,1.01,0,Sunny / Mild,28.9,0,35.0,75.0
+2026-04-27,Idli Sambar,Breakfast / Light,72,77,72,0,1,Monday,1.01,0,Sunny / Mild,28.9,0,22.0,50.0
+2026-04-27,Veg Thali,Lunch Meals,102,102,106,4,0,Monday,1.01,0,Sunny / Mild,28.9,0,65.0,130.0
+2026-04-27,Veg Grilled Sandwich,Snack,58,61,58,0,1,Monday,1.01,0,Sunny / Mild,28.9,0,28.0,60.0
+2026-04-27,Rajma Rice Bowl,Lunch Meals,60,60,76,16,0,Monday,1.01,0,Sunny / Mild,28.9,0,45.0,95.0
+2026-04-27,Poha,Breakfast / Light,65,81,65,0,1,Monday,1.01,0,Sunny / Mild,28.9,0,18.0,40.0
+2026-04-27,Masala Dosa,All-Day,51,51,69,18,0,Monday,1.01,0,Sunny / Mild,28.9,0,32.0,70.0
+2026-04-27,Fresh Fruit Juice,Beverage,48,48,54,6,0,Monday,1.01,0,Sunny / Mild,28.9,0,30.0,65.0
+2026-04-28,Pav Bhaji,Lunch / Snack,81,87,81,0,1,Tuesday,1.03,0,Rainy / Low Footfall,26.5,0,35.0,75.0
+2026-04-28,Idli Sambar,Breakfast / Light,52,52,72,20,0,Tuesday,1.03,0,Rainy / Low Footfall,26.5,0,22.0,50.0
+2026-04-28,Veg Thali,Lunch Meals,81,81,106,25,0,Tuesday,1.03,0,Rainy / Low Footfall,26.5,0,65.0,130.0
+2026-04-28,Veg Grilled Sandwich,Snack,43,43,58,15,0,Tuesday,1.03,0,Rainy / Low Footfall,26.5,0,28.0,60.0
+2026-04-28,Rajma Rice Bowl,Lunch Meals,56,56,76,20,0,Tuesday,1.03,0,Rainy / Low Footfall,26.5,0,45.0,95.0
+2026-04-28,Poha,Breakfast / Light,65,74,65,0,1,Tuesday,1.03,0,Rainy / Low Footfall,26.5,0,18.0,40.0
+2026-04-28,Masala Dosa,All-Day,69,76,69,0,1,Tuesday,1.03,0,Rainy / Low Footfall,26.5,0,32.0,70.0
+2026-04-28,Fresh Fruit Juice,Beverage,29,29,54,25,0,Tuesday,1.03,0,Rainy / Low Footfall,26.5,0,30.0,65.0
+2026-04-29,Pav Bhaji,Lunch / Snack,81,92,81,0,1,Wednesday,1.04,0,Hot / Humid,37.6,1,35.0,75.0
+2026-04-29,Idli Sambar,Breakfast / Light,61,61,72,11,0,Wednesday,1.04,0,Hot / Humid,37.6,1,22.0,50.0
+2026-04-29,Veg Thali,Lunch Meals,92,92,106,14,0,Wednesday,1.04,0,Hot / Humid,37.6,1,65.0,130.0
+2026-04-29,Veg Grilled Sandwich,Snack,58,69,58,0,1,Wednesday,1.04,0,Hot / Humid,37.6,1,28.0,60.0
+2026-04-29,Rajma Rice Bowl,Lunch Meals,74,74,76,2,0,Wednesday,1.04,0,Hot / Humid,37.6,1,45.0,95.0
+2026-04-29,Poha,Breakfast / Light,60,60,65,5,0,Wednesday,1.04,0,Hot / Humid,37.6,1,18.0,40.0
+2026-04-29,Masala Dosa,All-Day,65,65,69,4,0,Wednesday,1.04,0,Hot / Humid,37.6,1,32.0,70.0
+2026-04-29,Fresh Fruit Juice,Beverage,54,79,54,0,1,Wednesday,1.04,0,Hot / Humid,37.6,1,30.0,65.0
+2026-04-30,Pav Bhaji,Lunch / Snack,68,68,81,13,0,Thursday,0.97,0,Sunny / Mild,30.7,0,35.0,75.0
+2026-04-30,Idli Sambar,Breakfast / Light,69,69,72,3,0,Thursday,0.97,0,Sunny / Mild,30.7,0,22.0,50.0
+2026-04-30,Veg Thali,Lunch Meals,106,111,106,0,1,Thursday,0.97,0,Sunny / Mild,30.7,0,65.0,130.0
+2026-04-30,Veg Grilled Sandwich,Snack,55,55,58,3,0,Thursday,0.97,0,Sunny / Mild,30.7,0,28.0,60.0
+2026-04-30,Rajma Rice Bowl,Lunch Meals,76,83,76,0,1,Thursday,0.97,0,Sunny / Mild,30.7,0,45.0,95.0
+2026-04-30,Poha,Breakfast / Light,56,56,65,9,0,Thursday,0.97,0,Sunny / Mild,30.7,0,18.0,40.0
+2026-04-30,Masala Dosa,All-Day,64,64,69,5,0,Thursday,0.97,0,Sunny / Mild,30.7,0,32.0,70.0
+2026-04-30,Fresh Fruit Juice,Beverage,45,45,54,9,0,Thursday,0.97,0,Sunny / Mild,30.7,0,30.0,65.0
+2026-05-01,Pav Bhaji,Lunch / Snack,81,102,81,0,1,Friday,1.02,0,Rainy / Low Footfall,24.9,0,35.0,75.0
+2026-05-01,Idli Sambar,Breakfast / Light,50,50,72,22,0,Friday,1.02,0,Rainy / Low Footfall,24.9,0,22.0,50.0
+2026-05-01,Veg Thali,Lunch Meals,102,102,106,4,0,Friday,1.02,0,Rainy / Low Footfall,24.9,0,65.0,130.0
+2026-05-01,Veg Grilled Sandwich,Snack,50,50,58,8,0,Friday,1.02,0,Rainy / Low Footfall,24.9,0,28.0,60.0
+2026-05-01,Rajma Rice Bowl,Lunch Meals,51,51,76,25,0,Friday,1.02,0,Rainy / Low Footfall,24.9,0,45.0,95.0
+2026-05-01,Poha,Breakfast / Light,65,75,65,0,1,Friday,1.02,0,Rainy / Low Footfall,24.9,0,18.0,40.0
+2026-05-01,Masala Dosa,All-Day,69,78,69,0,1,Friday,1.02,0,Rainy / Low Footfall,24.9,0,32.0,70.0
+2026-05-01,Fresh Fruit Juice,Beverage,35,35,54,19,0,Friday,1.02,0,Rainy / Low Footfall,24.9,0,30.0,65.0
+2026-05-02,Pav Bhaji,Lunch / Snack,40,40,50,10,0,Saturday,0.73,0,Sunny / Mild,28.5,0,35.0,75.0
+2026-05-02,Idli Sambar,Breakfast / Light,31,31,45,14,0,Saturday,0.73,0,Sunny / Mild,28.5,0,22.0,50.0
+2026-05-02,Veg Thali,Lunch Meals,47,47,66,19,0,Saturday,0.73,0,Sunny / Mild,28.5,0,65.0,130.0
+2026-05-02,Veg Grilled Sandwich,Snack,28,28,36,8,0,Saturday,0.73,0,Sunny / Mild,28.5,0,28.0,60.0
+2026-05-02,Rajma Rice Bowl,Lunch Meals,32,32,48,16,0,Saturday,0.73,0,Sunny / Mild,28.5,0,45.0,95.0
+2026-05-02,Poha,Breakfast / Light,30,30,41,11,0,Saturday,0.73,0,Sunny / Mild,28.5,0,18.0,40.0
+2026-05-02,Masala Dosa,All-Day,37,37,43,6,0,Saturday,0.73,0,Sunny / Mild,28.5,0,32.0,70.0
+2026-05-02,Fresh Fruit Juice,Beverage,24,24,34,10,0,Saturday,0.73,0,Sunny / Mild,28.5,0,30.0,65.0
+2026-05-03,Pav Bhaji,Lunch / Snack,21,21,50,29,0,Sunday,0.36,0,Sunny / Mild,29.5,0,35.0,75.0
+2026-05-03,Idli Sambar,Breakfast / Light,14,14,45,31,0,Sunday,0.36,0,Sunny / Mild,29.5,0,22.0,50.0
+2026-05-03,Veg Thali,Lunch Meals,21,21,66,45,0,Sunday,0.36,0,Sunny / Mild,29.5,0,65.0,130.0
+2026-05-03,Veg Grilled Sandwich,Snack,7,7,36,29,0,Sunday,0.36,0,Sunny / Mild,29.5,0,28.0,60.0
+2026-05-03,Rajma Rice Bowl,Lunch Meals,9,9,48,39,0,Sunday,0.36,0,Sunny / Mild,29.5,0,45.0,95.0
+2026-05-03,Poha,Breakfast / Light,11,11,41,30,0,Sunday,0.36,0,Sunny / Mild,29.5,0,18.0,40.0
+2026-05-03,Masala Dosa,All-Day,15,15,43,28,0,Sunday,0.36,0,Sunny / Mild,29.5,0,32.0,70.0
+2026-05-03,Fresh Fruit Juice,Beverage,14,14,34,20,0,Sunday,0.36,0,Sunny / Mild,29.5,0,30.0,65.0
+2026-05-04,Pav Bhaji,Lunch / Snack,77,77,81,4,0,Monday,1.07,0,Sunny / Mild,30.5,0,35.0,75.0
+2026-05-04,Idli Sambar,Breakfast / Light,72,74,72,0,1,Monday,1.07,0,Sunny / Mild,30.5,0,22.0,50.0
+2026-05-04,Veg Thali,Lunch Meals,101,101,106,5,0,Monday,1.07,0,Sunny / Mild,30.5,0,65.0,130.0
+2026-05-04,Veg Grilled Sandwich,Snack,54,54,58,4,0,Monday,1.07,0,Sunny / Mild,30.5,0,28.0,60.0
+2026-05-04,Rajma Rice Bowl,Lunch Meals,75,75,76,1,0,Monday,1.07,0,Sunny / Mild,30.5,0,45.0,95.0
+2026-05-04,Poha,Breakfast / Light,65,68,65,0,1,Monday,1.07,0,Sunny / Mild,30.5,0,18.0,40.0
+2026-05-04,Masala Dosa,All-Day,69,70,69,0,1,Monday,1.07,0,Sunny / Mild,30.5,0,32.0,70.0
+2026-05-04,Fresh Fruit Juice,Beverage,54,59,54,0,1,Monday,1.07,0,Sunny / Mild,30.5,0,30.0,65.0
+2026-05-05,Pav Bhaji,Lunch / Snack,74,74,81,7,0,Tuesday,0.99,0,Sunny / Mild,30.3,0,35.0,75.0
+2026-05-05,Idli Sambar,Breakfast / Light,65,65,72,7,0,Tuesday,0.99,0,Sunny / Mild,30.3,0,22.0,50.0
+2026-05-05,Veg Thali,Lunch Meals,94,94,106,12,0,Tuesday,0.99,0,Sunny / Mild,30.3,0,65.0,130.0
+2026-05-05,Veg Grilled Sandwich,Snack,52,52,58,6,0,Tuesday,0.99,0,Sunny / Mild,30.3,0,28.0,60.0
+2026-05-05,Rajma Rice Bowl,Lunch Meals,62,62,76,14,0,Tuesday,0.99,0,Sunny / Mild,30.3,0,45.0,95.0
+2026-05-05,Poha,Breakfast / Light,58,58,65,7,0,Tuesday,0.99,0,Sunny / Mild,30.3,0,18.0,40.0
+2026-05-05,Masala Dosa,All-Day,64,64,69,5,0,Tuesday,0.99,0,Sunny / Mild,30.3,0,32.0,70.0
+2026-05-05,Fresh Fruit Juice,Beverage,54,54,54,0,0,Tuesday,0.99,0,Sunny / Mild,30.3,0,30.0,65.0
+2026-05-06,Pav Bhaji,Lunch / Snack,81,82,81,0,1,Wednesday,1.05,0,Sunny / Mild,29.1,0,35.0,75.0
+2026-05-06,Idli Sambar,Breakfast / Light,68,68,72,4,0,Wednesday,1.05,0,Sunny / Mild,29.1,0,22.0,50.0
+2026-05-06,Veg Thali,Lunch Meals,106,133,106,0,1,Wednesday,1.05,0,Sunny / Mild,29.1,0,65.0,130.0
+2026-05-06,Veg Grilled Sandwich,Snack,50,50,58,8,0,Wednesday,1.05,0,Sunny / Mild,29.1,0,28.0,60.0
+2026-05-06,Rajma Rice Bowl,Lunch Meals,74,74,76,2,0,Wednesday,1.05,0,Sunny / Mild,29.1,0,45.0,95.0
+2026-05-06,Poha,Breakfast / Light,57,57,65,8,0,Wednesday,1.05,0,Sunny / Mild,29.1,0,18.0,40.0
+2026-05-06,Masala Dosa,All-Day,52,52,69,17,0,Wednesday,1.05,0,Sunny / Mild,29.1,0,32.0,70.0
+2026-05-06,Fresh Fruit Juice,Beverage,48,48,54,6,0,Wednesday,1.05,0,Sunny / Mild,29.1,0,30.0,65.0
+2026-05-07,Pav Bhaji,Lunch / Snack,81,81,81,0,0,Thursday,0.96,0,Rainy / Low Footfall,26.9,0,35.0,75.0
+2026-05-07,Idli Sambar,Breakfast / Light,54,54,72,18,0,Thursday,0.96,0,Rainy / Low Footfall,26.9,0,22.0,50.0
+2026-05-07,Veg Thali,Lunch Meals,105,105,106,1,0,Thursday,0.96,0,Rainy / Low Footfall,26.9,0,65.0,130.0
+2026-05-07,Veg Grilled Sandwich,Snack,47,47,58,11,0,Thursday,0.96,0,Rainy / Low Footfall,26.9,0,28.0,60.0
+2026-05-07,Rajma Rice Bowl,Lunch Meals,58,58,76,18,0,Thursday,0.96,0,Rainy / Low Footfall,26.9,0,45.0,95.0
+2026-05-07,Poha,Breakfast / Light,59,59,65,6,0,Thursday,0.96,0,Rainy / Low Footfall,26.9,0,18.0,40.0
+2026-05-07,Masala Dosa,All-Day,69,71,69,0,1,Thursday,0.96,0,Rainy / Low Footfall,26.9,0,32.0,70.0
+2026-05-07,Fresh Fruit Juice,Beverage,24,24,54,30,0,Thursday,0.96,0,Rainy / Low Footfall,26.9,0,30.0,65.0
+2026-05-08,Pav Bhaji,Lunch / Snack,81,119,81,0,1,Friday,1.09,0,Rainy / Low Footfall,26.3,0,35.0,75.0
+2026-05-08,Idli Sambar,Breakfast / Light,56,56,72,16,0,Friday,1.09,0,Rainy / Low Footfall,26.3,0,22.0,50.0
+2026-05-08,Veg Thali,Lunch Meals,72,72,106,34,0,Friday,1.09,0,Rainy / Low Footfall,26.3,0,65.0,130.0
+2026-05-08,Veg Grilled Sandwich,Snack,58,66,58,0,1,Friday,1.09,0,Rainy / Low Footfall,26.3,0,28.0,60.0
+2026-05-08,Rajma Rice Bowl,Lunch Meals,62,62,76,14,0,Friday,1.09,0,Rainy / Low Footfall,26.3,0,45.0,95.0
+2026-05-08,Poha,Breakfast / Light,65,80,65,0,1,Friday,1.09,0,Rainy / Low Footfall,26.3,0,18.0,40.0
+2026-05-08,Masala Dosa,All-Day,68,68,69,1,0,Friday,1.09,0,Rainy / Low Footfall,26.3,0,32.0,70.0
+2026-05-08,Fresh Fruit Juice,Beverage,31,31,54,23,0,Friday,1.09,0,Rainy / Low Footfall,26.3,0,30.0,65.0
+2026-05-09,Pav Bhaji,Lunch / Snack,38,38,50,12,0,Saturday,0.7,0,Hot / Humid,38.6,0,35.0,75.0
+2026-05-09,Idli Sambar,Breakfast / Light,31,31,45,14,0,Saturday,0.7,0,Hot / Humid,38.6,0,22.0,50.0
+2026-05-09,Veg Thali,Lunch Meals,38,38,66,28,0,Saturday,0.7,0,Hot / Humid,38.6,0,65.0,130.0
+2026-05-09,Veg Grilled Sandwich,Snack,22,22,36,14,0,Saturday,0.7,0,Hot / Humid,38.6,0,28.0,60.0
+2026-05-09,Rajma Rice Bowl,Lunch Meals,30,30,48,18,0,Saturday,0.7,0,Hot / Humid,38.6,0,45.0,95.0
+2026-05-09,Poha,Breakfast / Light,31,31,41,10,0,Saturday,0.7,0,Hot / Humid,38.6,0,18.0,40.0
+2026-05-09,Masala Dosa,All-Day,36,36,43,7,0,Saturday,0.7,0,Hot / Humid,38.6,0,32.0,70.0
+2026-05-09,Fresh Fruit Juice,Beverage,34,40,34,0,1,Saturday,0.7,0,Hot / Humid,38.6,0,30.0,65.0
+2026-05-10,Pav Bhaji,Lunch / Snack,21,21,50,29,0,Sunday,0.35,0,Hot / Humid,34.5,0,35.0,75.0
+2026-05-10,Idli Sambar,Breakfast / Light,12,12,45,33,0,Sunday,0.35,0,Hot / Humid,34.5,0,22.0,50.0
+2026-05-10,Veg Thali,Lunch Meals,31,31,66,35,0,Sunday,0.35,0,Hot / Humid,34.5,0,65.0,130.0
+2026-05-10,Veg Grilled Sandwich,Snack,14,14,36,22,0,Sunday,0.35,0,Hot / Humid,34.5,0,28.0,60.0
+2026-05-10,Rajma Rice Bowl,Lunch Meals,24,24,48,24,0,Sunday,0.35,0,Hot / Humid,34.5,0,45.0,95.0
+2026-05-10,Poha,Breakfast / Light,16,16,41,25,0,Sunday,0.35,0,Hot / Humid,34.5,0,18.0,40.0
+2026-05-10,Masala Dosa,All-Day,29,29,43,14,0,Sunday,0.35,0,Hot / Humid,34.5,0,32.0,70.0
+2026-05-10,Fresh Fruit Juice,Beverage,27,27,34,7,0,Sunday,0.35,0,Hot / Humid,34.5,0,30.0,65.0
+2026-05-11,Pav Bhaji,Lunch / Snack,78,78,81,3,0,Monday,0.99,0,Sunny / Mild,26.1,0,35.0,75.0
+2026-05-11,Idli Sambar,Breakfast / Light,72,79,72,0,1,Monday,0.99,0,Sunny / Mild,26.1,0,22.0,50.0
+2026-05-11,Veg Thali,Lunch Meals,106,107,106,0,1,Monday,0.99,0,Sunny / Mild,26.1,0,65.0,130.0
+2026-05-11,Veg Grilled Sandwich,Snack,46,46,58,12,0,Monday,0.99,0,Sunny / Mild,26.1,0,28.0,60.0
+2026-05-11,Rajma Rice Bowl,Lunch Meals,72,72,76,4,0,Monday,0.99,0,Sunny / Mild,26.1,0,45.0,95.0
+2026-05-11,Poha,Breakfast / Light,65,74,65,0,1,Monday,0.99,0,Sunny / Mild,26.1,0,18.0,40.0
+2026-05-11,Masala Dosa,All-Day,50,50,69,19,0,Monday,0.99,0,Sunny / Mild,26.1,0,32.0,70.0
+2026-05-11,Fresh Fruit Juice,Beverage,42,42,54,12,0,Monday,0.99,0,Sunny / Mild,26.1,0,30.0,65.0
+2026-05-12,Pav Bhaji,Lunch / Snack,81,85,81,0,1,Tuesday,0.9,0,Rainy / Low Footfall,23.7,0,35.0,75.0
+2026-05-12,Idli Sambar,Breakfast / Light,49,49,72,23,0,Tuesday,0.9,0,Rainy / Low Footfall,23.7,0,22.0,50.0
+2026-05-12,Veg Thali,Lunch Meals,88,88,106,18,0,Tuesday,0.9,0,Rainy / Low Footfall,23.7,0,65.0,130.0
+2026-05-12,Veg Grilled Sandwich,Snack,33,33,58,25,0,Tuesday,0.9,0,Rainy / Low Footfall,23.7,0,28.0,60.0
+2026-05-12,Rajma Rice Bowl,Lunch Meals,40,40,76,36,0,Tuesday,0.9,0,Rainy / Low Footfall,23.7,0,45.0,95.0
+2026-05-12,Poha,Breakfast / Light,60,60,65,5,0,Tuesday,0.9,0,Rainy / Low Footfall,23.7,0,18.0,40.0
+2026-05-12,Masala Dosa,All-Day,67,67,69,2,0,Tuesday,0.9,0,Rainy / Low Footfall,23.7,0,32.0,70.0
+2026-05-12,Fresh Fruit Juice,Beverage,28,28,54,26,0,Tuesday,0.9,0,Rainy / Low Footfall,23.7,0,30.0,65.0
+2026-05-13,Pav Bhaji,Lunch / Snack,81,107,81,0,1,Wednesday,1.25,1,Hot / Humid,33.7,1,35.0,75.0
+2026-05-13,Idli Sambar,Breakfast / Light,72,82,72,0,1,Wednesday,1.25,1,Hot / Humid,33.7,1,22.0,50.0
+2026-05-13,Veg Thali,Lunch Meals,106,108,106,0,1,Wednesday,1.25,1,Hot / Humid,33.7,1,65.0,130.0
+2026-05-13,Veg Grilled Sandwich,Snack,58,75,58,0,1,Wednesday,1.25,1,Hot / Humid,33.7,1,28.0,60.0
+2026-05-13,Rajma Rice Bowl,Lunch Meals,76,77,76,0,1,Wednesday,1.25,1,Hot / Humid,33.7,1,45.0,95.0
+2026-05-13,Poha,Breakfast / Light,65,72,65,0,1,Wednesday,1.25,1,Hot / Humid,33.7,1,18.0,40.0
+2026-05-13,Masala Dosa,All-Day,69,83,69,0,1,Wednesday,1.25,1,Hot / Humid,33.7,1,32.0,70.0
+2026-05-13,Fresh Fruit Juice,Beverage,54,82,54,0,1,Wednesday,1.25,1,Hot / Humid,33.7,1,30.0,65.0
+2026-05-14,Pav Bhaji,Lunch / Snack,81,96,81,0,1,Thursday,1.38,1,Sunny / Mild,26.2,0,35.0,75.0
+2026-05-14,Idli Sambar,Breakfast / Light,72,83,72,0,1,Thursday,1.38,1,Sunny / Mild,26.2,0,22.0,50.0
+2026-05-14,Veg Thali,Lunch Meals,106,146,106,0,1,Thursday,1.38,1,Sunny / Mild,26.2,0,65.0,130.0
+2026-05-14,Veg Grilled Sandwich,Snack,58,66,58,0,1,Thursday,1.38,1,Sunny / Mild,26.2,0,28.0,60.0
+2026-05-14,Rajma Rice Bowl,Lunch Meals,76,101,76,0,1,Thursday,1.38,1,Sunny / Mild,26.2,0,45.0,95.0
+2026-05-14,Poha,Breakfast / Light,65,73,65,0,1,Thursday,1.38,1,Sunny / Mild,26.2,0,18.0,40.0
+2026-05-14,Masala Dosa,All-Day,69,98,69,0,1,Thursday,1.38,1,Sunny / Mild,26.2,0,32.0,70.0
+2026-05-14,Fresh Fruit Juice,Beverage,54,66,54,0,1,Thursday,1.38,1,Sunny / Mild,26.2,0,30.0,65.0
+2026-05-15,Pav Bhaji,Lunch / Snack,81,100,81,0,1,Friday,0.97,0,Rainy / Low Footfall,26.6,0,35.0,75.0
+2026-05-15,Idli Sambar,Breakfast / Light,52,52,72,20,0,Friday,0.97,0,Rainy / Low Footfall,26.6,0,22.0,50.0
+2026-05-15,Veg Thali,Lunch Meals,76,76,106,30,0,Friday,0.97,0,Rainy / Low Footfall,26.6,0,65.0,130.0
+2026-05-15,Veg Grilled Sandwich,Snack,55,55,58,3,0,Friday,0.97,0,Rainy / Low Footfall,26.6,0,28.0,60.0
+2026-05-15,Rajma Rice Bowl,Lunch Meals,61,61,76,15,0,Friday,0.97,0,Rainy / Low Footfall,26.6,0,45.0,95.0
+2026-05-15,Poha,Breakfast / Light,62,62,65,3,0,Friday,0.97,0,Rainy / Low Footfall,26.6,0,18.0,40.0
+2026-05-15,Masala Dosa,All-Day,66,66,69,3,0,Friday,0.97,0,Rainy / Low Footfall,26.6,0,32.0,70.0
+2026-05-15,Fresh Fruit Juice,Beverage,29,29,54,25,0,Friday,0.97,0,Rainy / Low Footfall,26.6,0,30.0,65.0
+2026-05-16,Pav Bhaji,Lunch / Snack,43,43,50,7,0,Saturday,0.58,0,Hot / Humid,34.6,0,35.0,75.0
+2026-05-16,Idli Sambar,Breakfast / Light,26,26,45,19,0,Saturday,0.58,0,Hot / Humid,34.6,0,22.0,50.0
+2026-05-16,Veg Thali,Lunch Meals,32,32,66,34,0,Saturday,0.58,0,Hot / Humid,34.6,0,65.0,130.0
+2026-05-16,Veg Grilled Sandwich,Snack,24,24,36,12,0,Saturday,0.58,0,Hot / Humid,34.6,0,28.0,60.0
+2026-05-16,Rajma Rice Bowl,Lunch Meals,47,47,48,1,0,Saturday,0.58,0,Hot / Humid,34.6,0,45.0,95.0
+2026-05-16,Poha,Breakfast / Light,32,32,41,9,0,Saturday,0.58,0,Hot / Humid,34.6,0,18.0,40.0
+2026-05-16,Masala Dosa,All-Day,26,26,43,17,0,Saturday,0.58,0,Hot / Humid,34.6,0,32.0,70.0
+2026-05-16,Fresh Fruit Juice,Beverage,26,26,34,8,0,Saturday,0.58,0,Hot / Humid,34.6,0,30.0,65.0
+2026-05-17,Pav Bhaji,Lunch / Snack,20,20,50,30,0,Sunday,0.35,0,Sunny / Mild,27.9,0,35.0,75.0
+2026-05-17,Idli Sambar,Breakfast / Light,13,13,45,32,0,Sunday,0.35,0,Sunny / Mild,27.9,0,22.0,50.0
+2026-05-17,Veg Thali,Lunch Meals,8,8,66,58,0,Sunday,0.35,0,Sunny / Mild,27.9,0,65.0,130.0
+2026-05-17,Veg Grilled Sandwich,Snack,22,22,36,14,0,Sunday,0.35,0,Sunny / Mild,27.9,0,28.0,60.0
+2026-05-17,Rajma Rice Bowl,Lunch Meals,24,24,48,24,0,Sunday,0.35,0,Sunny / Mild,27.9,0,45.0,95.0
+2026-05-17,Poha,Breakfast / Light,15,15,41,26,0,Sunday,0.35,0,Sunny / Mild,27.9,0,18.0,40.0
+2026-05-17,Masala Dosa,All-Day,25,25,43,18,0,Sunday,0.35,0,Sunny / Mild,27.9,0,32.0,70.0
+2026-05-17,Fresh Fruit Juice,Beverage,13,13,34,21,0,Sunday,0.35,0,Sunny / Mild,27.9,0,30.0,65.0
+2026-05-18,Pav Bhaji,Lunch / Snack,62,62,81,19,0,Monday,0.96,0,Sunny / Mild,29.7,0,35.0,75.0
+2026-05-18,Idli Sambar,Breakfast / Light,71,71,72,1,0,Monday,0.96,0,Sunny / Mild,29.7,0,22.0,50.0
+2026-05-18,Veg Thali,Lunch Meals,83,83,106,23,0,Monday,0.96,0,Sunny / Mild,29.7,0,65.0,130.0
+2026-05-18,Veg Grilled Sandwich,Snack,43,43,58,15,0,Monday,0.96,0,Sunny / Mild,29.7,0,28.0,60.0
+2026-05-18,Rajma Rice Bowl,Lunch Meals,72,72,76,4,0,Monday,0.96,0,Sunny / Mild,29.7,0,45.0,95.0
+2026-05-18,Poha,Breakfast / Light,65,77,65,0,1,Monday,0.96,0,Sunny / Mild,29.7,0,18.0,40.0
+2026-05-18,Masala Dosa,All-Day,51,51,69,18,0,Monday,0.96,0,Sunny / Mild,29.7,0,32.0,70.0
+2026-05-18,Fresh Fruit Juice,Beverage,49,49,54,5,0,Monday,0.96,0,Sunny / Mild,29.7,0,30.0,65.0
+2026-05-19,Pav Bhaji,Lunch / Snack,66,66,81,15,0,Tuesday,0.97,0,Sunny / Mild,27.4,0,35.0,75.0
+2026-05-19,Idli Sambar,Breakfast / Light,62,62,72,10,0,Tuesday,0.97,0,Sunny / Mild,27.4,0,22.0,50.0
+2026-05-19,Veg Thali,Lunch Meals,84,84,106,22,0,Tuesday,0.97,0,Sunny / Mild,27.4,0,65.0,130.0
+2026-05-19,Veg Grilled Sandwich,Snack,52,52,58,6,0,Tuesday,0.97,0,Sunny / Mild,27.4,0,28.0,60.0
+2026-05-19,Rajma Rice Bowl,Lunch Meals,66,66,76,10,0,Tuesday,0.97,0,Sunny / Mild,27.4,0,45.0,95.0
+2026-05-19,Poha,Breakfast / Light,55,55,65,10,0,Tuesday,0.97,0,Sunny / Mild,27.4,0,18.0,40.0
+2026-05-19,Masala Dosa,All-Day,55,55,69,14,0,Tuesday,0.97,0,Sunny / Mild,27.4,0,32.0,70.0
+2026-05-19,Fresh Fruit Juice,Beverage,44,44,54,10,0,Tuesday,0.97,0,Sunny / Mild,27.4,0,30.0,65.0
+2026-05-20,Pav Bhaji,Lunch / Snack,76,76,81,5,0,Wednesday,1.04,0,Sunny / Mild,29.3,0,35.0,75.0
+2026-05-20,Idli Sambar,Breakfast / Light,71,71,72,1,0,Wednesday,1.04,0,Sunny / Mild,29.3,0,22.0,50.0
+2026-05-20,Veg Thali,Lunch Meals,95,95,106,11,0,Wednesday,1.04,0,Sunny / Mild,29.3,0,65.0,130.0
+2026-05-20,Veg Grilled Sandwich,Snack,57,57,58,1,0,Wednesday,1.04,0,Sunny / Mild,29.3,0,28.0,60.0
+2026-05-20,Rajma Rice Bowl,Lunch Meals,75,75,76,1,0,Wednesday,1.04,0,Sunny / Mild,29.3,0,45.0,95.0
+2026-05-20,Poha,Breakfast / Light,64,64,65,1,0,Wednesday,1.04,0,Sunny / Mild,29.3,0,18.0,40.0
+2026-05-20,Masala Dosa,All-Day,60,60,69,9,0,Wednesday,1.04,0,Sunny / Mild,29.3,0,32.0,70.0
+2026-05-20,Fresh Fruit Juice,Beverage,41,41,54,13,0,Wednesday,1.04,0,Sunny / Mild,29.3,0,30.0,65.0
+2026-05-21,Pav Bhaji,Lunch / Snack,67,67,81,14,0,Thursday,0.92,0,Sunny / Mild,29.1,0,35.0,75.0
+2026-05-21,Idli Sambar,Breakfast / Light,63,63,72,9,0,Thursday,0.92,0,Sunny / Mild,29.1,0,22.0,50.0
+2026-05-21,Veg Thali,Lunch Meals,82,82,106,24,0,Thursday,0.92,0,Sunny / Mild,29.1,0,65.0,130.0
+2026-05-21,Veg Grilled Sandwich,Snack,47,47,58,11,0,Thursday,0.92,0,Sunny / Mild,29.1,0,28.0,60.0
+2026-05-21,Rajma Rice Bowl,Lunch Meals,62,62,76,14,0,Thursday,0.92,0,Sunny / Mild,29.1,0,45.0,95.0
+2026-05-21,Poha,Breakfast / Light,50,50,65,15,0,Thursday,0.92,0,Sunny / Mild,29.1,0,18.0,40.0
+2026-05-21,Masala Dosa,All-Day,57,57,69,12,0,Thursday,0.92,0,Sunny / Mild,29.1,0,32.0,70.0
+2026-05-21,Fresh Fruit Juice,Beverage,40,40,54,14,0,Thursday,0.92,0,Sunny / Mild,29.1,0,30.0,65.0
+2026-05-22,Pav Bhaji,Lunch / Snack,81,93,81,0,1,Friday,0.98,0,Sunny / Mild,30.9,0,35.0,75.0
+2026-05-22,Idli Sambar,Breakfast / Light,59,59,72,13,0,Friday,0.98,0,Sunny / Mild,30.9,0,22.0,50.0
+2026-05-22,Veg Thali,Lunch Meals,101,101,106,5,0,Friday,0.98,0,Sunny / Mild,30.9,0,65.0,130.0
+2026-05-22,Veg Grilled Sandwich,Snack,56,56,58,2,0,Friday,0.98,0,Sunny / Mild,30.9,0,28.0,60.0
+2026-05-22,Rajma Rice Bowl,Lunch Meals,70,70,76,6,0,Friday,0.98,0,Sunny / Mild,30.9,0,45.0,95.0
+2026-05-22,Poha,Breakfast / Light,65,65,65,0,0,Friday,0.98,0,Sunny / Mild,30.9,0,18.0,40.0
+2026-05-22,Masala Dosa,All-Day,45,45,69,24,0,Friday,0.98,0,Sunny / Mild,30.9,0,32.0,70.0
+2026-05-22,Fresh Fruit Juice,Beverage,43,43,54,11,0,Friday,0.98,0,Sunny / Mild,30.9,0,30.0,65.0
+2026-05-23,Pav Bhaji,Lunch / Snack,38,38,50,12,0,Saturday,0.73,0,Hot / Humid,38.8,0,35.0,75.0
+2026-05-23,Idli Sambar,Breakfast / Light,37,37,45,8,0,Saturday,0.73,0,Hot / Humid,38.8,0,22.0,50.0
+2026-05-23,Veg Thali,Lunch Meals,28,28,66,38,0,Saturday,0.73,0,Hot / Humid,38.8,0,65.0,130.0
+2026-05-23,Veg Grilled Sandwich,Snack,29,29,36,7,0,Saturday,0.73,0,Hot / Humid,38.8,0,28.0,60.0
+2026-05-23,Rajma Rice Bowl,Lunch Meals,32,32,48,16,0,Saturday,0.73,0,Hot / Humid,38.8,0,45.0,95.0
+2026-05-23,Poha,Breakfast / Light,39,39,41,2,0,Saturday,0.73,0,Hot / Humid,38.8,0,18.0,40.0
+2026-05-23,Masala Dosa,All-Day,36,36,43,7,0,Saturday,0.73,0,Hot / Humid,38.8,0,32.0,70.0
+2026-05-23,Fresh Fruit Juice,Beverage,34,40,34,0,1,Saturday,0.73,0,Hot / Humid,38.8,0,30.0,65.0
+2026-05-24,Pav Bhaji,Lunch / Snack,23,23,50,27,0,Sunday,0.38,0,Sunny / Mild,26.8,0,35.0,75.0
+2026-05-24,Idli Sambar,Breakfast / Light,16,16,45,29,0,Sunday,0.38,0,Sunny / Mild,26.8,0,22.0,50.0
+2026-05-24,Veg Thali,Lunch Meals,23,23,66,43,0,Sunday,0.38,0,Sunny / Mild,26.8,0,65.0,130.0
+2026-05-24,Veg Grilled Sandwich,Snack,26,26,36,10,0,Sunday,0.38,0,Sunny / Mild,26.8,0,28.0,60.0
+2026-05-24,Rajma Rice Bowl,Lunch Meals,25,25,48,23,0,Sunday,0.38,0,Sunny / Mild,26.8,0,45.0,95.0
+2026-05-24,Poha,Breakfast / Light,15,15,41,26,0,Sunday,0.38,0,Sunny / Mild,26.8,0,18.0,40.0
+2026-05-24,Masala Dosa,All-Day,25,25,43,18,0,Sunday,0.38,0,Sunny / Mild,26.8,0,32.0,70.0
+2026-05-24,Fresh Fruit Juice,Beverage,12,12,34,22,0,Sunday,0.38,0,Sunny / Mild,26.8,0,30.0,65.0
+2026-05-25,Pav Bhaji,Lunch / Snack,58,58,81,23,0,Monday,0.9,0,Sunny / Mild,27.5,0,35.0,75.0
+2026-05-25,Idli Sambar,Breakfast / Light,68,68,72,4,0,Monday,0.9,0,Sunny / Mild,27.5,0,22.0,50.0
+2026-05-25,Veg Thali,Lunch Meals,101,101,106,5,0,Monday,0.9,0,Sunny / Mild,27.5,0,65.0,130.0
+2026-05-25,Veg Grilled Sandwich,Snack,49,49,58,9,0,Monday,0.9,0,Sunny / Mild,27.5,0,28.0,60.0
+2026-05-25,Rajma Rice Bowl,Lunch Meals,60,60,76,16,0,Monday,0.9,0,Sunny / Mild,27.5,0,45.0,95.0
+2026-05-25,Poha,Breakfast / Light,65,66,65,0,1,Monday,0.9,0,Sunny / Mild,27.5,0,18.0,40.0
+2026-05-25,Masala Dosa,All-Day,42,42,69,27,0,Monday,0.9,0,Sunny / Mild,27.5,0,32.0,70.0
+2026-05-25,Fresh Fruit Juice,Beverage,44,44,54,10,0,Monday,0.9,0,Sunny / Mild,27.5,0,30.0,65.0
+2026-05-26,Pav Bhaji,Lunch / Snack,64,64,81,17,0,Tuesday,1.04,0,Sunny / Mild,30.7,0,35.0,75.0
+2026-05-26,Idli Sambar,Breakfast / Light,72,74,72,0,1,Tuesday,1.04,0,Sunny / Mild,30.7,0,22.0,50.0
+2026-05-26,Veg Thali,Lunch Meals,102,102,106,4,0,Tuesday,1.04,0,Sunny / Mild,30.7,0,65.0,130.0
+2026-05-26,Veg Grilled Sandwich,Snack,52,52,58,6,0,Tuesday,1.04,0,Sunny / Mild,30.7,0,28.0,60.0
+2026-05-26,Rajma Rice Bowl,Lunch Meals,75,75,76,1,0,Tuesday,1.04,0,Sunny / Mild,30.7,0,45.0,95.0
+2026-05-26,Poha,Breakfast / Light,65,73,65,0,1,Tuesday,1.04,0,Sunny / Mild,30.7,0,18.0,40.0
+2026-05-26,Masala Dosa,All-Day,66,66,69,3,0,Tuesday,1.04,0,Sunny / Mild,30.7,0,32.0,70.0
+2026-05-26,Fresh Fruit Juice,Beverage,51,51,54,3,0,Tuesday,1.04,0,Sunny / Mild,30.7,0,30.0,65.0
+2026-05-27,Pav Bhaji,Lunch / Snack,79,79,81,2,0,Wednesday,0.98,0,Sunny / Mild,29.7,1,35.0,75.0
+2026-05-27,Idli Sambar,Breakfast / Light,63,63,72,9,0,Wednesday,0.98,0,Sunny / Mild,29.7,1,22.0,50.0
+2026-05-27,Veg Thali,Lunch Meals,100,100,106,6,0,Wednesday,0.98,0,Sunny / Mild,29.7,1,65.0,130.0
+2026-05-27,Veg Grilled Sandwich,Snack,58,64,58,0,1,Wednesday,0.98,0,Sunny / Mild,29.7,1,28.0,60.0
+2026-05-27,Rajma Rice Bowl,Lunch Meals,76,77,76,0,1,Wednesday,0.98,0,Sunny / Mild,29.7,1,45.0,95.0
+2026-05-27,Poha,Breakfast / Light,63,63,65,2,0,Wednesday,0.98,0,Sunny / Mild,29.7,1,18.0,40.0
+2026-05-27,Masala Dosa,All-Day,58,58,69,11,0,Wednesday,0.98,0,Sunny / Mild,29.7,1,32.0,70.0
+2026-05-27,Fresh Fruit Juice,Beverage,46,46,54,8,0,Wednesday,0.98,0,Sunny / Mild,29.7,1,30.0,65.0
+2026-05-28,Pav Bhaji,Lunch / Snack,74,74,81,7,0,Thursday,0.95,0,Hot / Humid,33.0,0,35.0,75.0
+2026-05-28,Idli Sambar,Breakfast / Light,55,55,72,17,0,Thursday,0.95,0,Hot / Humid,33.0,0,22.0,50.0
+2026-05-28,Veg Thali,Lunch Meals,97,97,106,9,0,Thursday,0.95,0,Hot / Humid,33.0,0,65.0,130.0
+2026-05-28,Veg Grilled Sandwich,Snack,56,56,58,2,0,Thursday,0.95,0,Hot / Humid,33.0,0,28.0,60.0
+2026-05-28,Rajma Rice Bowl,Lunch Meals,66,66,76,10,0,Thursday,0.95,0,Hot / Humid,33.0,0,45.0,95.0
+2026-05-28,Poha,Breakfast / Light,65,66,65,0,1,Thursday,0.95,0,Hot / Humid,33.0,0,18.0,40.0
+2026-05-28,Masala Dosa,All-Day,54,54,69,15,0,Thursday,0.95,0,Hot / Humid,33.0,0,32.0,70.0
+2026-05-28,Fresh Fruit Juice,Beverage,54,60,54,0,1,Thursday,0.95,0,Hot / Humid,33.0,0,30.0,65.0
+2026-05-29,Pav Bhaji,Lunch / Snack,81,91,81,0,1,Friday,0.91,0,Sunny / Mild,30.7,0,35.0,75.0
+2026-05-29,Idli Sambar,Breakfast / Light,60,60,72,12,0,Friday,0.91,0,Sunny / Mild,30.7,0,22.0,50.0
+2026-05-29,Veg Thali,Lunch Meals,76,76,106,30,0,Friday,0.91,0,Sunny / Mild,30.7,0,65.0,130.0
+2026-05-29,Veg Grilled Sandwich,Snack,58,70,58,0,1,Friday,0.91,0,Sunny / Mild,30.7,0,28.0,60.0
+2026-05-29,Rajma Rice Bowl,Lunch Meals,63,63,76,13,0,Friday,0.91,0,Sunny / Mild,30.7,0,45.0,95.0
+2026-05-29,Poha,Breakfast / Light,53,53,65,12,0,Friday,0.91,0,Sunny / Mild,30.7,0,18.0,40.0
+2026-05-29,Masala Dosa,All-Day,61,61,69,8,0,Friday,0.91,0,Sunny / Mild,30.7,0,32.0,70.0
+2026-05-29,Fresh Fruit Juice,Beverage,46,46,54,8,0,Friday,0.91,0,Sunny / Mild,30.7,0,30.0,65.0
+2026-05-30,Pav Bhaji,Lunch / Snack,50,52,50,0,1,Saturday,0.71,0,Hot / Humid,33.1,0,35.0,75.0
+2026-05-30,Idli Sambar,Breakfast / Light,43,43,45,2,0,Saturday,0.71,0,Hot / Humid,33.1,0,22.0,50.0
+2026-05-30,Veg Thali,Lunch Meals,48,48,66,18,0,Saturday,0.71,0,Hot / Humid,33.1,0,65.0,130.0
+2026-05-30,Veg Grilled Sandwich,Snack,25,25,36,11,0,Saturday,0.71,0,Hot / Humid,33.1,0,28.0,60.0
+2026-05-30,Rajma Rice Bowl,Lunch Meals,25,25,48,23,0,Saturday,0.71,0,Hot / Humid,33.1,0,45.0,95.0
+2026-05-30,Poha,Breakfast / Light,30,30,41,11,0,Saturday,0.71,0,Hot / Humid,33.1,0,18.0,40.0
+2026-05-30,Masala Dosa,All-Day,33,33,43,10,0,Saturday,0.71,0,Hot / Humid,33.1,0,32.0,70.0
+2026-05-30,Fresh Fruit Juice,Beverage,34,42,34,0,1,Saturday,0.71,0,Hot / Humid,33.1,0,30.0,65.0
+2026-05-31,Pav Bhaji,Lunch / Snack,36,36,50,14,0,Sunday,0.47,0,Sunny / Mild,27.7,0,35.0,75.0
+2026-05-31,Idli Sambar,Breakfast / Light,16,16,45,29,0,Sunday,0.47,0,Sunny / Mild,27.7,0,22.0,50.0
+2026-05-31,Veg Thali,Lunch Meals,9,9,66,57,0,Sunday,0.47,0,Sunny / Mild,27.7,0,65.0,130.0
+2026-05-31,Veg Grilled Sandwich,Snack,23,23,36,13,0,Sunday,0.47,0,Sunny / Mild,27.7,0,28.0,60.0
+2026-05-31,Rajma Rice Bowl,Lunch Meals,24,24,48,24,0,Sunday,0.47,0,Sunny / Mild,27.7,0,45.0,95.0
+2026-05-31,Poha,Breakfast / Light,13,13,41,28,0,Sunday,0.47,0,Sunny / Mild,27.7,0,18.0,40.0
+2026-05-31,Masala Dosa,All-Day,14,14,43,29,0,Sunday,0.47,0,Sunny / Mild,27.7,0,32.0,70.0
+2026-05-31,Fresh Fruit Juice,Beverage,15,15,34,19,0,Sunday,0.47,0,Sunny / Mild,27.7,0,30.0,65.0
+2026-06-01,Pav Bhaji,Lunch / Snack,81,87,81,0,1,Monday,1.23,0,Sunny / Mild,28.3,0,35.0,75.0
+2026-06-01,Idli Sambar,Breakfast / Light,72,91,72,0,1,Monday,1.23,0,Sunny / Mild,28.3,0,22.0,50.0
+2026-06-01,Veg Thali,Lunch Meals,91,91,106,15,0,Monday,1.23,0,Sunny / Mild,28.3,0,65.0,130.0
+2026-06-01,Veg Grilled Sandwich,Snack,58,64,58,0,1,Monday,1.23,0,Sunny / Mild,28.3,0,28.0,60.0
+2026-06-01,Rajma Rice Bowl,Lunch Meals,76,82,76,0,1,Monday,1.23,0,Sunny / Mild,28.3,0,45.0,95.0
+2026-06-01,Poha,Breakfast / Light,65,88,65,0,1,Monday,1.23,0,Sunny / Mild,28.3,0,18.0,40.0
+2026-06-01,Masala Dosa,All-Day,69,88,69,0,1,Monday,1.23,0,Sunny / Mild,28.3,0,32.0,70.0
+2026-06-01,Fresh Fruit Juice,Beverage,54,64,54,0,1,Monday,1.23,0,Sunny / Mild,28.3,0,30.0,65.0
+2026-06-02,Pav Bhaji,Lunch / Snack,74,74,81,7,0,Tuesday,1.14,0,Sunny / Mild,31.0,0,35.0,75.0
+2026-06-02,Idli Sambar,Breakfast / Light,72,89,72,0,1,Tuesday,1.14,0,Sunny / Mild,31.0,0,22.0,50.0
+2026-06-02,Veg Thali,Lunch Meals,106,109,106,0,1,Tuesday,1.14,0,Sunny / Mild,31.0,0,65.0,130.0
+2026-06-02,Veg Grilled Sandwich,Snack,58,59,58,0,1,Tuesday,1.14,0,Sunny / Mild,31.0,0,28.0,60.0
+2026-06-02,Rajma Rice Bowl,Lunch Meals,76,77,76,0,1,Tuesday,1.14,0,Sunny / Mild,31.0,0,45.0,95.0
+2026-06-02,Poha,Breakfast / Light,65,67,65,0,1,Tuesday,1.14,0,Sunny / Mild,31.0,0,18.0,40.0
+2026-06-02,Masala Dosa,All-Day,69,70,69,0,1,Tuesday,1.14,0,Sunny / Mild,31.0,0,32.0,70.0
+2026-06-02,Fresh Fruit Juice,Beverage,52,52,54,2,0,Tuesday,1.14,0,Sunny / Mild,31.0,0,30.0,65.0
+2026-06-03,Pav Bhaji,Lunch / Snack,76,76,81,5,0,Wednesday,1.12,0,Sunny / Mild,28.4,0,35.0,75.0
+2026-06-03,Idli Sambar,Breakfast / Light,72,72,72,0,0,Wednesday,1.12,0,Sunny / Mild,28.4,0,22.0,50.0
+2026-06-03,Veg Thali,Lunch Meals,106,117,106,0,1,Wednesday,1.12,0,Sunny / Mild,28.4,0,65.0,130.0
+2026-06-03,Veg Grilled Sandwich,Snack,58,66,58,0,1,Wednesday,1.12,0,Sunny / Mild,28.4,0,28.0,60.0
+2026-06-03,Rajma Rice Bowl,Lunch Meals,67,67,76,9,0,Wednesday,1.12,0,Sunny / Mild,28.4,0,45.0,95.0
+2026-06-03,Poha,Breakfast / Light,65,71,65,0,1,Wednesday,1.12,0,Sunny / Mild,28.4,0,18.0,40.0
+2026-06-03,Masala Dosa,All-Day,69,77,69,0,1,Wednesday,1.12,0,Sunny / Mild,28.4,0,32.0,70.0
+2026-06-03,Fresh Fruit Juice,Beverage,44,44,54,10,0,Wednesday,1.12,0,Sunny / Mild,28.4,0,30.0,65.0
+2026-06-04,Pav Bhaji,Lunch / Snack,81,91,81,0,1,Thursday,1.13,0,Rainy / Low Footfall,26.7,0,35.0,75.0
+2026-06-04,Idli Sambar,Breakfast / Light,52,52,72,20,0,Thursday,1.13,0,Rainy / Low Footfall,26.7,0,22.0,50.0
+2026-06-04,Veg Thali,Lunch Meals,95,95,106,11,0,Thursday,1.13,0,Rainy / Low Footfall,26.7,0,65.0,130.0
+2026-06-04,Veg Grilled Sandwich,Snack,44,44,58,14,0,Thursday,1.13,0,Rainy / Low Footfall,26.7,0,28.0,60.0
+2026-06-04,Rajma Rice Bowl,Lunch Meals,76,85,76,0,1,Thursday,1.13,0,Rainy / Low Footfall,26.7,0,45.0,95.0
+2026-06-04,Poha,Breakfast / Light,65,81,65,0,1,Thursday,1.13,0,Rainy / Low Footfall,26.7,0,18.0,40.0
+2026-06-04,Masala Dosa,All-Day,69,88,69,0,1,Thursday,1.13,0,Rainy / Low Footfall,26.7,0,32.0,70.0
+2026-06-04,Fresh Fruit Juice,Beverage,39,39,54,15,0,Thursday,1.13,0,Rainy / Low Footfall,26.7,0,30.0,65.0
+2026-06-05,Pav Bhaji,Lunch / Snack,81,92,81,0,1,Friday,1.09,0,Sunny / Mild,26.5,0,35.0,75.0
+2026-06-05,Idli Sambar,Breakfast / Light,72,73,72,0,1,Friday,1.09,0,Sunny / Mild,26.5,0,22.0,50.0
+2026-06-05,Veg Thali,Lunch Meals,92,92,106,14,0,Friday,1.09,0,Sunny / Mild,26.5,0,65.0,130.0
+2026-06-05,Veg Grilled Sandwich,Snack,58,73,58,0,1,Friday,1.09,0,Sunny / Mild,26.5,0,28.0,60.0
+2026-06-05,Rajma Rice Bowl,Lunch Meals,72,72,76,4,0,Friday,1.09,0,Sunny / Mild,26.5,0,45.0,95.0
+2026-06-05,Poha,Breakfast / Light,61,61,65,4,0,Friday,1.09,0,Sunny / Mild,26.5,0,18.0,40.0
+2026-06-05,Masala Dosa,All-Day,69,72,69,0,1,Friday,1.09,0,Sunny / Mild,26.5,0,32.0,70.0
+2026-06-05,Fresh Fruit Juice,Beverage,54,54,54,0,0,Friday,1.09,0,Sunny / Mild,26.5,0,30.0,65.0
+2026-06-06,Pav Bhaji,Lunch / Snack,50,53,50,0,1,Saturday,0.83,0,Hot / Humid,33.4,0,35.0,75.0
+2026-06-06,Idli Sambar,Breakfast / Light,44,44,45,1,0,Saturday,0.83,0,Hot / Humid,33.4,0,22.0,50.0
+2026-06-06,Veg Thali,Lunch Meals,35,35,66,31,0,Saturday,0.83,0,Hot / Humid,33.4,0,65.0,130.0
+2026-06-06,Veg Grilled Sandwich,Snack,34,34,36,2,0,Saturday,0.83,0,Hot / Humid,33.4,0,28.0,60.0
+2026-06-06,Rajma Rice Bowl,Lunch Meals,29,29,48,19,0,Saturday,0.83,0,Hot / Humid,33.4,0,45.0,95.0
+2026-06-06,Poha,Breakfast / Light,41,41,41,0,0,Saturday,0.83,0,Hot / Humid,33.4,0,18.0,40.0
+2026-06-06,Masala Dosa,All-Day,37,37,43,6,0,Saturday,0.83,0,Hot / Humid,33.4,0,32.0,70.0
+2026-06-06,Fresh Fruit Juice,Beverage,34,41,34,0,1,Saturday,0.83,0,Hot / Humid,33.4,0,30.0,65.0
+2026-06-07,Pav Bhaji,Lunch / Snack,21,21,50,29,0,Sunday,0.6,0,Sunny / Mild,27.9,0,35.0,75.0
+2026-06-07,Idli Sambar,Breakfast / Light,33,33,45,12,0,Sunday,0.6,0,Sunny / Mild,27.9,0,22.0,50.0
+2026-06-07,Veg Thali,Lunch Meals,19,19,66,47,0,Sunday,0.6,0,Sunny / Mild,27.9,0,65.0,130.0
+2026-06-07,Veg Grilled Sandwich,Snack,33,33,36,3,0,Sunday,0.6,0,Sunny / Mild,27.9,0,28.0,60.0
+2026-06-07,Rajma Rice Bowl,Lunch Meals,16,16,48,32,0,Sunday,0.6,0,Sunny / Mild,27.9,0,45.0,95.0
+2026-06-07,Poha,Breakfast / Light,36,36,41,5,0,Sunday,0.6,0,Sunny / Mild,27.9,0,18.0,40.0
+2026-06-07,Masala Dosa,All-Day,29,29,43,14,0,Sunday,0.6,0,Sunny / Mild,27.9,0,32.0,70.0
+2026-06-07,Fresh Fruit Juice,Beverage,21,21,34,13,0,Sunday,0.6,0,Sunny / Mild,27.9,0,30.0,65.0
+2026-06-08,Pav Bhaji,Lunch / Snack,81,96,81,0,1,Monday,1.12,0,Rainy / Low Footfall,24.4,0,35.0,75.0
+2026-06-08,Idli Sambar,Breakfast / Light,72,73,72,0,1,Monday,1.12,0,Rainy / Low Footfall,24.4,0,22.0,50.0
+2026-06-08,Veg Thali,Lunch Meals,92,92,106,14,0,Monday,1.12,0,Rainy / Low Footfall,24.4,0,65.0,130.0
+2026-06-08,Veg Grilled Sandwich,Snack,48,48,58,10,0,Monday,1.12,0,Rainy / Low Footfall,24.4,0,28.0,60.0
+2026-06-08,Rajma Rice Bowl,Lunch Meals,64,64,76,12,0,Monday,1.12,0,Rainy / Low Footfall,24.4,0,45.0,95.0
+2026-06-08,Poha,Breakfast / Light,65,90,65,0,1,Monday,1.12,0,Rainy / Low Footfall,24.4,0,18.0,40.0
+2026-06-08,Masala Dosa,All-Day,69,69,69,0,0,Monday,1.12,0,Rainy / Low Footfall,24.4,0,32.0,70.0
+2026-06-08,Fresh Fruit Juice,Beverage,28,28,54,26,0,Monday,1.12,0,Rainy / Low Footfall,24.4,0,30.0,65.0
+2026-06-09,Pav Bhaji,Lunch / Snack,81,86,81,0,1,Tuesday,1.19,0,Sunny / Mild,30.2,0,35.0,75.0
+2026-06-09,Idli Sambar,Breakfast / Light,72,78,72,0,1,Tuesday,1.19,0,Sunny / Mild,30.2,0,22.0,50.0
+2026-06-09,Veg Thali,Lunch Meals,106,108,106,0,1,Tuesday,1.19,0,Sunny / Mild,30.2,0,65.0,130.0
+2026-06-09,Veg Grilled Sandwich,Snack,58,58,58,0,0,Tuesday,1.19,0,Sunny / Mild,30.2,0,28.0,60.0
+2026-06-09,Rajma Rice Bowl,Lunch Meals,76,82,76,0,1,Tuesday,1.19,0,Sunny / Mild,30.2,0,45.0,95.0
+2026-06-09,Poha,Breakfast / Light,63,63,65,2,0,Tuesday,1.19,0,Sunny / Mild,30.2,0,18.0,40.0
+2026-06-09,Masala Dosa,All-Day,69,76,69,0,1,Tuesday,1.19,0,Sunny / Mild,30.2,0,32.0,70.0
+2026-06-09,Fresh Fruit Juice,Beverage,49,49,54,5,0,Tuesday,1.19,0,Sunny / Mild,30.2,0,30.0,65.0
+2026-06-10,Pav Bhaji,Lunch / Snack,81,107,81,0,1,Wednesday,1.2,0,Sunny / Mild,26.1,1,35.0,75.0
+2026-06-10,Idli Sambar,Breakfast / Light,72,78,72,0,1,Wednesday,1.2,0,Sunny / Mild,26.1,1,22.0,50.0
+2026-06-10,Veg Thali,Lunch Meals,106,137,106,0,1,Wednesday,1.2,0,Sunny / Mild,26.1,1,65.0,130.0
+2026-06-10,Veg Grilled Sandwich,Snack,58,84,58,0,1,Wednesday,1.2,0,Sunny / Mild,26.1,1,28.0,60.0
+2026-06-10,Rajma Rice Bowl,Lunch Meals,76,98,76,0,1,Wednesday,1.2,0,Sunny / Mild,26.1,1,45.0,95.0
+2026-06-10,Poha,Breakfast / Light,59,59,65,6,0,Wednesday,1.2,0,Sunny / Mild,26.1,1,18.0,40.0
+2026-06-10,Masala Dosa,All-Day,66,66,69,3,0,Wednesday,1.2,0,Sunny / Mild,26.1,1,32.0,70.0
+2026-06-10,Fresh Fruit Juice,Beverage,54,55,54,0,1,Wednesday,1.2,0,Sunny / Mild,26.1,1,30.0,65.0
+2026-06-11,Pav Bhaji,Lunch / Snack,81,84,81,0,1,Thursday,1.15,0,Sunny / Mild,29.7,0,35.0,75.0
+2026-06-11,Idli Sambar,Breakfast / Light,69,69,72,3,0,Thursday,1.15,0,Sunny / Mild,29.7,0,22.0,50.0
+2026-06-11,Veg Thali,Lunch Meals,106,117,106,0,1,Thursday,1.15,0,Sunny / Mild,29.7,0,65.0,130.0
+2026-06-11,Veg Grilled Sandwich,Snack,52,52,58,6,0,Thursday,1.15,0,Sunny / Mild,29.7,0,28.0,60.0
+2026-06-11,Rajma Rice Bowl,Lunch Meals,76,81,76,0,1,Thursday,1.15,0,Sunny / Mild,29.7,0,45.0,95.0
+2026-06-11,Poha,Breakfast / Light,59,59,65,6,0,Thursday,1.15,0,Sunny / Mild,29.7,0,18.0,40.0
+2026-06-11,Masala Dosa,All-Day,65,65,69,4,0,Thursday,1.15,0,Sunny / Mild,29.7,0,32.0,70.0
+2026-06-11,Fresh Fruit Juice,Beverage,54,60,54,0,1,Thursday,1.15,0,Sunny / Mild,29.7,0,30.0,65.0
+2026-06-12,Pav Bhaji,Lunch / Snack,81,116,81,0,1,Friday,1.1,0,Hot / Humid,38.6,0,35.0,75.0
+2026-06-12,Idli Sambar,Breakfast / Light,65,65,72,7,0,Friday,1.1,0,Hot / Humid,38.6,0,22.0,50.0
+2026-06-12,Veg Thali,Lunch Meals,99,99,106,7,0,Friday,1.1,0,Hot / Humid,38.6,0,65.0,130.0
+2026-06-12,Veg Grilled Sandwich,Snack,58,67,58,0,1,Friday,1.1,0,Hot / Humid,38.6,0,28.0,60.0
+2026-06-12,Rajma Rice Bowl,Lunch Meals,67,67,76,9,0,Friday,1.1,0,Hot / Humid,38.6,0,45.0,95.0
+2026-06-12,Poha,Breakfast / Light,65,79,65,0,1,Friday,1.1,0,Hot / Humid,38.6,0,18.0,40.0
+2026-06-12,Masala Dosa,All-Day,68,68,69,1,0,Friday,1.1,0,Hot / Humid,38.6,0,32.0,70.0
+2026-06-12,Fresh Fruit Juice,Beverage,54,82,54,0,1,Friday,1.1,0,Hot / Humid,38.6,0,30.0,65.0
+2026-06-13,Pav Bhaji,Lunch / Snack,43,43,50,7,0,Saturday,0.81,0,Sunny / Mild,26.4,0,35.0,75.0
+2026-06-13,Idli Sambar,Breakfast / Light,45,50,45,0,1,Saturday,0.81,0,Sunny / Mild,26.4,0,22.0,50.0
+2026-06-13,Veg Thali,Lunch Meals,36,36,66,30,0,Saturday,0.81,0,Sunny / Mild,26.4,0,65.0,130.0
+2026-06-13,Veg Grilled Sandwich,Snack,36,41,36,0,1,Saturday,0.81,0,Sunny / Mild,26.4,0,28.0,60.0
+2026-06-13,Rajma Rice Bowl,Lunch Meals,46,46,48,2,0,Saturday,0.81,0,Sunny / Mild,26.4,0,45.0,95.0
+2026-06-13,Poha,Breakfast / Light,32,32,41,9,0,Saturday,0.81,0,Sunny / Mild,26.4,0,18.0,40.0
+2026-06-13,Masala Dosa,All-Day,42,42,43,1,0,Saturday,0.81,0,Sunny / Mild,26.4,0,32.0,70.0
+2026-06-13,Fresh Fruit Juice,Beverage,34,34,34,0,0,Saturday,0.81,0,Sunny / Mild,26.4,0,30.0,65.0
+2026-06-14,Pav Bhaji,Lunch / Snack,20,20,50,30,0,Sunday,0.58,0,Sunny / Mild,26.5,0,35.0,75.0
+2026-06-14,Idli Sambar,Breakfast / Light,27,27,45,18,0,Sunday,0.58,0,Sunny / Mild,26.5,0,22.0,50.0
+2026-06-14,Veg Thali,Lunch Meals,36,36,66,30,0,Sunday,0.58,0,Sunny / Mild,26.5,0,65.0,130.0
+2026-06-14,Veg Grilled Sandwich,Snack,24,24,36,12,0,Sunday,0.58,0,Sunny / Mild,26.5,0,28.0,60.0
+2026-06-14,Rajma Rice Bowl,Lunch Meals,20,20,48,28,0,Sunday,0.58,0,Sunny / Mild,26.5,0,45.0,95.0
+2026-06-14,Poha,Breakfast / Light,27,27,41,14,0,Sunday,0.58,0,Sunny / Mild,26.5,0,18.0,40.0
+2026-06-14,Masala Dosa,All-Day,31,31,43,12,0,Sunday,0.58,0,Sunny / Mild,26.5,0,32.0,70.0
+2026-06-14,Fresh Fruit Juice,Beverage,24,24,34,10,0,Sunday,0.58,0,Sunny / Mild,26.5,0,30.0,65.0
+2026-06-15,Pav Bhaji,Lunch / Snack,81,86,81,0,1,Monday,1.2,0,Hot / Humid,37.9,0,35.0,75.0
+2026-06-15,Idli Sambar,Breakfast / Light,72,80,72,0,1,Monday,1.2,0,Hot / Humid,37.9,0,22.0,50.0
+2026-06-15,Veg Thali,Lunch Meals,104,104,106,2,0,Monday,1.2,0,Hot / Humid,37.9,0,65.0,130.0
+2026-06-15,Veg Grilled Sandwich,Snack,58,63,58,0,1,Monday,1.2,0,Hot / Humid,37.9,0,28.0,60.0
+2026-06-15,Rajma Rice Bowl,Lunch Meals,74,74,76,2,0,Monday,1.2,0,Hot / Humid,37.9,0,45.0,95.0
+2026-06-15,Poha,Breakfast / Light,65,75,65,0,1,Monday,1.2,0,Hot / Humid,37.9,0,18.0,40.0
+2026-06-15,Masala Dosa,All-Day,68,68,69,1,0,Monday,1.2,0,Hot / Humid,37.9,0,32.0,70.0
+2026-06-15,Fresh Fruit Juice,Beverage,54,89,54,0,1,Monday,1.2,0,Hot / Humid,37.9,0,30.0,65.0
+2026-06-16,Pav Bhaji,Lunch / Snack,81,88,81,0,1,Tuesday,1.0,0,Rainy / Low Footfall,26.2,0,35.0,75.0
+2026-06-16,Idli Sambar,Breakfast / Light,60,60,72,12,0,Tuesday,1.0,0,Rainy / Low Footfall,26.2,0,22.0,50.0
+2026-06-16,Veg Thali,Lunch Meals,76,76,106,30,0,Tuesday,1.0,0,Rainy / Low Footfall,26.2,0,65.0,130.0
+2026-06-16,Veg Grilled Sandwich,Snack,45,45,58,13,0,Tuesday,1.0,0,Rainy / Low Footfall,26.2,0,28.0,60.0
+2026-06-16,Rajma Rice Bowl,Lunch Meals,55,55,76,21,0,Tuesday,1.0,0,Rainy / Low Footfall,26.2,0,45.0,95.0
+2026-06-16,Poha,Breakfast / Light,64,64,65,1,0,Tuesday,1.0,0,Rainy / Low Footfall,26.2,0,18.0,40.0
+2026-06-16,Masala Dosa,All-Day,69,69,69,0,0,Tuesday,1.0,0,Rainy / Low Footfall,26.2,0,32.0,70.0
+2026-06-16,Fresh Fruit Juice,Beverage,32,32,54,22,0,Tuesday,1.0,0,Rainy / Low Footfall,26.2,0,30.0,65.0
+2026-06-17,Pav Bhaji,Lunch / Snack,69,69,81,12,0,Wednesday,0.98,0,Sunny / Mild,29.6,0,35.0,75.0
+2026-06-17,Idli Sambar,Breakfast / Light,60,60,72,12,0,Wednesday,0.98,0,Sunny / Mild,29.6,0,22.0,50.0
+2026-06-17,Veg Thali,Lunch Meals,106,118,106,0,1,Wednesday,0.98,0,Sunny / Mild,29.6,0,65.0,130.0
+2026-06-17,Veg Grilled Sandwich,Snack,52,52,58,6,0,Wednesday,0.98,0,Sunny / Mild,29.6,0,28.0,60.0
+2026-06-17,Rajma Rice Bowl,Lunch Meals,76,82,76,0,1,Wednesday,0.98,0,Sunny / Mild,29.6,0,45.0,95.0
+2026-06-17,Poha,Breakfast / Light,48,48,65,17,0,Wednesday,0.98,0,Sunny / Mild,29.6,0,18.0,40.0
+2026-06-17,Masala Dosa,All-Day,62,62,69,7,0,Wednesday,0.98,0,Sunny / Mild,29.6,0,32.0,70.0
+2026-06-17,Fresh Fruit Juice,Beverage,51,51,54,3,0,Wednesday,0.98,0,Sunny / Mild,29.6,0,30.0,65.0
+2026-06-18,Pav Bhaji,Lunch / Snack,81,119,81,0,1,Thursday,1.35,1,Rainy / Low Footfall,26.0,0,35.0,75.0
+2026-06-18,Idli Sambar,Breakfast / Light,70,70,72,2,0,Thursday,1.35,1,Rainy / Low Footfall,26.0,0,22.0,50.0
+2026-06-18,Veg Thali,Lunch Meals,106,135,106,0,1,Thursday,1.35,1,Rainy / Low Footfall,26.0,0,65.0,130.0
+2026-06-18,Veg Grilled Sandwich,Snack,58,72,58,0,1,Thursday,1.35,1,Rainy / Low Footfall,26.0,0,28.0,60.0
+2026-06-18,Rajma Rice Bowl,Lunch Meals,76,85,76,0,1,Thursday,1.35,1,Rainy / Low Footfall,26.0,0,45.0,95.0
+2026-06-18,Poha,Breakfast / Light,65,87,65,0,1,Thursday,1.35,1,Rainy / Low Footfall,26.0,0,18.0,40.0
+2026-06-18,Masala Dosa,All-Day,69,105,69,0,1,Thursday,1.35,1,Rainy / Low Footfall,26.0,0,32.0,70.0
+2026-06-18,Fresh Fruit Juice,Beverage,50,50,54,4,0,Thursday,1.35,1,Rainy / Low Footfall,26.0,0,30.0,65.0
+2026-06-19,Pav Bhaji,Lunch / Snack,76,76,81,5,0,Friday,0.97,0,Sunny / Mild,26.6,0,35.0,75.0
+2026-06-19,Idli Sambar,Breakfast / Light,56,56,72,16,0,Friday,0.97,0,Sunny / Mild,26.6,0,22.0,50.0
+2026-06-19,Veg Thali,Lunch Meals,83,83,106,23,0,Friday,0.97,0,Sunny / Mild,26.6,0,65.0,130.0
+2026-06-19,Veg Grilled Sandwich,Snack,58,58,58,0,0,Friday,0.97,0,Sunny / Mild,26.6,0,28.0,60.0
+2026-06-19,Rajma Rice Bowl,Lunch Meals,66,66,76,10,0,Friday,0.97,0,Sunny / Mild,26.6,0,45.0,95.0
+2026-06-19,Poha,Breakfast / Light,58,58,65,7,0,Friday,0.97,0,Sunny / Mild,26.6,0,18.0,40.0
+2026-06-19,Masala Dosa,All-Day,69,70,69,0,1,Friday,0.97,0,Sunny / Mild,26.6,0,32.0,70.0
+2026-06-19,Fresh Fruit Juice,Beverage,42,42,54,12,0,Friday,0.97,0,Sunny / Mild,26.6,0,30.0,65.0
+2026-06-20,Pav Bhaji,Lunch / Snack,45,45,50,5,0,Saturday,0.75,0,Rainy / Low Footfall,24.3,0,35.0,75.0
+2026-06-20,Idli Sambar,Breakfast / Light,23,23,45,22,0,Saturday,0.75,0,Rainy / Low Footfall,24.3,0,22.0,50.0
+2026-06-20,Veg Thali,Lunch Meals,37,37,66,29,0,Saturday,0.75,0,Rainy / Low Footfall,24.3,0,65.0,130.0
+2026-06-20,Veg Grilled Sandwich,Snack,26,26,36,10,0,Saturday,0.75,0,Rainy / Low Footfall,24.3,0,28.0,60.0
+2026-06-20,Rajma Rice Bowl,Lunch Meals,36,36,48,12,0,Saturday,0.75,0,Rainy / Low Footfall,24.3,0,45.0,95.0
+2026-06-20,Poha,Breakfast / Light,39,39,41,2,0,Saturday,0.75,0,Rainy / Low Footfall,24.3,0,18.0,40.0
+2026-06-20,Masala Dosa,All-Day,43,55,43,0,1,Saturday,0.75,0,Rainy / Low Footfall,24.3,0,32.0,70.0
+2026-06-20,Fresh Fruit Juice,Beverage,14,14,34,20,0,Saturday,0.75,0,Rainy / Low Footfall,24.3,0,30.0,65.0
+2026-06-21,Pav Bhaji,Lunch / Snack,15,15,50,35,0,Sunday,0.37,0,Sunny / Mild,26.9,0,35.0,75.0
+2026-06-21,Idli Sambar,Breakfast / Light,25,25,45,20,0,Sunday,0.37,0,Sunny / Mild,26.9,0,22.0,50.0
+2026-06-21,Veg Thali,Lunch Meals,33,33,66,33,0,Sunday,0.37,0,Sunny / Mild,26.9,0,65.0,130.0
+2026-06-21,Veg Grilled Sandwich,Snack,11,11,36,25,0,Sunday,0.37,0,Sunny / Mild,26.9,0,28.0,60.0
+2026-06-21,Rajma Rice Bowl,Lunch Meals,13,13,48,35,0,Sunday,0.37,0,Sunny / Mild,26.9,0,45.0,95.0
+2026-06-21,Poha,Breakfast / Light,19,19,41,22,0,Sunday,0.37,0,Sunny / Mild,26.9,0,18.0,40.0
+2026-06-21,Masala Dosa,All-Day,14,14,43,29,0,Sunday,0.37,0,Sunny / Mild,26.9,0,32.0,70.0
+2026-06-21,Fresh Fruit Juice,Beverage,16,16,34,18,0,Sunday,0.37,0,Sunny / Mild,26.9,0,30.0,65.0
+2026-06-22,Pav Bhaji,Lunch / Snack,62,62,81,19,0,Monday,1.01,0,Sunny / Mild,28.9,0,35.0,75.0
+2026-06-22,Idli Sambar,Breakfast / Light,72,72,72,0,0,Monday,1.01,0,Sunny / Mild,28.9,0,22.0,50.0
+2026-06-22,Veg Thali,Lunch Meals,92,92,106,14,0,Monday,1.01,0,Sunny / Mild,28.9,0,65.0,130.0
+2026-06-22,Veg Grilled Sandwich,Snack,54,54,58,4,0,Monday,1.01,0,Sunny / Mild,28.9,0,28.0,60.0
+2026-06-22,Rajma Rice Bowl,Lunch Meals,71,71,76,5,0,Monday,1.01,0,Sunny / Mild,28.9,0,45.0,95.0
+2026-06-22,Poha,Breakfast / Light,65,73,65,0,1,Monday,1.01,0,Sunny / Mild,28.9,0,18.0,40.0
+2026-06-22,Masala Dosa,All-Day,69,75,69,0,1,Monday,1.01,0,Sunny / Mild,28.9,0,32.0,70.0
+2026-06-22,Fresh Fruit Juice,Beverage,48,48,54,6,0,Monday,1.01,0,Sunny / Mild,28.9,0,30.0,65.0
+2026-06-23,Pav Bhaji,Lunch / Snack,69,69,81,12,0,Tuesday,0.96,0,Sunny / Mild,27.3,0,35.0,75.0
+2026-06-23,Idli Sambar,Breakfast / Light,72,73,72,0,1,Tuesday,0.96,0,Sunny / Mild,27.3,0,22.0,50.0
+2026-06-23,Veg Thali,Lunch Meals,86,86,106,20,0,Tuesday,0.96,0,Sunny / Mild,27.3,0,65.0,130.0
+2026-06-23,Veg Grilled Sandwich,Snack,51,51,58,7,0,Tuesday,0.96,0,Sunny / Mild,27.3,0,28.0,60.0
+2026-06-23,Rajma Rice Bowl,Lunch Meals,65,65,76,11,0,Tuesday,0.96,0,Sunny / Mild,27.3,0,45.0,95.0
+2026-06-23,Poha,Breakfast / Light,63,63,65,2,0,Tuesday,0.96,0,Sunny / Mild,27.3,0,18.0,40.0
+2026-06-23,Masala Dosa,All-Day,69,75,69,0,1,Tuesday,0.96,0,Sunny / Mild,27.3,0,32.0,70.0
+2026-06-23,Fresh Fruit Juice,Beverage,44,44,54,10,0,Tuesday,0.96,0,Sunny / Mild,27.3,0,30.0,65.0
+2026-06-24,Pav Bhaji,Lunch / Snack,81,92,81,0,1,Wednesday,0.98,0,Hot / Humid,36.0,1,35.0,75.0
+2026-06-24,Idli Sambar,Breakfast / Light,66,66,72,6,0,Wednesday,0.98,0,Hot / Humid,36.0,1,22.0,50.0
+2026-06-24,Veg Thali,Lunch Meals,88,88,106,18,0,Wednesday,0.98,0,Hot / Humid,36.0,1,65.0,130.0
+2026-06-24,Veg Grilled Sandwich,Snack,58,64,58,0,1,Wednesday,0.98,0,Hot / Humid,36.0,1,28.0,60.0
+2026-06-24,Rajma Rice Bowl,Lunch Meals,73,73,76,3,0,Wednesday,0.98,0,Hot / Humid,36.0,1,45.0,95.0
+2026-06-24,Poha,Breakfast / Light,62,62,65,3,0,Wednesday,0.98,0,Hot / Humid,36.0,1,18.0,40.0
+2026-06-24,Masala Dosa,All-Day,64,64,69,5,0,Wednesday,0.98,0,Hot / Humid,36.0,1,32.0,70.0
+2026-06-24,Fresh Fruit Juice,Beverage,54,73,54,0,1,Wednesday,0.98,0,Hot / Humid,36.0,1,30.0,65.0
+2026-06-25,Pav Bhaji,Lunch / Snack,75,75,81,6,0,Thursday,1.06,0,Hot / Humid,37.3,0,35.0,75.0
+2026-06-25,Idli Sambar,Breakfast / Light,69,69,72,3,0,Thursday,1.06,0,Hot / Humid,37.3,0,22.0,50.0
+2026-06-25,Veg Thali,Lunch Meals,106,111,106,0,1,Thursday,1.06,0,Hot / Humid,37.3,0,65.0,130.0
+2026-06-25,Veg Grilled Sandwich,Snack,51,51,58,7,0,Thursday,1.06,0,Hot / Humid,37.3,0,28.0,60.0
+2026-06-25,Rajma Rice Bowl,Lunch Meals,74,74,76,2,0,Thursday,1.06,0,Hot / Humid,37.3,0,45.0,95.0
+2026-06-25,Poha,Breakfast / Light,59,59,65,6,0,Thursday,1.06,0,Hot / Humid,37.3,0,18.0,40.0
+2026-06-25,Masala Dosa,All-Day,66,66,69,3,0,Thursday,1.06,0,Hot / Humid,37.3,0,32.0,70.0
+2026-06-25,Fresh Fruit Juice,Beverage,54,80,54,0,1,Thursday,1.06,0,Hot / Humid,37.3,0,30.0,65.0
+2026-06-26,Pav Bhaji,Lunch / Snack,81,89,81,0,1,Friday,1.01,0,Hot / Humid,33.8,0,35.0,75.0
+2026-06-26,Idli Sambar,Breakfast / Light,69,69,72,3,0,Friday,1.01,0,Hot / Humid,33.8,0,22.0,50.0
+2026-06-26,Veg Thali,Lunch Meals,105,105,106,1,0,Friday,1.01,0,Hot / Humid,33.8,0,65.0,130.0
+2026-06-26,Veg Grilled Sandwich,Snack,58,62,58,0,1,Friday,1.01,0,Hot / Humid,33.8,0,28.0,60.0
+2026-06-26,Rajma Rice Bowl,Lunch Meals,62,62,76,14,0,Friday,1.01,0,Hot / Humid,33.8,0,45.0,95.0
+2026-06-26,Poha,Breakfast / Light,60,60,65,5,0,Friday,1.01,0,Hot / Humid,33.8,0,18.0,40.0
+2026-06-26,Masala Dosa,All-Day,69,72,69,0,1,Friday,1.01,0,Hot / Humid,33.8,0,32.0,70.0
+2026-06-26,Fresh Fruit Juice,Beverage,54,70,54,0,1,Friday,1.01,0,Hot / Humid,33.8,0,30.0,65.0
+2026-06-27,Pav Bhaji,Lunch / Snack,35,35,50,15,0,Saturday,0.71,0,Hot / Humid,38.5,0,35.0,75.0
+2026-06-27,Idli Sambar,Breakfast / Light,35,35,45,10,0,Saturday,0.71,0,Hot / Humid,38.5,0,22.0,50.0
+2026-06-27,Veg Thali,Lunch Meals,43,43,66,23,0,Saturday,0.71,0,Hot / Humid,38.5,0,65.0,130.0
+2026-06-27,Veg Grilled Sandwich,Snack,22,22,36,14,0,Saturday,0.71,0,Hot / Humid,38.5,0,28.0,60.0
+2026-06-27,Rajma Rice Bowl,Lunch Meals,33,33,48,15,0,Saturday,0.71,0,Hot / Humid,38.5,0,45.0,95.0
+2026-06-27,Poha,Breakfast / Light,27,27,41,14,0,Saturday,0.71,0,Hot / Humid,38.5,0,18.0,40.0
+2026-06-27,Masala Dosa,All-Day,40,40,43,3,0,Saturday,0.71,0,Hot / Humid,38.5,0,32.0,70.0
+2026-06-27,Fresh Fruit Juice,Beverage,30,30,34,4,0,Saturday,0.71,0,Hot / Humid,38.5,0,30.0,65.0
+2026-06-28,Pav Bhaji,Lunch / Snack,23,23,50,27,0,Sunday,0.37,0,Hot / Humid,32.2,0,35.0,75.0
+2026-06-28,Idli Sambar,Breakfast / Light,28,28,45,17,0,Sunday,0.37,0,Hot / Humid,32.2,0,22.0,50.0
+2026-06-28,Veg Thali,Lunch Meals,16,16,66,50,0,Sunday,0.37,0,Hot / Humid,32.2,0,65.0,130.0
+2026-06-28,Veg Grilled Sandwich,Snack,12,12,36,24,0,Sunday,0.37,0,Hot / Humid,32.2,0,28.0,60.0
+2026-06-28,Rajma Rice Bowl,Lunch Meals,29,29,48,19,0,Sunday,0.37,0,Hot / Humid,32.2,0,45.0,95.0
+2026-06-28,Poha,Breakfast / Light,8,8,41,33,0,Sunday,0.37,0,Hot / Humid,32.2,0,18.0,40.0
+2026-06-28,Masala Dosa,All-Day,5,5,43,38,0,Sunday,0.37,0,Hot / Humid,32.2,0,32.0,70.0
+2026-06-28,Fresh Fruit Juice,Beverage,21,21,34,13,0,Sunday,0.37,0,Hot / Humid,32.2,0,30.0,65.0
+2026-06-29,Pav Bhaji,Lunch / Snack,72,72,81,9,0,Monday,0.97,0,Hot / Humid,33.5,0,35.0,75.0
+2026-06-29,Idli Sambar,Breakfast / Light,70,70,72,2,0,Monday,0.97,0,Hot / Humid,33.5,0,22.0,50.0
+2026-06-29,Veg Thali,Lunch Meals,69,69,106,37,0,Monday,0.97,0,Hot / Humid,33.5,0,65.0,130.0
+2026-06-29,Veg Grilled Sandwich,Snack,55,55,58,3,0,Monday,0.97,0,Hot / Humid,33.5,0,28.0,60.0
+2026-06-29,Rajma Rice Bowl,Lunch Meals,62,62,76,14,0,Monday,0.97,0,Hot / Humid,33.5,0,45.0,95.0
+2026-06-29,Poha,Breakfast / Light,65,66,65,0,1,Monday,0.97,0,Hot / Humid,33.5,0,18.0,40.0
+2026-06-29,Masala Dosa,All-Day,69,72,69,0,1,Monday,0.97,0,Hot / Humid,33.5,0,32.0,70.0
+2026-06-29,Fresh Fruit Juice,Beverage,54,62,54,0,1,Monday,0.97,0,Hot / Humid,33.5,0,30.0,65.0
+2026-06-30,Pav Bhaji,Lunch / Snack,71,71,81,10,0,Tuesday,0.92,0,Rainy / Low Footfall,24.0,0,35.0,75.0
+2026-06-30,Idli Sambar,Breakfast / Light,49,49,72,23,0,Tuesday,0.92,0,Rainy / Low Footfall,24.0,0,22.0,50.0
+2026-06-30,Veg Thali,Lunch Meals,78,78,106,28,0,Tuesday,0.92,0,Rainy / Low Footfall,24.0,0,65.0,130.0
+2026-06-30,Veg Grilled Sandwich,Snack,34,34,58,24,0,Tuesday,0.92,0,Rainy / Low Footfall,24.0,0,28.0,60.0
+2026-06-30,Rajma Rice Bowl,Lunch Meals,63,63,76,13,0,Tuesday,0.92,0,Rainy / Low Footfall,24.0,0,45.0,95.0
+2026-06-30,Poha,Breakfast / Light,61,61,65,4,0,Tuesday,0.92,0,Rainy / Low Footfall,24.0,0,18.0,40.0
+2026-06-30,Masala Dosa,All-Day,69,73,69,0,1,Tuesday,0.92,0,Rainy / Low Footfall,24.0,0,32.0,70.0
+2026-06-30,Fresh Fruit Juice,Beverage,30,30,54,24,0,Tuesday,0.92,0,Rainy / Low Footfall,24.0,0,30.0,65.0
+2026-07-01,Pav Bhaji,Lunch / Snack,78,78,81,3,0,Wednesday,1.02,0,Hot / Humid,37.9,0,35.0,75.0
+2026-07-01,Idli Sambar,Breakfast / Light,72,74,72,0,1,Wednesday,1.02,0,Hot / Humid,37.9,0,22.0,50.0
+2026-07-01,Veg Thali,Lunch Meals,97,97,106,9,0,Wednesday,1.02,0,Hot / Humid,37.9,0,65.0,130.0
+2026-07-01,Veg Grilled Sandwich,Snack,57,57,58,1,0,Wednesday,1.02,0,Hot / Humid,37.9,0,28.0,60.0
+2026-07-01,Rajma Rice Bowl,Lunch Meals,68,68,76,8,0,Wednesday,1.02,0,Hot / Humid,37.9,0,45.0,95.0
+2026-07-01,Poha,Breakfast / Light,65,68,65,0,1,Wednesday,1.02,0,Hot / Humid,37.9,0,18.0,40.0
+2026-07-01,Masala Dosa,All-Day,59,59,69,10,0,Wednesday,1.02,0,Hot / Humid,37.9,0,32.0,70.0
+2026-07-01,Fresh Fruit Juice,Beverage,54,80,54,0,1,Wednesday,1.02,0,Hot / Humid,37.9,0,30.0,65.0
+2026-07-02,Pav Bhaji,Lunch / Snack,62,62,81,19,0,Thursday,1.0,0,Sunny / Mild,28.9,0,35.0,75.0
+2026-07-02,Idli Sambar,Breakfast / Light,69,69,72,3,0,Thursday,1.0,0,Sunny / Mild,28.9,0,22.0,50.0
+2026-07-02,Veg Thali,Lunch Meals,100,100,106,6,0,Thursday,1.0,0,Sunny / Mild,28.9,0,65.0,130.0
+2026-07-02,Veg Grilled Sandwich,Snack,50,50,58,8,0,Thursday,1.0,0,Sunny / Mild,28.9,0,28.0,60.0
+2026-07-02,Rajma Rice Bowl,Lunch Meals,63,63,76,13,0,Thursday,1.0,0,Sunny / Mild,28.9,0,45.0,95.0
+2026-07-02,Poha,Breakfast / Light,55,55,65,10,0,Thursday,1.0,0,Sunny / Mild,28.9,0,18.0,40.0
+2026-07-02,Masala Dosa,All-Day,47,47,69,22,0,Thursday,1.0,0,Sunny / Mild,28.9,0,32.0,70.0
+2026-07-02,Fresh Fruit Juice,Beverage,40,40,54,14,0,Thursday,1.0,0,Sunny / Mild,28.9,0,30.0,65.0
+2026-07-03,Pav Bhaji,Lunch / Snack,81,84,81,0,1,Friday,1.04,0,Hot / Humid,38.0,0,35.0,75.0
+2026-07-03,Idli Sambar,Breakfast / Light,66,66,72,6,0,Friday,1.04,0,Hot / Humid,38.0,0,22.0,50.0
+2026-07-03,Veg Thali,Lunch Meals,87,87,106,19,0,Friday,1.04,0,Hot / Humid,38.0,0,65.0,130.0
+2026-07-03,Veg Grilled Sandwich,Snack,58,60,58,0,1,Friday,1.04,0,Hot / Humid,38.0,0,28.0,60.0
+2026-07-03,Rajma Rice Bowl,Lunch Meals,72,72,76,4,0,Friday,1.04,0,Hot / Humid,38.0,0,45.0,95.0
+2026-07-03,Poha,Breakfast / Light,65,65,65,0,0,Friday,1.04,0,Hot / Humid,38.0,0,18.0,40.0
+2026-07-03,Masala Dosa,All-Day,63,63,69,6,0,Friday,1.04,0,Hot / Humid,38.0,0,32.0,70.0
+2026-07-03,Fresh Fruit Juice,Beverage,54,73,54,0,1,Friday,1.04,0,Hot / Humid,38.0,0,30.0,65.0
+2026-07-04,Pav Bhaji,Lunch / Snack,24,24,50,26,0,Saturday,0.71,0,Sunny / Mild,27.8,0,35.0,75.0
+2026-07-04,Idli Sambar,Breakfast / Light,28,28,45,17,0,Saturday,0.71,0,Sunny / Mild,27.8,0,22.0,50.0
+2026-07-04,Veg Thali,Lunch Meals,34,34,66,32,0,Saturday,0.71,0,Sunny / Mild,27.8,0,65.0,130.0
+2026-07-04,Veg Grilled Sandwich,Snack,36,37,36,0,1,Saturday,0.71,0,Sunny / Mild,27.8,0,28.0,60.0
+2026-07-04,Rajma Rice Bowl,Lunch Meals,41,41,48,7,0,Saturday,0.71,0,Sunny / Mild,27.8,0,45.0,95.0
+2026-07-04,Poha,Breakfast / Light,28,28,41,13,0,Saturday,0.71,0,Sunny / Mild,27.8,0,18.0,40.0
+2026-07-04,Masala Dosa,All-Day,37,37,43,6,0,Saturday,0.71,0,Sunny / Mild,27.8,0,32.0,70.0
+2026-07-04,Fresh Fruit Juice,Beverage,32,32,34,2,0,Saturday,0.71,0,Sunny / Mild,27.8,0,30.0,65.0
+2026-07-05,Pav Bhaji,Lunch / Snack,25,25,50,25,0,Sunday,0.45,0,Sunny / Mild,30.7,0,35.0,75.0
+2026-07-05,Idli Sambar,Breakfast / Light,17,17,45,28,0,Sunday,0.45,0,Sunny / Mild,30.7,0,22.0,50.0
+2026-07-05,Veg Thali,Lunch Meals,30,30,66,36,0,Sunday,0.45,0,Sunny / Mild,30.7,0,65.0,130.0
+2026-07-05,Veg Grilled Sandwich,Snack,20,20,36,16,0,Sunday,0.45,0,Sunny / Mild,30.7,0,28.0,60.0
+2026-07-05,Rajma Rice Bowl,Lunch Meals,29,29,48,19,0,Sunday,0.45,0,Sunny / Mild,30.7,0,45.0,95.0
+2026-07-05,Poha,Breakfast / Light,23,23,41,18,0,Sunday,0.45,0,Sunny / Mild,30.7,0,18.0,40.0
+2026-07-05,Masala Dosa,All-Day,27,27,43,16,0,Sunday,0.45,0,Sunny / Mild,30.7,0,32.0,70.0
+2026-07-05,Fresh Fruit Juice,Beverage,14,14,34,20,0,Sunday,0.45,0,Sunny / Mild,30.7,0,30.0,65.0
+2026-07-06,Pav Bhaji,Lunch / Snack,78,78,81,3,0,Monday,1.07,0,Sunny / Mild,29.2,0,35.0,75.0
+2026-07-06,Idli Sambar,Breakfast / Light,72,92,72,0,1,Monday,1.07,0,Sunny / Mild,29.2,0,22.0,50.0
+2026-07-06,Veg Thali,Lunch Meals,104,104,106,2,0,Monday,1.07,0,Sunny / Mild,29.2,0,65.0,130.0
+2026-07-06,Veg Grilled Sandwich,Snack,52,52,58,6,0,Monday,1.07,0,Sunny / Mild,29.2,0,28.0,60.0
+2026-07-06,Rajma Rice Bowl,Lunch Meals,69,69,76,7,0,Monday,1.07,0,Sunny / Mild,29.2,0,45.0,95.0
+2026-07-06,Poha,Breakfast / Light,65,71,65,0,1,Monday,1.07,0,Sunny / Mild,29.2,0,18.0,40.0
+2026-07-06,Masala Dosa,All-Day,69,69,69,0,0,Monday,1.07,0,Sunny / Mild,29.2,0,32.0,70.0
+2026-07-06,Fresh Fruit Juice,Beverage,54,54,54,0,0,Monday,1.07,0,Sunny / Mild,29.2,0,30.0,65.0
+2026-07-07,Pav Bhaji,Lunch / Snack,81,82,81,0,1,Tuesday,0.97,0,Hot / Humid,35.5,0,35.0,75.0
+2026-07-07,Idli Sambar,Breakfast / Light,65,65,72,7,0,Tuesday,0.97,0,Hot / Humid,35.5,0,22.0,50.0
+2026-07-07,Veg Thali,Lunch Meals,81,81,106,25,0,Tuesday,0.97,0,Hot / Humid,35.5,0,65.0,130.0
+2026-07-07,Veg Grilled Sandwich,Snack,51,51,58,7,0,Tuesday,0.97,0,Hot / Humid,35.5,0,28.0,60.0
+2026-07-07,Rajma Rice Bowl,Lunch Meals,62,62,76,14,0,Tuesday,0.97,0,Hot / Humid,35.5,0,45.0,95.0
+2026-07-07,Poha,Breakfast / Light,50,50,65,15,0,Tuesday,0.97,0,Hot / Humid,35.5,0,18.0,40.0
+2026-07-07,Masala Dosa,All-Day,59,59,69,10,0,Tuesday,0.97,0,Hot / Humid,35.5,0,32.0,70.0
+2026-07-07,Fresh Fruit Juice,Beverage,54,60,54,0,1,Tuesday,0.97,0,Hot / Humid,35.5,0,30.0,65.0
+2026-07-08,Pav Bhaji,Lunch / Snack,81,93,81,0,1,Wednesday,1.02,0,Hot / Humid,35.0,1,35.0,75.0
+2026-07-08,Idli Sambar,Breakfast / Light,57,57,72,15,0,Wednesday,1.02,0,Hot / Humid,35.0,1,22.0,50.0
+2026-07-08,Veg Thali,Lunch Meals,82,82,106,24,0,Wednesday,1.02,0,Hot / Humid,35.0,1,65.0,130.0
+2026-07-08,Veg Grilled Sandwich,Snack,58,65,58,0,1,Wednesday,1.02,0,Hot / Humid,35.0,1,28.0,60.0
+2026-07-08,Rajma Rice Bowl,Lunch Meals,75,75,76,1,0,Wednesday,1.02,0,Hot / Humid,35.0,1,45.0,95.0
+2026-07-08,Poha,Breakfast / Light,65,69,65,0,1,Wednesday,1.02,0,Hot / Humid,35.0,1,18.0,40.0
+2026-07-08,Masala Dosa,All-Day,60,60,69,9,0,Wednesday,1.02,0,Hot / Humid,35.0,1,32.0,70.0
+2026-07-08,Fresh Fruit Juice,Beverage,54,76,54,0,1,Wednesday,1.02,0,Hot / Humid,35.0,1,30.0,65.0
+2026-07-09,Pav Bhaji,Lunch / Snack,81,87,81,0,1,Thursday,1.0,0,Rainy / Low Footfall,24.1,0,35.0,75.0
+2026-07-09,Idli Sambar,Breakfast / Light,44,44,72,28,0,Thursday,1.0,0,Rainy / Low Footfall,24.1,0,22.0,50.0
+2026-07-09,Veg Thali,Lunch Meals,104,104,106,2,0,Thursday,1.0,0,Rainy / Low Footfall,24.1,0,65.0,130.0
+2026-07-09,Veg Grilled Sandwich,Snack,51,51,58,7,0,Thursday,1.0,0,Rainy / Low Footfall,24.1,0,28.0,60.0
+2026-07-09,Rajma Rice Bowl,Lunch Meals,60,60,76,16,0,Thursday,1.0,0,Rainy / Low Footfall,24.1,0,45.0,95.0
+2026-07-09,Poha,Breakfast / Light,65,69,65,0,1,Thursday,1.0,0,Rainy / Low Footfall,24.1,0,18.0,40.0
+2026-07-09,Masala Dosa,All-Day,69,74,69,0,1,Thursday,1.0,0,Rainy / Low Footfall,24.1,0,32.0,70.0
+2026-07-09,Fresh Fruit Juice,Beverage,32,32,54,22,0,Thursday,1.0,0,Rainy / Low Footfall,24.1,0,30.0,65.0
+2026-07-10,Pav Bhaji,Lunch / Snack,81,93,81,0,1,Friday,0.97,0,Rainy / Low Footfall,22.9,0,35.0,75.0
+2026-07-10,Idli Sambar,Breakfast / Light,53,53,72,19,0,Friday,0.97,0,Rainy / Low Footfall,22.9,0,22.0,50.0
+2026-07-10,Veg Thali,Lunch Meals,89,89,106,17,0,Friday,0.97,0,Rainy / Low Footfall,22.9,0,65.0,130.0
+2026-07-10,Veg Grilled Sandwich,Snack,55,55,58,3,0,Friday,0.97,0,Rainy / Low Footfall,22.9,0,28.0,60.0
+2026-07-10,Rajma Rice Bowl,Lunch Meals,54,54,76,22,0,Friday,0.97,0,Rainy / Low Footfall,22.9,0,45.0,95.0
+2026-07-10,Poha,Breakfast / Light,65,69,65,0,1,Friday,0.97,0,Rainy / Low Footfall,22.9,0,18.0,40.0
+2026-07-10,Masala Dosa,All-Day,52,52,69,17,0,Friday,0.97,0,Rainy / Low Footfall,22.9,0,32.0,70.0
+2026-07-10,Fresh Fruit Juice,Beverage,36,36,54,18,0,Friday,0.97,0,Rainy / Low Footfall,22.9,0,30.0,65.0
+2026-07-11,Pav Bhaji,Lunch / Snack,24,24,50,26,0,Saturday,0.61,0,Sunny / Mild,28.0,0,35.0,75.0
+2026-07-11,Idli Sambar,Breakfast / Light,37,37,45,8,0,Saturday,0.61,0,Sunny / Mild,28.0,0,22.0,50.0
+2026-07-11,Veg Thali,Lunch Meals,27,27,66,39,0,Saturday,0.61,0,Sunny / Mild,28.0,0,65.0,130.0
+2026-07-11,Veg Grilled Sandwich,Snack,26,26,36,10,0,Saturday,0.61,0,Sunny / Mild,28.0,0,28.0,60.0
+2026-07-11,Rajma Rice Bowl,Lunch Meals,31,31,48,17,0,Saturday,0.61,0,Sunny / Mild,28.0,0,45.0,95.0
+2026-07-11,Poha,Breakfast / Light,29,29,41,12,0,Saturday,0.61,0,Sunny / Mild,28.0,0,18.0,40.0
+2026-07-11,Masala Dosa,All-Day,29,29,43,14,0,Saturday,0.61,0,Sunny / Mild,28.0,0,32.0,70.0
+2026-07-11,Fresh Fruit Juice,Beverage,16,16,34,18,0,Saturday,0.61,0,Sunny / Mild,28.0,0,30.0,65.0
+2026-07-12,Pav Bhaji,Lunch / Snack,21,21,50,29,0,Sunday,0.45,0,Sunny / Mild,27.2,0,35.0,75.0
+2026-07-12,Idli Sambar,Breakfast / Light,31,31,45,14,0,Sunday,0.45,0,Sunny / Mild,27.2,0,22.0,50.0
+2026-07-12,Veg Thali,Lunch Meals,32,32,66,34,0,Sunday,0.45,0,Sunny / Mild,27.2,0,65.0,130.0
+2026-07-12,Veg Grilled Sandwich,Snack,16,16,36,20,0,Sunday,0.45,0,Sunny / Mild,27.2,0,28.0,60.0
+2026-07-12,Rajma Rice Bowl,Lunch Meals,21,21,48,27,0,Sunday,0.45,0,Sunny / Mild,27.2,0,45.0,95.0
+2026-07-12,Poha,Breakfast / Light,18,18,41,23,0,Sunday,0.45,0,Sunny / Mild,27.2,0,18.0,40.0
+2026-07-12,Masala Dosa,All-Day,34,34,43,9,0,Sunday,0.45,0,Sunny / Mild,27.2,0,32.0,70.0
+2026-07-12,Fresh Fruit Juice,Beverage,18,18,34,16,0,Sunday,0.45,0,Sunny / Mild,27.2,0,30.0,65.0
+2026-07-13,Pav Bhaji,Lunch / Snack,72,72,81,9,0,Monday,1.02,0,Sunny / Mild,30.3,0,35.0,75.0
+2026-07-13,Idli Sambar,Breakfast / Light,72,76,72,0,1,Monday,1.02,0,Sunny / Mild,30.3,0,22.0,50.0
+2026-07-13,Veg Thali,Lunch Meals,96,96,106,10,0,Monday,1.02,0,Sunny / Mild,30.3,0,65.0,130.0
+2026-07-13,Veg Grilled Sandwich,Snack,53,53,58,5,0,Monday,1.02,0,Sunny / Mild,30.3,0,28.0,60.0
+2026-07-13,Rajma Rice Bowl,Lunch Meals,74,74,76,2,0,Monday,1.02,0,Sunny / Mild,30.3,0,45.0,95.0
+2026-07-13,Poha,Breakfast / Light,65,70,65,0,1,Monday,1.02,0,Sunny / Mild,30.3,0,18.0,40.0
+2026-07-13,Masala Dosa,All-Day,68,68,69,1,0,Monday,1.02,0,Sunny / Mild,30.3,0,32.0,70.0
+2026-07-13,Fresh Fruit Juice,Beverage,49,49,54,5,0,Monday,1.02,0,Sunny / Mild,30.3,0,30.0,65.0
+2026-07-14,Pav Bhaji,Lunch / Snack,58,58,81,23,0,Tuesday,1.0,0,Sunny / Mild,26.7,0,35.0,75.0
+2026-07-14,Idli Sambar,Breakfast / Light,70,70,72,2,0,Tuesday,1.0,0,Sunny / Mild,26.7,0,22.0,50.0
+2026-07-14,Veg Thali,Lunch Meals,98,98,106,8,0,Tuesday,1.0,0,Sunny / Mild,26.7,0,65.0,130.0
+2026-07-14,Veg Grilled Sandwich,Snack,57,57,58,1,0,Tuesday,1.0,0,Sunny / Mild,26.7,0,28.0,60.0
+2026-07-14,Rajma Rice Bowl,Lunch Meals,48,48,76,28,0,Tuesday,1.0,0,Sunny / Mild,26.7,0,45.0,95.0
+2026-07-14,Poha,Breakfast / Light,65,70,65,0,1,Tuesday,1.0,0,Sunny / Mild,26.7,0,18.0,40.0
+2026-07-14,Masala Dosa,All-Day,61,61,69,8,0,Tuesday,1.0,0,Sunny / Mild,26.7,0,32.0,70.0
+2026-07-14,Fresh Fruit Juice,Beverage,53,53,54,1,0,Tuesday,1.0,0,Sunny / Mild,26.7,0,30.0,65.0
+2026-07-15,Pav Bhaji,Lunch / Snack,81,89,81,0,1,Wednesday,1.3,1,Sunny / Mild,29.4,0,35.0,75.0
+2026-07-15,Idli Sambar,Breakfast / Light,72,95,72,0,1,Wednesday,1.3,1,Sunny / Mild,29.4,0,22.0,50.0
+2026-07-15,Veg Thali,Lunch Meals,106,137,106,0,1,Wednesday,1.3,1,Sunny / Mild,29.4,0,65.0,130.0
+2026-07-15,Veg Grilled Sandwich,Snack,58,69,58,0,1,Wednesday,1.3,1,Sunny / Mild,29.4,0,28.0,60.0
+2026-07-15,Rajma Rice Bowl,Lunch Meals,76,105,76,0,1,Wednesday,1.3,1,Sunny / Mild,29.4,0,45.0,95.0
+2026-07-15,Poha,Breakfast / Light,65,78,65,0,1,Wednesday,1.3,1,Sunny / Mild,29.4,0,18.0,40.0
+2026-07-15,Masala Dosa,All-Day,69,82,69,0,1,Wednesday,1.3,1,Sunny / Mild,29.4,0,32.0,70.0
+2026-07-15,Fresh Fruit Juice,Beverage,54,64,54,0,1,Wednesday,1.3,1,Sunny / Mild,29.4,0,30.0,65.0
+2026-07-16,Pav Bhaji,Lunch / Snack,81,92,81,0,1,Thursday,1.12,0,Rainy / Low Footfall,24.9,0,35.0,75.0
+2026-07-16,Idli Sambar,Breakfast / Light,68,68,72,4,0,Thursday,1.12,0,Rainy / Low Footfall,24.9,0,22.0,50.0
+2026-07-16,Veg Thali,Lunch Meals,106,113,106,0,1,Thursday,1.12,0,Rainy / Low Footfall,24.9,0,65.0,130.0
+2026-07-16,Veg Grilled Sandwich,Snack,53,53,58,5,0,Thursday,1.12,0,Rainy / Low Footfall,24.9,0,28.0,60.0
+2026-07-16,Rajma Rice Bowl,Lunch Meals,65,65,76,11,0,Thursday,1.12,0,Rainy / Low Footfall,24.9,0,45.0,95.0
+2026-07-16,Poha,Breakfast / Light,65,84,65,0,1,Thursday,1.12,0,Rainy / Low Footfall,24.9,0,18.0,40.0
+2026-07-16,Masala Dosa,All-Day,69,73,69,0,1,Thursday,1.12,0,Rainy / Low Footfall,24.9,0,32.0,70.0
+2026-07-16,Fresh Fruit Juice,Beverage,36,36,54,18,0,Thursday,1.12,0,Rainy / Low Footfall,24.9,0,30.0,65.0
+2026-07-17,Pav Bhaji,Lunch / Snack,81,97,81,0,1,Friday,0.96,0,Rainy / Low Footfall,22.2,0,35.0,75.0
+2026-07-17,Idli Sambar,Breakfast / Light,54,54,72,18,0,Friday,0.96,0,Rainy / Low Footfall,22.2,0,22.0,50.0
+2026-07-17,Veg Thali,Lunch Meals,81,81,106,25,0,Friday,0.96,0,Rainy / Low Footfall,22.2,0,65.0,130.0
+2026-07-17,Veg Grilled Sandwich,Snack,54,54,58,4,0,Friday,0.96,0,Rainy / Low Footfall,22.2,0,28.0,60.0
+2026-07-17,Rajma Rice Bowl,Lunch Meals,66,66,76,10,0,Friday,0.96,0,Rainy / Low Footfall,22.2,0,45.0,95.0
+2026-07-17,Poha,Breakfast / Light,65,67,65,0,1,Friday,0.96,0,Rainy / Low Footfall,22.2,0,18.0,40.0
+2026-07-17,Masala Dosa,All-Day,67,67,69,2,0,Friday,0.96,0,Rainy / Low Footfall,22.2,0,32.0,70.0
+2026-07-17,Fresh Fruit Juice,Beverage,35,35,54,19,0,Friday,0.96,0,Rainy / Low Footfall,22.2,0,30.0,65.0
+2026-07-18,Pav Bhaji,Lunch / Snack,32,32,50,18,0,Saturday,0.76,0,Hot / Humid,37.3,0,35.0,75.0
+2026-07-18,Idli Sambar,Breakfast / Light,35,35,45,10,0,Saturday,0.76,0,Hot / Humid,37.3,0,22.0,50.0
+2026-07-18,Veg Thali,Lunch Meals,48,48,66,18,0,Saturday,0.76,0,Hot / Humid,37.3,0,65.0,130.0
+2026-07-18,Veg Grilled Sandwich,Snack,29,29,36,7,0,Saturday,0.76,0,Hot / Humid,37.3,0,28.0,60.0
+2026-07-18,Rajma Rice Bowl,Lunch Meals,35,35,48,13,0,Saturday,0.76,0,Hot / Humid,37.3,0,45.0,95.0
+2026-07-18,Poha,Breakfast / Light,32,32,41,9,0,Saturday,0.76,0,Hot / Humid,37.3,0,18.0,40.0
+2026-07-18,Masala Dosa,All-Day,35,35,43,8,0,Saturday,0.76,0,Hot / Humid,37.3,0,32.0,70.0
+2026-07-18,Fresh Fruit Juice,Beverage,34,34,34,0,0,Saturday,0.76,0,Hot / Humid,37.3,0,30.0,65.0
+2026-07-19,Pav Bhaji,Lunch / Snack,12,12,50,38,0,Sunday,0.35,0,Sunny / Mild,29.5,0,35.0,75.0
+2026-07-19,Idli Sambar,Breakfast / Light,5,5,45,40,0,Sunday,0.35,0,Sunny / Mild,29.5,0,22.0,50.0
+2026-07-19,Veg Thali,Lunch Meals,12,12,66,54,0,Sunday,0.35,0,Sunny / Mild,29.5,0,65.0,130.0
+2026-07-19,Veg Grilled Sandwich,Snack,7,7,36,29,0,Sunday,0.35,0,Sunny / Mild,29.5,0,28.0,60.0
+2026-07-19,Rajma Rice Bowl,Lunch Meals,29,29,48,19,0,Sunday,0.35,0,Sunny / Mild,29.5,0,45.0,95.0
+2026-07-19,Poha,Breakfast / Light,21,21,41,20,0,Sunday,0.35,0,Sunny / Mild,29.5,0,18.0,40.0
+2026-07-19,Masala Dosa,All-Day,12,12,43,31,0,Sunday,0.35,0,Sunny / Mild,29.5,0,32.0,70.0
+2026-07-19,Fresh Fruit Juice,Beverage,23,23,34,11,0,Sunday,0.35,0,Sunny / Mild,29.5,0,30.0,65.0
+2026-07-20,Pav Bhaji,Lunch / Snack,73,73,81,8,0,Monday,1.05,0,Sunny / Mild,28.4,0,35.0,75.0
+2026-07-20,Idli Sambar,Breakfast / Light,70,70,72,2,0,Monday,1.05,0,Sunny / Mild,28.4,0,22.0,50.0
+2026-07-20,Veg Thali,Lunch Meals,84,84,106,22,0,Monday,1.05,0,Sunny / Mild,28.4,0,65.0,130.0
+2026-07-20,Veg Grilled Sandwich,Snack,58,60,58,0,1,Monday,1.05,0,Sunny / Mild,28.4,0,28.0,60.0
+2026-07-20,Rajma Rice Bowl,Lunch Meals,76,88,76,0,1,Monday,1.05,0,Sunny / Mild,28.4,0,45.0,95.0
+2026-07-20,Poha,Breakfast / Light,65,80,65,0,1,Monday,1.05,0,Sunny / Mild,28.4,0,18.0,40.0
+2026-07-20,Masala Dosa,All-Day,69,69,69,0,0,Monday,1.05,0,Sunny / Mild,28.4,0,32.0,70.0
+2026-07-20,Fresh Fruit Juice,Beverage,53,53,54,1,0,Monday,1.05,0,Sunny / Mild,28.4,0,30.0,65.0
+2026-07-21,Pav Bhaji,Lunch / Snack,81,92,81,0,1,Tuesday,1.04,0,Rainy / Low Footfall,22.1,0,35.0,75.0
+2026-07-21,Idli Sambar,Breakfast / Light,58,58,72,14,0,Tuesday,1.04,0,Rainy / Low Footfall,22.1,0,22.0,50.0
+2026-07-21,Veg Thali,Lunch Meals,85,85,106,21,0,Tuesday,1.04,0,Rainy / Low Footfall,22.1,0,65.0,130.0
+2026-07-21,Veg Grilled Sandwich,Snack,46,46,58,12,0,Tuesday,1.04,0,Rainy / Low Footfall,22.1,0,28.0,60.0
+2026-07-21,Rajma Rice Bowl,Lunch Meals,55,55,76,21,0,Tuesday,1.04,0,Rainy / Low Footfall,22.1,0,45.0,95.0
+2026-07-21,Poha,Breakfast / Light,65,68,65,0,1,Tuesday,1.04,0,Rainy / Low Footfall,22.1,0,18.0,40.0
+2026-07-21,Masala Dosa,All-Day,64,64,69,5,0,Tuesday,1.04,0,Rainy / Low Footfall,22.1,0,32.0,70.0
+2026-07-21,Fresh Fruit Juice,Beverage,32,32,54,22,0,Tuesday,1.04,0,Rainy / Low Footfall,22.1,0,30.0,65.0
+2026-07-22,Pav Bhaji,Lunch / Snack,74,74,81,7,0,Wednesday,0.95,0,Hot / Humid,35.8,1,35.0,75.0
+2026-07-22,Idli Sambar,Breakfast / Light,67,67,72,5,0,Wednesday,0.95,0,Hot / Humid,35.8,1,22.0,50.0
+2026-07-22,Veg Thali,Lunch Meals,74,74,106,32,0,Wednesday,0.95,0,Hot / Humid,35.8,1,65.0,130.0
+2026-07-22,Veg Grilled Sandwich,Snack,54,54,58,4,0,Wednesday,0.95,0,Hot / Humid,35.8,1,28.0,60.0
+2026-07-22,Rajma Rice Bowl,Lunch Meals,70,70,76,6,0,Wednesday,0.95,0,Hot / Humid,35.8,1,45.0,95.0
+2026-07-22,Poha,Breakfast / Light,49,49,65,16,0,Wednesday,0.95,0,Hot / Humid,35.8,1,18.0,40.0
+2026-07-22,Masala Dosa,All-Day,58,58,69,11,0,Wednesday,0.95,0,Hot / Humid,35.8,1,32.0,70.0
+2026-07-22,Fresh Fruit Juice,Beverage,54,69,54,0,1,Wednesday,0.95,0,Hot / Humid,35.8,1,30.0,65.0
+2026-07-23,Pav Bhaji,Lunch / Snack,64,64,81,17,0,Thursday,0.95,0,Sunny / Mild,28.6,0,35.0,75.0
+2026-07-23,Idli Sambar,Breakfast / Light,63,63,72,9,0,Thursday,0.95,0,Sunny / Mild,28.6,0,22.0,50.0
+2026-07-23,Veg Thali,Lunch Meals,86,86,106,20,0,Thursday,0.95,0,Sunny / Mild,28.6,0,65.0,130.0
+2026-07-23,Veg Grilled Sandwich,Snack,52,52,58,6,0,Thursday,0.95,0,Sunny / Mild,28.6,0,28.0,60.0
+2026-07-23,Rajma Rice Bowl,Lunch Meals,72,72,76,4,0,Thursday,0.95,0,Sunny / Mild,28.6,0,45.0,95.0
+2026-07-23,Poha,Breakfast / Light,58,58,65,7,0,Thursday,0.95,0,Sunny / Mild,28.6,0,18.0,40.0
+2026-07-23,Masala Dosa,All-Day,60,60,69,9,0,Thursday,0.95,0,Sunny / Mild,28.6,0,32.0,70.0
+2026-07-23,Fresh Fruit Juice,Beverage,52,52,54,2,0,Thursday,0.95,0,Sunny / Mild,28.6,0,30.0,65.0
+2026-07-24,Pav Bhaji,Lunch / Snack,81,99,81,0,1,Friday,1.01,0,Rainy / Low Footfall,25.0,0,35.0,75.0
+2026-07-24,Idli Sambar,Breakfast / Light,55,55,72,17,0,Friday,1.01,0,Rainy / Low Footfall,25.0,0,22.0,50.0
+2026-07-24,Veg Thali,Lunch Meals,82,82,106,24,0,Friday,1.01,0,Rainy / Low Footfall,25.0,0,65.0,130.0
+2026-07-24,Veg Grilled Sandwich,Snack,51,51,58,7,0,Friday,1.01,0,Rainy / Low Footfall,25.0,0,28.0,60.0
+2026-07-24,Rajma Rice Bowl,Lunch Meals,54,54,76,22,0,Friday,1.01,0,Rainy / Low Footfall,25.0,0,45.0,95.0
+2026-07-24,Poha,Breakfast / Light,59,59,65,6,0,Friday,1.01,0,Rainy / Low Footfall,25.0,0,18.0,40.0
+2026-07-24,Masala Dosa,All-Day,69,83,69,0,1,Friday,1.01,0,Rainy / Low Footfall,25.0,0,32.0,70.0
+2026-07-24,Fresh Fruit Juice,Beverage,26,26,54,28,0,Friday,1.01,0,Rainy / Low Footfall,25.0,0,30.0,65.0
+2026-07-25,Pav Bhaji,Lunch / Snack,34,34,50,16,0,Saturday,0.67,0,Hot / Humid,33.9,0,35.0,75.0
+2026-07-25,Idli Sambar,Breakfast / Light,40,40,45,5,0,Saturday,0.67,0,Hot / Humid,33.9,0,22.0,50.0
+2026-07-25,Veg Thali,Lunch Meals,24,24,66,42,0,Saturday,0.67,0,Hot / Humid,33.9,0,65.0,130.0
+2026-07-25,Veg Grilled Sandwich,Snack,28,28,36,8,0,Saturday,0.67,0,Hot / Humid,33.9,0,28.0,60.0
+2026-07-25,Rajma Rice Bowl,Lunch Meals,24,24,48,24,0,Saturday,0.67,0,Hot / Humid,33.9,0,45.0,95.0
+2026-07-25,Poha,Breakfast / Light,41,42,41,0,1,Saturday,0.67,0,Hot / Humid,33.9,0,18.0,40.0
+2026-07-25,Masala Dosa,All-Day,24,24,43,19,0,Saturday,0.67,0,Hot / Humid,33.9,0,32.0,70.0
+2026-07-25,Fresh Fruit Juice,Beverage,34,36,34,0,1,Saturday,0.67,0,Hot / Humid,33.9,0,30.0,65.0
+2026-07-26,Pav Bhaji,Lunch / Snack,26,26,50,24,0,Sunday,0.43,0,Sunny / Mild,26.5,0,35.0,75.0
+2026-07-26,Idli Sambar,Breakfast / Light,21,21,45,24,0,Sunday,0.43,0,Sunny / Mild,26.5,0,22.0,50.0
+2026-07-26,Veg Thali,Lunch Meals,21,21,66,45,0,Sunday,0.43,0,Sunny / Mild,26.5,0,65.0,130.0
+2026-07-26,Veg Grilled Sandwich,Snack,22,22,36,14,0,Sunday,0.43,0,Sunny / Mild,26.5,0,28.0,60.0
+2026-07-26,Rajma Rice Bowl,Lunch Meals,37,37,48,11,0,Sunday,0.43,0,Sunny / Mild,26.5,0,45.0,95.0
+2026-07-26,Poha,Breakfast / Light,15,15,41,26,0,Sunday,0.43,0,Sunny / Mild,26.5,0,18.0,40.0
+2026-07-26,Masala Dosa,All-Day,12,12,43,31,0,Sunday,0.43,0,Sunny / Mild,26.5,0,32.0,70.0
+2026-07-26,Fresh Fruit Juice,Beverage,15,15,34,19,0,Sunday,0.43,0,Sunny / Mild,26.5,0,30.0,65.0
+2026-07-27,Pav Bhaji,Lunch / Snack,81,88,81,0,1,Monday,1.13,0,Rainy / Low Footfall,22.7,0,35.0,75.0
+2026-07-27,Idli Sambar,Breakfast / Light,72,83,72,0,1,Monday,1.13,0,Rainy / Low Footfall,22.7,0,22.0,50.0
+2026-07-27,Veg Thali,Lunch Meals,106,107,106,0,1,Monday,1.13,0,Rainy / Low Footfall,22.7,0,65.0,130.0
+2026-07-27,Veg Grilled Sandwich,Snack,47,47,58,11,0,Monday,1.13,0,Rainy / Low Footfall,22.7,0,28.0,60.0
+2026-07-27,Rajma Rice Bowl,Lunch Meals,69,69,76,7,0,Monday,1.13,0,Rainy / Low Footfall,22.7,0,45.0,95.0
+2026-07-27,Poha,Breakfast / Light,65,98,65,0,1,Monday,1.13,0,Rainy / Low Footfall,22.7,0,18.0,40.0
+2026-07-27,Masala Dosa,All-Day,69,78,69,0,1,Monday,1.13,0,Rainy / Low Footfall,22.7,0,32.0,70.0
+2026-07-27,Fresh Fruit Juice,Beverage,34,34,54,20,0,Monday,1.13,0,Rainy / Low Footfall,22.7,0,30.0,65.0
+2026-07-28,Pav Bhaji,Lunch / Snack,63,63,81,18,0,Tuesday,0.97,0,Sunny / Mild,27.8,0,35.0,75.0
+2026-07-28,Idli Sambar,Breakfast / Light,62,62,72,10,0,Tuesday,0.97,0,Sunny / Mild,27.8,0,22.0,50.0
+2026-07-28,Veg Thali,Lunch Meals,85,85,106,21,0,Tuesday,0.97,0,Sunny / Mild,27.8,0,65.0,130.0
+2026-07-28,Veg Grilled Sandwich,Snack,52,52,58,6,0,Tuesday,0.97,0,Sunny / Mild,27.8,0,28.0,60.0
+2026-07-28,Rajma Rice Bowl,Lunch Meals,55,55,76,21,0,Tuesday,0.97,0,Sunny / Mild,27.8,0,45.0,95.0
+2026-07-28,Poha,Breakfast / Light,58,58,65,7,0,Tuesday,0.97,0,Sunny / Mild,27.8,0,18.0,40.0
+2026-07-28,Masala Dosa,All-Day,65,65,69,4,0,Tuesday,0.97,0,Sunny / Mild,27.8,0,32.0,70.0
+2026-07-28,Fresh Fruit Juice,Beverage,37,37,54,17,0,Tuesday,0.97,0,Sunny / Mild,27.8,0,30.0,65.0
+2026-07-29,Pav Bhaji,Lunch / Snack,81,85,81,0,1,Wednesday,1.02,0,Sunny / Mild,29.3,0,35.0,75.0
+2026-07-29,Idli Sambar,Breakfast / Light,68,68,72,4,0,Wednesday,1.02,0,Sunny / Mild,29.3,0,22.0,50.0
+2026-07-29,Veg Thali,Lunch Meals,102,102,106,4,0,Wednesday,1.02,0,Sunny / Mild,29.3,0,65.0,130.0
+2026-07-29,Veg Grilled Sandwich,Snack,53,53,58,5,0,Wednesday,1.02,0,Sunny / Mild,29.3,0,28.0,60.0
+2026-07-29,Rajma Rice Bowl,Lunch Meals,76,81,76,0,1,Wednesday,1.02,0,Sunny / Mild,29.3,0,45.0,95.0
+2026-07-29,Poha,Breakfast / Light,60,60,65,5,0,Wednesday,1.02,0,Sunny / Mild,29.3,0,18.0,40.0
+2026-07-29,Masala Dosa,All-Day,67,67,69,2,0,Wednesday,1.02,0,Sunny / Mild,29.3,0,32.0,70.0
+2026-07-29,Fresh Fruit Juice,Beverage,45,45,54,9,0,Wednesday,1.02,0,Sunny / Mild,29.3,0,30.0,65.0
+2026-07-30,Pav Bhaji,Lunch / Snack,63,63,81,18,0,Thursday,1.01,0,Sunny / Mild,28.3,0,35.0,75.0
+2026-07-30,Idli Sambar,Breakfast / Light,60,60,72,12,0,Thursday,1.01,0,Sunny / Mild,28.3,0,22.0,50.0
+2026-07-30,Veg Thali,Lunch Meals,106,119,106,0,1,Thursday,1.01,0,Sunny / Mild,28.3,0,65.0,130.0
+2026-07-30,Veg Grilled Sandwich,Snack,58,58,58,0,0,Thursday,1.01,0,Sunny / Mild,28.3,0,28.0,60.0
+2026-07-30,Rajma Rice Bowl,Lunch Meals,76,81,76,0,1,Thursday,1.01,0,Sunny / Mild,28.3,0,45.0,95.0
+2026-07-30,Poha,Breakfast / Light,52,52,65,13,0,Thursday,1.01,0,Sunny / Mild,28.3,0,18.0,40.0
+2026-07-30,Masala Dosa,All-Day,61,61,69,8,0,Thursday,1.01,0,Sunny / Mild,28.3,0,32.0,70.0
+2026-07-30,Fresh Fruit Juice,Beverage,54,54,54,0,0,Thursday,1.01,0,Sunny / Mild,28.3,0,30.0,65.0
+2026-07-31,Pav Bhaji,Lunch / Snack,81,90,81,0,1,Friday,1.01,0,Sunny / Mild,29.1,0,35.0,75.0
+2026-07-31,Idli Sambar,Breakfast / Light,63,63,72,9,0,Friday,1.01,0,Sunny / Mild,29.1,0,22.0,50.0
+2026-07-31,Veg Thali,Lunch Meals,97,97,106,9,0,Friday,1.01,0,Sunny / Mild,29.1,0,65.0,130.0
+2026-07-31,Veg Grilled Sandwich,Snack,58,63,58,0,1,Friday,1.01,0,Sunny / Mild,29.1,0,28.0,60.0
+2026-07-31,Rajma Rice Bowl,Lunch Meals,73,73,76,3,0,Friday,1.01,0,Sunny / Mild,29.1,0,45.0,95.0
+2026-07-31,Poha,Breakfast / Light,64,64,65,1,0,Friday,1.01,0,Sunny / Mild,29.1,0,18.0,40.0
+2026-07-31,Masala Dosa,All-Day,58,58,69,11,0,Friday,1.01,0,Sunny / Mild,29.1,0,32.0,70.0
+2026-07-31,Fresh Fruit Juice,Beverage,42,42,54,12,0,Friday,1.01,0,Sunny / Mild,29.1,0,30.0,65.0
+2026-08-01,Pav Bhaji,Lunch / Snack,37,37,50,13,0,Saturday,0.61,0,Sunny / Mild,28.2,0,35.0,75.0
+2026-08-01,Idli Sambar,Breakfast / Light,32,32,45,13,0,Saturday,0.61,0,Sunny / Mild,28.2,0,22.0,50.0
+2026-08-01,Veg Thali,Lunch Meals,56,56,66,10,0,Saturday,0.61,0,Sunny / Mild,28.2,0,65.0,130.0
+2026-08-01,Veg Grilled Sandwich,Snack,24,24,36,12,0,Saturday,0.61,0,Sunny / Mild,28.2,0,28.0,60.0
+2026-08-01,Rajma Rice Bowl,Lunch Meals,37,37,48,11,0,Saturday,0.61,0,Sunny / Mild,28.2,0,45.0,95.0
+2026-08-01,Poha,Breakfast / Light,27,27,41,14,0,Saturday,0.61,0,Sunny / Mild,28.2,0,18.0,40.0
+2026-08-01,Masala Dosa,All-Day,28,28,43,15,0,Saturday,0.61,0,Sunny / Mild,28.2,0,32.0,70.0
+2026-08-01,Fresh Fruit Juice,Beverage,26,26,34,8,0,Saturday,0.61,0,Sunny / Mild,28.2,0,30.0,65.0
+2026-08-02,Pav Bhaji,Lunch / Snack,19,19,50,31,0,Sunday,0.39,0,Rainy / Low Footfall,26.0,0,35.0,75.0
+2026-08-02,Idli Sambar,Breakfast / Light,22,22,45,23,0,Sunday,0.39,0,Rainy / Low Footfall,26.0,0,22.0,50.0
+2026-08-02,Veg Thali,Lunch Meals,16,16,66,50,0,Sunday,0.39,0,Rainy / Low Footfall,26.0,0,65.0,130.0
+2026-08-02,Veg Grilled Sandwich,Snack,9,9,36,27,0,Sunday,0.39,0,Rainy / Low Footfall,26.0,0,28.0,60.0
+2026-08-02,Rajma Rice Bowl,Lunch Meals,21,21,48,27,0,Sunday,0.39,0,Rainy / Low Footfall,26.0,0,45.0,95.0
+2026-08-02,Poha,Breakfast / Light,14,14,41,27,0,Sunday,0.39,0,Rainy / Low Footfall,26.0,0,18.0,40.0
+2026-08-02,Masala Dosa,All-Day,21,21,43,22,0,Sunday,0.39,0,Rainy / Low Footfall,26.0,0,32.0,70.0
+2026-08-02,Fresh Fruit Juice,Beverage,9,9,34,25,0,Sunday,0.39,0,Rainy / Low Footfall,26.0,0,30.0,65.0
+2026-08-03,Pav Bhaji,Lunch / Snack,79,79,81,2,0,Monday,1.05,0,Sunny / Mild,30.3,0,35.0,75.0
+2026-08-03,Idli Sambar,Breakfast / Light,72,79,72,0,1,Monday,1.05,0,Sunny / Mild,30.3,0,22.0,50.0
+2026-08-03,Veg Thali,Lunch Meals,106,108,106,0,1,Monday,1.05,0,Sunny / Mild,30.3,0,65.0,130.0
+2026-08-03,Veg Grilled Sandwich,Snack,58,62,58,0,1,Monday,1.05,0,Sunny / Mild,30.3,0,28.0,60.0
+2026-08-03,Rajma Rice Bowl,Lunch Meals,75,75,76,1,0,Monday,1.05,0,Sunny / Mild,30.3,0,45.0,95.0
+2026-08-03,Poha,Breakfast / Light,65,72,65,0,1,Monday,1.05,0,Sunny / Mild,30.3,0,18.0,40.0
+2026-08-03,Masala Dosa,All-Day,57,57,69,12,0,Monday,1.05,0,Sunny / Mild,30.3,0,32.0,70.0
+2026-08-03,Fresh Fruit Juice,Beverage,45,45,54,9,0,Monday,1.05,0,Sunny / Mild,30.3,0,30.0,65.0
+2026-08-04,Pav Bhaji,Lunch / Snack,71,71,81,10,0,Tuesday,0.98,0,Sunny / Mild,26.3,0,35.0,75.0
+2026-08-04,Idli Sambar,Breakfast / Light,66,66,72,6,0,Tuesday,0.98,0,Sunny / Mild,26.3,0,22.0,50.0
+2026-08-04,Veg Thali,Lunch Meals,92,92,106,14,0,Tuesday,0.98,0,Sunny / Mild,26.3,0,65.0,130.0
+2026-08-04,Veg Grilled Sandwich,Snack,53,53,58,5,0,Tuesday,0.98,0,Sunny / Mild,26.3,0,28.0,60.0
+2026-08-04,Rajma Rice Bowl,Lunch Meals,67,67,76,9,0,Tuesday,0.98,0,Sunny / Mild,26.3,0,45.0,95.0
+2026-08-04,Poha,Breakfast / Light,45,45,65,20,0,Tuesday,0.98,0,Sunny / Mild,26.3,0,18.0,40.0
+2026-08-04,Masala Dosa,All-Day,55,55,69,14,0,Tuesday,0.98,0,Sunny / Mild,26.3,0,32.0,70.0
+2026-08-04,Fresh Fruit Juice,Beverage,46,46,54,8,0,Tuesday,0.98,0,Sunny / Mild,26.3,0,30.0,65.0
+2026-08-05,Pav Bhaji,Lunch / Snack,81,86,81,0,1,Wednesday,0.94,0,Hot / Humid,36.6,1,35.0,75.0
+2026-08-05,Idli Sambar,Breakfast / Light,59,59,72,13,0,Wednesday,0.94,0,Hot / Humid,36.6,1,22.0,50.0
+2026-08-05,Veg Thali,Lunch Meals,102,102,106,4,0,Wednesday,0.94,0,Hot / Humid,36.6,1,65.0,130.0
+2026-08-05,Veg Grilled Sandwich,Snack,58,59,58,0,1,Wednesday,0.94,0,Hot / Humid,36.6,1,28.0,60.0
+2026-08-05,Rajma Rice Bowl,Lunch Meals,61,61,76,15,0,Wednesday,0.94,0,Hot / Humid,36.6,1,45.0,95.0
+2026-08-05,Poha,Breakfast / Light,51,51,65,14,0,Wednesday,0.94,0,Hot / Humid,36.6,1,18.0,40.0
+2026-08-05,Masala Dosa,All-Day,56,56,69,13,0,Wednesday,0.94,0,Hot / Humid,36.6,1,32.0,70.0
+2026-08-05,Fresh Fruit Juice,Beverage,54,64,54,0,1,Wednesday,0.94,0,Hot / Humid,36.6,1,30.0,65.0
+2026-08-06,Pav Bhaji,Lunch / Snack,76,76,81,5,0,Thursday,1.01,0,Sunny / Mild,31.0,0,35.0,75.0
+2026-08-06,Idli Sambar,Breakfast / Light,72,72,72,0,0,Thursday,1.01,0,Sunny / Mild,31.0,0,22.0,50.0
+2026-08-06,Veg Thali,Lunch Meals,106,116,106,0,1,Thursday,1.01,0,Sunny / Mild,31.0,0,65.0,130.0
+2026-08-06,Veg Grilled Sandwich,Snack,45,45,58,13,0,Thursday,1.01,0,Sunny / Mild,31.0,0,28.0,60.0
+2026-08-06,Rajma Rice Bowl,Lunch Meals,60,60,76,16,0,Thursday,1.01,0,Sunny / Mild,31.0,0,45.0,95.0
+2026-08-06,Poha,Breakfast / Light,64,64,65,1,0,Thursday,1.01,0,Sunny / Mild,31.0,0,18.0,40.0
+2026-08-06,Masala Dosa,All-Day,54,54,69,15,0,Thursday,1.01,0,Sunny / Mild,31.0,0,32.0,70.0
+2026-08-06,Fresh Fruit Juice,Beverage,47,47,54,7,0,Thursday,1.01,0,Sunny / Mild,31.0,0,30.0,65.0
+2026-08-07,Pav Bhaji,Lunch / Snack,70,70,81,11,0,Friday,0.94,0,Hot / Humid,37.1,0,35.0,75.0
+2026-08-07,Idli Sambar,Breakfast / Light,56,56,72,16,0,Friday,0.94,0,Hot / Humid,37.1,0,22.0,50.0
+2026-08-07,Veg Thali,Lunch Meals,54,54,106,52,0,Friday,0.94,0,Hot / Humid,37.1,0,65.0,130.0
+2026-08-07,Veg Grilled Sandwich,Snack,57,57,58,1,0,Friday,0.94,0,Hot / Humid,37.1,0,28.0,60.0
+2026-08-07,Rajma Rice Bowl,Lunch Meals,59,59,76,17,0,Friday,0.94,0,Hot / Humid,37.1,0,45.0,95.0
+2026-08-07,Poha,Breakfast / Light,46,46,65,19,0,Friday,0.94,0,Hot / Humid,37.1,0,18.0,40.0
+2026-08-07,Masala Dosa,All-Day,59,59,69,10,0,Friday,0.94,0,Hot / Humid,37.1,0,32.0,70.0
+2026-08-07,Fresh Fruit Juice,Beverage,54,65,54,0,1,Friday,0.94,0,Hot / Humid,37.1,0,30.0,65.0
+2026-08-08,Pav Bhaji,Lunch / Snack,48,48,50,2,0,Saturday,0.73,0,Sunny / Mild,28.7,0,35.0,75.0
+2026-08-08,Idli Sambar,Breakfast / Light,34,34,45,11,0,Saturday,0.73,0,Sunny / Mild,28.7,0,22.0,50.0
+2026-08-08,Veg Thali,Lunch Meals,38,38,66,28,0,Saturday,0.73,0,Sunny / Mild,28.7,0,65.0,130.0
+2026-08-08,Veg Grilled Sandwich,Snack,24,24,36,12,0,Saturday,0.73,0,Sunny / Mild,28.7,0,28.0,60.0
+2026-08-08,Rajma Rice Bowl,Lunch Meals,34,34,48,14,0,Saturday,0.73,0,Sunny / Mild,28.7,0,45.0,95.0
+2026-08-08,Poha,Breakfast / Light,27,27,41,14,0,Saturday,0.73,0,Sunny / Mild,28.7,0,18.0,40.0
+2026-08-08,Masala Dosa,All-Day,33,33,43,10,0,Saturday,0.73,0,Sunny / Mild,28.7,0,32.0,70.0
+2026-08-08,Fresh Fruit Juice,Beverage,34,34,34,0,0,Saturday,0.73,0,Sunny / Mild,28.7,0,30.0,65.0
+2026-08-09,Pav Bhaji,Lunch / Snack,7,7,50,43,0,Sunday,0.35,0,Sunny / Mild,29.9,0,35.0,75.0
+2026-08-09,Idli Sambar,Breakfast / Light,13,13,45,32,0,Sunday,0.35,0,Sunny / Mild,29.9,0,22.0,50.0
+2026-08-09,Veg Thali,Lunch Meals,28,28,66,38,0,Sunday,0.35,0,Sunny / Mild,29.9,0,65.0,130.0
+2026-08-09,Veg Grilled Sandwich,Snack,11,11,36,25,0,Sunday,0.35,0,Sunny / Mild,29.9,0,28.0,60.0
+2026-08-09,Rajma Rice Bowl,Lunch Meals,30,30,48,18,0,Sunday,0.35,0,Sunny / Mild,29.9,0,45.0,95.0
+2026-08-09,Poha,Breakfast / Light,19,19,41,22,0,Sunday,0.35,0,Sunny / Mild,29.9,0,18.0,40.0
+2026-08-09,Masala Dosa,All-Day,13,13,43,30,0,Sunday,0.35,0,Sunny / Mild,29.9,0,32.0,70.0
+2026-08-09,Fresh Fruit Juice,Beverage,23,23,34,11,0,Sunday,0.35,0,Sunny / Mild,29.9,0,30.0,65.0
+2026-08-10,Pav Bhaji,Lunch / Snack,79,79,81,2,0,Monday,0.97,0,Hot / Humid,38.3,0,35.0,75.0
+2026-08-10,Idli Sambar,Breakfast / Light,72,83,72,0,1,Monday,0.97,0,Hot / Humid,38.3,0,22.0,50.0
+2026-08-10,Veg Thali,Lunch Meals,81,81,106,25,0,Monday,0.97,0,Hot / Humid,38.3,0,65.0,130.0
+2026-08-10,Veg Grilled Sandwich,Snack,47,47,58,11,0,Monday,0.97,0,Hot / Humid,38.3,0,28.0,60.0
+2026-08-10,Rajma Rice Bowl,Lunch Meals,61,61,76,15,0,Monday,0.97,0,Hot / Humid,38.3,0,45.0,95.0
+2026-08-10,Poha,Breakfast / Light,62,62,65,3,0,Monday,0.97,0,Hot / Humid,38.3,0,18.0,40.0
+2026-08-10,Masala Dosa,All-Day,69,73,69,0,1,Monday,0.97,0,Hot / Humid,38.3,0,32.0,70.0
+2026-08-10,Fresh Fruit Juice,Beverage,54,68,54,0,1,Monday,0.97,0,Hot / Humid,38.3,0,30.0,65.0
+2026-08-11,Pav Bhaji,Lunch / Snack,72,72,81,9,0,Tuesday,0.98,0,Sunny / Mild,26.1,0,35.0,75.0
+2026-08-11,Idli Sambar,Breakfast / Light,54,54,72,18,0,Tuesday,0.98,0,Sunny / Mild,26.1,0,22.0,50.0
+2026-08-11,Veg Thali,Lunch Meals,84,84,106,22,0,Tuesday,0.98,0,Sunny / Mild,26.1,0,65.0,130.0
+2026-08-11,Veg Grilled Sandwich,Snack,57,57,58,1,0,Tuesday,0.98,0,Sunny / Mild,26.1,0,28.0,60.0
+2026-08-11,Rajma Rice Bowl,Lunch Meals,62,62,76,14,0,Tuesday,0.98,0,Sunny / Mild,26.1,0,45.0,95.0
+2026-08-11,Poha,Breakfast / Light,51,51,65,14,0,Tuesday,0.98,0,Sunny / Mild,26.1,0,18.0,40.0
+2026-08-11,Masala Dosa,All-Day,64,64,69,5,0,Tuesday,0.98,0,Sunny / Mild,26.1,0,32.0,70.0
+2026-08-11,Fresh Fruit Juice,Beverage,53,53,54,1,0,Tuesday,0.98,0,Sunny / Mild,26.1,0,30.0,65.0
+2026-08-12,Pav Bhaji,Lunch / Snack,81,82,81,0,1,Wednesday,1.04,0,Sunny / Mild,26.1,0,35.0,75.0
+2026-08-12,Idli Sambar,Breakfast / Light,62,62,72,10,0,Wednesday,1.04,0,Sunny / Mild,26.1,0,22.0,50.0
+2026-08-12,Veg Thali,Lunch Meals,97,97,106,9,0,Wednesday,1.04,0,Sunny / Mild,26.1,0,65.0,130.0
+2026-08-12,Veg Grilled Sandwich,Snack,58,62,58,0,1,Wednesday,1.04,0,Sunny / Mild,26.1,0,28.0,60.0
+2026-08-12,Rajma Rice Bowl,Lunch Meals,76,77,76,0,1,Wednesday,1.04,0,Sunny / Mild,26.1,0,45.0,95.0
+2026-08-12,Poha,Breakfast / Light,59,59,65,6,0,Wednesday,1.04,0,Sunny / Mild,26.1,0,18.0,40.0
+2026-08-12,Masala Dosa,All-Day,69,73,69,0,1,Wednesday,1.04,0,Sunny / Mild,26.1,0,32.0,70.0
+2026-08-12,Fresh Fruit Juice,Beverage,53,53,54,1,0,Wednesday,1.04,0,Sunny / Mild,26.1,0,30.0,65.0
+2026-08-13,Pav Bhaji,Lunch / Snack,81,89,81,0,1,Thursday,1.02,0,Sunny / Mild,30.8,0,35.0,75.0
+2026-08-13,Idli Sambar,Breakfast / Light,61,61,72,11,0,Thursday,1.02,0,Sunny / Mild,30.8,0,22.0,50.0
+2026-08-13,Veg Thali,Lunch Meals,106,117,106,0,1,Thursday,1.02,0,Sunny / Mild,30.8,0,65.0,130.0
+2026-08-13,Veg Grilled Sandwich,Snack,53,53,58,5,0,Thursday,1.02,0,Sunny / Mild,30.8,0,28.0,60.0
+2026-08-13,Rajma Rice Bowl,Lunch Meals,76,80,76,0,1,Thursday,1.02,0,Sunny / Mild,30.8,0,45.0,95.0
+2026-08-13,Poha,Breakfast / Light,65,68,65,0,1,Thursday,1.02,0,Sunny / Mild,30.8,0,18.0,40.0
+2026-08-13,Masala Dosa,All-Day,66,66,69,3,0,Thursday,1.02,0,Sunny / Mild,30.8,0,32.0,70.0
+2026-08-13,Fresh Fruit Juice,Beverage,52,52,54,2,0,Thursday,1.02,0,Sunny / Mild,30.8,0,30.0,65.0
+2026-08-14,Pav Bhaji,Lunch / Snack,81,85,81,0,1,Friday,1.05,0,Sunny / Mild,27.7,0,35.0,75.0
+2026-08-14,Idli Sambar,Breakfast / Light,55,55,72,17,0,Friday,1.05,0,Sunny / Mild,27.7,0,22.0,50.0
+2026-08-14,Veg Thali,Lunch Meals,106,119,106,0,1,Friday,1.05,0,Sunny / Mild,27.7,0,65.0,130.0
+2026-08-14,Veg Grilled Sandwich,Snack,58,61,58,0,1,Friday,1.05,0,Sunny / Mild,27.7,0,28.0,60.0
+2026-08-14,Rajma Rice Bowl,Lunch Meals,70,70,76,6,0,Friday,1.05,0,Sunny / Mild,27.7,0,45.0,95.0
+2026-08-14,Poha,Breakfast / Light,59,59,65,6,0,Friday,1.05,0,Sunny / Mild,27.7,0,18.0,40.0
+2026-08-14,Masala Dosa,All-Day,67,67,69,2,0,Friday,1.05,0,Sunny / Mild,27.7,0,32.0,70.0
+2026-08-14,Fresh Fruit Juice,Beverage,54,54,54,0,0,Friday,1.05,0,Sunny / Mild,27.7,0,30.0,65.0
+2026-08-15,Pav Bhaji,Lunch / Snack,42,42,50,8,0,Saturday,0.74,0,Rainy / Low Footfall,26.2,0,35.0,75.0
+2026-08-15,Idli Sambar,Breakfast / Light,29,29,45,16,0,Saturday,0.74,0,Rainy / Low Footfall,26.2,0,22.0,50.0
+2026-08-15,Veg Thali,Lunch Meals,36,36,66,30,0,Saturday,0.74,0,Rainy / Low Footfall,26.2,0,65.0,130.0
+2026-08-15,Veg Grilled Sandwich,Snack,23,23,36,13,0,Saturday,0.74,0,Rainy / Low Footfall,26.2,0,28.0,60.0
+2026-08-15,Rajma Rice Bowl,Lunch Meals,43,43,48,5,0,Saturday,0.74,0,Rainy / Low Footfall,26.2,0,45.0,95.0
+2026-08-15,Poha,Breakfast / Light,40,40,41,1,0,Saturday,0.74,0,Rainy / Low Footfall,26.2,0,18.0,40.0
+2026-08-15,Masala Dosa,All-Day,43,44,43,0,1,Saturday,0.74,0,Rainy / Low Footfall,26.2,0,32.0,70.0
+2026-08-15,Fresh Fruit Juice,Beverage,20,20,34,14,0,Saturday,0.74,0,Rainy / Low Footfall,26.2,0,30.0,65.0
+2026-08-16,Pav Bhaji,Lunch / Snack,28,28,50,22,0,Sunday,0.46,0,Sunny / Mild,28.7,0,35.0,75.0
+2026-08-16,Idli Sambar,Breakfast / Light,18,18,45,27,0,Sunday,0.46,0,Sunny / Mild,28.7,0,22.0,50.0
+2026-08-16,Veg Thali,Lunch Meals,19,19,66,47,0,Sunday,0.46,0,Sunny / Mild,28.7,0,65.0,130.0
+2026-08-16,Veg Grilled Sandwich,Snack,21,21,36,15,0,Sunday,0.46,0,Sunny / Mild,28.7,0,28.0,60.0
+2026-08-16,Rajma Rice Bowl,Lunch Meals,32,32,48,16,0,Sunday,0.46,0,Sunny / Mild,28.7,0,45.0,95.0
+2026-08-16,Poha,Breakfast / Light,20,20,41,21,0,Sunday,0.46,0,Sunny / Mild,28.7,0,18.0,40.0
+2026-08-16,Masala Dosa,All-Day,23,23,43,20,0,Sunday,0.46,0,Sunny / Mild,28.7,0,32.0,70.0
+2026-08-16,Fresh Fruit Juice,Beverage,25,25,34,9,0,Sunday,0.46,0,Sunny / Mild,28.7,0,30.0,65.0
+2026-08-17,Pav Bhaji,Lunch / Snack,81,91,81,0,1,Monday,1.01,0,Sunny / Mild,28.8,0,35.0,75.0
+2026-08-17,Idli Sambar,Breakfast / Light,72,81,72,0,1,Monday,1.01,0,Sunny / Mild,28.8,0,22.0,50.0
+2026-08-17,Veg Thali,Lunch Meals,100,100,106,6,0,Monday,1.01,0,Sunny / Mild,28.8,0,65.0,130.0
+2026-08-17,Veg Grilled Sandwich,Snack,58,59,58,0,1,Monday,1.01,0,Sunny / Mild,28.8,0,28.0,60.0
+2026-08-17,Rajma Rice Bowl,Lunch Meals,73,73,76,3,0,Monday,1.01,0,Sunny / Mild,28.8,0,45.0,95.0
+2026-08-17,Poha,Breakfast / Light,65,68,65,0,1,Monday,1.01,0,Sunny / Mild,28.8,0,18.0,40.0
+2026-08-17,Masala Dosa,All-Day,55,55,69,14,0,Monday,1.01,0,Sunny / Mild,28.8,0,32.0,70.0
+2026-08-17,Fresh Fruit Juice,Beverage,47,47,54,7,0,Monday,1.01,0,Sunny / Mild,28.8,0,30.0,65.0
+2026-08-18,Pav Bhaji,Lunch / Snack,81,81,81,0,0,Tuesday,0.96,0,Hot / Humid,33.4,0,35.0,75.0
+2026-08-18,Idli Sambar,Breakfast / Light,64,64,72,8,0,Tuesday,0.96,0,Hot / Humid,33.4,0,22.0,50.0
+2026-08-18,Veg Thali,Lunch Meals,69,69,106,37,0,Tuesday,0.96,0,Hot / Humid,33.4,0,65.0,130.0
+2026-08-18,Veg Grilled Sandwich,Snack,52,52,58,6,0,Tuesday,0.96,0,Hot / Humid,33.4,0,28.0,60.0
+2026-08-18,Rajma Rice Bowl,Lunch Meals,66,66,76,10,0,Tuesday,0.96,0,Hot / Humid,33.4,0,45.0,95.0
+2026-08-18,Poha,Breakfast / Light,52,52,65,13,0,Tuesday,0.96,0,Hot / Humid,33.4,0,18.0,40.0
+2026-08-18,Masala Dosa,All-Day,59,59,69,10,0,Tuesday,0.96,0,Hot / Humid,33.4,0,32.0,70.0
+2026-08-18,Fresh Fruit Juice,Beverage,54,67,54,0,1,Tuesday,0.96,0,Hot / Humid,33.4,0,30.0,65.0
+2026-08-19,Pav Bhaji,Lunch / Snack,81,135,81,0,1,Wednesday,1.31,1,Rainy / Low Footfall,23.8,1,35.0,75.0
+2026-08-19,Idli Sambar,Breakfast / Light,66,66,72,6,0,Wednesday,1.31,1,Rainy / Low Footfall,23.8,1,22.0,50.0
+2026-08-19,Veg Thali,Lunch Meals,106,114,106,0,1,Wednesday,1.31,1,Rainy / Low Footfall,23.8,1,65.0,130.0
+2026-08-19,Veg Grilled Sandwich,Snack,58,73,58,0,1,Wednesday,1.31,1,Rainy / Low Footfall,23.8,1,28.0,60.0
+2026-08-19,Rajma Rice Bowl,Lunch Meals,76,82,76,0,1,Wednesday,1.31,1,Rainy / Low Footfall,23.8,1,45.0,95.0
+2026-08-19,Poha,Breakfast / Light,65,97,65,0,1,Wednesday,1.31,1,Rainy / Low Footfall,23.8,1,18.0,40.0
+2026-08-19,Masala Dosa,All-Day,69,91,69,0,1,Wednesday,1.31,1,Rainy / Low Footfall,23.8,1,32.0,70.0
+2026-08-19,Fresh Fruit Juice,Beverage,42,42,54,12,0,Wednesday,1.31,1,Rainy / Low Footfall,23.8,1,30.0,65.0
+2026-08-20,Pav Bhaji,Lunch / Snack,81,90,81,0,1,Thursday,1.4,1,Sunny / Mild,28.1,0,35.0,75.0
+2026-08-20,Idli Sambar,Breakfast / Light,72,98,72,0,1,Thursday,1.4,1,Sunny / Mild,28.1,0,22.0,50.0
+2026-08-20,Veg Thali,Lunch Meals,106,144,106,0,1,Thursday,1.4,1,Sunny / Mild,28.1,0,65.0,130.0
+2026-08-20,Veg Grilled Sandwich,Snack,58,86,58,0,1,Thursday,1.4,1,Sunny / Mild,28.1,0,28.0,60.0
+2026-08-20,Rajma Rice Bowl,Lunch Meals,76,103,76,0,1,Thursday,1.4,1,Sunny / Mild,28.1,0,45.0,95.0
+2026-08-20,Poha,Breakfast / Light,65,82,65,0,1,Thursday,1.4,1,Sunny / Mild,28.1,0,18.0,40.0
+2026-08-20,Masala Dosa,All-Day,69,96,69,0,1,Thursday,1.4,1,Sunny / Mild,28.1,0,32.0,70.0
+2026-08-20,Fresh Fruit Juice,Beverage,54,77,54,0,1,Thursday,1.4,1,Sunny / Mild,28.1,0,30.0,65.0
+2026-08-21,Pav Bhaji,Lunch / Snack,81,105,81,0,1,Friday,1.1,0,Hot / Humid,37.6,0,35.0,75.0
+2026-08-21,Idli Sambar,Breakfast / Light,72,75,72,0,1,Friday,1.1,0,Hot / Humid,37.6,0,22.0,50.0
+2026-08-21,Veg Thali,Lunch Meals,87,87,106,19,0,Friday,1.1,0,Hot / Humid,37.6,0,65.0,130.0
+2026-08-21,Veg Grilled Sandwich,Snack,58,66,58,0,1,Friday,1.1,0,Hot / Humid,37.6,0,28.0,60.0
+2026-08-21,Rajma Rice Bowl,Lunch Meals,66,66,76,10,0,Friday,1.1,0,Hot / Humid,37.6,0,45.0,95.0
+2026-08-21,Poha,Breakfast / Light,63,63,65,2,0,Friday,1.1,0,Hot / Humid,37.6,0,18.0,40.0
+2026-08-21,Masala Dosa,All-Day,65,65,69,4,0,Friday,1.1,0,Hot / Humid,37.6,0,32.0,70.0
+2026-08-21,Fresh Fruit Juice,Beverage,54,80,54,0,1,Friday,1.1,0,Hot / Humid,37.6,0,30.0,65.0
+2026-08-22,Pav Bhaji,Lunch / Snack,32,32,50,18,0,Saturday,0.75,0,Hot / Humid,35.6,0,35.0,75.0
+2026-08-22,Idli Sambar,Breakfast / Light,35,35,45,10,0,Saturday,0.75,0,Hot / Humid,35.6,0,22.0,50.0
+2026-08-22,Veg Thali,Lunch Meals,28,28,66,38,0,Saturday,0.75,0,Hot / Humid,35.6,0,65.0,130.0
+2026-08-22,Veg Grilled Sandwich,Snack,20,20,36,16,0,Saturday,0.75,0,Hot / Humid,35.6,0,28.0,60.0
+2026-08-22,Rajma Rice Bowl,Lunch Meals,33,33,48,15,0,Saturday,0.75,0,Hot / Humid,35.6,0,45.0,95.0
+2026-08-22,Poha,Breakfast / Light,32,32,41,9,0,Saturday,0.75,0,Hot / Humid,35.6,0,18.0,40.0
+2026-08-22,Masala Dosa,All-Day,43,44,43,0,1,Saturday,0.75,0,Hot / Humid,35.6,0,32.0,70.0
+2026-08-22,Fresh Fruit Juice,Beverage,34,42,34,0,1,Saturday,0.75,0,Hot / Humid,35.6,0,30.0,65.0
+2026-08-23,Pav Bhaji,Lunch / Snack,32,32,50,18,0,Sunday,0.35,0,Hot / Humid,37.5,0,35.0,75.0
+2026-08-23,Idli Sambar,Breakfast / Light,15,15,45,30,0,Sunday,0.35,0,Hot / Humid,37.5,0,22.0,50.0
+2026-08-23,Veg Thali,Lunch Meals,7,7,66,59,0,Sunday,0.35,0,Hot / Humid,37.5,0,65.0,130.0
+2026-08-23,Veg Grilled Sandwich,Snack,12,12,36,24,0,Sunday,0.35,0,Hot / Humid,37.5,0,28.0,60.0
+2026-08-23,Rajma Rice Bowl,Lunch Meals,23,23,48,25,0,Sunday,0.35,0,Hot / Humid,37.5,0,45.0,95.0
+2026-08-23,Poha,Breakfast / Light,26,26,41,15,0,Sunday,0.35,0,Hot / Humid,37.5,0,18.0,40.0
+2026-08-23,Masala Dosa,All-Day,26,26,43,17,0,Sunday,0.35,0,Hot / Humid,37.5,0,32.0,70.0
+2026-08-23,Fresh Fruit Juice,Beverage,16,16,34,18,0,Sunday,0.35,0,Hot / Humid,37.5,0,30.0,65.0
+2026-08-24,Pav Bhaji,Lunch / Snack,69,69,81,12,0,Monday,0.94,0,Sunny / Mild,26.1,0,35.0,75.0
+2026-08-24,Idli Sambar,Breakfast / Light,60,60,72,12,0,Monday,0.94,0,Sunny / Mild,26.1,0,22.0,50.0
+2026-08-24,Veg Thali,Lunch Meals,92,92,106,14,0,Monday,0.94,0,Sunny / Mild,26.1,0,65.0,130.0
+2026-08-24,Veg Grilled Sandwich,Snack,48,48,58,10,0,Monday,0.94,0,Sunny / Mild,26.1,0,28.0,60.0
+2026-08-24,Rajma Rice Bowl,Lunch Meals,61,61,76,15,0,Monday,0.94,0,Sunny / Mild,26.1,0,45.0,95.0
+2026-08-24,Poha,Breakfast / Light,55,55,65,10,0,Monday,0.94,0,Sunny / Mild,26.1,0,18.0,40.0
+2026-08-24,Masala Dosa,All-Day,61,61,69,8,0,Monday,0.94,0,Sunny / Mild,26.1,0,32.0,70.0
+2026-08-24,Fresh Fruit Juice,Beverage,43,43,54,11,0,Monday,0.94,0,Sunny / Mild,26.1,0,30.0,65.0
+2026-08-25,Pav Bhaji,Lunch / Snack,47,47,81,34,0,Tuesday,0.94,0,Sunny / Mild,26.4,0,35.0,75.0
+2026-08-25,Idli Sambar,Breakfast / Light,60,60,72,12,0,Tuesday,0.94,0,Sunny / Mild,26.4,0,22.0,50.0
+2026-08-25,Veg Thali,Lunch Meals,106,106,106,0,0,Tuesday,0.94,0,Sunny / Mild,26.4,0,65.0,130.0
+2026-08-25,Veg Grilled Sandwich,Snack,58,58,58,0,0,Tuesday,0.94,0,Sunny / Mild,26.4,0,28.0,60.0
+2026-08-25,Rajma Rice Bowl,Lunch Meals,61,61,76,15,0,Tuesday,0.94,0,Sunny / Mild,26.4,0,45.0,95.0
+2026-08-25,Poha,Breakfast / Light,51,51,65,14,0,Tuesday,0.94,0,Sunny / Mild,26.4,0,18.0,40.0
+2026-08-25,Masala Dosa,All-Day,61,61,69,8,0,Tuesday,0.94,0,Sunny / Mild,26.4,0,32.0,70.0
+2026-08-25,Fresh Fruit Juice,Beverage,40,40,54,14,0,Tuesday,0.94,0,Sunny / Mild,26.4,0,30.0,65.0
+2026-08-26,Pav Bhaji,Lunch / Snack,73,73,81,8,0,Wednesday,1.02,0,Hot / Humid,36.6,0,35.0,75.0
+2026-08-26,Idli Sambar,Breakfast / Light,64,64,72,8,0,Wednesday,1.02,0,Hot / Humid,36.6,0,22.0,50.0
+2026-08-26,Veg Thali,Lunch Meals,87,87,106,19,0,Wednesday,1.02,0,Hot / Humid,36.6,0,65.0,130.0
+2026-08-26,Veg Grilled Sandwich,Snack,49,49,58,9,0,Wednesday,1.02,0,Hot / Humid,36.6,0,28.0,60.0
+2026-08-26,Rajma Rice Bowl,Lunch Meals,67,67,76,9,0,Wednesday,1.02,0,Hot / Humid,36.6,0,45.0,95.0
+2026-08-26,Poha,Breakfast / Light,61,61,65,4,0,Wednesday,1.02,0,Hot / Humid,36.6,0,18.0,40.0
+2026-08-26,Masala Dosa,All-Day,69,69,69,0,0,Wednesday,1.02,0,Hot / Humid,36.6,0,32.0,70.0
+2026-08-26,Fresh Fruit Juice,Beverage,54,67,54,0,1,Wednesday,1.02,0,Hot / Humid,36.6,0,30.0,65.0
+2026-08-27,Pav Bhaji,Lunch / Snack,75,75,81,6,0,Thursday,1.07,0,Sunny / Mild,28.4,0,35.0,75.0
+2026-08-27,Idli Sambar,Breakfast / Light,53,53,72,19,0,Thursday,1.07,0,Sunny / Mild,28.4,0,22.0,50.0
+2026-08-27,Veg Thali,Lunch Meals,106,122,106,0,1,Thursday,1.07,0,Sunny / Mild,28.4,0,65.0,130.0
+2026-08-27,Veg Grilled Sandwich,Snack,58,59,58,0,1,Thursday,1.07,0,Sunny / Mild,28.4,0,28.0,60.0
+2026-08-27,Rajma Rice Bowl,Lunch Meals,76,80,76,0,1,Thursday,1.07,0,Sunny / Mild,28.4,0,45.0,95.0
+2026-08-27,Poha,Breakfast / Light,62,62,65,3,0,Thursday,1.07,0,Sunny / Mild,28.4,0,18.0,40.0
+2026-08-27,Masala Dosa,All-Day,69,70,69,0,1,Thursday,1.07,0,Sunny / Mild,28.4,0,32.0,70.0
+2026-08-27,Fresh Fruit Juice,Beverage,44,44,54,10,0,Thursday,1.07,0,Sunny / Mild,28.4,0,30.0,65.0
+2026-08-28,Pav Bhaji,Lunch / Snack,81,91,81,0,1,Friday,0.97,0,Hot / Humid,38.9,0,35.0,75.0
+2026-08-28,Idli Sambar,Breakfast / Light,54,54,72,18,0,Friday,0.97,0,Hot / Humid,38.9,0,22.0,50.0
+2026-08-28,Veg Thali,Lunch Meals,84,84,106,22,0,Friday,0.97,0,Hot / Humid,38.9,0,65.0,130.0
+2026-08-28,Veg Grilled Sandwich,Snack,54,54,58,4,0,Friday,0.97,0,Hot / Humid,38.9,0,28.0,60.0
+2026-08-28,Rajma Rice Bowl,Lunch Meals,61,61,76,15,0,Friday,0.97,0,Hot / Humid,38.9,0,45.0,95.0
+2026-08-28,Poha,Breakfast / Light,56,56,65,9,0,Friday,0.97,0,Hot / Humid,38.9,0,18.0,40.0
+2026-08-28,Masala Dosa,All-Day,50,50,69,19,0,Friday,0.97,0,Hot / Humid,38.9,0,32.0,70.0
+2026-08-28,Fresh Fruit Juice,Beverage,54,73,54,0,1,Friday,0.97,0,Hot / Humid,38.9,0,30.0,65.0
+2026-08-29,Pav Bhaji,Lunch / Snack,44,44,50,6,0,Saturday,0.81,0,Rainy / Low Footfall,24.8,0,35.0,75.0
+2026-08-29,Idli Sambar,Breakfast / Light,27,27,45,18,0,Saturday,0.81,0,Rainy / Low Footfall,24.8,0,22.0,50.0
+2026-08-29,Veg Thali,Lunch Meals,37,37,66,29,0,Saturday,0.81,0,Rainy / Low Footfall,24.8,0,65.0,130.0
+2026-08-29,Veg Grilled Sandwich,Snack,29,29,36,7,0,Saturday,0.81,0,Rainy / Low Footfall,24.8,0,28.0,60.0
+2026-08-29,Rajma Rice Bowl,Lunch Meals,40,40,48,8,0,Saturday,0.81,0,Rainy / Low Footfall,24.8,0,45.0,95.0
+2026-08-29,Poha,Breakfast / Light,41,42,41,0,1,Saturday,0.81,0,Rainy / Low Footfall,24.8,0,18.0,40.0
+2026-08-29,Masala Dosa,All-Day,41,41,43,2,0,Saturday,0.81,0,Rainy / Low Footfall,24.8,0,32.0,70.0
+2026-08-29,Fresh Fruit Juice,Beverage,15,15,34,19,0,Saturday,0.81,0,Rainy / Low Footfall,24.8,0,30.0,65.0
+2026-08-30,Pav Bhaji,Lunch / Snack,33,33,50,17,0,Sunday,0.55,0,Sunny / Mild,28.4,0,35.0,75.0
+2026-08-30,Idli Sambar,Breakfast / Light,32,32,45,13,0,Sunday,0.55,0,Sunny / Mild,28.4,0,22.0,50.0
+2026-08-30,Veg Thali,Lunch Meals,6,6,66,60,0,Sunday,0.55,0,Sunny / Mild,28.4,0,65.0,130.0
+2026-08-30,Veg Grilled Sandwich,Snack,16,16,36,20,0,Sunday,0.55,0,Sunny / Mild,28.4,0,28.0,60.0
+2026-08-30,Rajma Rice Bowl,Lunch Meals,32,32,48,16,0,Sunday,0.55,0,Sunny / Mild,28.4,0,45.0,95.0
+2026-08-30,Poha,Breakfast / Light,36,36,41,5,0,Sunday,0.55,0,Sunny / Mild,28.4,0,18.0,40.0
+2026-08-30,Masala Dosa,All-Day,26,26,43,17,0,Sunday,0.55,0,Sunny / Mild,28.4,0,32.0,70.0
+2026-08-30,Fresh Fruit Juice,Beverage,16,16,34,18,0,Sunday,0.55,0,Sunny / Mild,28.4,0,30.0,65.0
+2026-08-31,Pav Bhaji,Lunch / Snack,81,92,81,0,1,Monday,1.14,0,Sunny / Mild,29.9,0,35.0,75.0
+2026-08-31,Idli Sambar,Breakfast / Light,72,82,72,0,1,Monday,1.14,0,Sunny / Mild,29.9,0,22.0,50.0
+2026-08-31,Veg Thali,Lunch Meals,101,101,106,5,0,Monday,1.14,0,Sunny / Mild,29.9,0,65.0,130.0
+2026-08-31,Veg Grilled Sandwich,Snack,57,57,58,1,0,Monday,1.14,0,Sunny / Mild,29.9,0,28.0,60.0
+2026-08-31,Rajma Rice Bowl,Lunch Meals,71,71,76,5,0,Monday,1.14,0,Sunny / Mild,29.9,0,45.0,95.0
+2026-08-31,Poha,Breakfast / Light,65,79,65,0,1,Monday,1.14,0,Sunny / Mild,29.9,0,18.0,40.0
+2026-08-31,Masala Dosa,All-Day,69,81,69,0,1,Monday,1.14,0,Sunny / Mild,29.9,0,32.0,70.0
+2026-08-31,Fresh Fruit Juice,Beverage,54,56,54,0,1,Monday,1.14,0,Sunny / Mild,29.9,0,30.0,65.0
+2026-09-01,Pav Bhaji,Lunch / Snack,81,92,81,0,1,Tuesday,1.14,0,Rainy / Low Footfall,26.4,0,35.0,75.0
+2026-09-01,Idli Sambar,Breakfast / Light,52,52,72,20,0,Tuesday,1.14,0,Rainy / Low Footfall,26.4,0,22.0,50.0
+2026-09-01,Veg Thali,Lunch Meals,100,100,106,6,0,Tuesday,1.14,0,Rainy / Low Footfall,26.4,0,65.0,130.0
+2026-09-01,Veg Grilled Sandwich,Snack,50,50,58,8,0,Tuesday,1.14,0,Rainy / Low Footfall,26.4,0,28.0,60.0
+2026-09-01,Rajma Rice Bowl,Lunch Meals,65,65,76,11,0,Tuesday,1.14,0,Rainy / Low Footfall,26.4,0,45.0,95.0
+2026-09-01,Poha,Breakfast / Light,65,95,65,0,1,Tuesday,1.14,0,Rainy / Low Footfall,26.4,0,18.0,40.0
+2026-09-01,Masala Dosa,All-Day,69,83,69,0,1,Tuesday,1.14,0,Rainy / Low Footfall,26.4,0,32.0,70.0
+2026-09-01,Fresh Fruit Juice,Beverage,32,32,54,22,0,Tuesday,1.14,0,Rainy / Low Footfall,26.4,0,30.0,65.0
+2026-09-02,Pav Bhaji,Lunch / Snack,81,106,81,0,1,Wednesday,1.13,0,Hot / Humid,38.8,1,35.0,75.0
+2026-09-02,Idli Sambar,Breakfast / Light,72,73,72,0,1,Wednesday,1.13,0,Hot / Humid,38.8,1,22.0,50.0
+2026-09-02,Veg Thali,Lunch Meals,92,92,106,14,0,Wednesday,1.13,0,Hot / Humid,38.8,1,65.0,130.0
+2026-09-02,Veg Grilled Sandwich,Snack,58,75,58,0,1,Wednesday,1.13,0,Hot / Humid,38.8,1,28.0,60.0
+2026-09-02,Rajma Rice Bowl,Lunch Meals,71,71,76,5,0,Wednesday,1.13,0,Hot / Humid,38.8,1,45.0,95.0
+2026-09-02,Poha,Breakfast / Light,65,76,65,0,1,Wednesday,1.13,0,Hot / Humid,38.8,1,18.0,40.0
+2026-09-02,Masala Dosa,All-Day,69,77,69,0,1,Wednesday,1.13,0,Hot / Humid,38.8,1,32.0,70.0
+2026-09-02,Fresh Fruit Juice,Beverage,54,77,54,0,1,Wednesday,1.13,0,Hot / Humid,38.8,1,30.0,65.0
+2026-09-03,Pav Bhaji,Lunch / Snack,81,104,81,0,1,Thursday,1.21,0,Rainy / Low Footfall,24.7,0,35.0,75.0
+2026-09-03,Idli Sambar,Breakfast / Light,60,60,72,12,0,Thursday,1.21,0,Rainy / Low Footfall,24.7,0,22.0,50.0
+2026-09-03,Veg Thali,Lunch Meals,103,103,106,3,0,Thursday,1.21,0,Rainy / Low Footfall,24.7,0,65.0,130.0
+2026-09-03,Veg Grilled Sandwich,Snack,58,59,58,0,1,Thursday,1.21,0,Rainy / Low Footfall,24.7,0,28.0,60.0
+2026-09-03,Rajma Rice Bowl,Lunch Meals,76,76,76,0,0,Thursday,1.21,0,Rainy / Low Footfall,24.7,0,45.0,95.0
+2026-09-03,Poha,Breakfast / Light,65,78,65,0,1,Thursday,1.21,0,Rainy / Low Footfall,24.7,0,18.0,40.0
+2026-09-03,Masala Dosa,All-Day,69,80,69,0,1,Thursday,1.21,0,Rainy / Low Footfall,24.7,0,32.0,70.0
+2026-09-03,Fresh Fruit Juice,Beverage,40,40,54,14,0,Thursday,1.21,0,Rainy / Low Footfall,24.7,0,30.0,65.0
+2026-09-04,Pav Bhaji,Lunch / Snack,81,102,81,0,1,Friday,1.25,0,Sunny / Mild,30.4,0,35.0,75.0
+2026-09-04,Idli Sambar,Breakfast / Light,72,80,72,0,1,Friday,1.25,0,Sunny / Mild,30.4,0,22.0,50.0
+2026-09-04,Veg Thali,Lunch Meals,106,132,106,0,1,Friday,1.25,0,Sunny / Mild,30.4,0,65.0,130.0
+2026-09-04,Veg Grilled Sandwich,Snack,58,79,58,0,1,Friday,1.25,0,Sunny / Mild,30.4,0,28.0,60.0
+2026-09-04,Rajma Rice Bowl,Lunch Meals,76,88,76,0,1,Friday,1.25,0,Sunny / Mild,30.4,0,45.0,95.0
+2026-09-04,Poha,Breakfast / Light,65,66,65,0,1,Friday,1.25,0,Sunny / Mild,30.4,0,18.0,40.0
+2026-09-04,Masala Dosa,All-Day,69,80,69,0,1,Friday,1.25,0,Sunny / Mild,30.4,0,32.0,70.0
+2026-09-04,Fresh Fruit Juice,Beverage,54,59,54,0,1,Friday,1.25,0,Sunny / Mild,30.4,0,30.0,65.0
+2026-09-05,Pav Bhaji,Lunch / Snack,50,57,50,0,1,Saturday,0.9,0,Sunny / Mild,26.1,0,35.0,75.0
+2026-09-05,Idli Sambar,Breakfast / Light,45,60,45,0,1,Saturday,0.9,0,Sunny / Mild,26.1,0,22.0,50.0
+2026-09-05,Veg Thali,Lunch Meals,53,53,66,13,0,Saturday,0.9,0,Sunny / Mild,26.1,0,65.0,130.0
+2026-09-05,Veg Grilled Sandwich,Snack,36,37,36,0,1,Saturday,0.9,0,Sunny / Mild,26.1,0,28.0,60.0
+2026-09-05,Rajma Rice Bowl,Lunch Meals,47,47,48,1,0,Saturday,0.9,0,Sunny / Mild,26.1,0,45.0,95.0
+2026-09-05,Poha,Breakfast / Light,37,37,41,4,0,Saturday,0.9,0,Sunny / Mild,26.1,0,18.0,40.0
+2026-09-05,Masala Dosa,All-Day,43,44,43,0,1,Saturday,0.9,0,Sunny / Mild,26.1,0,32.0,70.0
+2026-09-05,Fresh Fruit Juice,Beverage,31,31,34,3,0,Saturday,0.9,0,Sunny / Mild,26.1,0,30.0,65.0
+2026-09-06,Pav Bhaji,Lunch / Snack,40,40,50,10,0,Sunday,0.56,0,Hot / Humid,34.2,0,35.0,75.0
+2026-09-06,Idli Sambar,Breakfast / Light,35,35,45,10,0,Sunday,0.56,0,Hot / Humid,34.2,0,22.0,50.0
+2026-09-06,Veg Thali,Lunch Meals,25,25,66,41,0,Sunday,0.56,0,Hot / Humid,34.2,0,65.0,130.0
+2026-09-06,Veg Grilled Sandwich,Snack,11,11,36,25,0,Sunday,0.56,0,Hot / Humid,34.2,0,28.0,60.0
+2026-09-06,Rajma Rice Bowl,Lunch Meals,21,21,48,27,0,Sunday,0.56,0,Hot / Humid,34.2,0,45.0,95.0
+2026-09-06,Poha,Breakfast / Light,32,32,41,9,0,Sunday,0.56,0,Hot / Humid,34.2,0,18.0,40.0
+2026-09-06,Masala Dosa,All-Day,26,26,43,17,0,Sunday,0.56,0,Hot / Humid,34.2,0,32.0,70.0
+2026-09-06,Fresh Fruit Juice,Beverage,24,24,34,10,0,Sunday,0.56,0,Hot / Humid,34.2,0,30.0,65.0
+2026-09-07,Pav Bhaji,Lunch / Snack,79,79,81,2,0,Monday,1.12,0,Hot / Humid,37.8,0,35.0,75.0
+2026-09-07,Idli Sambar,Breakfast / Light,72,82,72,0,1,Monday,1.12,0,Hot / Humid,37.8,0,22.0,50.0
+2026-09-07,Veg Thali,Lunch Meals,90,90,106,16,0,Monday,1.12,0,Hot / Humid,37.8,0,65.0,130.0
+2026-09-07,Veg Grilled Sandwich,Snack,53,53,58,5,0,Monday,1.12,0,Hot / Humid,37.8,0,28.0,60.0
+2026-09-07,Rajma Rice Bowl,Lunch Meals,76,78,76,0,1,Monday,1.12,0,Hot / Humid,37.8,0,45.0,95.0
+2026-09-07,Poha,Breakfast / Light,65,75,65,0,1,Monday,1.12,0,Hot / Humid,37.8,0,18.0,40.0
+2026-09-07,Masala Dosa,All-Day,69,77,69,0,1,Monday,1.12,0,Hot / Humid,37.8,0,32.0,70.0
+2026-09-07,Fresh Fruit Juice,Beverage,54,85,54,0,1,Monday,1.12,0,Hot / Humid,37.8,0,30.0,65.0
+2026-09-08,Pav Bhaji,Lunch / Snack,81,83,81,0,1,Tuesday,1.2,0,Sunny / Mild,30.9,0,35.0,75.0
+2026-09-08,Idli Sambar,Breakfast / Light,71,71,72,1,0,Tuesday,1.2,0,Sunny / Mild,30.9,0,22.0,50.0
+2026-09-08,Veg Thali,Lunch Meals,106,117,106,0,1,Tuesday,1.2,0,Sunny / Mild,30.9,0,65.0,130.0
+2026-09-08,Veg Grilled Sandwich,Snack,56,56,58,2,0,Tuesday,1.2,0,Sunny / Mild,30.9,0,28.0,60.0
+2026-09-08,Rajma Rice Bowl,Lunch Meals,76,90,76,0,1,Tuesday,1.2,0,Sunny / Mild,30.9,0,45.0,95.0
+2026-09-08,Poha,Breakfast / Light,65,67,65,0,1,Tuesday,1.2,0,Sunny / Mild,30.9,0,18.0,40.0
+2026-09-08,Masala Dosa,All-Day,69,76,69,0,1,Tuesday,1.2,0,Sunny / Mild,30.9,0,32.0,70.0
+2026-09-08,Fresh Fruit Juice,Beverage,54,59,54,0,1,Tuesday,1.2,0,Sunny / Mild,30.9,0,30.0,65.0
+2026-09-09,Pav Bhaji,Lunch / Snack,81,88,81,0,1,Wednesday,1.14,0,Sunny / Mild,30.2,0,35.0,75.0
+2026-09-09,Idli Sambar,Breakfast / Light,64,64,72,8,0,Wednesday,1.14,0,Sunny / Mild,30.2,0,22.0,50.0
+2026-09-09,Veg Thali,Lunch Meals,106,122,106,0,1,Wednesday,1.14,0,Sunny / Mild,30.2,0,65.0,130.0
+2026-09-09,Veg Grilled Sandwich,Snack,58,69,58,0,1,Wednesday,1.14,0,Sunny / Mild,30.2,0,28.0,60.0
+2026-09-09,Rajma Rice Bowl,Lunch Meals,76,80,76,0,1,Wednesday,1.14,0,Sunny / Mild,30.2,0,45.0,95.0
+2026-09-09,Poha,Breakfast / Light,62,62,65,3,0,Wednesday,1.14,0,Sunny / Mild,30.2,0,18.0,40.0
+2026-09-09,Masala Dosa,All-Day,69,74,69,0,1,Wednesday,1.14,0,Sunny / Mild,30.2,0,32.0,70.0
+2026-09-09,Fresh Fruit Juice,Beverage,54,56,54,0,1,Wednesday,1.14,0,Sunny / Mild,30.2,0,30.0,65.0
+2026-09-10,Pav Bhaji,Lunch / Snack,81,88,81,0,1,Thursday,1.17,0,Hot / Humid,36.7,0,35.0,75.0
+2026-09-10,Idli Sambar,Breakfast / Light,72,78,72,0,1,Thursday,1.17,0,Hot / Humid,36.7,0,22.0,50.0
+2026-09-10,Veg Thali,Lunch Meals,106,107,106,0,1,Thursday,1.17,0,Hot / Humid,36.7,0,65.0,130.0
+2026-09-10,Veg Grilled Sandwich,Snack,58,64,58,0,1,Thursday,1.17,0,Hot / Humid,36.7,0,28.0,60.0
+2026-09-10,Rajma Rice Bowl,Lunch Meals,76,91,76,0,1,Thursday,1.17,0,Hot / Humid,36.7,0,45.0,95.0
+2026-09-10,Poha,Breakfast / Light,65,67,65,0,1,Thursday,1.17,0,Hot / Humid,36.7,0,18.0,40.0
+2026-09-10,Masala Dosa,All-Day,66,66,69,3,0,Thursday,1.17,0,Hot / Humid,36.7,0,32.0,70.0
+2026-09-10,Fresh Fruit Juice,Beverage,54,87,54,0,1,Thursday,1.17,0,Hot / Humid,36.7,0,30.0,65.0
+2026-09-11,Pav Bhaji,Lunch / Snack,81,96,81,0,1,Friday,1.14,0,Sunny / Mild,27.9,0,35.0,75.0
+2026-09-11,Idli Sambar,Breakfast / Light,72,72,72,0,0,Friday,1.14,0,Sunny / Mild,27.9,0,22.0,50.0
+2026-09-11,Veg Thali,Lunch Meals,106,111,106,0,1,Friday,1.14,0,Sunny / Mild,27.9,0,65.0,130.0
+2026-09-11,Veg Grilled Sandwich,Snack,58,73,58,0,1,Friday,1.14,0,Sunny / Mild,27.9,0,28.0,60.0
+2026-09-11,Rajma Rice Bowl,Lunch Meals,76,82,76,0,1,Friday,1.14,0,Sunny / Mild,27.9,0,45.0,95.0
+2026-09-11,Poha,Breakfast / Light,64,64,65,1,0,Friday,1.14,0,Sunny / Mild,27.9,0,18.0,40.0
+2026-09-11,Masala Dosa,All-Day,69,74,69,0,1,Friday,1.14,0,Sunny / Mild,27.9,0,32.0,70.0
+2026-09-11,Fresh Fruit Juice,Beverage,53,53,54,1,0,Friday,1.14,0,Sunny / Mild,27.9,0,30.0,65.0
+2026-09-12,Pav Bhaji,Lunch / Snack,50,52,50,0,1,Saturday,0.89,0,Sunny / Mild,30.8,0,35.0,75.0
+2026-09-12,Idli Sambar,Breakfast / Light,37,37,45,8,0,Saturday,0.89,0,Sunny / Mild,30.8,0,22.0,50.0
+2026-09-12,Veg Thali,Lunch Meals,57,57,66,9,0,Saturday,0.89,0,Sunny / Mild,30.8,0,65.0,130.0
+2026-09-12,Veg Grilled Sandwich,Snack,32,32,36,4,0,Saturday,0.89,0,Sunny / Mild,30.8,0,28.0,60.0
+2026-09-12,Rajma Rice Bowl,Lunch Meals,48,51,48,0,1,Saturday,0.89,0,Sunny / Mild,30.8,0,45.0,95.0
+2026-09-12,Poha,Breakfast / Light,41,41,41,0,0,Saturday,0.89,0,Sunny / Mild,30.8,0,18.0,40.0
+2026-09-12,Masala Dosa,All-Day,43,53,43,0,1,Saturday,0.89,0,Sunny / Mild,30.8,0,32.0,70.0
+2026-09-12,Fresh Fruit Juice,Beverage,31,31,34,3,0,Saturday,0.89,0,Sunny / Mild,30.8,0,30.0,65.0
+2026-09-13,Pav Bhaji,Lunch / Snack,34,34,50,16,0,Sunday,0.53,0,Sunny / Mild,28.3,0,35.0,75.0
+2026-09-13,Idli Sambar,Breakfast / Light,15,15,45,30,0,Sunday,0.53,0,Sunny / Mild,28.3,0,22.0,50.0
+2026-09-13,Veg Thali,Lunch Meals,18,18,66,48,0,Sunday,0.53,0,Sunny / Mild,28.3,0,65.0,130.0
+2026-09-13,Veg Grilled Sandwich,Snack,15,15,36,21,0,Sunday,0.53,0,Sunny / Mild,28.3,0,28.0,60.0
+2026-09-13,Rajma Rice Bowl,Lunch Meals,33,33,48,15,0,Sunday,0.53,0,Sunny / Mild,28.3,0,45.0,95.0
+2026-09-13,Poha,Breakfast / Light,33,33,41,8,0,Sunday,0.53,0,Sunny / Mild,28.3,0,18.0,40.0
+2026-09-13,Masala Dosa,All-Day,24,24,43,19,0,Sunday,0.53,0,Sunny / Mild,28.3,0,32.0,70.0
+2026-09-13,Fresh Fruit Juice,Beverage,18,18,34,16,0,Sunday,0.53,0,Sunny / Mild,28.3,0,30.0,65.0
+2026-09-14,Pav Bhaji,Lunch / Snack,80,80,81,1,0,Monday,1.0,0,Sunny / Mild,30.2,0,35.0,75.0
+2026-09-14,Idli Sambar,Breakfast / Light,70,70,72,2,0,Monday,1.0,0,Sunny / Mild,30.2,0,22.0,50.0
+2026-09-14,Veg Thali,Lunch Meals,97,97,106,9,0,Monday,1.0,0,Sunny / Mild,30.2,0,65.0,130.0
+2026-09-14,Veg Grilled Sandwich,Snack,57,57,58,1,0,Monday,1.0,0,Sunny / Mild,30.2,0,28.0,60.0
+2026-09-14,Rajma Rice Bowl,Lunch Meals,71,71,76,5,0,Monday,1.0,0,Sunny / Mild,30.2,0,45.0,95.0
+2026-09-14,Poha,Breakfast / Light,65,70,65,0,1,Monday,1.0,0,Sunny / Mild,30.2,0,18.0,40.0
+2026-09-14,Masala Dosa,All-Day,68,68,69,1,0,Monday,1.0,0,Sunny / Mild,30.2,0,32.0,70.0
+2026-09-14,Fresh Fruit Juice,Beverage,35,35,54,19,0,Monday,1.0,0,Sunny / Mild,30.2,0,30.0,65.0
+2026-09-15,Pav Bhaji,Lunch / Snack,78,78,81,3,0,Tuesday,1.03,0,Sunny / Mild,28.2,0,35.0,75.0
+2026-09-15,Idli Sambar,Breakfast / Light,72,75,72,0,1,Tuesday,1.03,0,Sunny / Mild,28.2,0,22.0,50.0
+2026-09-15,Veg Thali,Lunch Meals,97,97,106,9,0,Tuesday,1.03,0,Sunny / Mild,28.2,0,65.0,130.0
+2026-09-15,Veg Grilled Sandwich,Snack,58,59,58,0,1,Tuesday,1.03,0,Sunny / Mild,28.2,0,28.0,60.0
+2026-09-15,Rajma Rice Bowl,Lunch Meals,76,81,76,0,1,Tuesday,1.03,0,Sunny / Mild,28.2,0,45.0,95.0
+2026-09-15,Poha,Breakfast / Light,65,67,65,0,1,Tuesday,1.03,0,Sunny / Mild,28.2,0,18.0,40.0
+2026-09-15,Masala Dosa,All-Day,69,74,69,0,1,Tuesday,1.03,0,Sunny / Mild,28.2,0,32.0,70.0
+2026-09-15,Fresh Fruit Juice,Beverage,53,53,54,1,0,Tuesday,1.03,0,Sunny / Mild,28.2,0,30.0,65.0
+2026-09-16,Pav Bhaji,Lunch / Snack,81,105,81,0,1,Wednesday,1.35,1,Sunny / Mild,27.9,1,35.0,75.0
+2026-09-16,Idli Sambar,Breakfast / Light,72,100,72,0,1,Wednesday,1.35,1,Sunny / Mild,27.9,1,22.0,50.0
+2026-09-16,Veg Thali,Lunch Meals,106,142,106,0,1,Wednesday,1.35,1,Sunny / Mild,27.9,1,65.0,130.0
+2026-09-16,Veg Grilled Sandwich,Snack,58,85,58,0,1,Wednesday,1.35,1,Sunny / Mild,27.9,1,28.0,60.0
+2026-09-16,Rajma Rice Bowl,Lunch Meals,76,107,76,0,1,Wednesday,1.35,1,Sunny / Mild,27.9,1,45.0,95.0
+2026-09-16,Poha,Breakfast / Light,65,79,65,0,1,Wednesday,1.35,1,Sunny / Mild,27.9,1,18.0,40.0
+2026-09-16,Masala Dosa,All-Day,69,94,69,0,1,Wednesday,1.35,1,Sunny / Mild,27.9,1,32.0,70.0
+2026-09-16,Fresh Fruit Juice,Beverage,54,62,54,0,1,Wednesday,1.35,1,Sunny / Mild,27.9,1,30.0,65.0
+2026-09-17,Pav Bhaji,Lunch / Snack,68,68,81,13,0,Thursday,1.01,0,Sunny / Mild,27.8,0,35.0,75.0
+2026-09-17,Idli Sambar,Breakfast / Light,64,64,72,8,0,Thursday,1.01,0,Sunny / Mild,27.8,0,22.0,50.0
+2026-09-17,Veg Thali,Lunch Meals,103,103,106,3,0,Thursday,1.01,0,Sunny / Mild,27.8,0,65.0,130.0
+2026-09-17,Veg Grilled Sandwich,Snack,49,49,58,9,0,Thursday,1.01,0,Sunny / Mild,27.8,0,28.0,60.0
+2026-09-17,Rajma Rice Bowl,Lunch Meals,67,67,76,9,0,Thursday,1.01,0,Sunny / Mild,27.8,0,45.0,95.0
+2026-09-17,Poha,Breakfast / Light,58,58,65,7,0,Thursday,1.01,0,Sunny / Mild,27.8,0,18.0,40.0
+2026-09-17,Masala Dosa,All-Day,53,53,69,16,0,Thursday,1.01,0,Sunny / Mild,27.8,0,32.0,70.0
+2026-09-17,Fresh Fruit Juice,Beverage,52,52,54,2,0,Thursday,1.01,0,Sunny / Mild,27.8,0,30.0,65.0
+2026-09-18,Pav Bhaji,Lunch / Snack,77,77,81,4,0,Friday,1.0,0,Sunny / Mild,26.0,0,35.0,75.0
+2026-09-18,Idli Sambar,Breakfast / Light,62,62,72,10,0,Friday,1.0,0,Sunny / Mild,26.0,0,22.0,50.0
+2026-09-18,Veg Thali,Lunch Meals,88,88,106,18,0,Friday,1.0,0,Sunny / Mild,26.0,0,65.0,130.0
+2026-09-18,Veg Grilled Sandwich,Snack,58,65,58,0,1,Friday,1.0,0,Sunny / Mild,26.0,0,28.0,60.0
+2026-09-18,Rajma Rice Bowl,Lunch Meals,76,77,76,0,1,Friday,1.0,0,Sunny / Mild,26.0,0,45.0,95.0
+2026-09-18,Poha,Breakfast / Light,47,47,65,18,0,Friday,1.0,0,Sunny / Mild,26.0,0,18.0,40.0
+2026-09-18,Masala Dosa,All-Day,63,63,69,6,0,Friday,1.0,0,Sunny / Mild,26.0,0,32.0,70.0
+2026-09-18,Fresh Fruit Juice,Beverage,47,47,54,7,0,Friday,1.0,0,Sunny / Mild,26.0,0,30.0,65.0
+2026-09-19,Pav Bhaji,Lunch / Snack,37,37,50,13,0,Saturday,0.73,0,Sunny / Mild,29.1,0,35.0,75.0
+2026-09-19,Idli Sambar,Breakfast / Light,30,30,45,15,0,Saturday,0.73,0,Sunny / Mild,29.1,0,22.0,50.0
+2026-09-19,Veg Thali,Lunch Meals,48,48,66,18,0,Saturday,0.73,0,Sunny / Mild,29.1,0,65.0,130.0
+2026-09-19,Veg Grilled Sandwich,Snack,29,29,36,7,0,Saturday,0.73,0,Sunny / Mild,29.1,0,28.0,60.0
+2026-09-19,Rajma Rice Bowl,Lunch Meals,48,50,48,0,1,Saturday,0.73,0,Sunny / Mild,29.1,0,45.0,95.0
+2026-09-19,Poha,Breakfast / Light,31,31,41,10,0,Saturday,0.73,0,Sunny / Mild,29.1,0,18.0,40.0
+2026-09-19,Masala Dosa,All-Day,30,30,43,13,0,Saturday,0.73,0,Sunny / Mild,29.1,0,32.0,70.0
+2026-09-19,Fresh Fruit Juice,Beverage,19,19,34,15,0,Saturday,0.73,0,Sunny / Mild,29.1,0,30.0,65.0
+2026-09-20,Pav Bhaji,Lunch / Snack,10,10,50,40,0,Sunday,0.35,0,Rainy / Low Footfall,25.6,0,35.0,75.0
+2026-09-20,Idli Sambar,Breakfast / Light,5,5,45,40,0,Sunday,0.35,0,Rainy / Low Footfall,25.6,0,22.0,50.0
+2026-09-20,Veg Thali,Lunch Meals,24,24,66,42,0,Sunday,0.35,0,Rainy / Low Footfall,25.6,0,65.0,130.0
+2026-09-20,Veg Grilled Sandwich,Snack,9,9,36,27,0,Sunday,0.35,0,Rainy / Low Footfall,25.6,0,28.0,60.0
+2026-09-20,Rajma Rice Bowl,Lunch Meals,16,16,48,32,0,Sunday,0.35,0,Rainy / Low Footfall,25.6,0,45.0,95.0
+2026-09-20,Poha,Breakfast / Light,27,27,41,14,0,Sunday,0.35,0,Rainy / Low Footfall,25.6,0,18.0,40.0
+2026-09-20,Masala Dosa,All-Day,24,24,43,19,0,Sunday,0.35,0,Rainy / Low Footfall,25.6,0,32.0,70.0
+2026-09-20,Fresh Fruit Juice,Beverage,7,7,34,27,0,Sunday,0.35,0,Rainy / Low Footfall,25.6,0,30.0,65.0
+2026-09-21,Pav Bhaji,Lunch / Snack,68,68,81,13,0,Monday,0.96,0,Sunny / Mild,27.8,0,35.0,75.0
+2026-09-21,Idli Sambar,Breakfast / Light,66,66,72,6,0,Monday,0.96,0,Sunny / Mild,27.8,0,22.0,50.0
+2026-09-21,Veg Thali,Lunch Meals,90,90,106,16,0,Monday,0.96,0,Sunny / Mild,27.8,0,65.0,130.0
+2026-09-21,Veg Grilled Sandwich,Snack,50,50,58,8,0,Monday,0.96,0,Sunny / Mild,27.8,0,28.0,60.0
+2026-09-21,Rajma Rice Bowl,Lunch Meals,64,64,76,12,0,Monday,0.96,0,Sunny / Mild,27.8,0,45.0,95.0
+2026-09-21,Poha,Breakfast / Light,62,62,65,3,0,Monday,0.96,0,Sunny / Mild,27.8,0,18.0,40.0
+2026-09-21,Masala Dosa,All-Day,61,61,69,8,0,Monday,0.96,0,Sunny / Mild,27.8,0,32.0,70.0
+2026-09-21,Fresh Fruit Juice,Beverage,48,48,54,6,0,Monday,0.96,0,Sunny / Mild,27.8,0,30.0,65.0
+2026-09-22,Pav Bhaji,Lunch / Snack,79,79,81,2,0,Tuesday,0.95,0,Sunny / Mild,26.1,0,35.0,75.0
+2026-09-22,Idli Sambar,Breakfast / Light,65,65,72,7,0,Tuesday,0.95,0,Sunny / Mild,26.1,0,22.0,50.0
+2026-09-22,Veg Thali,Lunch Meals,92,92,106,14,0,Tuesday,0.95,0,Sunny / Mild,26.1,0,65.0,130.0
+2026-09-22,Veg Grilled Sandwich,Snack,54,54,58,4,0,Tuesday,0.95,0,Sunny / Mild,26.1,0,28.0,60.0
+2026-09-22,Rajma Rice Bowl,Lunch Meals,67,67,76,9,0,Tuesday,0.95,0,Sunny / Mild,26.1,0,45.0,95.0
+2026-09-22,Poha,Breakfast / Light,52,52,65,13,0,Tuesday,0.95,0,Sunny / Mild,26.1,0,18.0,40.0
+2026-09-22,Masala Dosa,All-Day,61,61,69,8,0,Tuesday,0.95,0,Sunny / Mild,26.1,0,32.0,70.0
+2026-09-22,Fresh Fruit Juice,Beverage,40,40,54,14,0,Tuesday,0.95,0,Sunny / Mild,26.1,0,30.0,65.0
+2026-09-23,Pav Bhaji,Lunch / Snack,72,72,81,9,0,Wednesday,1.01,0,Sunny / Mild,28.1,0,35.0,75.0
+2026-09-23,Idli Sambar,Breakfast / Light,53,53,72,19,0,Wednesday,1.01,0,Sunny / Mild,28.1,0,22.0,50.0
+2026-09-23,Veg Thali,Lunch Meals,102,102,106,4,0,Wednesday,1.01,0,Sunny / Mild,28.1,0,65.0,130.0
+2026-09-23,Veg Grilled Sandwich,Snack,53,53,58,5,0,Wednesday,1.01,0,Sunny / Mild,28.1,0,28.0,60.0
+2026-09-23,Rajma Rice Bowl,Lunch Meals,76,78,76,0,1,Wednesday,1.01,0,Sunny / Mild,28.1,0,45.0,95.0
+2026-09-23,Poha,Breakfast / Light,53,53,65,12,0,Wednesday,1.01,0,Sunny / Mild,28.1,0,18.0,40.0
+2026-09-23,Masala Dosa,All-Day,69,70,69,0,1,Wednesday,1.01,0,Sunny / Mild,28.1,0,32.0,70.0
+2026-09-23,Fresh Fruit Juice,Beverage,44,44,54,10,0,Wednesday,1.01,0,Sunny / Mild,28.1,0,30.0,65.0
+2026-09-24,Pav Bhaji,Lunch / Snack,79,79,81,2,0,Thursday,1.05,0,Hot / Humid,35.0,0,35.0,75.0
+2026-09-24,Idli Sambar,Breakfast / Light,60,60,72,12,0,Thursday,1.05,0,Hot / Humid,35.0,0,22.0,50.0
+2026-09-24,Veg Thali,Lunch Meals,106,107,106,0,1,Thursday,1.05,0,Hot / Humid,35.0,0,65.0,130.0
+2026-09-24,Veg Grilled Sandwich,Snack,58,60,58,0,1,Thursday,1.05,0,Hot / Humid,35.0,0,28.0,60.0
+2026-09-24,Rajma Rice Bowl,Lunch Meals,66,66,76,10,0,Thursday,1.05,0,Hot / Humid,35.0,0,45.0,95.0
+2026-09-24,Poha,Breakfast / Light,65,69,65,0,1,Thursday,1.05,0,Hot / Humid,35.0,0,18.0,40.0
+2026-09-24,Masala Dosa,All-Day,64,64,69,5,0,Thursday,1.05,0,Hot / Humid,35.0,0,32.0,70.0
+2026-09-24,Fresh Fruit Juice,Beverage,54,74,54,0,1,Thursday,1.05,0,Hot / Humid,35.0,0,30.0,65.0
+2026-09-25,Pav Bhaji,Lunch / Snack,81,108,81,0,1,Friday,1.01,0,Rainy / Low Footfall,24.2,0,35.0,75.0
+2026-09-25,Idli Sambar,Breakfast / Light,44,44,72,28,0,Friday,1.01,0,Rainy / Low Footfall,24.2,0,22.0,50.0
+2026-09-25,Veg Thali,Lunch Meals,94,94,106,12,0,Friday,1.01,0,Rainy / Low Footfall,24.2,0,65.0,130.0
+2026-09-25,Veg Grilled Sandwich,Snack,46,46,58,12,0,Friday,1.01,0,Rainy / Low Footfall,24.2,0,28.0,60.0
+2026-09-25,Rajma Rice Bowl,Lunch Meals,65,65,76,11,0,Friday,1.01,0,Rainy / Low Footfall,24.2,0,45.0,95.0
+2026-09-25,Poha,Breakfast / Light,65,74,65,0,1,Friday,1.01,0,Rainy / Low Footfall,24.2,0,18.0,40.0
+2026-09-25,Masala Dosa,All-Day,65,65,69,4,0,Friday,1.01,0,Rainy / Low Footfall,24.2,0,32.0,70.0
+2026-09-25,Fresh Fruit Juice,Beverage,30,30,54,24,0,Friday,1.01,0,Rainy / Low Footfall,24.2,0,30.0,65.0
+2026-09-26,Pav Bhaji,Lunch / Snack,38,38,50,12,0,Saturday,0.64,0,Rainy / Low Footfall,23.7,0,35.0,75.0
+2026-09-26,Idli Sambar,Breakfast / Light,34,34,45,11,0,Saturday,0.64,0,Rainy / Low Footfall,23.7,0,22.0,50.0
+2026-09-26,Veg Thali,Lunch Meals,42,42,66,24,0,Saturday,0.64,0,Rainy / Low Footfall,23.7,0,65.0,130.0
+2026-09-26,Veg Grilled Sandwich,Snack,18,18,36,18,0,Saturday,0.64,0,Rainy / Low Footfall,23.7,0,28.0,60.0
+2026-09-26,Rajma Rice Bowl,Lunch Meals,26,26,48,22,0,Saturday,0.64,0,Rainy / Low Footfall,23.7,0,45.0,95.0
+2026-09-26,Poha,Breakfast / Light,22,22,41,19,0,Saturday,0.64,0,Rainy / Low Footfall,23.7,0,18.0,40.0
+2026-09-26,Masala Dosa,All-Day,29,29,43,14,0,Saturday,0.64,0,Rainy / Low Footfall,23.7,0,32.0,70.0
+2026-09-26,Fresh Fruit Juice,Beverage,20,20,34,14,0,Saturday,0.64,0,Rainy / Low Footfall,23.7,0,30.0,65.0
+2026-09-27,Pav Bhaji,Lunch / Snack,26,26,50,24,0,Sunday,0.48,0,Sunny / Mild,27.1,0,35.0,75.0
+2026-09-27,Idli Sambar,Breakfast / Light,25,25,45,20,0,Sunday,0.48,0,Sunny / Mild,27.1,0,22.0,50.0
+2026-09-27,Veg Thali,Lunch Meals,17,17,66,49,0,Sunday,0.48,0,Sunny / Mild,27.1,0,65.0,130.0
+2026-09-27,Veg Grilled Sandwich,Snack,21,21,36,15,0,Sunday,0.48,0,Sunny / Mild,27.1,0,28.0,60.0
+2026-09-27,Rajma Rice Bowl,Lunch Meals,21,21,48,27,0,Sunday,0.48,0,Sunny / Mild,27.1,0,45.0,95.0
+2026-09-27,Poha,Breakfast / Light,21,21,41,20,0,Sunday,0.48,0,Sunny / Mild,27.1,0,18.0,40.0
+2026-09-27,Masala Dosa,All-Day,26,26,43,17,0,Sunday,0.48,0,Sunny / Mild,27.1,0,32.0,70.0
+2026-09-27,Fresh Fruit Juice,Beverage,17,17,34,17,0,Sunday,0.48,0,Sunny / Mild,27.1,0,30.0,65.0

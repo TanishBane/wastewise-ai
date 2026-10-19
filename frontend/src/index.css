@@ -1,0 +1,151 @@
+@import "tailwindcss";
+
+:root {
+  /* Brand Greens */
+  --brand-deep: #12523C;
+  --brand-primary: #16865D;
+  --brand-mint: #47D7A0;
+  --brand-pale: #E4F7ED;
+
+  /* Teal & Cyan */
+  --teal-deep: #087E8B;
+  --teal-vibrant: #13B8A6;
+  --teal-soft-cyan: #DDF5F7;
+
+  /* Professional Royal Blue */
+  --blue-royal: #4263D8;
+  --blue-bright: #5585F7;
+  --blue-pale: #EAF0FF;
+
+  /* Premium Violet */
+  --violet-premium: #7656D6;
+  --violet-soft: #A78BFA;
+  --violet-pale: #F0EBFF;
+
+  /* Amber & Orange */
+  --amber-main: #E7A32D;
+  --amber-orange: #F28C45;
+  --amber-pale: #FFF3D9;
+  --amber-text: #92400E;
+
+  /* Coral & Red */
+  --coral-main: #E96B63;
+  --coral-deep-red: #BF3F45;
+  --coral-pale: #FDE9E7;
+
+  /* Canvas & Neutrals */
+  --canvas-bg: #F5F7FA;
+  --canvas-surface: #FFFFFF;
+  --canvas-alternate: #F0F3F8;
+  --canvas-border: #DFE5EC;
+  --canvas-deep-panel: #172B3D;
+
+  /* Text Tokens (WCAG AA Compliant) */
+  --text-primary: #17232E;
+  --text-secondary: #647386;
+  --text-muted: #8A99A8;
+
+  /* Chart Series */
+  --chart-model: #16865D;
+  --chart-model-hover: #47D7A0;
+  --chart-baseline: #647386;
+  --chart-uncertainty-band: #DDF5F7;
+  --chart-uncertainty-line: #12523C;
+  --chart-prep: #4263D8;
+  --chart-surplus: #7656D6;
+  --chart-risk: #E7A32D;
+  --chart-grid: #DFE5EC;
+
+  /* Typography Font Stack */
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+
+  /* Elevation Shadows with Subtle Tint */
+  --shadow-xs: 0 1px 2px rgba(23, 35, 46, 0.04);
+  --shadow-sm: 0 2px 4px rgba(23, 35, 46, 0.05), 0 1px 2px rgba(23, 35, 46, 0.03);
+  --shadow-md: 0 4px 8px -1px rgba(23, 35, 46, 0.08), 0 2px 4px -2px rgba(23, 35, 46, 0.04);
+  --shadow-lg: 0 12px 20px -4px rgba(23, 35, 46, 0.12), 0 4px 6px -2px rgba(23, 35, 46, 0.06);
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--canvas-bg);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* Tabular Numbers for all numerical data & table cells */
+.tabular-nums, table td, .kpi-value, [data-metric] {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+}
+
+/* Subtle focus-visible accessibility ring in royal blue / emerald */
+:focus-visible {
+  outline: 2px solid var(--brand-primary);
+  outline-offset: 2px;
+}
+
+/* Skeleton Loading Shimmer */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.skeleton-shimmer {
+  background: linear-gradient(
+    90deg,
+    #F0F3F8 25%,
+    #F5F7FA 37%,
+    #F0F3F8 63%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s ease-in-out infinite;
+}
+
+/* Subtle atmospheric backdrop gradients */
+.bg-subtle-glow {
+  background: radial-gradient(circle at 10% 20%, rgba(22, 134, 93, 0.03) 0%, transparent 60%);
+}
+
+/* Smooth color transitions for interactive elements */
+button, a, input, select {
+  transition-property: color, background-color, border-color, box-shadow;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 200ms;
+}
+
+/* Motion reduction compliance */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .skeleton-shimmer {
+    animation: none !important;
+    background: #F0F3F8 !important;
+  }
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
