@@ -119,24 +119,25 @@ class PreparationPlanner:
             refill_trigger = max(10, int(round(rec_total * 0.20)))
         else:
             initial_batch = rec_total
-            refill_trigger = max(5, int(round(rec_total * 0.15)))
+            refill_trigger = 0
 
-        buffer_portions = rec_total - int(round(predicted_demand))
+        available_supply = rec_total + current_stock
+        buffer_portions = available_supply - int(round(predicted_demand))
 
         # Simulation: evaluate expected surplus and shortage for both policies
         # Monte Carlo simulation over implied normal distribution
-        np.random.seed(42)
-        simulated_demands = np.random.normal(predicted_demand, implied_sigma, size=1000)
+        rng = np.random.default_rng(42)
+        simulated_demands = rng.normal(predicted_demand, implied_sigma, size=1000)
         simulated_demands = np.clip(simulated_demands, 0, None)
         
         # WasteWise policy outcome
-        ww_surplus = np.mean(np.maximum(0, rec_total - simulated_demands))
-        ww_shortage = np.mean(np.maximum(0, simulated_demands - rec_total))
+        ww_surplus = np.mean(np.maximum(0, available_supply - simulated_demands))
+        ww_shortage = np.mean(np.maximum(0, simulated_demands - available_supply))
         ww_cost = float(ww_surplus * c_surplus + ww_shortage * c_shortage)
 
         # Traditional policy outcome
-        trad_surplus = np.mean(np.maximum(0, trad_prep - simulated_demands))
-        trad_shortage = np.mean(np.maximum(0, simulated_demands - trad_prep))
+        trad_surplus = np.mean(np.maximum(0, trad_prep + current_stock - simulated_demands))
+        trad_shortage = np.mean(np.maximum(0, simulated_demands - (trad_prep + current_stock)))
         trad_cost = float(trad_surplus * c_surplus + trad_shortage * c_shortage)
 
         net_cost_avoided = round(trad_cost - ww_cost, 2)

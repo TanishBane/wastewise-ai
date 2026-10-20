@@ -39,3 +39,19 @@ def test_simulate_holdout_impact():
     assert summary.estimated_ingredient_cost_avoided >= 0.0
     assert summary.estimated_co2e_avoided_kg >= 0.0
     assert "Simulation Methodology" in summary.methodology_note
+
+
+def test_simulation_replays_planner_and_uses_baseline_waste():
+    import pandas as pd
+    from src.planner import PreparationPlanner
+    df = pd.DataFrame([dict(menu_item="Pav Bhaji", portions_sold=60,
+        latent_demand=60, portions_prepared=100, cost_per_portion=20,
+        lower_bound=55, upper_bound=65)])
+    plan = PreparationPlanner().generate_plan("Pav Bhaji", 60, 55, 65, service_level_preference=0.55)
+    summary = simulate_holdout_impact(df, np.array([60.0]))
+    assert summary.total_portions_prepared_wastewise == plan.recommended_total_plan
+    expected = (40 - max(0, plan.recommended_total_plan - 60)) / 40 * 100
+    assert summary.waste_reduction_pct == round(expected, 1)
+    df["portions_prepared"] = 60
+    zero = simulate_holdout_impact(df, np.array([60.0]))
+    assert zero.waste_reduction_pct == 0

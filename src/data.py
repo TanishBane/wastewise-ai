@@ -204,16 +204,21 @@ def validate_dataset(df: pd.DataFrame) -> Tuple[bool, List[str], pd.DataFrame]:
         issues.append(f"Failed to parse dates in 'date' column: {str(e)}")
         return False, issues, cleaned_df
         
+    if "temperature_c" not in cleaned_df.columns:
+        cleaned_df["temperature_c"] = 28.0
+        issues.append("Missing temperature_c defaulted to 28 degrees Celsius.")
+
     # Check numeric types
-    numeric_cols = ["portions_sold", "attendance_index", "campus_event", "cost_per_portion", "selling_price"]
+    numeric_cols = ["portions_sold", "attendance_index", "campus_event", "cost_per_portion", "selling_price", "temperature_c"]
+    numeric_errors = []
     for col in numeric_cols:
         cleaned_df[col] = pd.to_numeric(cleaned_df[col], errors="coerce")
-        if cleaned_df[col].isna().any():
-            bad_count = int(cleaned_df[col].isna().sum())
-            issues.append(f"Column '{col}' has {bad_count} non-numeric or missing entries.")
+        if (~np.isfinite(cleaned_df[col])).any():
+            bad_count = int((~np.isfinite(cleaned_df[col])).sum())
+            numeric_errors.append(f"Column '{col}' has {bad_count} non-numeric, missing or non-finite entries.")
             
-    if issues:
-        return False, issues, cleaned_df
+    if numeric_errors:
+        return False, issues + numeric_errors, cleaned_df
 
     # Range and logic checks
     if (cleaned_df["portions_sold"] < 0).any():
@@ -238,9 +243,9 @@ def validate_dataset(df: pd.DataFrame) -> Tuple[bool, List[str], pd.DataFrame]:
 
 def generate_sample_csv_template() -> str:
     """
-    Returns CSV text of a 7-day template suitable for operators to download.
+    Returns CSV text of a 14-day template suitable for operators to download.
     """
-    sample_df = generate_synthetic_canteen_data(num_days=7)
+    sample_df = generate_synthetic_canteen_data(num_days=14)
     cols_to_export = [
         "date",
         "menu_item",

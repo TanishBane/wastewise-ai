@@ -18,6 +18,7 @@ if str(ROOT_DIR) not in sys.path:
 
 from fastapi import FastAPI, File, HTTPException, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import Response
 from pydantic import BaseModel, Field
 
 from src.config import (
@@ -28,7 +29,7 @@ from src.config import (
     VERSION,
     WEATHER_TYPES,
 )
-from src.data import get_demonstration_data, validate_dataset
+from src.data import get_demonstration_data, validate_dataset, generate_sample_csv_template
 from src.metrics import classify_waste_risks, simulate_holdout_impact
 from src.model import DemandForecastingEngine
 from src.planner import PreparationPlanner
@@ -437,9 +438,9 @@ def get_performance():
     test_df = getattr(state.engine, "test_records_df", None)
     if test_df is not None and len(test_df) > 0 and "ml_pred" in test_df.columns:
         sim_res = simulate_holdout_impact(test_df, test_df["ml_pred"].values)
-        waste_red_pct = round(min(45.0, (sim_res.estimated_surplus_avoided_portions / max(1, sim_res.estimated_surplus_avoided_portions + 120)) * 100), 1)
+        waste_red_pct = sim_res.waste_reduction_pct
         sim_data = {
-            "waste_reduction_pct": waste_red_pct if waste_red_pct > 0 else 32.4,
+            "waste_reduction_pct": waste_red_pct,
             "financial_savings_inr": round(sim_res.estimated_ingredient_cost_avoided),
             "carbon_avoided_kg": round(sim_res.estimated_co2e_avoided_kg, 1),
             "surplus_portions_avoided": round(sim_res.estimated_surplus_avoided_portions),
@@ -447,14 +448,7 @@ def get_performance():
             "stockout_rate_wastewise": round(sim_res.stockout_rate_wastewise, 1),
         }
     else:
-        sim_data = {
-            "waste_reduction_pct": 32.4,
-            "financial_savings_inr": 18450,
-            "carbon_avoided_kg": 248.5,
-            "surplus_portions_avoided": 310,
-            "stockout_rate_traditional": 4.6,
-            "stockout_rate_wastewise": 2.1,
-        }
+        raise HTTPException(status_code=503, detail="Holdout evaluation is unavailable.")
 
     return {
         "ml_metrics": {
@@ -486,6 +480,15 @@ def get_data_info():
     }
 
 
+@app.get("/api/data/template")
+def download_csv_template():
+    return Response(
+        content=generate_sample_csv_template(),
+        media_type="text/csv",
+        headers={"Content-Disposition": 'attachment; filename="wastewise_canteen_template.csv"'},
+    )
+
+
 @app.post("/api/data/upload")
 async def upload_csv(file: UploadFile = File(...)):
     content = await file.read()
@@ -494,20 +497,24 @@ async def upload_csv(file: UploadFile = File(...)):
     except Exception as e:
         raise HTTPException(status_code=400, detail=f"Invalid CSV format: {str(e)}")
 
-    validation = validate_dataset(df)
-    if not validation.is_valid:
-        raise HTTPException(status_code=422, detail=validation.errors)
+    is_valid, issues, df = validate_dataset(df)
+    if not is_valid:
+        raise HTTPException(status_code=422, detail=issues)
 
+    engine = DemandForecastingEngine(n_estimators=100, random_state=42)
+    try:
+        engine.train_and_evaluate(df, holdout_days=min(35, max(5, df["date"].nunique() // 5)))
+    except (ValueError, KeyError) as exc:
+        raise HTTPException(status_code=422, detail=f"Cannot train on this dataset: {exc}") from exc
     state.dataset_df = df
+    state.engine = engine
     state.is_synthetic = False
-    state.engine = DemandForecastingEngine(n_estimators=100, random_state=42)
-    state.engine.train_and_evaluate(df, holdout_days=min(35, max(5, len(df["date"].unique()) // 5)))
 
     return {
         "status": "success",
         "message": f"Successfully ingested {len(df)} records across {len(df['date'].unique())} service days.",
         "records": len(df),
-        "warnings": validation.warnings,
+        "warnings": issues,
     }
 
 

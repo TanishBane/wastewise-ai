@@ -42,3 +42,9 @@ test-results/
 # Local credentials
 .streamlit/secrets.toml
 .streamlit/credentials.toml
+
+# Local tool caches
+.cache/
+
+# Local design-tool state
+.taste-skill/

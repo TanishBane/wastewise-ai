@@ -48,7 +48,7 @@ export interface OverviewItemDetail {
 
 export interface PrioritizedAlert {
   menu_item: string;
-  risk_level: 'High' | 'Moderate' | 'Low';
+  risk_level: "High" | "Moderate" | "Low";
   predicted_demand: number;
   planned_preparation: number;
   potential_surplus: number;
@@ -120,7 +120,7 @@ export interface WasteRiskItem {
   planned_preparation: number;
   potential_surplus: number;
   ingredient_cost_at_risk: number;
-  risk_level: 'High' | 'Moderate' | 'Low';
+  risk_level: "High" | "Moderate" | "Low";
   primary_action: string;
   kitchen_guidance: string;
   shelf_life_hours: number;

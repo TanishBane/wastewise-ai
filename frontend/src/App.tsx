@@ -1,277 +1,551 @@
-import React, { useState, useEffect } from 'react';
-import { BrandIntro } from './components/BrandIntro';
-import { AppShell } from './components/AppShell';
-import { PageId } from './components/Sidebar';
-import { OverviewView } from './views/OverviewView';
-import { DemandForecastView } from './views/DemandForecastView';
-import { PreparationPlannerView } from './views/PreparationPlannerView';
-import { WasteRiskMonitoringView } from './views/WasteRiskMonitoringView';
-import { PerformanceImpactView } from './views/PerformanceImpactView';
-import { DataModelView } from './views/DataModelView';
-import { PrivacyPolicyView } from './views/PrivacyPolicyView';
-import { TermsOfUseView } from './views/TermsOfUseView';
-import { TransparencyView } from './views/TransparencyView';
-import { HelpCenterView } from './views/HelpCenterView';
-import { GuidedDemoModal } from './components/GuidedDemoModal';
-import { LimitationsModal } from './components/common/LimitationsModal';
-import { KeyboardShortcutsModal } from './components/KeyboardShortcutsModal';
-import { ScenarioPreset } from './components/TopBar';
-import { fetchConfig } from './api';
+﻿import { Component, lazy, Suspense, useEffect, useState } from "react";
+import type { ErrorInfo, ReactNode } from "react";
+import {
+  ArrowDownToLine,
+  ArrowRight,
+  BarChart3,
+  CalendarDays,
+  ChartNoAxesCombined,
+  ChefHat,
+  ChevronRight,
+  Database,
+  FlaskConical,
+  HelpCircle,
+  LayoutDashboard,
+  Leaf,
+  Menu,
+  RefreshCw,
+  Search,
+  ShieldCheck,
+  Sprout,
+  TriangleAlert,
+} from "lucide-react";
+import { fetchConfig, fetchOverview } from "./api";
+import { Badge, Dialog, ErrorState, Loading } from "./workspace/shared";
+import { date, downloadCSV, useResource } from "./workspace/model";
+import type { Page, ScreenProps } from "./workspace/model";
 
-const VALID_PAGES: PageId[] = [
-  'overview',
-  'demand-forecast',
-  'prep-planner',
-  'waste-risk',
-  'performance',
-  'data-model',
-  'privacy',
-  'terms',
-  'transparency',
-  'help',
+const Overview = lazy(() => import("./workspace/Overview"));
+const Scenario = lazy(() => import("./workspace/Scenario"));
+const Rescue = lazy(() => import("./workspace/Rescue"));
+const Performance = lazy(() => import("./workspace/Performance"));
+const Data = lazy(() => import("./workspace/Data"));
+const Guide = lazy(() => import("./workspace/Guide"));
+const links = [
+  {
+    id: "overview",
+    label: "Kitchen overview",
+    icon: LayoutDashboard,
+    description: "Today’s menu and kitchen priorities",
+  },
+  {
+    id: "demand-forecast",
+    label: "Demand forecast",
+    icon: ChartNoAxesCombined,
+    description: "Explore demand and its uncertainty",
+  },
+  {
+    id: "prep-planner",
+    label: "Preparation planner",
+    icon: ChefHat,
+    description: "Choose batches and inventory",
+  },
+  {
+    id: "waste-risk",
+    label: "Surplus rescue",
+    icon: TriangleAlert,
+    description: "Review potential waste and actions",
+  },
+  {
+    id: "performance",
+    label: "Performance & impact",
+    icon: BarChart3,
+    description: "Model evaluation and simulated impact",
+  },
+  {
+    id: "data-model",
+    label: "Data & model",
+    icon: Database,
+    description: "Upload and inspect your records",
+  },
+] as const;
+const allPages: string[] = [
+  ...links.map((link) => link.id),
+  "help",
+  "privacy",
+  "terms",
+  "transparency",
 ];
-
-export function App() {
-  const [showIntro, setShowIntro] = useState(() => {
-    return sessionStorage.getItem('wastewise_intro_seen') !== 'true';
-  });
-
-  // URL Hash synchronization
-  const [currentPage, setCurrentPage] = useState<PageId>(() => {
-    const hash = window.location.hash.replace('#', '') as PageId;
-    return VALID_PAGES.includes(hash) ? hash : 'overview';
-  });
-
-  const [demoTriggered, setDemoTriggered] = useState(false);
-  const [isSynthetic, setIsSynthetic] = useState(true);
-  const [serviceDate, setServiceDate] = useState('27 Sep 2026');
-  const [activeScenario, setActiveScenario] = useState<ScenarioPreset>('normal');
-
-  // Modals state
-  const [guidedDemoOpen, setGuidedDemoOpen] = useState(false);
-  const [limitationsOpen, setLimitationsOpen] = useState(false);
-  const [shortcutsOpen, setShortcutsOpen] = useState(false);
-
-  // Sync hash when page changes
-  const handleSelectPage = (page: PageId) => {
-    setCurrentPage(page);
-    window.location.hash = page;
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+const currentHash = (): Page => {
+  const hash = window.location.hash.slice(1);
+  return allPages.includes(hash) ? (hash as Page) : "overview";
+};
+class ViewBoundary extends Component<
+  { children: ReactNode },
+  { failed: boolean }
+> {
+  state = { failed: false };
+  static getDerivedStateFromError() {
+    return { failed: true };
+  }
+  componentDidCatch(error: Error, info: ErrorInfo) {
+    console.error("View error", error, info);
+  }
+  render() {
+    return this.state.failed ? (
+      <ErrorState
+        message="The page could not be displayed. Reload to recover."
+        retry={() => window.location.reload()}
+      />
+    ) : (
+      this.props.children
+    );
+  }
+}
+export default function App() {
+  const [page, setPage] = useState<Page>(currentHash);
+  const [revision, setRevision] = useState(0);
+  const config = useResource(fetchConfig, revision);
+  const [dish, setDish] = useState("Pav Bhaji");
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
+  const [search, setSearch] = useState("");
+  const [tourOpen, setTourOpen] = useState(false);
+  const [tourStep, setTourStep] = useState(0);
+  const [exporting, setExporting] = useState(false);
+  const [exportError, setExportError] = useState("");
+  const navigate = (next: Page, item?: string) => {
+    if (item) setDish(item);
+    setPage(next);
+    window.location.hash = next;
+    setMenuOpen(false);
+    setSearchOpen(false);
+    window.scrollTo({ top: 0, behavior: "instant" });
   };
-
-  // Listen to browser Back/Forward hash changes
   useEffect(() => {
-    const handleHashChange = () => {
-      const hash = window.location.hash.replace('#', '') as PageId;
-      if (VALID_PAGES.includes(hash)) {
-        setCurrentPage(hash);
-      }
-    };
-    window.addEventListener('hashchange', handleHashChange);
-    return () => window.removeEventListener('hashchange', handleHashChange);
+    const change = () => setPage(currentHash());
+    window.addEventListener("hashchange", change);
+    return () => window.removeEventListener("hashchange", change);
   }, []);
-
-  // Global Keyboard Navigation
   useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      const activeTag = document.activeElement?.tagName.toLowerCase();
-      if (activeTag === 'input' || activeTag === 'textarea' || activeTag === 'select') {
+    document.title = `${links.find((link) => link.id === page)?.label || "Help & transparency"} · WasteWise`;
+  }, [page]);
+  useEffect(() => {
+    const key = (event: KeyboardEvent) => {
+      if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k") {
+        event.preventDefault();
+        setMenuOpen(false);
+        setTourOpen(false);
+        setSearchOpen((value) => !value);
         return;
       }
-
-      if (e.key === '?' || (e.key === '/' && e.shiftKey)) {
-        e.preventDefault();
-        setShortcutsOpen((prev) => !prev);
-      } else if (e.key === '1') {
-        handleSelectPage('overview');
-      } else if (e.key === '2') {
-        handleSelectPage('demand-forecast');
-      } else if (e.key === '3') {
-        handleSelectPage('prep-planner');
-      } else if (e.key === '4') {
-        handleSelectPage('waste-risk');
-      } else if (e.key === '5') {
-        handleSelectPage('performance');
-      } else if (e.key === '6') {
-        handleSelectPage('data-model');
-      } else if (e.key === '[') {
-        // Toggle sidebar collapse
-        const current = localStorage.getItem('wastewise_sidebar_collapsed') === 'true';
-        localStorage.setItem('wastewise_sidebar_collapsed', String(!current));
-        window.dispatchEvent(new Event('storage'));
-      } else if (e.key === 'Escape') {
-        setShortcutsOpen(false);
-        setGuidedDemoOpen(false);
-        setLimitationsOpen(false);
+      if (
+        (event.target as HTMLElement).closest(
+          "input,textarea,select,[contenteditable=true]",
+        )
+      )
+        return;
+      if (event.key === "?" && !document.querySelector("dialog[open]")) {
+        event.preventDefault();
+        navigate("help");
       }
     };
-
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
+    document.addEventListener("keydown", key);
+    return () => document.removeEventListener("keydown", key);
   }, []);
-
-  useEffect(() => {
-    fetchConfig()
-      .then((cfg) => {
-        setIsSynthetic(cfg.is_synthetic ?? true);
-        if (cfg.latest_date) {
-          try {
-            const parts = cfg.latest_date.split('-');
-            if (parts.length === 3) {
-              const d = new Date(Number(parts[0]), Number(parts[1]) - 1, Number(parts[2]));
-              const formatted = d.toLocaleDateString('en-GB', {
-                day: 'numeric',
-                month: 'short',
-                year: 'numeric',
-              });
-              setServiceDate(formatted);
-            }
-          } catch {
-            setServiceDate(cfg.latest_date);
-          }
-        }
-      })
-      .catch(() => {
-        // Fallback default
-      });
-  }, [currentPage]);
-
-  const handleLaunchDemoScenario = () => {
-    setGuidedDemoOpen(true);
+  const exportReport = async () => {
+    setExporting(true);
+    setExportError("");
+    try {
+      const result = await fetchOverview();
+      downloadCSV(`wastewise-menu-${result.service_date}.csv`, [
+        [
+          "Service date",
+          "Source",
+          "Dish",
+          "Category",
+          "Forecast portions",
+          "Lower estimate",
+          "Upper estimate",
+          "Recommended prep",
+          "Initial batch",
+          "Refill trigger",
+          "Ingredient cost at risk INR",
+        ],
+        ...result.item_details.map((row) => [
+          result.service_date,
+          result.is_synthetic
+            ? "Synthetic demonstration"
+            : "Uploaded operator records",
+          row.menu_item,
+          row.category,
+          row.predicted_demand,
+          row.lower_bound,
+          row.upper_bound,
+          row.recommended_prep,
+          row.initial_batch,
+          row.refill_trigger,
+          row.naive_exposure,
+        ]),
+      ]);
+    } catch (error) {
+      setExportError(
+        error instanceof Error ? error.message : "Export failed. Try again.",
+      );
+    } finally {
+      setExporting(false);
+    }
   };
-
-  const handleIntroComplete = () => {
-    setShowIntro(false);
-  };
-
-  const handleSelectScenario = (scenario: ScenarioPreset) => {
-    setActiveScenario(scenario);
-  };
-
-  const handleExportCsv = () => {
-    const csvContent =
-      'data:text/csv;charset=utf-8,Menu Item,Category,Forecast Demand,Recommended Prep,Cost At Risk\n' +
-      'Paneer Butter Masala,Main Course,24,25,980\n' +
-      'Dal Makhani,Main Course,28,30,650\n' +
-      'Steamed Rice,Staple,42,44,420\n' +
-      'Roti / Chapati,Bread,35,36,360\n' +
-      'Mix Veg Curry,Main Course,16,17,450\n' +
-      'Gulab Jamun,Dessert,16,16,480\n';
-    const encodedUri = encodeURI(csvContent);
-    const link = document.createElement('a');
-    link.setAttribute('href', encodedUri);
-    link.setAttribute('download', `wastewise_operations_${activeScenario}.csv`);
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  };
-
-  return (
+  const nav = (
     <>
-      {showIntro && <BrandIntro onComplete={handleIntroComplete} />}
-
-      <AppShell
-        currentPage={currentPage}
-        onSelectPage={handleSelectPage}
-        onLaunchDemoScenario={handleLaunchDemoScenario}
-        isSynthetic={isSynthetic}
-        serviceDate={serviceDate}
-        activeScenario={activeScenario}
-        onSelectScenario={handleSelectScenario}
-        onOpenLimitations={() => setLimitationsOpen(true)}
-        onOpenShortcuts={() => setShortcutsOpen(true)}
-        onExportReport={handleExportCsv}
-      >
-        {currentPage === 'overview' && (
-          <OverviewView
-            onNavigate={handleSelectPage}
-            onOpenLimitations={() => setLimitationsOpen(true)}
-            scenarioPreset={activeScenario}
-            onSelectScenario={handleSelectScenario}
-          />
-        )}
-        {currentPage === 'demand-forecast' && (
-          <DemandForecastView
-            onOpenLimitations={() => setLimitationsOpen(true)}
-            scenarioPreset={activeScenario}
-            onSelectScenario={handleSelectScenario}
-          />
-        )}
-        {currentPage === 'prep-planner' && (
-          <PreparationPlannerView
-            demoTriggered={demoTriggered}
-            onOpenLimitations={() => setLimitationsOpen(true)}
-            scenarioPreset={activeScenario}
-            onSelectScenario={handleSelectScenario}
-          />
-        )}
-        {currentPage === 'waste-risk' && (
-          <WasteRiskMonitoringView
-            onOpenLimitations={() => setLimitationsOpen(true)}
-            scenarioPreset={activeScenario}
-            onSelectScenario={handleSelectScenario}
-          />
-        )}
-        {currentPage === 'performance' && (
-          <PerformanceImpactView
-            onOpenLimitations={() => setLimitationsOpen(true)}
-          />
-        )}
-        {currentPage === 'data-model' && (
-          <DataModelView
-            onOpenLimitations={() => setLimitationsOpen(true)}
-          />
-        )}
-
-        {/* Legal, Trust & Playbook Pages */}
-        {currentPage === 'privacy' && (
-          <PrivacyPolicyView onNavigate={handleSelectPage} />
-        )}
-        {currentPage === 'terms' && (
-          <TermsOfUseView onNavigate={handleSelectPage} />
-        )}
-        {currentPage === 'transparency' && (
-          <TransparencyView
-            onNavigate={handleSelectPage}
-            onOpenLimitations={() => setLimitationsOpen(true)}
-          />
-        )}
-        {currentPage === 'help' && (
-          <HelpCenterView
-            onNavigate={handleSelectPage}
-            onLaunchDemoTour={() => setGuidedDemoOpen(true)}
-            onOpenShortcuts={() => setShortcutsOpen(true)}
-          />
-        )}
-      </AppShell>
-
-      {/* Guided 5-Step Demo Walkthrough Modal */}
-      <GuidedDemoModal
-        isOpen={guidedDemoOpen}
-        onClose={() => setGuidedDemoOpen(false)}
-        onSelectScenario={handleSelectScenario}
-        onNavigatePage={(pageId) => {
-          if (pageId === 'overview') handleSelectPage('overview');
-          else if (pageId === 'demand_forecast') handleSelectPage('demand-forecast');
-          else if (pageId === 'smart_preparation') handleSelectPage('prep-planner');
-          else if (pageId === 'waste_risk') handleSelectPage('waste-risk');
-          else if (pageId === 'impact_analytics') handleSelectPage('performance');
-        }}
-      />
-
-      {/* Scientific Validation & Limitations Modal */}
-      <LimitationsModal
-        isOpen={limitationsOpen}
-        onClose={() => setLimitationsOpen(false)}
-      />
-
-      {/* Keyboard Shortcuts Dialog */}
-      <KeyboardShortcutsModal
-        isOpen={shortcutsOpen}
-        onClose={() => setShortcutsOpen(false)}
-      />
+      <div className="brand">
+        <span className="brand-mark">
+          <Sprout size={24} strokeWidth={1.8} />
+        </span>
+        <span>
+          WasteWise<span className="brand-ai">AI</span>
+          <small>Kitchen intelligence</small>
+        </span>
+      </div>
+      <div className="workspace-name">
+        <span className="workspace-avatar">CG</span>
+        <div>
+          <strong>Campus Green</strong>
+          <small>Central canteen</small>
+        </div>
+      </div>
+      <span className="nav-label">Workspace</span>
+      <nav aria-label="Main navigation">
+        {links.map(({ id, label, icon: Icon }) => (
+          <a
+            key={id}
+            href={`#${id}`}
+            className={`nav-link ${page === id ? "active" : ""}`}
+            aria-current={page === id ? "page" : undefined}
+            onClick={(event) => {
+              event.preventDefault();
+              navigate(id);
+            }}
+          >
+            <Icon size={18} strokeWidth={1.7} />
+            <span>{label}</span>
+            {page === id && <span className="nav-active-dot" />}
+          </a>
+        ))}
+      </nav>
+      <div className="sidebar-bottom">
+        <div className="demo-invite">
+          <FlaskConical size={19} />
+          <strong>See the whole workflow</strong>
+          <p>From a demand forecast to a better kitchen plan.</p>
+          <button
+            onClick={() => {
+              setTourStep(0);
+              setTourOpen(true);
+              setMenuOpen(false);
+            }}
+          >
+            Take a quick tour
+            <ArrowRight size={15} />
+          </button>
+        </div>
+        <a
+          className="nav-link"
+          href="#help"
+          onClick={(event) => {
+            event.preventDefault();
+            navigate("help");
+          }}
+        >
+          <HelpCircle size={18} />
+          Help & getting started
+        </a>
+        <a
+          className="nav-link"
+          href="#transparency"
+          onClick={(event) => {
+            event.preventDefault();
+            navigate("transparency");
+          }}
+        >
+          <ShieldCheck size={18} />
+          Model transparency
+        </a>
+        <div className="sidebar-signature">
+          <Leaf size={14} />
+          <span>Make every portion count.</span>
+        </div>
+      </div>
     </>
   );
+  const screen: ScreenProps | null = config.data
+    ? {
+        config: config.data,
+        revision,
+        navigate,
+        dish,
+        onDataChange: () => setRevision((value) => value + 1),
+      }
+    : null;
+  const tour = [
+    {
+      title: "Start with the kitchen’s day",
+      text: "The overview brings menu forecasts, preparation targets, and surplus priorities together. All figures reflect the active dataset.",
+      page: "overview" as Page,
+    },
+    {
+      title: "Test a different kind of day",
+      text: "Explore a campus event, changing attendance, or rainy weather in Demand forecast. These are scenarios, not recorded sales.",
+      page: "demand-forecast" as Page,
+    },
+    {
+      title: "Turn demand into a batch plan",
+      text: "Factor in existing stock and the cost of running out. Review what to cook now and what to hold for refill.",
+      page: "prep-planner" as Page,
+    },
+    {
+      title: "Act on surplus, then learn",
+      text: "Review rescue priorities and inspect holdout performance. Impact figures are retrospective simulations until measured in a real pilot.",
+      page: "performance" as Page,
+    },
+  ];
+  return (
+    <div className="app-frame">
+      <a
+        className="skip-link"
+        href="#main"
+        onClick={(event) => {
+          event.preventDefault();
+          document.getElementById("main")?.focus();
+        }}
+      >
+        Skip to content
+      </a>
+      <aside className="sidebar">{nav}</aside>
+      <div className="workspace">
+        <header className="workspace-bar">
+          <div className="breadcrumb">
+            <button
+              className="icon-button mobile-menu"
+              aria-label="Open navigation"
+              onClick={() => setMenuOpen(true)}
+            >
+              <Menu size={20} />
+            </button>
+            <span>Workspace</span>
+            <ChevronRight size={14} />
+            <strong>
+              {links.find((link) => link.id === page)?.label || "Resources"}
+            </strong>
+          </div>
+          <div className="workspace-tools">
+            <button
+              className="search-trigger"
+              onClick={() => {
+                setSearch("");
+                setSearchOpen(true);
+              }}
+            >
+              <Search size={16} />
+              <span>Find a page</span>
+              <kbd>Ctrl K</kbd>
+            </button>
+            <span className="operator-avatar" title="Local kitchen workspace">
+              CG
+            </span>
+          </div>
+        </header>
+        <main id="main" className="work-sheet" tabIndex={-1}>
+          <div className="source-bar">
+            <div>
+              <span
+                className={`status-dot ${config.data?.is_synthetic ? "amber" : ""}`}
+              />
+              <strong>
+                {config.data
+                  ? config.data.is_synthetic
+                    ? "Demo workspace"
+                    : "Operator dataset"
+                  : "Connecting to workspace"}
+              </strong>
+              <span className="source-detail">
+                {config.data?.is_synthetic
+                  ? "Synthetic data · explore without affecting your kitchen"
+                  : config.data
+                    ? "Forecasts from your uploaded service records"
+                    : "Waiting for the local API"}
+              </span>
+            </div>
+            <button
+              className="text-link"
+              onClick={() => navigate("data-model")}
+            >
+              {config.data?.is_synthetic ? "Connect your data" : "Manage data"}
+              <ArrowRight size={14} />
+            </button>
+          </div>
+          <div className="page-tools">
+            <span>
+              <CalendarDays size={15} />
+              Service date: {date(config.data?.latest_date)}
+            </span>
+            <div>
+              <button
+                className="icon-button"
+                aria-label="Refresh workspace"
+                disabled={config.loading}
+                onClick={() => setRevision((value) => value + 1)}
+              >
+                <RefreshCw size={16} className={config.loading ? "spin" : ""} />
+              </button>
+              <button
+                className="button small"
+                onClick={exportReport}
+                disabled={exporting || !config.data}
+              >
+                <ArrowDownToLine size={15} />
+                {exporting ? "Exporting…" : "Export menu"}
+              </button>
+            </div>
+          </div>
+          {exportError && (
+            <div className="inline-error" role="alert">
+              {exportError}
+              <button className="text-link" onClick={exportReport}>
+                Retry export
+              </button>
+            </div>
+          )}
+          <ViewBoundary key={page}>
+            <Suspense fallback={<Loading label="Opening workspace…" />}>
+              {config.loading && !config.data ? (
+                <Loading />
+              ) : config.error ? (
+                <ErrorState message={config.error} retry={config.retry} />
+              ) : screen ? (
+                page === "overview" ? (
+                  <Overview {...screen} />
+                ) : page === "demand-forecast" || page === "prep-planner" ? (
+                  <Scenario
+                    key={page + dish + revision}
+                    {...screen}
+                    kind={page}
+                  />
+                ) : page === "waste-risk" ? (
+                  <Rescue {...screen} />
+                ) : page === "performance" ? (
+                  <Performance {...screen} />
+                ) : page === "data-model" ? (
+                  <Data {...screen} />
+                ) : (
+                  <Guide {...screen} page={page} />
+                )
+              ) : null}
+            </Suspense>
+          </ViewBoundary>
+          <footer className="workspace-footer">
+            <span>
+              <Sprout size={14} />
+              WasteWise AI <span className="footer-divider">/</span> Thoughtful
+              prep. Less waste.
+            </span>
+            <div>
+              <a href="#privacy">Privacy</a>
+              <a href="#terms">Terms</a>
+              <span>ADAPPT 5.0</span>
+            </div>
+          </footer>
+        </main>
+      </div>
+      <Dialog
+        open={menuOpen}
+        title="Workspace navigation"
+        onClose={() => setMenuOpen(false)}
+      >
+        <div className="mobile-navigation">{nav}</div>
+      </Dialog>
+      <Dialog
+        open={searchOpen}
+        title="Find your next step"
+        onClose={() => setSearchOpen(false)}
+      >
+        <div className="command-search">
+          <Search size={18} />
+          <input
+            autoFocus
+            aria-label="Search pages"
+            placeholder="Search forecasts, preparation, data…"
+            value={search}
+            onChange={(event) => setSearch(event.target.value)}
+          />
+        </div>
+        <div className="search-results">
+          {links
+            .filter((link) =>
+              `${link.label} ${link.description}`
+                .toLowerCase()
+                .includes(search.toLowerCase()),
+            )
+            .map(({ id, label, description, icon: Icon }) => (
+              <button key={id} onClick={() => navigate(id)}>
+                <Icon size={20} />
+                <span>
+                  <strong>{label}</strong>
+                  <small>{description}</small>
+                </span>
+                <ArrowRight size={16} />
+              </button>
+            ))}
+          {!links.some((link) =>
+            `${link.label} ${link.description}`
+              .toLowerCase()
+              .includes(search.toLowerCase()),
+          ) && <p className="muted">No pages match “{search}”.</p>}
+        </div>
+      </Dialog>
+      <Dialog
+        open={tourOpen}
+        onClose={() => setTourOpen(false)}
+        title="A better service, one decision at a time"
+      >
+        <div className="tour-content">
+          <Badge tone="positive">
+            Step {tourStep + 1} of {tour.length}
+          </Badge>
+          <h3>{tour[tourStep].title}</h3>
+          <p>{tour[tourStep].text}</p>
+          <div className="tour-steps" aria-hidden="true">
+            {tour.map((_, index) => (
+              <span
+                key={index}
+                className={index <= tourStep ? "complete" : ""}
+              />
+            ))}
+          </div>
+          <div className="button-row">
+            <button
+              className="button"
+              onClick={() => {
+                navigate(tour[tourStep].page);
+                setTourOpen(false);
+              }}
+            >
+              Explore this view
+            </button>
+            <button
+              className="button primary"
+              onClick={() =>
+                tourStep < tour.length - 1
+                  ? setTourStep((value) => value + 1)
+                  : setTourOpen(false)
+              }
+            >
+              {tourStep < tour.length - 1 ? "Next step" : "Ready to explore"}
+              <ArrowRight size={16} />
+            </button>
+          </div>
+        </div>
+      </Dialog>
+    </div>
+  );
 }
-
-export default App;

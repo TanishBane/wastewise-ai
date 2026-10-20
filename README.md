@@ -1,186 +1,87 @@
-# 🌿 WasteWise AI — ADAPPT 5.0 AI in FoodTech
-> **Predict smarter. Prepare better. Waste less.**  
-> *Adaptive Canteen Demand Forecasting & Preparation Decision Support Platform*
+﻿# WasteWise AI
 
-[![Python](https://img.shields.io/badge/Python-3.11%20%7C%203.14-10B981?style=flat&logo=python)](https://python.org)
-[![FastAPI](https://img.shields.io/badge/FastAPI-0.110+-009688?style=flat&logo=fastapi)](https://fastapi.tiangolo.com)
-[![React](https://img.shields.io/badge/React-19%20%7C%20TypeScript-61DAFB?style=flat&logo=react)](https://react.dev)
-[![TailwindCSS](https://img.shields.io/badge/TailwindCSS-v4-38B2AC?style=flat&logo=tailwind-css)](https://tailwindcss.com)
-[![Vite](https://img.shields.io/badge/Vite-6.0+-646CFF?style=flat&logo=vite)](https://vite.dev)
-[![Scikit-Learn](https://img.shields.io/badge/Scikit--Learn-1.4+-F7931E?style=flat&logo=scikit-learn)](https://scikit-learn.org)
-[![Tests](https://img.shields.io/badge/Pytest-17%20Passed-10B981?style=flat&logo=pytest)](https://pytest.org)
-[![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+**Predict smarter. Prepare better. Waste less.**
 
----
+A canteen operations workspace that connects demand forecasting to practical batch preparation, surplus triage, and transparent evaluation. Built for daily kitchen decisions, with clearly labeled synthetic data for demonstrations.
 
-## 📌 Executive Summary
+## Start the application
 
-Food waste in catering and college canteens is fundamentally an **operations decision problem driven by demand uncertainty**. Canteens must commit kitchen preparation hours before customer arrival. Traditional operations rely on rigid habitual buffers (e.g., cooking 100 portions every day), resulting in severe end-of-day discards or costly early stockouts.
+Python and Node.js/npm are required. The frontend uses Vite 8; use Node.js 22.12 or newer.
 
-**WasteWise AI** connects demand estimation directly to kitchen batch execution through a closed 4-stage decision loop:
-1. **PREDICT:** Estimate menu item demand with defensible 80% uncertainty bounds using an empirical Random Forest ensemble.
-2. **PREPARE:** Balance the cost of excess food ($C_{\text{surplus}}$) against the cost of lost sales ($C_{\text{shortage}}$) using Newsvendor economics, recommending staggered batch cooking and refill triggers.
-3. **RESCUE:** Triage items by financial risk exposure and provide safe operational interventions (batch pull-backs, flash specials, and donation protocols).
-4. **LEARN:** Continuously benchmark predictions against a weekday-average baseline using chronological holdout validation, recording physical discards and availability.
-
----
-
-## 🚀 Quickstart: Run the Platform
-
-WasteWise AI features a modern **React + TypeScript + Tailwind CSS** operational frontend powered by a high-performance **Python FastAPI** microservice.
-
-### Prerequisites
-- Python 3.11 or newer (Python 3.14 compatible).
-- Node.js 18+ and npm.
-
-### 1. Start the FastAPI Intelligence Backend
-```bash
-# From repository root
-pip install -r requirements.txt
-py -m uvicorn backend.main:app --host 127.0.0.1 --port 8000
+```powershell
+python -m pip install -r requirements.txt
+python -m uvicorn backend.main:app --host 127.0.0.1 --port 8000
 ```
-Backend health check: `http://127.0.0.1:8000/api/health`
 
-### 2. Start the React Operations Dashboard
-```bash
-# In a separate terminal
+In a second terminal:
+
+```powershell
 cd frontend
 npm install
 npm run dev
 ```
-The operations dashboard will open at **`http://localhost:3000`**.
 
-*(Note: The legacy Streamlit prototype is preserved and can be run at `http://localhost:8501` via `streamlit run app.py`)*
+Open the address Vite prints, normally http://localhost:3000. Backend health: http://127.0.0.1:8000/api/health.
 
----
+For frontend configuration, checks, and production proxy requirements, see [frontend/README.md](frontend/README.md).
 
-## ⏱️ 90-Second Judge Demonstration Guide
+## The operational workflow
 
-During hackathon presentations, use the sidebar button **“Launch demo scenario”** or walk through these 5 rapid steps:
+1. **Review the kitchen:** menu demand, baseline cost exposure, and prioritized preparation decisions.
+2. **Explore demand:** weekday, attendance, campus event, and weather scenarios, with model estimates and recorded sales.
+3. **Plan batches:** account for safe ready-to-serve stock, cost asymmetry, and service preference. Export what to cook now and what to hold for replenishment.
+4. **Review surplus:** filter the rescue queue by risk, inspect the suggested operational action, and adjust the plan.
+5. **Inspect the evidence:** chronological holdout error, a weekday-average baseline, and explicitly simulated impact.
+6. **Connect records:** download the schema template, upload a CSV with at least 14 service days, and inspect the active dataset.
 
-1. **Step 1: The Canteen Reality (Overview)**
-   - Open `Overview`. Show the daily demand estimate (~510 portions across 8 dishes), potential surplus exposure, and the active alert panel highlighting excess risk on *Veg Thali*.
-2. **Step 2: Generate Point & Range Forecast (Demand forecast)**
-   - Select **Pav Bhaji** on **Monday**. 
-   - Point out the point forecast (~72 portions) and the **80% uncertainty range** (64–80 portions) derived from the 100-tree Random Forest ensemble.
-3. **Step 3: The "Aha!" Moment — Event Surge (Preparation planner)**
-   - Switch to **Preparation planner**. Under *Operational Conditions*, check **Major campus event / festival active** and slide attendance to **130%**.
-   - Watch the prediction instantly update from **72 → 94 portions**.
-4. **Step 4: Staggered Batch Recommendation**
-   - Note the Newsvendor recommendation: Total plan = **88 portions**, with an **Initial Batch of 57 portions** and a **Refill Trigger at 18 portions**. 
-   - Explain why: Staggered cooking prevents perishable food from degrading at room temperature if student footfall deviates.
-5. **Step 5: Rigorous Benchmark & Pilot Plan (Performance & impact)**
-   - Show the **Model vs Baseline Holdout Benchmark**: Candidate Random Forest achieves **8.4% WAPE**, significantly outperforming the naive weekday baseline (**14.2% WAPE**).
-   - Point out the honest disclaimer: *Savings are mathematically simulated on holdout records, not claimed as real until measured via the 4-week pilot.*
+A guided tour, searchable page menu (Ctrl/Cmd K), mobile navigation, keyboard support, reduced motion, and print styling are included. Local review marks and plan exports do not dispatch instructions to kitchen staff.
 
----
+## What the calculations mean
 
-## 📐 Decision Architecture & Mathematics
+The Random Forest learns **portions sold**, with menu, weekday, weather, attendance, event, and temperature features. Stockouts can censor sales below true demand. The displayed range is the 10th–90th percentile spread of tree predictions, not a calibrated guarantee of future demand coverage.
 
-### Newsvendor Critical Fractile
-Preparing too much and preparing too little have different financial and operational costs:
-- **$C_{\text{surplus}}$ (Cost of Excess):** Direct raw ingredient cost per portion + holding/spoilage loss.
-- **$C_{\text{shortage}}$ (Cost of Stockout):** Selling price $-$ ingredient cost (lost margin) $+$ student dissatisfaction penalty.
+The preparation planner uses surplus and shortage costs, blended with the operator's service preference, to select a demand quantile. It approximates demand dispersion from the ensemble range, subtracts existing stock from new preparation, and proposes an initial batch and refill allocation. Operators must review the result against actual kitchen constraints.
 
-The target planning quantile ($CR$) is computed as:
-$$CR = \frac{C_{\text{shortage}}}{C_{\text{shortage}} + C_{\text{surplus}}}$$
+Evaluation uses a chronological holdout. WAPE is total absolute prediction error divided by total observed sales; MAE is average absolute error in portions. Impact estimates replay the preparation policy on held-out records and compare surplus and stockouts against a baseline. Ingredient savings exclude missed-sale penalties. Carbon estimates use illustrative mass and emission assumptions. These are **retrospective simulations, not measured business outcomes**.
 
-The cost-optimal daily preparation plan $Q^*$ is:
-$$Q^* = \mu_{\text{demand}} + z_{CR} \cdot \sigma_{\text{demand}} - \text{Current Stock}$$
+## Data and deployment boundaries
 
-Where:
-- $\mu_{\text{demand}}$ = Model point forecast.
-- $\sigma_{\text{demand}}$ = Implied standard deviation derived from the ensemble 80% interval ($\sigma \approx \frac{q_{90} - q_{10}}{2.56}$).
-- $z_{CR}$ = Inverse cumulative standard normal distribution at quantile $CR$.
+- The sample dataset is synthetic and labeled throughout the UI.
+- CSV uploads replace the active dataset in backend memory after validation and successful training.
+- The active dataset is shared across clients of the same backend and is not retained after a process restart.
+- This prototype has no account authentication or per-user data isolation. Use a controlled environment.
+- Forecasts do not certify food safety. Follow qualified kitchen procedures for holding, reheating, discounting, and donation.
+- The model runs locally without external LLM keys. Frontend fonts are self-hosted.
 
----
+## Verification
 
-## 📊 Evaluation Methodology: Strict Time-Based Holdout
-
-To avoid **data leakage**, WasteWise never performs random cross-validation on time-series records. 
-- **Training Window:** Historical records from day 1 to day 145.
-- **Evaluation Window:** Unseen future records from day 146 to day 180.
-
-### Metrics Defined
-- **Mean Absolute Error (MAE):** $\frac{1}{N} \sum |y_i - \hat{y}_i|$ (Portions).
-- **Weighted Absolute Percentage Error (WAPE):** $\frac{\sum |y_i - \hat{y}_i|}{\sum y_i} \times 100\%$ (Percentage).
-- **Stockout Rate:** Percentage of days where latent customer demand exceeded prepared supply.
-
----
-
-## 🛡️ Safety & Responsible AI Boundaries
-
-1. **No Biological Safety Inferences:** The product never determines food safety from demand forecasts alone. Cooked food exposed to the danger zone (5°C – 60°C) for $>2$ hours cannot be donated.
-2. **Strict Provenance Labeling:** Synthetic demonstration data is prominently marked with a `🧪 SYNTHETIC DATA` pill on every page.
-3. **Local & Privacy-Preserving:** No external LLM keys or proprietary APIs required. Customer data remains on-premise.
-
----
-
-## 🧪 Automated Test Suite
-
-Run all automated unit and integration tests with:
-```bash
-pytest tests
-```
-Current test suite status: **17 tests passed in ~3.5 seconds** covering:
-- Synthetic dataset generation & boundary constraints.
-- CSV schema parser and user input validation.
-- Baseline fit/predict and Random Forest time-series evaluation.
-- Newsvendor critical ratio optimization & inventory deduction.
-- Waste risk tiering and operational action generation.
-- Full end-to-end integration across all views.
-
----
-
-## 📂 Repository Structure
-
-```
-wastewise-ai/
-├── app.py                      # Application entry point & router
-├── requirements.txt            # Constrained Python dependencies
-├── README.md                   # Complete beginner and judge guide
-├── backend/                    # High-performance FastAPI Microservice
-│   └── main.py                 # REST API endpoints (overview, forecast, plan, waste-risk, performance, data)
-├── frontend/                   # Modern React + TypeScript + Vite + Tailwind CSS App
-│   ├── package.json
-│   ├── vite.config.ts
-│   └── src/
-│       ├── types.ts            # Enterprise TypeScript API interfaces
-│       ├── api.ts              # Resilient fetch client
-│       ├── index.css           # Custom design tokens & font system
-│       ├── App.tsx             # Root router & demo coordinator
-│       ├── components/
-│       │   ├── BrandIntro.tsx  # Fullscreen brand reveal with skip button & sessionStorage
-│       │   ├── Sidebar.tsx     # 240px fixed navigation & provenance footer
-│       │   ├── AppShell.tsx    # Responsive shell container
-│       │   └── common/         # KpiCard, PageHeader
-│       └── views/
-│           ├── OverviewView.tsx            # View 1: Executive KPI overview & kitchen alerts
-│           ├── DemandForecastView.tsx      # View 2: Quantile demand inference & feature attributions
-│           ├── PreparationPlannerView.tsx  # View 3: Newsvendor critical ratio & 2-tier batching
-│           ├── WasteRiskMonitoringView.tsx # View 4: Real-time risk triage & operational interventions
-│           ├── PerformanceImpactView.tsx   # View 5: 3-tier holdout benchmarks & ESG impact
-│           └── DataModelView.tsx           # View 6: CSV ingestion, schema validation & explorer
-├── src/                        # Core Python Machine Learning & Planning Engine
-│   ├── config.py               # Menu configurations, cost constants, palette
-│   ├── data.py                 # Synthetic data engine, CSV validator, sample exporter
-│   ├── model.py                # Random Forest regressor, Weekday baseline, holdout split
-│   ├── planner.py              # Newsvendor optimizer, staggered batches, policy simulator
-│   └── metrics.py              # Risk triage, rescue actions, carbon estimation
-├── data/
-│   └── wastewise_sample_canteen_data.csv # Cached 180-day demonstration dataset
-└── tests/
-    ├── test_data.py            # Data generation & schema tests
-    ├── test_model.py           # ML training, baseline, & forecast tests
-    ├── test_planner.py         # Critical ratio & preparation logic tests
-    ├── test_metrics.py         # Risk classification & impact tests
-    └── test_views.py           # End-to-end integration pipeline tests
+```powershell
+python -m pytest tests -q
+npm run build --prefix frontend
+npm run lint --prefix frontend
+npm run format:check --prefix frontend
 ```
 
----
+Browser regression checks and their isolated-upload option are documented in the frontend README. Screenshots and browser reports are generated under `screenshots/frontend-review/`.
 
-## 👥 Hackathon Team & Acknowledgements
-- **Team:** 2-Member Student Innovation Team
-- **Competition:** ADAPPT 5.0 — AI in FoodTech
-- **Problem Statement:** Food Waste from Demand Uncertainty
-- **Concept Reference:** `WasteWise_AI_ADAPPT5_Concept_Dossier.pdf` (Version 1.0, 19 October 2026)
+## Project layout
+
+```text
+backend/main.py             FastAPI routes and active dataset/model state
+src/data.py                 Synthetic data and CSV validation
+src/model.py                Forecast engine and chronological evaluation
+src/planner.py              Preparation economics and batch planning
+src/metrics.py              Risk triage and impact simulation
+frontend/src/App.tsx        Workspace shell, navigation, search and tour
+frontend/src/workspace/     Operational screens, shared controls and charts
+frontend/src/index.css      Responsive design system and print styling
+frontend/public/fonts/      Self-hosted IBM Plex Sans and license
+tests/                      Python and API regression checks
+scripts/verify_frontend.py  Chrome browser regression checks
+PRODUCT.md                  Product constraints and confirmed audience
+DESIGN.md                   Documented frontend design system
+```
+
+The earlier Streamlit prototype is retained in `app.py` and `src/views/`; run it with `streamlit run app.py` if needed. The React frontend is the primary interface.
+
+Developed for ADAPPT 5.0 — AI in FoodTech.

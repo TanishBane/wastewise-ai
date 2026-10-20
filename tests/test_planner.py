@@ -60,3 +60,18 @@ def test_existing_stock_reduces_recommendation():
     
     assert plan_with_stock.recommended_total_plan < plan_no_stock.recommended_total_plan
     assert "Existing inventory" in plan_with_stock.recommendation_reason
+
+
+def test_existing_stock_is_available_in_cost_simulation():
+    plan = PreparationPlanner().generate_plan("Pav Bhaji", 100, 90, 110, current_stock=100)
+    assert plan.recommended_total_plan == 0
+    assert plan.wastewise_expected_shortage < 5
+    assert plan.refill_trigger_threshold == 0
+
+
+def test_partial_stock_preserves_available_supply():
+    planner = PreparationPlanner()
+    without = planner.generate_plan("Pav Bhaji", 100, 90, 110)
+    stocked = planner.generate_plan("Pav Bhaji", 100, 90, 110, current_stock=25)
+    assert stocked.wastewise_expected_shortage == without.wastewise_expected_shortage
+    assert stocked.wastewise_expected_surplus == without.wastewise_expected_surplus

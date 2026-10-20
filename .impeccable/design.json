@@ -1,0 +1,150 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-20T11:34:37.325Z",
+  "title": "Design System: WasteWise workspace",
+  "extensions": {
+    "shadows": [
+      {
+        "name": "modal-separation",
+        "value": "0 18px 65px #18321d26",
+        "purpose": "Native dialogs above flat workspace."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-out",
+        "value": "cubic-bezier(.23,1,.32,1)",
+        "purpose": "Dialog entry."
+      },
+      {
+        "name": "dialog-entry",
+        "value": "180ms",
+        "purpose": "Opacity, translateY(6px), scale(.98) to rest."
+      },
+      {
+        "name": "control-transition",
+        "value": "150ms ease",
+        "purpose": "Button colors and borders."
+      },
+      {
+        "name": "reduced-dialog",
+        "value": "120ms ease",
+        "purpose": "Opacity-only entry."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "wide",
+        "value": "1600px"
+      },
+      {
+        "name": "compact-desktop",
+        "value": "1250px"
+      },
+      {
+        "name": "stacked",
+        "value": "1000px"
+      },
+      {
+        "name": "mobile",
+        "value": "760px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Primary button from the shipped workspace.",
+      "html": "<button class=\"ds-primary\">Save plan</button>",
+      "css": ".ds-primary{background:var(--green,#276445);color:white;border:1px solid var(--green,#276445);padding:8px 13px;border-radius:7px;font:500 12px \"IBM Plex Sans\",sans-serif;min-height:37px;cursor:pointer;transition:background-color 150ms ease}.ds-primary:hover{background:var(--green-dark,#1d5036)}.ds-primary:focus-visible{outline:2px solid var(--green,#276445);outline-offset:3px}"
+    },
+    {
+      "name": "Secondary button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "Secondary button from the shipped workspace.",
+      "html": "<button class=\"ds-secondary\">Export menu</button>",
+      "css": ".ds-secondary{background:white;color:#35473a;border:1px solid var(--control,#c7d1c5);padding:8px 13px;border-radius:7px;font:500 12px \"IBM Plex Sans\",sans-serif;min-height:37px;cursor:pointer;transition:background-color 150ms ease}.ds-secondary:hover{background:var(--raised,#f7f9f5);border-color:#9eae98}.ds-secondary:focus-visible{outline:2px solid var(--green,#276445);outline-offset:3px}"
+    },
+    {
+      "name": "Labeled field",
+      "kind": "input",
+      "refersTo": "field",
+      "description": "Labeled field from the shipped workspace.",
+      "html": "<label class=\"ds-field\">Existing stock<input type=\"number\" min=\"0\" value=\"20\"></label>",
+      "css": ".ds-field{font:500 12px \"IBM Plex Sans\",sans-serif;color:var(--ink,#202c26)}.ds-field input{display:block;width:100%;height:38px;margin-top:7px;background:white;border:1px solid var(--control,#c7d1c5);padding:7px 10px;border-radius:6px;font:400 12px \"IBM Plex Sans\",sans-serif}.ds-field input:focus-visible{outline:2px solid var(--green,#276445);outline-offset:3px}"
+    },
+    {
+      "name": "Navigation",
+      "kind": "nav",
+      "refersTo": "navigation-active",
+      "description": "Navigation from the shipped workspace.",
+      "html": "<a class=\"ds-nav\" aria-current=\"page\" href=\"#overview\">Kitchen overview<span></span></a>",
+      "css": ".ds-nav{display:flex;align-items:center;gap:11px;background:var(--active,#e2e9e0);color:#244e32;border-radius:7px;padding:10px 12px;min-height:42px;text-decoration:none;font:500 13px \"IBM Plex Sans\",sans-serif}.ds-nav span{width:5px;height:5px;border-radius:50%;background:var(--green,#276445);margin-left:auto}.ds-nav:hover{background:#e7ede3}.ds-nav:focus-visible{outline:2px solid var(--green,#276445);outline-offset:3px}"
+    },
+    {
+      "name": "Positive badge",
+      "kind": "chip",
+      "refersTo": "badge-positive",
+      "description": "Positive badge from the shipped workspace.",
+      "html": "<span class=\"ds-badge\"><i></i>Low risk</span>",
+      "css": ".ds-badge{display:inline-flex;align-items:center;gap:5px;background:var(--green-pale,#edf5ee);color:var(--green,#276445);padding:3px 7px;border-radius:4px;font:500 11px \"IBM Plex Sans\",sans-serif}.ds-badge i{width:5px;height:5px;background:currentColor;border-radius:50%}"
+    },
+    {
+      "name": "Working panel",
+      "kind": "card",
+      "refersTo": "panel",
+      "description": "Working panel from the shipped workspace.",
+      "html": "<section class=\"ds-panel\"><h2>Preparation plan</h2><p>Forecast-based recommendations</p></section>",
+      "css": ".ds-panel{background:var(--surface,#fff);border:1px solid var(--border,#e4e9e3);border-radius:12px;padding:21px;color:var(--ink,#202c26);font:400 12px \"IBM Plex Sans\",sans-serif}.ds-panel h2{font-size:16px;font-weight:600;margin:0;letter-spacing:-.02em}.ds-panel p{font-size:11px;color:var(--muted,#647068);margin:5px 0 0}"
+    },
+    {
+      "name": "Batch strip",
+      "kind": "custom",
+      "description": "Batch strip from the shipped workspace.",
+      "html": "<div class=\"ds-batch\"><div><i></i><i></i></div><p><span>Cook now <strong>60</strong></span><span>Hold for refill <strong>40</strong></span></p></div>",
+      "css": ".ds-batch{font:400 11px \"IBM Plex Sans\",sans-serif;color:var(--muted,#647068);font-variant-numeric:tabular-nums}.ds-batch>div{height:5px;display:flex;gap:3px;overflow:hidden;border-radius:2px}.ds-batch i:first-child{flex:6;background:var(--green,#276445)}.ds-batch i:last-child{flex:4;background:var(--sage,#7e967e)}.ds-batch p{display:flex;justify-content:space-between;gap:13px;margin:7px 0 0}.ds-batch strong{color:var(--ink,#202c26);font-weight:600}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The kitchen planning sheet",
+    "overview": "A green-gray frame holds a white working sheet. Forest-green data, restrained rules, compact controls, and readable numerical rows give a daily kitchen workspace its identity. This records the code-led rebuild rather than an approved visual comp.\n\nSource identity remains visible while operators move between forecasts, preparation, rescue, evidence, and data. Synthetic demonstration records and operator records receive explicit source labels; local review state must not resemble a kitchen dispatch.",
+    "keyCharacteristics": [
+      "A framed white sheet with labeled navigation.",
+      "Quiet forest-green decisions and sage comparisons.",
+      "Compact operational typography with tabular figures.",
+      "Flat panels, hairline rules, and explicit source context."
+    ],
+    "rules": [
+      {
+        "name": "The Source Context Rule",
+        "body": "Pair operational figures with their source and qualification; color alone does not distinguish demonstration data, forecasts, and recorded outcomes.",
+        "section": "colors"
+      },
+      {
+        "name": "The Comparable Figures Rule",
+        "body": "Use tabular figures in tables, statistics, batch labels, comparisons, and key-value lists.",
+        "section": "typography"
+      },
+      {
+        "name": "The Flat Workspace Rule",
+        "body": "Use borders and tone for ordinary working surfaces; reserve the shipped shadow for modal separation.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "**Do** preserve source labels and uncertainty beside the decisions they qualify.",
+      "**Do** align repeated panel gutters and use tabular numerical comparisons.",
+      "**Do** use forest for primary decisions and amber or clay for labeled exceptions.",
+      "**Do** retain keyboard focus, native control semantics, and reduced-motion behavior."
+    ],
+    "donts": [
+      "**Don't** replace zero or unavailable values with invented success metrics.",
+      "**Don't** present forecasts or retrospective simulations as recorded operating results.",
+      "**Don't** add decorative gradients, blocking introductions, or illustrations to this operational world.",
+      "**Don't** use modal shadows for ordinary panels."
+    ]
+  }
+}

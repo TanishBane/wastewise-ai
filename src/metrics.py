@@ -11,6 +11,7 @@ import numpy as np
 import pandas as pd
 
 from src.config import CARBON_FACTOR_NOTE, MENU_ITEMS
+from src.planner import PreparationPlanner
 
 
 @dataclass
@@ -37,6 +38,7 @@ class ImpactSimulationSummary:
     estimated_co2e_avoided_kg: float         # in kg CO2e
     stockout_rate_baseline: float            # %
     stockout_rate_wastewise: float           # %
+    waste_reduction_pct: float
     methodology_note: str
 
 
@@ -136,9 +138,18 @@ def simulate_holdout_impact(
     else:
         df["trad_prep"] = (df["portions_sold"] * 1.15).round().astype(int)
         
-    # 2. Simulated WasteWise preparation policy (Cost-aware buffer)
-    # Using critical ratio approximation
-    df["ww_prep"] = (df["ml_pred"] * 1.04).round().astype(int)
+    # Replay the operational planner with holdout ensemble bounds when available.
+    # Other callers use an approximate +/-15% interval.
+    planner = PreparationPlanner()
+    df["ww_prep"] = [
+        planner.generate_plan(
+            menu_item=row["menu_item"], predicted_demand=row["ml_pred"],
+            lower_bound=row.get("lower_bound", row["ml_pred"] * 0.85),
+            upper_bound=row.get("upper_bound", row["ml_pred"] * 1.15),
+            service_level_preference=0.55,
+        ).recommended_total_plan
+        for _, row in df.iterrows()
+    ]
     
     # True latent demand proxy (observed portions sold or latent_demand if present)
     true_demand = df["latent_demand"] if "latent_demand" in df.columns else df["portions_sold"]
@@ -159,7 +170,9 @@ def simulate_holdout_impact(
     ww_waste_cost = np.sum(ww_surplus * unit_cost)
     cost_avoided = float(max(0.0, trad_waste_cost - ww_waste_cost))
     
-    portions_avoided = int(max(0, np.sum(trad_surplus) - np.sum(ww_surplus)))
+    surplus_difference = float(np.sum(trad_surplus) - np.sum(ww_surplus))
+    waste_reduction_pct = round(surplus_difference / float(np.sum(trad_surplus)) * 100, 1) if np.sum(trad_surplus) > 0 else 0.0
+    portions_avoided = int(max(0, surplus_difference))
     # Approximate 1 portion = ~0.32 kg on average in canteen dishes
     kg_avoided = round(portions_avoided * 0.32, 1)
     # UNEP factor: ~2.5 kg CO2e per kg discarded edible food
@@ -186,5 +199,6 @@ def simulate_holdout_impact(
         estimated_co2e_avoided_kg=co2e_avoided,
         stockout_rate_baseline=stockout_rate_trad,
         stockout_rate_wastewise=stockout_rate_ww,
+        waste_reduction_pct=waste_reduction_pct,
         methodology_note=methodology,
     )
