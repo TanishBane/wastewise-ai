@@ -39,6 +39,13 @@ export default function Home({ navigate }: { navigate: Navigate }) {
               Add your workplace
               <ArrowRight size={16} />
             </MetalButton>
+            <MetalButton
+              className="button"
+              onClick={() => navigate("overview")}
+            >
+              Explore the demo workspace
+              <ArrowRight size={16} />
+            </MetalButton>
             <a
               className="home-text-link"
               href="#home-how-it-works"
