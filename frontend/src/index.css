@@ -4137,20 +4137,6 @@ html[data-interaction="keyboard"] .button:active:not(:disabled) {
   font-size: clamp(17px, 2vw, 21px);
   line-height: 1.5;
 }
-.home-demo-note {
-  display: flex;
-  align-items: flex-start;
-  gap: var(--space-3);
-  max-width: 520px;
-  margin-top: var(--space-5);
-  color: var(--muted);
-  font-size: var(--text-xs);
-  line-height: 1.5;
-}
-.home-demo-note .status-dot {
-  flex: 0 0 auto;
-  margin-top: 5px;
-}
 .home-actions {
   display: flex;
   flex-direction: column;
@@ -4175,7 +4161,7 @@ html[data-interaction="keyboard"] .button:active:not(:disabled) {
   font-weight: var(--weight-bold);
 }
 .home-actions > .home-text-link {
-  margin-left: var(--space-2);
+  margin-left: calc(var(--space-6) + var(--space-1) + 3px);
 }
 .home-text-link:hover,
 .home-step button:hover {
