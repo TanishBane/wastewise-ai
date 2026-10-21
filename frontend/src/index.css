@@ -2405,6 +2405,12 @@ table,
   color: var(--rail-ink);
   width: var(--space-8);
 }
+.brand-logo {
+  display: block;
+  width: 42px;
+  height: 30px;
+  object-fit: contain;
+}
 .brand small {
   font-family: var(--font-body);
   font-size: var(--text-xs);
@@ -4170,98 +4176,18 @@ html[data-interaction="keyboard"] .button:active:not(:disabled) {
 }
 .home-signal {
   position: relative;
-  overflow: hidden;
   width: min(100%, 480px);
-  aspect-ratio: 1;
+  min-height: 0;
   margin: 0 auto;
-  border: 1px solid var(--border);
-  border-radius: 50%;
-  background:
-    radial-gradient(circle at 50% 50%, var(--surface) 0 23%, transparent 23.5%),
-    radial-gradient(circle at 50% 50%, var(--green-pale), transparent 64%);
-  box-shadow: 0 30px 80px var(--shadow-color);
-  animation: home-float 7s ease-in-out infinite;
-}
-.home-signal::before,
-.home-signal::after {
-  content: "";
-  position: absolute;
-  inset: 11%;
-  border: 1px solid color-mix(in srgb, var(--green) 18%, transparent);
-  border-radius: 50%;
-}
-.home-signal::after {
-  inset: 25%;
-  border-color: color-mix(in srgb, var(--green) 28%, transparent);
-}
-.home-signal-orbit {
-  position: absolute;
-  inset: 5%;
-  border: 1px dashed color-mix(in srgb, var(--green) 24%, transparent);
-  border-radius: 50%;
-  transform: rotate(-24deg);
-}
-.orbit-two {
-  inset: 18%;
-  transform: rotate(62deg);
-  border-style: solid;
-  border-color: transparent color-mix(in srgb, var(--warning) 34%, transparent)
-    transparent transparent;
-}
-.home-signal-core {
-  position: absolute;
-  top: 50%;
-  left: 50%;
   display: grid;
   place-items: center;
-  width: 150px;
-  height: 150px;
-  padding: var(--space-5);
-  border: 1px solid var(--border);
-  border-radius: 50%;
-  background: color-mix(in srgb, var(--surface) 84%, transparent);
-  box-shadow: 0 12px 32px var(--shadow-color);
-  text-align: center;
-  transform: translate(-50%, -50%);
+  padding: var(--space-8);
 }
-.home-signal-core span,
-.home-signal-core small {
-  color: var(--muted);
-  font-size: var(--text-xs);
-}
-.home-signal-core strong {
-  color: var(--green);
-  font-size: 38px;
-  line-height: 1;
-}
-.home-signal-label {
-  position: absolute;
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-2);
-  padding: var(--space-3) var(--space-4);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-metal);
-  background: color-mix(in srgb, var(--surface) 82%, transparent);
-  box-shadow: 0 8px 20px var(--shadow-color);
-  color: var(--ink);
-  font-size: var(--text-xs);
-  font-weight: var(--weight-bold);
-}
-.home-signal-label svg {
-  color: var(--green);
-}
-.signal-forecast {
-  top: 18%;
-  right: 4%;
-}
-.signal-prep {
-  right: 2%;
-  bottom: 22%;
-}
-.signal-rescue {
-  bottom: 12%;
-  left: 14%;
+.home-signal-logo {
+  display: block;
+  width: min(78%, 360px);
+  height: auto;
+  object-fit: contain;
 }
 .home-proof {
   display: grid;
@@ -4471,6 +4397,10 @@ html[data-interaction="keyboard"] .button:active:not(:disabled) {
   }
   .home-signal {
     width: min(100%, 340px);
+    padding: var(--space-6);
+  }
+  .home-signal-logo {
+    width: min(82%, 280px);
   }
   .home-proof,
   .home-steps,

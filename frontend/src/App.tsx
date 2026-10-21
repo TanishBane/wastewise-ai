@@ -226,7 +226,13 @@ export default function App() {
         }}
       >
         <span className="brand-mark">
-          <Sprout size={24} strokeWidth={1.8} />
+          <img
+            className="brand-logo"
+            src="/brand/wastewise-mark.png"
+            alt=""
+            width="42"
+            height="30"
+          />
         </span>
         <span>
           WasteWise<span className="brand-ai">AI</span>
@@ -240,7 +246,6 @@ export default function App() {
           <small>Demo canteen</small>
         </div>
       </div>
-      <span className="nav-label">Plan this service</span>
       <a
         href="#home"
         className={`nav-link ${page === "home" ? "active" : ""}`}
@@ -254,6 +259,7 @@ export default function App() {
         <span>Home</span>
         {page === "home" && <span className="nav-active-dot" />}
       </a>
+      <span className="nav-label">Plan this service</span>
       <nav aria-label="Main navigation">
         {links.map(({ id, label, icon: Icon }, index) => (
           <Fragment key={id}>

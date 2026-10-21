@@ -3,7 +3,6 @@ import {
   BarChart3,
   Check,
   ChefHat,
-  Leaf,
   ShieldCheck,
   Sprout,
   TriangleAlert,
@@ -53,25 +52,11 @@ export default function Home({ navigate }: { navigate: Navigate }) {
           </div>
         </div>
         <div className="home-signal" aria-label="WasteWise workflow preview">
-          <div className="home-signal-orbit orbit-one" />
-          <div className="home-signal-orbit orbit-two" />
-          <div className="home-signal-core">
-            <span>Today</span>
-            <strong>161</strong>
-            <small>portions to plan</small>
-          </div>
-          <span className="home-signal-label signal-forecast">
-            <BarChart3 size={15} />
-            Forecast
-          </span>
-          <span className="home-signal-label signal-prep">
-            <ChefHat size={15} />
-            Prepare
-          </span>
-          <span className="home-signal-label signal-rescue">
-            <Leaf size={15} />
-            Rescue
-          </span>
+          <img
+            className="home-signal-logo"
+            src="/brand/wastewise-mark.png"
+            alt="WasteWise"
+          />
         </div>
       </section>
 
