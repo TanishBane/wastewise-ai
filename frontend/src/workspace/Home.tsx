@@ -26,11 +26,6 @@ export default function Home({ navigate }: { navigate: Navigate }) {
             decisions—so your team can cook what people need, when they need
             it.
           </p>
-          <div className="home-demo-note">
-            <span className="status-dot amber" />
-            You are viewing the Campus Green demo workspace with synthetic
-            data.
-          </div>
           <div className="home-actions">
             <div className="home-action-buttons">
               <MetalButton

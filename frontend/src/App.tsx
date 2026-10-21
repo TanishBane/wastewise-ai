@@ -15,7 +15,6 @@ import {
   CalendarDays,
   ChartNoAxesCombined,
   ChefHat,
-  ChevronRight,
   Database,
   FlaskConical,
   HelpCircle,
@@ -23,7 +22,6 @@ import {
   Leaf,
   Menu,
   RefreshCw,
-  Search,
   ShieldCheck,
   Sprout,
   TriangleAlert,
@@ -124,8 +122,6 @@ export default function App() {
   const config = useResource(fetchConfig, revision);
   const [dish, setDish] = useState("Pav Bhaji");
   const [menuOpen, setMenuOpen] = useState(false);
-  const [searchOpen, setSearchOpen] = useState(false);
-  const [search, setSearch] = useState("");
   const [tourOpen, setTourOpen] = useState(false);
   const [tourStep, setTourStep] = useState(0);
   const [exporting, setExporting] = useState(false);
@@ -135,7 +131,6 @@ export default function App() {
     setPage(next);
     window.location.hash = next;
     setMenuOpen(false);
-    setSearchOpen(false);
     window.scrollTo({ top: 0, behavior: "instant" });
   };
   useEffect(() => {
@@ -162,13 +157,6 @@ export default function App() {
   }, []);
   useEffect(() => {
     const key = (event: KeyboardEvent) => {
-      if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k") {
-        event.preventDefault();
-        setMenuOpen(false);
-        setTourOpen(false);
-        setSearchOpen((value) => !value);
-        return;
-      }
       if (
         (event.target as HTMLElement).closest(
           "input,textarea,select,[contenteditable=true]",
@@ -390,8 +378,6 @@ export default function App() {
             >
               <Menu size={20} />
             </button>
-            <span>Workspace</span>
-            <ChevronRight size={14} />
             <a
               className="mobile-brand"
               href="#home"
@@ -413,17 +399,6 @@ export default function App() {
             </strong>
           </div>
           <div className="workspace-tools">
-            <MetalButton
-              className="search-trigger"
-              onClick={() => {
-                setSearch("");
-                setSearchOpen(true);
-              }}
-            >
-              <Search size={16} />
-              <span>Find a page</span>
-              <kbd>Ctrl K</kbd>
-            </MetalButton>
             <span className="operator-avatar" title="Local kitchen workspace">
               CG
             </span>
@@ -545,46 +520,6 @@ export default function App() {
         onClose={() => setMenuOpen(false)}
       >
         <div className="mobile-navigation">{nav}</div>
-      </Dialog>
-      <Dialog
-        open={searchOpen}
-        instant
-        title="Find your next step"
-        onClose={() => setSearchOpen(false)}
-      >
-        <div className="command-search">
-          <Search size={18} />
-          <input
-            autoFocus
-            aria-label="Search pages"
-            placeholder="Search forecasts, preparation, data…"
-            value={search}
-            onChange={(event) => setSearch(event.target.value)}
-          />
-        </div>
-        <div className="search-results">
-          {links
-            .filter((link) =>
-              `${link.label} ${link.description}`
-                .toLowerCase()
-                .includes(search.toLowerCase()),
-            )
-            .map(({ id, label, description, icon: Icon }) => (
-              <button key={id} onClick={() => navigate(id)}>
-                <Icon size={20} />
-                <span>
-                  <strong>{label}</strong>
-                  <small>{description}</small>
-                </span>
-                <ArrowRight size={16} />
-              </button>
-            ))}
-          {!links.some((link) =>
-            `${link.label} ${link.description}`
-              .toLowerCase()
-              .includes(search.toLowerCase()),
-          ) && <p className="muted">No pages match “{search}”.</p>}
-        </div>
       </Dialog>
       <Dialog
         open={tourOpen}
