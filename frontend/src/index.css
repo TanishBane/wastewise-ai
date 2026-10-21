@@ -4153,10 +4153,16 @@ html[data-interaction="keyboard"] .button:active:not(:disabled) {
 }
 .home-actions {
   display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-4);
+  margin-top: var(--space-9);
+}
+.home-action-buttons {
+  display: flex;
   align-items: center;
   flex-wrap: wrap;
-  gap: var(--space-6);
-  margin-top: var(--space-9);
+  gap: var(--space-4);
 }
 .home-text-link,
 .home-step button {
@@ -4167,6 +4173,9 @@ html[data-interaction="keyboard"] .button:active:not(:disabled) {
   color: var(--green);
   font-size: var(--text-sm);
   font-weight: var(--weight-bold);
+}
+.home-actions > .home-text-link {
+  margin-left: var(--space-2);
 }
 .home-text-link:hover,
 .home-step button:hover {
@@ -4447,6 +4456,23 @@ html[data-interaction="keyboard"] .button:active:not(:disabled) {
 @media (max-width: 760px) {
   .home-page {
     padding-top: 48px;
+  }
+  .home-hero-copy,
+  .home-actions,
+  .home-action-buttons {
+    min-width: 0;
+    width: 100%;
+  }
+  .home-action-buttons {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .home-action-buttons .button {
+    width: 100%;
+    justify-content: center;
+  }
+  .home-actions > .home-text-link {
+    margin-left: 0;
   }
   .home-hero {
     min-height: 0;

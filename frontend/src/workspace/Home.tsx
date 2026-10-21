@@ -32,20 +32,22 @@ export default function Home({ navigate }: { navigate: Navigate }) {
             data.
           </div>
           <div className="home-actions">
-            <MetalButton
-              className="button primary"
-              onClick={() => navigate("data-model")}
-            >
-              Add your workplace
-              <ArrowRight size={16} />
-            </MetalButton>
-            <MetalButton
-              className="button"
-              onClick={() => navigate("overview")}
-            >
-              Explore the demo workspace
-              <ArrowRight size={16} />
-            </MetalButton>
+            <div className="home-action-buttons">
+              <MetalButton
+                className="button primary"
+                onClick={() => navigate("data-model")}
+              >
+                Add your workplace
+                <ArrowRight size={16} />
+              </MetalButton>
+              <MetalButton
+                className="button"
+                onClick={() => navigate("overview")}
+              >
+                Explore the demo workspace
+                <ArrowRight size={16} />
+              </MetalButton>
+            </div>
             <a
               className="home-text-link"
               href="#home-how-it-works"
