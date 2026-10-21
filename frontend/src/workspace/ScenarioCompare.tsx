@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { GitCompareArrows } from "lucide-react";
 import { fetchForecast, fetchPlan } from "../api";
-import { Badge, Panel } from "./shared";
+import { AsyncButton, Badge, Panel } from "./shared";
 import { number } from "./model";
 import type { ConfigResponse } from "../types";
 
@@ -116,14 +116,19 @@ export default function ScenarioCompare({
           How much would the plan change if a campus event brings more people,
           or rain keeps them away?
         </p>
-        <button className="button" disabled={busy} onClick={compare}>
+        <AsyncButton
+          className="button"
+          busy={busy}
+          busyLabel="Comparing scenarios…"
+          onClick={compare}
+        >
           <GitCompareArrows size={16} />
           {busy
             ? "Comparing scenarios…"
             : rows.length && valid
               ? "Recalculate comparison"
               : "Compare three scenarios"}
-        </button>
+        </AsyncButton>
       </div>
       {error && (
         <div className="inline-error comparison-error" role="alert">

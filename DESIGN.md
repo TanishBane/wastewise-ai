@@ -1,217 +1,258 @@
 ---
-name: WasteWise workspace
-description: A framed planning sheet for thoughtful kitchen preparation.
+name: WasteWise kitchen journal
+description: Warm paper, editorial headings, and clear feedback for daily kitchen decisions.
 colors:
-  ground: "#eef2ed"
-  surface: "#ffffff"
-  raised: "#f7f9f5"
-  active: "#e2e9e0"
-  ink: "#202c26"
-  muted: "#647068"
-  border: "#e4e9e3"
-  control: "#c7d1c5"
-  forest: "#276445"
-  forest-dark: "#1d5036"
-  forest-pale: "#edf5ee"
-  sage: "#7e967e"
-  warning: "#91621a"
-  warning-pale: "#fcf5e8"
-  danger: "#b3453e"
-  danger-pale: "#fcf0ed"
+  ground: "#eeeae1"
+  surface: "#fffdf7"
+  raised: "#f5f1e8"
+  active: "#e5e9db"
+  ink: "#24362d"
+  muted: "#626b60"
+  border: "#deddd0"
+  rule: "#ebe7dc"
+  control: "#bdc2af"
+  forest: "#24533d"
+  forest-dark: "#1b3d2e"
+  forest-pale: "#eaf0e3"
+  sage: "#7c9076"
+  warning: "#885514"
+  warning-pale: "#f9eed7"
+  danger: "#a44537"
+  danger-pale: "#f9eae3"
+  rail: "#19382c"
+  rail-active: "#2b4b3c"
+  rail-ink: "#f1f2e6"
+  rail-muted: "#b2c5b4"
+  skeleton: "#e7e4d8"
 typography:
   headline:
-    fontFamily: "IBM Plex Sans, sans-serif"
-    fontSize: "clamp(24px, 2.05vw, 30px)"
-    fontWeight: 600
-    lineHeight: 1.2
-    letterSpacing: "-0.035em"
-  title:
-    fontFamily: "IBM Plex Sans, sans-serif"
-    fontSize: "17px"
-    fontWeight: 600
-    lineHeight: 1.4
-    letterSpacing: "-0.02em"
-  body:
-    fontFamily: "IBM Plex Sans, sans-serif"
-    fontSize: "14px"
-    lineHeight: 1.5
-  label:
-    fontFamily: "IBM Plex Sans, sans-serif"
-    fontSize: "12px"
+    fontFamily: "Newsreader, Georgia, serif"
+    fontSize: "32px"
     fontWeight: 500
-  figure:
-    fontFamily: "IBM Plex Sans, sans-serif"
-    fontSize: "34px"
-    fontWeight: 400
+    lineHeight: 1.15
+    letterSpacing: "-0.025em"
+  title:
+    fontFamily: "Source Sans 3, sans-serif"
+    fontSize: "18px"
+    fontWeight: 600
     lineHeight: 1.3
+  body:
+    fontFamily: "Source Sans 3, sans-serif"
+    fontSize: "14px"
+    lineHeight: 1.6
+  prose:
+    fontFamily: "Source Sans 3, sans-serif"
+    fontSize: "16px"
+    lineHeight: 1.6
+  label:
+    fontFamily: "Source Sans 3, sans-serif"
+    fontSize: "13px"
+    fontWeight: 600
+    lineHeight: 1.3
+  figure:
+    fontFamily: "Source Sans 3, sans-serif"
+    fontSize: "36px"
+    fontWeight: 600
+    lineHeight: 1.15
     letterSpacing: "-0.025em"
 rounded:
-  badge: "4px"
-  field: "6px"
-  control: "7px"
-  panel: "12px"
-  dialog: "14px"
-  sheet: "16px"
+  surface: "0px"
+  control: "4px"
+  circle: "50%"
+  metal-action: "999px"
 spacing:
-  compact: "8px"
-  control: "12px"
-  panel: "21px"
-  gap: "24px"
-  sheet: "26px"
+  space-0: "0px"
+  space-1: "2px"
+  space-2: "4px"
+  space-3: "8px"
+  space-4: "12px"
+  space-5: "16px"
+  space-6: "20px"
+  space-7: "24px"
+  space-8: "28px"
+  space-9: "32px"
+  space-10: "40px"
+  space-11: "48px"
+  space-12: "64px"
+  space-13: "96px"
 components:
   button-primary:
-    backgroundColor: "{colors.forest}"
-    textColor: "{colors.surface}"
-    rounded: "{rounded.control}"
-    padding: "8px 13px"
+    backgroundColor: "var(--metal-face-primary)"
+    textColor: "{colors.forest-dark}"
+    rounded: "{rounded.metal-action}"
+    padding: "8px 16px"
+    height: "44px"
   button-primary-hover:
-    backgroundColor: "{colors.forest-dark}"
+    backgroundColor: "var(--metal-face-primary-hover)"
   button-secondary:
-    backgroundColor: "{colors.surface}"
-    rounded: "{rounded.control}"
-    padding: "8px 13px"
-  field:
-    backgroundColor: "{colors.surface}"
-    rounded: "{rounded.field}"
-    padding: "7px 10px"
-    height: "38px"
+    backgroundColor: "var(--metal-face)"
+    borderColor: "var(--metal-rim)"
+    textColor: "{colors.ink}"
+    rounded: "{rounded.metal-action}"
+    padding: "8px 16px"
+    height: "44px"
   panel:
     backgroundColor: "{colors.surface}"
-    rounded: "{rounded.panel}"
+    rounded: "{rounded.surface}"
   navigation-active:
-    backgroundColor: "{colors.active}"
+    backgroundColor: "{colors.rail-active}"
+    textColor: "{colors.rail-ink}"
     rounded: "{rounded.control}"
-    padding: "10px 12px"
+    padding: "8px 12px"
   badge-positive:
     backgroundColor: "{colors.forest-pale}"
     textColor: "{colors.forest}"
-    rounded: "{rounded.badge}"
-    padding: "3px 7px"
+    rounded: "{rounded.control}"
+    padding: "2px 8px"
 ---
 
-# Design System: WasteWise workspace
+# Design System: WasteWise kitchen journal
 
 ## Overview
 
-**Creative North Star: "The kitchen planning sheet"**
+**Creative North Star: "The kitchen planning journal"**
 
-A green-gray frame holds a white working sheet. Forest-green data, restrained rules, compact controls, and readable numerical rows give a daily kitchen workspace its identity. This records the code-led rebuild rather than an approved visual comp.
+Warm mineral ground, paper working surfaces, and a deep forest navigation rail give daily planning an authored but practical setting. Newsreader supplies the editorial voice for the wordmark and page titles; Source Sans 3 carries controls, prose, data, and charts. Square panels and soft offset depth replace the earlier curved sheet.
 
-Source identity remains visible while operators move between forecasts, preparation, rescue, evidence, and data. Synthetic demonstration records and operator records receive explicit source labels; local review state must not resemble a kitchen dispatch.
+Feedback follows real work: checked dishes drive review progress, pending requests drive activity, and completed API responses advance calculation stages. Daily operations remain primary, with synthetic demonstration data explicitly labeled. This is a code-led, user-pinned refinement; no raster composition governs it.
 
 **Key Characteristics:**
 
-- A framed white sheet with labeled navigation.
-- Quiet forest-green decisions and sage comparisons.
-- Compact operational typography with tabular figures.
-- Flat panels, hairline rules, and explicit source context.
+- Warm paper surfaces and a dark forest rail.
+- Editorial titles paired with readable operational data.
+- Square panels, compact control corners, and offset soft shadows.
+- Immediate feedback grounded in actual operations.
+
+Evidence: frontend/src/index.css owns CSS primitives and the current refinement cascade; frontend/src/tokens.ts mirrors chart colors and typography; frontend/src/fonts.css defines self-hosted fonts. App.tsx and workspace/shared.tsx establish navigation and feedback primitives. workspace/Overview.tsx and workspace/Scenario.tsx establish real progress behavior. DESIGN_REFINEMENT.md records the user's current checklist and its Laws of UX applications.
 
 ## Colors
 
-The palette combines cool green-gray paper, forest ink, and warm exception colors.
+Warm neutrals support forest decisions and labeled amber or clay exceptions.
 
 ### Primary
 
-- **Forest:** primary actions, active data series, links, focus outlines, and positive states.
-- **Deep forest:** primary-button hover.
-- **Pale forest:** positive badges, selected presets, and saved-state notes.
-- **Sage:** comparison data and the second preparation batch.
+- **Forest:** primary actions, current calculations, focus outlines, and the main chart series.
+- **Deep forest:** primary hover.
+- **Pale forest:** positive status and selected presets.
+- **Sage:** comparison series and refill quantities.
 
 ### Secondary
 
-- **Harvest amber:** warnings and synthetic-source indicators, with pale amber notice backgrounds.
-- **Clay red:** errors and high-risk badges, with pale clay backgrounds.
+- **Amber:** warnings and synthetic-source indicators, paired with pale amber backgrounds.
+- **Clay:** high-risk and error states, paired with pale clay backgrounds.
 
 ### Neutral
 
-- **Green-gray ground:** surrounding navigation and workspace frame.
-- **White sheet:** working surfaces and fields.
-- **Raised paper:** explanatory strips and understated chart tracks.
-- **Active paper:** selected navigation and compact hover treatments.
-- **Kitchen ink / muted ink:** primary content and supporting context.
-- **Border / control:** panel boundaries and interactive-field strokes.
+- **Mineral ground:** the main workspace background.
+- **Paper:** panels, fields, dialogs, and statistics.
+- **Raised paper:** table headings and explanatory tracks.
+- **Ink / muted ink:** primary content and supporting context.
+- **Border / rule / control:** structural dividers, quiet internal rules, and interactive strokes.
+- **Deep rail / active rail:** navigation ground and current destination.
+- **Rail ink / muted rail ink:** rail labels and supporting text.
+- **Skeleton:** structural loading placeholders.
 
-**The Source Context Rule.** Pair operational figures with their source and qualification; color alone does not distinguish demonstration data, forecasts, and recorded outcomes.
+**The Source Context Rule.** Pair figures with their source and qualification; color alone does not distinguish demonstration data, forecasts, and recorded outcomes.
 
 ## Typography
 
-**Display Font:** IBM Plex Sans, with sans-serif fallback.
-**Body Font:** IBM Plex Sans, self-hosted in regular, medium, semibold, and bold weights.
+**Display Font:** Newsreader, with Georgia and serif fallbacks.
+**Body Font:** Source Sans 3, with sans-serif fallback.
 
-One family supports concise page headings and dense planning data. Figures use tabular numerals; headings use restrained negative tracking.
+Both families are self-hosted WOFF2 with swap display. Newsreader supports weights 400–600; Source Sans 3 supports 400–700. Editorial hierarchy belongs to page titles and the wordmark; data remains in the sans family.
 
 ### Hierarchy
 
-- **Headline:** responsive page heading; narrow screens override it to 27px.
-- **Title:** section heading; panel headings usually use a 16px variant.
-- **Body:** base interface text, with 12–13px explanatory paragraphs.
-- **Label:** medium control and metric labels; supporting metadata commonly uses 11px.
-- **Figure:** overview totals; responsive and scenario variants reduce size to fit columns.
+- **Headline:** medium editorial page titles; descriptions use body text and a 70ch maximum width.
+- **Title:** semibold sans section headings.
+- **Body / prose:** base operational text and more spacious guide/dialog prose respectively.
+- **Label:** semibold control labels; 12px metadata and 13px supporting content use shared size tokens.
+- **Figure:** semibold totals, reduced to the title size on narrower layouts.
+- **Other shared roles:** 24px subheadings and 12/13/14/16/18/24/32/36px type sizes; regular/medium/semibold/bold weight tokens.
 
 **The Comparable Figures Rule.** Use tabular figures in tables, statistics, batch labels, comparisons, and key-value lists.
 
 ## Layout
 
-Desktop uses a sticky 228px navigation column beside the sheet. The workspace bar is 62px high; the sheet has 26px horizontal gutters and 24px panel gaps. Panels use 21px internal horizontal padding. The overview pairs a larger chart with priorities; the scenario pairs a 295px control column with results. Numerical tables scroll horizontally inside their container.
+The desktop rail is 232px wide and the workspace bar is 64px high. Workspace gutters are 28px, panel gaps 24px, and panel headings use 20px vertical and 24px horizontal spacing. The overview pairs a wider chart with priorities. Scenario controls use a named 304px form size.
 
-At 1250px navigation becomes 205px and the overview stacks. At 1000px evidence and data grids stack and statistics use two columns. At 760px the sidebar becomes navigation inside a native modal, the bar is 56px, sheet gutters are 18px, and controls precede results. At 1600px sheet gutters expand to 36px. Print removes navigation and action chrome.
+Spacing follows the shared four-pixel rhythm with a two-pixel optical step. Layout sizes, type, weights, radii, colors, and authored timings reference shared tokens. Primary and secondary buttons, fields, navigation, and review controls use 44px targets.
+
+At 1200px the overview stacks. At 1080px the rail becomes 208px, workspace gutters become 20px, scenarios stack with two-column forms, and evidence/data grids stack. At 760px the rail becomes native-dialog navigation, mobile home branding appears, gutters become 16px, and statistics become two columns. At 380px forms become one column. Wide screens at 1600px use 40px gutters. Tables scroll within their container.
+
+Navigation separates “Plan this service” from “Learn & maintain,” applying Hick's Law. Labels, units, explanations, and related values stay together, applying proximity. These applications do not claim measured usability improvement.
 
 ## Elevation & Depth
 
-Resting panels are flat: white surfaces, fine borders, and tonal grounds carry separation. Only modal dialogs use a diffuse shadow over a dark translucent backdrop.
+Paper panels and statistics use a small offset soft shadow with no outer panel border. Dialogs and chart tooltips use the larger floating shadow. Internal rules remain quiet and square. Depth comes from physical separation, never colored underlighting or illuminated borders.
 
 ### Shadow Vocabulary
 
-- **Modal separation** (`0 18px 65px #18321d26`): native dialog above the workspace.
+- **Surface:** `0 3px 12px var(--shadow-color)`, with shadow color `#25311c12`.
+- **Floating:** `0 12px 36px var(--shadow-modal-color)`, with shadow color `#15251c30`.
 
-**The Flat Workspace Rule.** Use borders and tone for ordinary working surfaces; reserve the shipped shadow for modal separation.
+**The Offset Depth Rule.** Use the shared offset soft shadows; never add glow or luminous edge effects.
 
 ## Shapes
 
-The sheet has the broadest corners; panels use a smaller continuous curve and controls are more compact. Badges are small rounded rectangles, while source dots, step markers, and the operator avatar are circular. Batch tracks are low segmented horizontal strips.
+Panels, statistics, chart bars, and preparation tracks remain square. Badges, fields, and dialogs use four-pixel corners; source dots and avatars use circles. The corrected liquid metal brief adds a capsule profile only for metal actions, including buttons, scenario presets, search, and the tour action.
 
 ## Components
 
 ### Buttons
 
-Compact labeled controls use a fine stroke and medium text. Primary actions have forest fill and white text; secondary actions remain white. Hover darkens primary actions and strengthens secondary contrast. Keyboard focus uses a two-pixel forest outline with a three-pixel offset. Disabled controls reduce opacity. Mobile buttons increase to a 40px minimum height.
+Primary actions use sculpted silver faces, three-pixel reflective chrome rims and bold forest labels. Secondary actions use two-pixel chrome rims and ink labels. Shared padding supports 44px targets. Focus uses a two-pixel forest outline with a three-pixel offset; the dark rail uses light focus ink. Hover shifts face reflections and lifts primary actions by two pixels; pressing recesses the face with the shared optical step.
+
+AsyncButton disables the action immediately, exposes aria-busy, displays an activity icon and pending label, and shows an indeterminate bottom strip. This signals a real pending request, never a completion percentage.
 
 ### Chips
 
-Small badges combine a text label and status dot. Positive, warning, and danger variants pair pale fill with corresponding semantic ink. Preserve text so status remains understandable without color.
+Positive, warning, and danger badges pair pale backgrounds with corresponding semantic ink. Text and a dot preserve meaning without color. All use control corners.
 
 ### Cards / Containers
 
-Panels have a fine border, white background, and rounded corners. Headings, captions, and footers share aligned gutters. Statistics sit in one divided strip rather than unrelated floating tiles.
+Paper containers have square corners, no outer border, and the shared surface shadow. Section headings and body/footer regions share aligned gutters; fine internal rules separate related information. Statistics remain a shared divided strip.
 
 ### Inputs / Fields
 
-Native fields use a white background, control stroke, visible labels, and supporting text. Search fields include a small icon and input label. Range and checkbox controls use forest accents. Inline errors retain a recovery action where one exists.
+Native labeled fields, selects, ranges, and checkboxes preserve familiar behavior. Search and filter controls use control strokes and 44px targets. Labels, units, and hints remain nearby. Advanced cost adjustments stay inside a named disclosure; scenario presets offer three starting points.
 
 ### Navigation
 
-Labeled links combine line icons and text. Active destinations receive a green-gray fill, stronger ink, and small forest dot. Mobile navigation reuses the links in a native dialog. Search opens a page finder with Ctrl K.
+The dark rail groups daily planning separately from learning and maintenance. Active links use lighter forest fill and rail ink; supporting labels use muted rail ink. Both desktop wordmark and mobile wordmark are home links. Mobile navigation uses a native dialog; command search opens immediately. The route-preserving skip link remains available.
 
-### Batch preparation strip
+### Review progress
 
-Forest indicates the initial batch and sage indicates refill quantity. Visible labels name both amounts, and existing stock appears separately. The graphic supports the numbers.
+A native progress element counts actually reviewed dishes. Review buttons expose pressed state. “Review next dish” clears obstructing filters and focuses an unfinished row. Completion is labeled as a local checklist, never a server dispatch. This applies the Goal-Gradient Effect to an observable task.
 
-### Dialogs and motion
+### Loading and calculation stages
 
-Native dialogs provide Escape handling and focus containment. Entry uses opacity and six-pixel upward translation with a slight scale change over 180ms. Reduced motion receives short opacity-only entry. Buttons use 150ms color transitions; loading indicators rotate unless reduced motion is requested. Navigation and chart data do not animate.
+Structured skeletons reserve statistics, chart, priorities, and table shapes while a request is pending. Their gentle breathing and button activity share the activity timing. “Estimate demand” becomes complete only after the forecast response; “Balance stock & cost” becomes current while the planning request runs. No artificial delay or invented percentage is added.
+
+### Motion and dialogs
+
+Press feedback uses 120ms; state transitions use 160ms; occasional dialog entry uses 200ms. First overview arrival uses 240ms and a 40ms stagger. The shared ease-out and ease-in-out curves govern authored motion. Charts stay static for reading; command search has no entry delay.
+
+Reduced motion removes transforms, stagger, pulsing, and spinners while retaining status labels, static skeletons, focus rings, and disabled states. Native dialogs retain focus containment and Escape handling. Keyboard interaction also suppresses overview arrival movement.
 
 ## Do's and Don'ts
 
 ### Do:
 
-- **Do** preserve source labels and uncertainty beside the decisions they qualify.
-- **Do** align repeated panel gutters and use tabular numerical comparisons.
-- **Do** use forest for primary decisions and amber or clay for labeled exceptions.
-- **Do** retain keyboard focus, native control semantics, and reduced-motion behavior.
+- **Do** use shared color, space, radius, typography, weight, and motion tokens.
+- **Do** preserve source labels, uncertainty, stock accounting, and simulation limitations.
+- **Do** keep 44px primary targets and related labels close to controls.
+- **Do** derive progress from checked work and completed API stages.
+- **Do** retain native semantics, keyboard focus, and reduced-motion feedback.
 
 ### Don't:
 
-- **Don't** replace zero or unavailable values with invented success metrics.
-- **Don't** present forecasts or retrospective simulations as recorded operating results.
-- **Don't** add decorative gradients, blocking introductions, or illustrations to this operational world.
-- **Don't** use modal shadows for ordinary panels.
+- **Don't** introduce curved panels or colored glows. Reflective capsule buttons follow the explicitly requested liquid metal reference.
+- **Don't** invent completion percentages, savings, sales, people, or live status.
+- **Don't** present local review completion as a kitchen dispatch.
+- **Don't** animate charts or delay command search.
+- **Don't** represent Laws of UX applications as measured operator outcomes.
+
+## Liquid metal button refinement
+
+The corrected user brief explicitly requests uixamjad's liquid metal buttons. This supersedes the prior transparent button treatment. See DESIGN_REFINEMENT.md for the inspected reference and material contract. Buttons use sculpted silver faces, 2px reflective chrome rims (3px on primary actions), and capsule profiles. Primary labels are bold forest; selected presets retain forest faces. Panel and field geometry is unchanged. Existing focus, pending feedback, reduced-motion, and 44px targets remain. Material colors and gradients are centralized in --metal-* CSS tokens.

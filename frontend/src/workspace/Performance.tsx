@@ -1,3 +1,4 @@
+import MetalButton from "../MetalButton";
 import { useState } from "react";
 import {
   ArrowDownToLine,
@@ -68,13 +69,13 @@ export default function Performance({ revision, navigate }: ScreenProps) {
   return (
     <>
       <PageHeading
-        title="Better decisions need better evidence."
+        title="The numbers behind the plan."
         description="A chronological holdout, a transparent baseline, and no invented wins."
       >
-        <button className="button" onClick={exportMetrics}>
+        <MetalButton className="button" onClick={exportMetrics}>
           <ArrowDownToLine size={16} />
           Export evaluation
-        </button>
+        </MetalButton>
       </PageHeading>
       <Stats
         items={[

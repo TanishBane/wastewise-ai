@@ -1,5 +1,6 @@
+import MetalButton from "../MetalButton";
 import { useEffect, useId, useRef } from "react";
-import type { ReactNode } from "react";
+import type { ButtonHTMLAttributes, ReactNode } from "react";
 import {
   AlertCircle,
   ArrowRight,
@@ -46,8 +47,22 @@ export function Panel({
   children: ReactNode;
   className?: string;
 }) {
+  const trackPointer = (event: React.PointerEvent<HTMLElement>) => {
+    const bounds = event.currentTarget.getBoundingClientRect();
+    event.currentTarget.style.setProperty(
+      "--pointer-x",
+      `${event.clientX - bounds.left}px`,
+    );
+    event.currentTarget.style.setProperty(
+      "--pointer-y",
+      `${event.clientY - bounds.top}px`,
+    );
+  };
   return (
-    <section className={`panel ${className}`}>
+    <section
+      className={`panel interactive-surface ${className}`}
+      onPointerMove={trackPointer}
+    >
       <header className="panel-heading">
         <div>
           <h2>{title}</h2>
@@ -93,9 +108,21 @@ export function Stats({
 }: {
   items: { label: string; value: ReactNode; note: string; tone?: string }[];
 }) {
+  const trackPointer = (event: React.PointerEvent<HTMLDivElement>) => {
+    const bounds = event.currentTarget.getBoundingClientRect();
+    event.currentTarget.style.setProperty(
+      "--pointer-x",
+      `${event.clientX - bounds.left}px`,
+    );
+    event.currentTarget.style.setProperty(
+      "--pointer-y",
+      `${event.clientY - bounds.top}px`,
+    );
+  };
   return (
     <div
-      className="stats"
+      className="stats interactive-surface"
+      onPointerMove={trackPointer}
       style={{ "--stat-count": items.length } as React.CSSProperties}
     >
       {items.map((item) => (
@@ -110,19 +137,134 @@ export function Stats({
 }
 export function Loading({
   label = "Loading kitchen data…",
+  variant = "overview",
+  showIndicator = true,
 }: {
   label?: string;
+  variant?: "overview" | "scenario";
+  showIndicator?: boolean;
 }) {
   return (
-    <div className="loading-state" role="status">
-      <LoaderCircle className="spin" size={22} />
-      <span>{label}</span>
-      <div className="loading-lines">
-        <span />
-        <span />
-        <span />
+    <div className="loading-state" role="status" aria-busy="true">
+      <div className="loading-label">
+        {showIndicator && <LoaderCircle className="spin" size={20} />}
+        <span>{label}</span>
+      </div>
+      <div
+        className={`workspace-skeleton skeleton-${variant}`}
+        aria-hidden="true"
+      >
+        <div className="skeleton-stats">
+          {(variant === "scenario" ? [0, 1, 2] : [0, 1, 2, 3]).map((index) => (
+            <div
+              key={index}
+              style={{ "--skeleton-order": index } as React.CSSProperties}
+            >
+              <span />
+              <strong />
+              <span />
+            </div>
+          ))}
+        </div>
+        <div className="skeleton-work">
+          <div className="skeleton-chart">
+            <span />
+            <div>
+              {[0, 1, 2, 3, 4, 5].map((index) => (
+                <i key={index} />
+              ))}
+            </div>
+          </div>
+          <div className="skeleton-list">
+            {[0, 1, 2].map((index) => (
+              <div key={index}>
+                <span />
+                <span />
+                <span />
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className="skeleton-rows">
+          {[0, 1, 2, 3].map((index) => (
+            <div key={index}>
+              <span />
+              <span />
+              <span />
+              <span />
+            </div>
+          ))}
+        </div>
       </div>
     </div>
+  );
+}
+
+export function AsyncButton({
+  busy,
+  busyLabel,
+  children,
+  className = "button",
+  disabled,
+  ...props
+}: ButtonHTMLAttributes<HTMLButtonElement> & {
+  busy: boolean;
+  busyLabel: string;
+}) {
+  return (
+    <MetalButton
+      {...props}
+      className={`${className} async-button`}
+      disabled={disabled || busy}
+      aria-busy={busy}
+    >
+      {busy ? (
+        <>
+          <LoaderCircle className="spin" size={16} />
+          <span>{busyLabel}</span>
+        </>
+      ) : (
+        children
+      )}
+      {busy && <span className="button-activity" aria-hidden="true" />}
+    </MetalButton>
+  );
+}
+
+export function CalculationStages({
+  stage,
+  planning,
+}: {
+  stage: "forecast" | "plan";
+  planning: boolean;
+}) {
+  return (
+    <ol className="calculation-stages" aria-label="Calculation progress">
+      <li
+        className={stage === "plan" ? "complete" : "current"}
+        aria-current={stage === "forecast" ? "step" : undefined}
+      >
+        {stage === "plan" ? (
+          <Check size={14} />
+        ) : (
+          <LoaderCircle size={14} className="spin" />
+        )}
+        <span>Estimate demand</span>
+      </li>
+      {planning && (
+        <li
+          className={stage === "plan" ? "current" : ""}
+          aria-current={stage === "plan" ? "step" : undefined}
+        >
+          {stage === "plan" ? (
+            <LoaderCircle size={14} className="spin" />
+          ) : (
+            <span className="stage-pending" />
+          )}
+          <span>Balance stock & cost</span>
+        </li>
+      )}
+    </ol>
   );
 }
 export function ErrorState({
@@ -137,10 +279,10 @@ export function ErrorState({
       <AlertCircle size={24} />
       <h2>We couldn’t load this view</h2>
       <p>{message}</p>
-      <button className="button" onClick={retry}>
+      <MetalButton className="button" onClick={retry}>
         <RefreshCw size={15} />
         Try again
-      </button>
+      </MetalButton>
       <span className="muted">
         Check that the backend is running on port 8000.
       </span>
@@ -195,11 +337,13 @@ export function Dialog({
   onClose,
   title,
   children,
+  instant = false,
 }: {
   open: boolean;
   onClose: () => void;
   title: string;
   children: ReactNode;
+  instant?: boolean;
 }) {
   const ref = useRef<HTMLDialogElement>(null);
   const id = useId();
@@ -219,7 +363,7 @@ export function Dialog({
   return (
     <dialog
       ref={ref}
-      className="dialog"
+      className={`dialog ${instant ? "dialog-instant" : ""}`}
       aria-labelledby={id}
       onCancel={onClose}
       onClick={(event) => {
@@ -260,11 +404,25 @@ export function BatchStrip({
   stock?: number;
 }) {
   const refill = Math.max(0, total - initial);
+  if (total <= 0) {
+    return (
+      <div className="batch-strip">
+        <div className="batch-labels">
+          <span>No new batch planned</span>
+          {stock > 0 && (
+            <span>
+              In stock <strong>{stock}</strong>
+            </span>
+          )}
+        </div>
+      </div>
+    );
+  }
   return (
     <div className="batch-strip">
       <div className="batch-track" aria-hidden="true">
-        <span style={{ flex: initial || 0.001 }} />
-        <span style={{ flex: refill || 0.001 }} />
+        {initial > 0 && <span style={{ flex: initial }} />}
+        {refill > 0 && <span style={{ flex: refill }} />}
       </div>
       <div className="batch-labels">
         <span>

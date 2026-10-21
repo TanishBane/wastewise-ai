@@ -13,7 +13,7 @@ VERSION = "1.0-prototype"
 EVENT_NAME = "ADAPPT 5.0 — AI in FoodTech"
 
 # Default Demo Canteen Settings
-CANTEEN_NAME = "Campus Green Central Canteen"
+CANTEEN_NAME = "Campus Green Demo Canteen"
 TARGET_PERIOD = "Lunch & All-Day Service"
 
 # Color Palette - Professional FoodTech Operations (Restrained enterprise aesthetic)

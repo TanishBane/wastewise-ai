@@ -1,8 +1,8 @@
-﻿# WasteWise frontend
+# WasteWise frontend
 
 A React + TypeScript kitchen operations workspace connected to the FastAPI forecasting and preparation engine.
 
-## Run locally
+## Run as one website
 
 From the project root:
 
@@ -19,7 +19,29 @@ npm install
 npm run dev
 ```
 
-Open the URL printed by Vite (normally http://localhost:3000). The development server proxies `/api` to port 8000. To point directly to another backend, set `VITE_API_BASE_URL` before starting Vite. For a production build, set that variable at build time or configure your host to proxy `/api`; Vite's development proxy does not run in production.
+Open the URL printed by Vite (normally http://localhost:3000). The preferred one-command flow is:
+
+```powershell
+.\run_website.ps1
+```
+
+That script builds this frontend and starts FastAPI, which serves both the
+compiled website and `/api/*` from **http://127.0.0.1:8000**. Use that one link
+for the complete application. This avoids the separate Vite development URL;
+deployment can add a public host later without changing frontend API paths.
+
+For frontend-only development with hot reload:
+
+```powershell
+cd frontend
+npm install
+npm run dev
+```
+
+The development server proxies `/api` to port 8000. To point directly to
+another backend, set `VITE_API_BASE_URL` before starting Vite. In the website
+flow, leave `VITE_API_BASE_URL` unset so API requests use the current page's
+origin.
 
 ## What is included
 
@@ -30,7 +52,7 @@ Open the URL printed by Vite (normally http://localhost:3000). The development s
 - Surplus rescue queue, chronological holdout evaluation, and explicitly labeled simulated impact.
 - CSV onboarding, drag-and-drop upload, schema reference, preview, and confirmed demo reset.
 - Searchable page command menu (Ctrl/Cmd K), keyboard-accessible native dialogs, mobile navigation, reduced motion, and print styling.
-- Lazy-loaded routes and charts, self-hosted IBM Plex Sans, an error boundary, and recoverable API failures.
+- Lazy-loaded routes and charts, self-hosted Newsreader and Source Sans 3, an error boundary, and recoverable API failures.
 
 Demo mode is determined by the backend's active dataset. Uploading records switches the source label; restoring demo data switches it back. Uploaded data is shared by sessions using that backend and is kept in server memory. Review marks are local to the mounted view. Exporting a plan does not dispatch kitchen instructions.
 

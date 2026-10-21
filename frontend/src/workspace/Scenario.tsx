@@ -1,3 +1,4 @@
+import MetalButton from "../MetalButton";
 import { useEffect, useEffectEvent, useRef, useState } from "react";
 import type { FormEvent } from "react";
 import {
@@ -16,6 +17,8 @@ import { DistributionChart, HistoryChart } from "./Charts";
 import ScenarioCompare from "./ScenarioCompare";
 import {
   Badge,
+  AsyncButton,
+  CalculationStages,
   BatchStrip,
   Loading,
   Notice,
@@ -83,6 +86,7 @@ export default function Scenario({
   const [forecast, setForecast] = useState<ForecastResponse | null>(null);
   const [plan, setPlan] = useState<PlanResponse | null>(null);
   const [busy, setBusy] = useState(true);
+  const [stage, setStage] = useState<"forecast" | "plan">("forecast");
   const [error, setError] = useState("");
   const [saved, setSaved] = useState(false);
   const [submittedKey, setSubmittedKey] = useState("");
@@ -107,6 +111,7 @@ export default function Scenario({
     const id = ++request.current;
     const key = scenarioKey;
     setBusy(true);
+    setStage("forecast");
     setError("");
     setSaved(false);
     setForecast(null);
@@ -120,6 +125,7 @@ export default function Scenario({
         campus_event: event ? 1 : 0,
       });
       if (id !== request.current) return;
+      if (planning) setStage("plan");
       const preparation = planning
         ? await fetchPlan({
             menu_item: item,
@@ -225,11 +231,7 @@ export default function Scenario({
   return (
     <>
       <PageHeading
-        title={
-          planning
-            ? "Prepare enough. Keep room to adapt."
-            : "Get ahead of the next service."
-        }
+        title={planning ? "A plan for this service." : "Read the day ahead."}
         description={
           planning
             ? "Turn a demand estimate into a practical, cost-aware batch plan."
@@ -237,14 +239,14 @@ export default function Scenario({
         }
       >
         {!planning && (
-          <button
+          <MetalButton
             className="button"
             onClick={() => navigate("prep-planner", item)}
           >
             <ChefHat size={16} />
             Open planner
             <ArrowRight size={15} />
-          </button>
+          </MetalButton>
         )}
       </PageHeading>
       <div className="scenario-layout">
@@ -260,7 +262,7 @@ export default function Scenario({
                 { id: "event", label: "Event", icon: Users },
                 { id: "rainy", label: "Rainy", icon: CloudRain },
               ].map(({ id, label, icon: Icon }) => (
-                <button
+                <MetalButton
                   type="button"
                   className={preset === id ? "selected" : ""}
                   aria-pressed={preset === id}
@@ -269,7 +271,7 @@ export default function Scenario({
                 >
                   <Icon size={16} />
                   {label}
-                </button>
+                </MetalButton>
               ))}
             </div>
             <label className="field">
@@ -408,10 +410,15 @@ export default function Scenario({
                 </details>
               </>
             )}
-            <button
+            <AsyncButton
               type="submit"
               className="button primary full-width"
-              disabled={busy}
+              busy={busy}
+              busyLabel={
+                stage === "plan"
+                  ? "Sizing preparation batches…"
+                  : "Estimating demand…"
+              }
             >
               {busy
                 ? "Calculating…"
@@ -419,7 +426,7 @@ export default function Scenario({
                   ? "Calculate preparation plan"
                   : "Generate forecast"}
               <ArrowRight size={16} />
-            </button>
+            </AsyncButton>
             <p className="form-note">
               <FlaskConical size={14} />
               {config.is_synthetic
@@ -433,20 +440,25 @@ export default function Scenario({
             <div className="inline-error" role="alert">
               <strong>Calculation failed</strong>
               <p>{error}</p>
-              <button className="button" onClick={() => generate()}>
+              <MetalButton className="button" onClick={() => generate()}>
                 <RotateCcw size={15} />
                 Try again
-              </button>
+              </MetalButton>
             </div>
           )}
           {busy ? (
-            <Loading
-              label={
-                planning
-                  ? "Balancing preparation, stock, and cost…"
-                  : "Estimating demand for your scenario…"
-              }
-            />
+            <>
+              <CalculationStages stage={stage} planning={planning} />
+              <Loading
+                variant="scenario"
+                showIndicator={false}
+                label={
+                  planning
+                    ? "Balancing preparation, stock, and cost…"
+                    : "Estimating demand for your scenario…"
+                }
+              />
+            </>
           ) : (
             forecast && (
               <>
@@ -538,7 +550,14 @@ export default function Scenario({
                       {planning && plan ? (
                         <div className="batch-detail">
                           <div className="row-between">
-                            <h3>One plan. Two moments to cook.</h3>
+                            <h3>
+                              {plan.recommended_total_plan === 0
+                                ? "No new cooking is recommended."
+                                : plan.recommended_total_plan >
+                                    plan.recommended_initial_batch
+                                  ? "One plan. Two moments to cook."
+                                  : "A single batch for this service."}
+                            </h3>
                             <span>
                               {plan.recommended_total_plan} new portions
                             </span>
@@ -548,48 +567,61 @@ export default function Scenario({
                             total={plan.recommended_total_plan}
                             stock={stock}
                           />
-                          <div className="batch-instructions">
-                            <div>
-                              <span className="step-number">1</span>
+                          {plan.recommended_total_plan === 0 ? (
+                            <p>
+                              This cost-adjusted plan calls for no additional
+                              prep. Use existing stock cleared by the kitchen
+                              and monitor actual demand before cooking more.
+                            </p>
+                          ) : (
+                            <div className="batch-instructions">
                               <div>
-                                <strong>
-                                  Start with {plan.recommended_initial_batch}{" "}
-                                  portions
-                                </strong>
-                                <p>
-                                  Keep the remaining ingredients ready, without
-                                  cooking them early.
-                                </p>
+                                <span className="step-number">1</span>
+                                <div>
+                                  <strong>
+                                    Start with {plan.recommended_initial_batch}{" "}
+                                    portions
+                                  </strong>
+                                  <p>
+                                    {plan.recommended_total_plan >
+                                    plan.recommended_initial_batch
+                                      ? "Keep the remaining ingredients ready, without cooking them early."
+                                      : "No second cooking batch is included. Monitor actual demand during service."}
+                                  </p>
+                                </div>
                               </div>
+                              {plan.recommended_total_plan >
+                                plan.recommended_initial_batch && (
+                                <div>
+                                  <span className="step-number">2</span>
+                                  <div>
+                                    <strong>
+                                      {plan.recommended_total_plan >
+                                      plan.recommended_initial_batch
+                                        ? `Check demand at ${plan.refill_trigger_threshold} portions remaining`
+                                        : "Single batch recommended"}
+                                    </strong>
+                                    <p>
+                                      {plan.recommended_total_plan >
+                                      plan.recommended_initial_batch
+                                        ? `Prepare up to ${plan.recommended_total_plan - plan.recommended_initial_batch} more if actual sales support it.`
+                                        : "No second cooking batch is included in this plan."}
+                                    </p>
+                                  </div>
+                                </div>
+                              )}
                             </div>
-                            <div>
-                              <span className="step-number">2</span>
-                              <div>
-                                <strong>
-                                  {plan.recommended_total_plan >
-                                  plan.recommended_initial_batch
-                                    ? `Check demand at ${plan.refill_trigger_threshold} portions remaining`
-                                    : "Single batch recommended"}
-                                </strong>
-                                <p>
-                                  {plan.recommended_total_plan >
-                                  plan.recommended_initial_batch
-                                    ? `Prepare up to ${plan.recommended_total_plan - plan.recommended_initial_batch} more if actual sales support it.`
-                                    : "No second cooking batch is included in this plan."}
-                                </p>
-                              </div>
-                            </div>
-                          </div>
+                          )}
                           <Notice>{plan.recommendation_reason}</Notice>
                           <div className="button-row">
-                            <button
+                            <MetalButton
                               className="button primary"
                               disabled={dirty}
                               onClick={savePlan}
                             >
                               <ArrowDownToLine size={16} />
                               Export this plan
-                            </button>
+                            </MetalButton>
                             <span className="muted">
                               Review in the kitchen before use.
                             </span>

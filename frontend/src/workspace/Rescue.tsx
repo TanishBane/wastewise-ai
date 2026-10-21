@@ -1,3 +1,4 @@
+import MetalButton from "../MetalButton";
 import { useState } from "react";
 import { ArrowRight, Check, Search, ShieldCheck } from "lucide-react";
 import { fetchWasteRisks } from "../api";
@@ -37,7 +38,7 @@ export default function Rescue({ revision, navigate }: ScreenProps) {
   return (
     <>
       <PageHeading
-        title="Good food deserves a second thought."
+        title="Surplus, before the rush."
         description="Spot surplus exposure early. Make the next kitchen decision count."
       />
       <Notice tone="warning">
@@ -153,13 +154,13 @@ export default function Rescue({ revision, navigate }: ScreenProps) {
                 </details>
               </div>
               <div className="rescue-actions">
-                <button
+                <MetalButton
                   className="button"
                   onClick={() => navigate("prep-planner", item.menu_item)}
                 >
                   Adjust plan
                   <ArrowRight size={14} />
-                </button>
+                </MetalButton>
                 <button
                   className={`review-button ${reviewed[item.menu_item] ? "is-reviewed" : ""}`}
                   aria-pressed={!!reviewed[item.menu_item]}

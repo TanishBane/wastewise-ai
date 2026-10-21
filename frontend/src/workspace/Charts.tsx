@@ -12,21 +12,15 @@ import {
 } from "recharts";
 import { date } from "./model";
 
-import { palette } from "../tokens";
+import { chartTokens, palette } from "../tokens";
 
 const green = palette.green;
 const tick = {
   fill: palette.muted,
-  fontSize: 12,
-  fontFamily: "IBM Plex Sans, sans-serif",
+  fontSize: chartTokens.labelSize,
+  fontFamily: chartTokens.fontFamily,
 };
-const tooltip = {
-  border: "1px solid #e4e9e3",
-  borderRadius: 8,
-  fontSize: 13,
-  boxShadow: "0 6px 20px #202c2610",
-  fontFamily: "IBM Plex Sans, sans-serif",
-};
+const tooltip = chartTokens.tooltip;
 export function DemandChart({
   rows,
 }: {
@@ -48,10 +42,10 @@ export function DemandChart({
           margin={{ top: 12, right: 12, left: 0, bottom: 0 }}
           barGap={3}
         >
-          <CartesianGrid vertical={false} stroke="#edf0eb" />
+          <CartesianGrid vertical={false} stroke={palette.border} />
           <XAxis
             dataKey="menu_item"
-            tick={{ ...tick, fontSize: 11 }}
+            tick={{ ...tick, fontSize: chartTokens.labelSize }}
             tickFormatter={(value) =>
               String(value)
                 .replace("Veg Grilled Sandwich", "Sandwich")
@@ -72,12 +66,12 @@ export function DemandChart({
             tickLine={false}
             allowDecimals={false}
           />
-          <Tooltip contentStyle={tooltip} cursor={{ fill: "#f4f6f2" }} />
+          <Tooltip contentStyle={tooltip} cursor={{ fill: palette.raised }} />
           <Bar
             name="Forecast"
             dataKey="predicted_demand"
             fill={green}
-            radius={[3, 3, 0, 0]}
+            radius={chartTokens.barRadius}
             maxBarSize={28}
             isAnimationActive={false}
           />
@@ -85,7 +79,7 @@ export function DemandChart({
             name="Recommended prep"
             dataKey="recommended_prep"
             fill={palette.sage}
-            radius={[3, 3, 0, 0]}
+            radius={chartTokens.barRadius}
             maxBarSize={28}
             isAnimationActive={false}
           />
@@ -110,7 +104,7 @@ export function HistoryChart({
           data={rows}
           margin={{ top: 16, right: 14, left: 0, bottom: 0 }}
         >
-          <CartesianGrid vertical={false} stroke="#edf0eb" />
+          <CartesianGrid vertical={false} stroke={palette.border} />
           <XAxis
             dataKey="date"
             tick={tick}
@@ -136,7 +130,7 @@ export function HistoryChart({
             dataKey="actual_sold"
             name="Portions sold"
             stroke={green}
-            strokeWidth={2}
+            strokeWidth={chartTokens.lineWidth}
             dot={false}
             activeDot={{ r: 4 }}
             isAnimationActive={false}
@@ -164,7 +158,7 @@ export function DistributionChart({
           data={rows}
           margin={{ top: 24, right: 20, left: 0, bottom: 0 }}
         >
-          <CartesianGrid vertical={false} stroke="#edf0eb" />
+          <CartesianGrid vertical={false} stroke={palette.border} />
           <XAxis
             dataKey="portions"
             type="number"
@@ -187,11 +181,11 @@ export function DistributionChart({
           <ReferenceLine
             x={target}
             stroke={green}
-            strokeWidth={2}
+            strokeWidth={chartTokens.lineWidth}
             label={{
               value: "Prep target",
               fill: green,
-              fontSize: 12,
+              fontSize: chartTokens.labelSize,
               position: "insideTopRight",
             }}
             ifOverflow="extendDomain"

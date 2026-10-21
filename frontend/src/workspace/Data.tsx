@@ -1,3 +1,4 @@
+import MetalButton from "../MetalButton";
 import { useRef, useState } from "react";
 import {
   ArrowDownToLine,
@@ -12,6 +13,7 @@ import {
 import { fetchDataInfo, resetDataset, uploadDatasetCSV } from "../api";
 import {
   Badge,
+  AsyncButton,
   Dialog,
   Empty,
   ErrorState,
@@ -42,6 +44,7 @@ const schema = [
 export default function Data({ config, revision, onDataChange }: ScreenProps) {
   const { data, loading, error, retry } = useResource(fetchDataInfo, revision);
   const [busy, setBusy] = useState(false);
+  const [operation, setOperation] = useState<"upload" | "reset">("upload");
   const [dragging, setDragging] = useState(false);
   const [message, setMessage] = useState<{
     error: boolean;
@@ -67,6 +70,7 @@ export default function Data({ config, revision, onDataChange }: ScreenProps) {
       return;
     }
     setBusy(true);
+    setOperation("upload");
     setMessage(null);
     try {
       const result = await uploadDatasetCSV(file);
@@ -88,6 +92,7 @@ export default function Data({ config, revision, onDataChange }: ScreenProps) {
   const reset = async () => {
     setConfirm(false);
     setBusy(true);
+    setOperation("reset");
     setMessage(null);
     try {
       const result = await resetDataset();
@@ -113,7 +118,7 @@ export default function Data({ config, revision, onDataChange }: ScreenProps) {
   return (
     <>
       <PageHeading
-        title="Your kitchen. Your data."
+        title="Bring your service history."
         description="Bring your service history into the plan. See exactly what the model learns from."
       >
         <a className="button" href={template} download>
@@ -199,14 +204,16 @@ export default function Data({ config, revision, onDataChange }: ScreenProps) {
                     ? "Keep this tab open while the model learns from your service records."
                     : "or choose a file from your computer"}
                 </p>
-                <button
+                <AsyncButton
                   className="button primary"
                   disabled={busy}
+                  busy={busy && operation === "upload"}
+                  busyLabel="Validating & training…"
                   onClick={() => input.current?.click()}
                 >
                   <FileSpreadsheet size={16} />
                   {busy ? "Processing…" : "Choose CSV file"}
-                </button>
+                </AsyncButton>
                 <input
                   ref={input}
                   type="file"
@@ -220,17 +227,17 @@ export default function Data({ config, revision, onDataChange }: ScreenProps) {
               </div>
               <div className="upload-steps">
                 <span>
-                  <CheckCircle2 size={15} />
+                  <FileSpreadsheet size={15} />
                   Validate schema
                 </span>
                 <ArrowRight size={13} />
                 <span>
-                  <CheckCircle2 size={15} />
+                  <Database size={15} />
                   Train model
                 </span>
                 <ArrowRight size={13} />
                 <span>
-                  <CheckCircle2 size={15} />
+                  <RotateCcw size={15} />
                   Refresh workspace
                 </span>
               </div>
@@ -273,14 +280,16 @@ export default function Data({ config, revision, onDataChange }: ScreenProps) {
                     Restoring demo data replaces the current in-memory operator
                     dataset.
                   </p>
-                  <button
+                  <AsyncButton
                     className="button"
                     disabled={busy || data.is_synthetic}
+                    busy={busy && operation === "reset"}
+                    busyLabel="Restoring demo…"
                     onClick={() => setConfirm(true)}
                   >
                     <RotateCcw size={15} />
                     Restore demonstration data
-                  </button>
+                  </AsyncButton>
                 </div>
               </div>
             </Panel>
@@ -392,12 +401,12 @@ export default function Data({ config, revision, onDataChange }: ScreenProps) {
             and retrains the model. Download or retain your original CSV first.
           </p>
           <div className="button-row">
-            <button className="button" onClick={() => setConfirm(false)}>
+            <MetalButton className="button" onClick={() => setConfirm(false)}>
               Keep current data
-            </button>
-            <button className="button primary" onClick={reset}>
+            </MetalButton>
+            <MetalButton className="button primary" onClick={reset}>
               Restore demo data
-            </button>
+            </MetalButton>
           </div>
         </div>
       </Dialog>

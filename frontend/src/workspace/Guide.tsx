@@ -21,7 +21,7 @@ export default function Guide({
       ? "A little clarity before you cook."
       : transparency
         ? "Know what the model knows."
-        : "A good service starts here.";
+        : "The kitchen field guide.";
   return (
     <>
       <PageHeading

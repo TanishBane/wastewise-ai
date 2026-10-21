@@ -2,6 +2,7 @@ import { useEffect, useEffectEvent, useState } from "react";
 import type { ConfigResponse } from "../types";
 
 export type Page =
+  | "home"
   | "overview"
   | "demand-forecast"
   | "prep-planner"

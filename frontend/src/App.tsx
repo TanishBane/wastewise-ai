@@ -1,4 +1,12 @@
-﻿import { Component, lazy, Suspense, useEffect, useState } from "react";
+import MetalButton from "./MetalButton";
+import {
+  Component,
+  Fragment,
+  lazy,
+  Suspense,
+  useEffect,
+  useState,
+} from "react";
 import type { ErrorInfo, ReactNode } from "react";
 import {
   ArrowDownToLine,
@@ -21,11 +29,18 @@ import {
   TriangleAlert,
 } from "lucide-react";
 import { fetchConfig, fetchOverview } from "./api";
-import { Badge, Dialog, ErrorState, Loading } from "./workspace/shared";
+import {
+  AsyncButton,
+  Badge,
+  Dialog,
+  ErrorState,
+  Loading,
+} from "./workspace/shared";
 import { date, downloadCSV, useResource } from "./workspace/model";
 import type { Page, ScreenProps } from "./workspace/model";
 
 const Overview = lazy(() => import("./workspace/Overview"));
+const Home = lazy(() => import("./workspace/Home"));
 const Scenario = lazy(() => import("./workspace/Scenario"));
 const Rescue = lazy(() => import("./workspace/Rescue"));
 const Performance = lazy(() => import("./workspace/Performance"));
@@ -70,6 +85,7 @@ const links = [
   },
 ] as const;
 const allPages: string[] = [
+  "home",
   ...links.map((link) => link.id),
   "help",
   "privacy",
@@ -78,7 +94,7 @@ const allPages: string[] = [
 ];
 const currentHash = (): Page => {
   const hash = window.location.hash.slice(1);
-  return allPages.includes(hash) ? (hash as Page) : "overview";
+  return allPages.includes(hash) ? (hash as Page) : "home";
 };
 class ViewBoundary extends Component<
   { children: ReactNode },
@@ -128,8 +144,22 @@ export default function App() {
     return () => window.removeEventListener("hashchange", change);
   }, []);
   useEffect(() => {
-    document.title = `${links.find((link) => link.id === page)?.label || "Help & transparency"} · WasteWise`;
+    document.title = `${page === "home" ? "Home" : links.find((link) => link.id === page)?.label || "Help & transparency"} · WasteWise`;
   }, [page]);
+  useEffect(() => {
+    const pointer = () => {
+      document.documentElement.dataset.interaction = "pointer";
+    };
+    const keyboard = () => {
+      document.documentElement.dataset.interaction = "keyboard";
+    };
+    document.addEventListener("pointerdown", pointer);
+    document.addEventListener("keydown", keyboard);
+    return () => {
+      document.removeEventListener("pointerdown", pointer);
+      document.removeEventListener("keydown", keyboard);
+    };
+  }, []);
   useEffect(() => {
     const key = (event: KeyboardEvent) => {
       if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k") {
@@ -198,7 +228,15 @@ export default function App() {
   };
   const nav = (
     <>
-      <div className="brand">
+      <a
+        className="brand"
+        href="#home"
+        aria-label="WasteWise AI home"
+        onClick={(event) => {
+          event.preventDefault();
+          navigate("home");
+        }}
+      >
         <span className="brand-mark">
           <Sprout size={24} strokeWidth={1.8} />
         </span>
@@ -206,31 +244,51 @@ export default function App() {
           WasteWise<span className="brand-ai">AI</span>
           <small>Kitchen intelligence</small>
         </span>
-      </div>
+      </a>
       <div className="workspace-name">
         <span className="workspace-avatar">CG</span>
         <div>
           <strong>Campus Green</strong>
-          <small>Central canteen</small>
+          <small>Demo canteen</small>
         </div>
       </div>
-      <span className="nav-label">Workspace</span>
+      <span className="nav-label">Plan this service</span>
+      <a
+        href="#home"
+        className={`nav-link ${page === "home" ? "active" : ""}`}
+        aria-current={page === "home" ? "page" : undefined}
+        onClick={(event) => {
+          event.preventDefault();
+          navigate("home");
+        }}
+      >
+        <Sprout size={18} strokeWidth={1.7} />
+        <span>Home</span>
+        {page === "home" && <span className="nav-active-dot" />}
+      </a>
       <nav aria-label="Main navigation">
-        {links.map(({ id, label, icon: Icon }) => (
-          <a
-            key={id}
-            href={`#${id}`}
-            className={`nav-link ${page === id ? "active" : ""}`}
-            aria-current={page === id ? "page" : undefined}
-            onClick={(event) => {
-              event.preventDefault();
-              navigate(id);
-            }}
-          >
-            <Icon size={18} strokeWidth={1.7} />
-            <span>{label}</span>
-            {page === id && <span className="nav-active-dot" />}
-          </a>
+        {links.map(({ id, label, icon: Icon }, index) => (
+          <Fragment key={id}>
+            {index === 4 && (
+              <span className="nav-label nav-group-label">
+                Learn & maintain
+              </span>
+            )}
+            <a
+              key={id}
+              href={`#${id}`}
+              className={`nav-link ${page === id ? "active" : ""}`}
+              aria-current={page === id ? "page" : undefined}
+              onClick={(event) => {
+                event.preventDefault();
+                navigate(id);
+              }}
+            >
+              <Icon size={18} strokeWidth={1.7} />
+              <span>{label}</span>
+              {page === id && <span className="nav-active-dot" />}
+            </a>
+          </Fragment>
         ))}
       </nav>
       <div className="sidebar-bottom">
@@ -238,7 +296,7 @@ export default function App() {
           <FlaskConical size={19} />
           <strong>See the whole workflow</strong>
           <p>From a demand forecast to a better kitchen plan.</p>
-          <button
+          <MetalButton
             onClick={() => {
               setTourStep(0);
               setTourOpen(true);
@@ -247,7 +305,7 @@ export default function App() {
           >
             Take a quick tour
             <ArrowRight size={15} />
-          </button>
+          </MetalButton>
         </div>
         <a
           className="nav-link"
@@ -334,12 +392,28 @@ export default function App() {
             </button>
             <span>Workspace</span>
             <ChevronRight size={14} />
+            <a
+              className="mobile-brand"
+              href="#home"
+              aria-label="WasteWise AI home"
+              onClick={(event) => {
+                event.preventDefault();
+                navigate("home");
+              }}
+            >
+              <Sprout size={19} />
+              <span>
+                WasteWise<small>AI</small>
+              </span>
+            </a>
             <strong>
-              {links.find((link) => link.id === page)?.label || "Resources"}
+              {page === "home"
+                ? "Home"
+                : links.find((link) => link.id === page)?.label || "Resources"}
             </strong>
           </div>
           <div className="workspace-tools">
-            <button
+            <MetalButton
               className="search-trigger"
               onClick={() => {
                 setSearch("");
@@ -349,13 +423,17 @@ export default function App() {
               <Search size={16} />
               <span>Find a page</span>
               <kbd>Ctrl K</kbd>
-            </button>
+            </MetalButton>
             <span className="operator-avatar" title="Local kitchen workspace">
               CG
             </span>
           </div>
         </header>
-        <main id="main" className="work-sheet" tabIndex={-1}>
+        <main
+          id="main"
+          className={`work-sheet ${page === "home" ? "home-sheet" : ""}`}
+          tabIndex={-1}
+        >
           <div className="source-bar">
             <div>
               <span
@@ -398,14 +476,16 @@ export default function App() {
               >
                 <RefreshCw size={16} className={config.loading ? "spin" : ""} />
               </button>
-              <button
+              <AsyncButton
                 className="button small"
                 onClick={exportReport}
-                disabled={exporting || !config.data}
+                disabled={!config.data}
+                busy={exporting}
+                busyLabel="Exporting menu…"
               >
                 <ArrowDownToLine size={15} />
                 {exporting ? "Exporting…" : "Export menu"}
-              </button>
+              </AsyncButton>
             </div>
           </div>
           {exportError && (
@@ -418,7 +498,9 @@ export default function App() {
           )}
           <ViewBoundary key={page}>
             <Suspense fallback={<Loading label="Opening workspace…" />}>
-              {config.loading && !config.data ? (
+              {page === "home" ? (
+                <Home navigate={navigate} />
+              ) : config.loading && !config.data ? (
                 <Loading />
               ) : config.error ? (
                 <ErrorState message={config.error} retry={config.retry} />
@@ -466,6 +548,7 @@ export default function App() {
       </Dialog>
       <Dialog
         open={searchOpen}
+        instant
         title="Find your next step"
         onClose={() => setSearchOpen(false)}
       >
@@ -523,7 +606,7 @@ export default function App() {
             ))}
           </div>
           <div className="button-row">
-            <button
+            <MetalButton
               className="button"
               onClick={() => {
                 navigate(tour[tourStep].page);
@@ -531,8 +614,8 @@ export default function App() {
               }}
             >
               Explore this view
-            </button>
-            <button
+            </MetalButton>
+            <MetalButton
               className="button primary"
               onClick={() =>
                 tourStep < tour.length - 1
@@ -542,7 +625,7 @@ export default function App() {
             >
               {tourStep < tour.length - 1 ? "Next step" : "Ready to explore"}
               <ArrowRight size={16} />
-            </button>
+            </MetalButton>
           </div>
         </div>
       </Dialog>

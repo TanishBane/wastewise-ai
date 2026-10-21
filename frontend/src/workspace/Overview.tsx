@@ -1,4 +1,5 @@
-import { useState } from "react";
+import MetalButton from "../MetalButton";
+import { useEffect, useState } from "react";
 import {
   ArrowRight,
   Check,
@@ -26,6 +27,21 @@ import { money, number, useResource } from "./model";
 import type { ScreenProps } from "./model";
 
 export default function Overview({ revision, navigate }: ScreenProps) {
+  const [arrival] = useState(() => {
+    try {
+      const seen = sessionStorage.getItem("wastewise-journal-seen");
+      return !seen;
+    } catch {
+      return false;
+    }
+  });
+  useEffect(() => {
+    try {
+      sessionStorage.setItem("wastewise-journal-seen", "true");
+    } catch {
+      /* Overview works without storage. */
+    }
+  }, []);
   const { data, loading, error, retry } = useResource(fetchOverview, revision);
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState("all");
@@ -41,19 +57,19 @@ export default function Overview({ revision, navigate }: ScreenProps) {
       (category === "all" || row.category === category),
   );
   return (
-    <>
+    <div className={`overview-page ${arrival ? "first-arrival" : ""}`}>
       <PageHeading
-        title="A little foresight. A lot less waste."
-        description="Your kitchen’s next service, planned with care."
+        title="Before the first batch."
+        description={`${data.item_details.length} dishes to plan. Check demand, review the exceptions, then decide what to cook.`}
       >
-        <button
+        <MetalButton
           className="button primary"
           onClick={() => navigate("prep-planner")}
         >
           <ChefHat size={17} />
           Build a preparation plan
           <ArrowRight size={16} />
-        </button>
+        </MetalButton>
       </PageHeading>
       <Stats
         items={[
@@ -172,13 +188,64 @@ export default function Overview({ revision, navigate }: ScreenProps) {
         title="The menu, ready for a second look"
         description="Review suggested batches before the kitchen starts. Review marks stay on this screen."
         action={
-          <span className="review-count">
-            <CheckCheck size={16} />
-            {Object.values(reviewed).filter(Boolean).length} of{" "}
-            {data.item_details.length} reviewed
+          <span className="review-meter">
+            <progress
+              value={Object.values(reviewed).filter(Boolean).length}
+              max={data.item_details.length}
+              aria-label="Menu review progress"
+            />
+            <span className="review-count" role="status">
+              <CheckCheck size={16} />
+              {Object.values(reviewed).filter(Boolean).length} of{" "}
+              {data.item_details.length} reviewed
+            </span>
           </span>
         }
       >
+        <div className="review-status">
+          <div>
+            <strong>
+              {Object.values(reviewed).filter(Boolean).length ===
+              data.item_details.length
+                ? "Every dish has had a second look."
+                : "Give each dish a kitchen check."}
+            </strong>
+            <p>
+              Confirm the batch, then mark it reviewed. This is a local
+              checklist, not a kitchen dispatch.
+            </p>
+          </div>
+          <MetalButton
+            className="button"
+            disabled={
+              Object.values(reviewed).filter(Boolean).length ===
+              data.item_details.length
+            }
+            onClick={(event) => {
+              setQuery("");
+              setCategory("all");
+              requestAnimationFrame(() => {
+                const next = document.querySelector<HTMLButtonElement>(
+                  ".menu-table .review-button:not(.is-reviewed)",
+                );
+                if (next) {
+                  next.focus({ preventScroll: true });
+                  next.scrollIntoView({
+                    block: "center",
+                    behavior:
+                      event.detail === 0 ||
+                      matchMedia("(prefers-reduced-motion: reduce)").matches
+                        ? "instant"
+                        : "smooth",
+                  });
+                }
+              });
+            }}
+          >
+            Review next dish
+            <ArrowRight size={14} />
+          </MetalButton>
+        </div>
         <div className="table-toolbar">
           <div className="input-search">
             <Search size={16} />
@@ -292,6 +359,6 @@ export default function Overview({ revision, navigate }: ScreenProps) {
           See the evidence
         </TextLink>
       </div>
-    </>
+    </div>
   );
 }

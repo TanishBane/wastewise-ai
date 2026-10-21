@@ -13,12 +13,14 @@ import numpy as np
 
 # Add project root to sys.path
 ROOT_DIR = Path(__file__).resolve().parent.parent
+FRONTEND_DIST_DIR = ROOT_DIR / "frontend" / "dist"
 if str(ROOT_DIR) not in sys.path:
     sys.path.insert(0, str(ROOT_DIR))
 
 from fastapi import FastAPI, File, HTTPException, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import Response
+from fastapi.responses import FileResponse, Response
+from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
 from src.config import (
@@ -525,6 +527,20 @@ def reset_to_demo_data():
         "status": "success",
         "message": "Reset to default 180-day demonstration dataset.",
     }
+
+
+# Serve the production frontend from the same origin as the API. This keeps the
+# website a single project and avoids requiring a separate frontend server.
+if FRONTEND_DIST_DIR.is_dir():
+    @app.get("/", include_in_schema=False)
+    def serve_frontend() -> FileResponse:
+        return FileResponse(FRONTEND_DIST_DIR / "index.html")
+
+    app.mount(
+        "/",
+        StaticFiles(directory=FRONTEND_DIST_DIR, html=True),
+        name="frontend",
+    )
 
 
 if __name__ == "__main__":

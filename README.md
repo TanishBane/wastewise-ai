@@ -1,27 +1,32 @@
-﻿# WasteWise AI
+# WasteWise AI
 
 **Predict smarter. Prepare better. Waste less.**
 
 A canteen operations workspace that connects demand forecasting to practical batch preparation, surplus triage, and transparent evaluation. Built for daily kitchen decisions, with clearly labeled synthetic data for demonstrations.
 
-## Start the application
+## Start the website
 
 Python and Node.js/npm are required. The frontend uses Vite 8; use Node.js 22.12 or newer.
 
 ```powershell
 python -m pip install -r requirements.txt
-python -m uvicorn backend.main:app --host 127.0.0.1 --port 8000
+npm install --prefix frontend
+.\run_website.ps1
 ```
 
-In a second terminal:
+Open the single website link printed by the script: **http://127.0.0.1:8000**.
+FastAPI serves the built React website and its `/api` endpoints from this same
+address, so no separate Vite URL or API URL is needed. This is intentionally
+local rather than deployed; hosting can add a public link later without
+changing the application architecture.
+
+For frontend-only development with hot reload:
 
 ```powershell
 cd frontend
 npm install
 npm run dev
 ```
-
-Open the address Vite prints, normally http://localhost:3000. Backend health: http://127.0.0.1:8000/api/health.
 
 For frontend configuration, checks, and production proxy requirements, see [frontend/README.md](frontend/README.md).
 
@@ -75,13 +80,14 @@ src/metrics.py              Risk triage and impact simulation
 frontend/src/App.tsx        Workspace shell, navigation, search and tour
 frontend/src/workspace/     Operational screens, shared controls and charts
 frontend/src/index.css      Responsive design system and print styling
-frontend/public/fonts/      Self-hosted IBM Plex Sans and license
+frontend/public/fonts/      Self-hosted Newsreader and Source Sans 3 and license
 tests/                      Python and API regression checks
 scripts/verify_frontend.py  Chrome browser regression checks
 PRODUCT.md                  Product constraints and confirmed audience
 DESIGN.md                   Documented frontend design system
 ```
 
-The earlier Streamlit prototype is retained in `app.py` and `src/views/`; run it with `streamlit run app.py` if needed. The React frontend is the primary interface.
+The earlier Streamlit prototype is retained in `app.py` and `src/views/` for
+reference only. The React frontend served by FastAPI is the primary website.
 
 Developed for ADAPPT 5.0 — AI in FoodTech.
