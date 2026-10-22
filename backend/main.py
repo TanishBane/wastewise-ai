@@ -403,7 +403,8 @@ def reset_to_demo_data():
     }
 
 
-# Serve the production frontend from the same origin as the API.
+# Serve the production frontend from the same origin as the API. This keeps the
+# website a single project and avoids requiring a separate frontend server.
 if FRONTEND_DIST_DIR.is_dir():
     @app.get("/", include_in_schema=False)
     def serve_frontend() -> FileResponse:
