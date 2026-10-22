@@ -372,7 +372,13 @@ export default function App() {
                   navigate("home");
                 }}
               >
-                <Sprout size={19} />
+                <img
+                  className="brand-logo mobile-brand-logo"
+                  src="/brand/wastewise-mark.png"
+                  alt="WasteWise Logo"
+                  width="28"
+                  height="20"
+                />
                 <span>
                   WasteWise<small>AI</small>
                 </span>

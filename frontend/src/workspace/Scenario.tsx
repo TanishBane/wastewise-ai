@@ -798,8 +798,8 @@ export default function Scenario({
                           </details>
                         </Panel>
                         <Panel
-                          title="Model-wide drivers"
-                          description="Global feature importances extracted directly from fitted Random Forest estimators"
+                          title="What the model pays attention to"
+                          description="Global model feature importance extracted from fitted Random Forest estimators · not an explanation of this individual prediction"
                         >
                           <div className="feature-list">
                             {forecast.features.map((feature) => (

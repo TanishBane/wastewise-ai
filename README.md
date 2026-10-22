@@ -401,7 +401,15 @@ npm run build
 ```
 *Result: Clean compilation in <800ms with zero errors.*
 
-### 3. Automated Browser Verification Suite
+### 3. Automated Code Quality & Linting
+Run the automated code hygiene checks:
+```powershell
+npm run lint --prefix frontend
+npm run format:check --prefix frontend
+```
+For detailed frontend configuration, component architecture, and proxy settings, see [frontend/README.md](frontend/README.md).
+
+### 4. Automated Browser Verification Suite
 Run native Python Chrome DevTools Protocol (CDP) automated browser tests verifying layout rendering, responsive viewports, and primary actions:
 ```powershell
 python scripts/verify_repaired_home.py
