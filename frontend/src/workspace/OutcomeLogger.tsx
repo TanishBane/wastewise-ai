@@ -1,5 +1,11 @@
 import { useEffect, useState } from "react";
-import { Check, ClipboardList, Plus, RefreshCw, TriangleAlert } from "lucide-react";
+import {
+  Check,
+  ClipboardList,
+  Plus,
+  RefreshCw,
+  TriangleAlert,
+} from "lucide-react";
 import { fetchOutcomes, recordOutcome } from "../api";
 import type { ActualOutcomeItem, ConfigResponse } from "../types";
 import { AsyncButton, Badge, Panel } from "./shared";
@@ -87,7 +93,8 @@ export default function OutcomeLogger({
     if (sold + leftover !== prepared) {
       setFeedback({
         tone: "danger",
-        message: "Portions prepared must equal portions sold plus leftover portions.",
+        message:
+          "Portions prepared must equal portions sold plus leftover portions.",
       });
       return;
     }
@@ -154,7 +161,9 @@ export default function OutcomeLogger({
         <form onSubmit={handleSubmit} className="outcome-form">
           <div className="form-row-grid">
             <div className="form-group">
-              <label htmlFor="outcome-date" className="field-label">Service Date</label>
+              <label htmlFor="outcome-date" className="field-label">
+                Service Date
+              </label>
               <input
                 id="outcome-date"
                 type="date"
@@ -166,7 +175,9 @@ export default function OutcomeLogger({
             </div>
 
             <div className="form-group">
-              <label htmlFor="outcome-dish" className="field-label">Menu Item</label>
+              <label htmlFor="outcome-dish" className="field-label">
+                Menu Item
+              </label>
               <select
                 id="outcome-dish"
                 className="select"
@@ -184,7 +195,9 @@ export default function OutcomeLogger({
 
           <div className="form-row-grid three-col">
             <div className="form-group">
-              <label htmlFor="outcome-prepared" className="field-label">Portions Prepared</label>
+              <label htmlFor="outcome-prepared" className="field-label">
+                Portions Prepared
+              </label>
               <input
                 id="outcome-prepared"
                 type="number"
@@ -197,7 +210,9 @@ export default function OutcomeLogger({
             </div>
 
             <div className="form-group">
-              <label htmlFor="outcome-sold" className="field-label">Portions Sold</label>
+              <label htmlFor="outcome-sold" className="field-label">
+                Portions Sold
+              </label>
               <input
                 id="outcome-sold"
                 type="number"
@@ -210,7 +225,9 @@ export default function OutcomeLogger({
             </div>
 
             <div className="form-group">
-              <label htmlFor="outcome-leftover" className="field-label">Leftover (Unsold)</label>
+              <label htmlFor="outcome-leftover" className="field-label">
+                Leftover (Unsold)
+              </label>
               <input
                 id="outcome-leftover"
                 type="number"
@@ -225,23 +242,37 @@ export default function OutcomeLogger({
 
           <div className="form-row-grid">
             <div className="form-group">
-              <label htmlFor="outcome-cause" className="field-label">Observed Waste Cause</label>
+              <label htmlFor="outcome-cause" className="field-label">
+                Observed Waste Cause
+              </label>
               <select
                 id="outcome-cause"
                 className="select"
                 value={wasteCause}
                 onChange={(e) => setWasteCause(e.target.value)}
               >
-                <option value="Over-preparation">Over-preparation (excess initial fire)</option>
-                <option value="Unexpected low footfall">Unexpected low footfall / weather dip</option>
-                <option value="Quality / holding limit">Quality / holding time limit reached</option>
-                <option value="Late replenishment">Replenishment fired too late in shift</option>
-                <option value="Accidental spoilage">Preparation loss / kitchen spill</option>
+                <option value="Over-preparation">
+                  Over-preparation (excess initial fire)
+                </option>
+                <option value="Unexpected low footfall">
+                  Unexpected low footfall / weather dip
+                </option>
+                <option value="Quality / holding limit">
+                  Quality / holding time limit reached
+                </option>
+                <option value="Late replenishment">
+                  Replenishment fired too late in shift
+                </option>
+                <option value="Accidental spoilage">
+                  Preparation loss / kitchen spill
+                </option>
               </select>
             </div>
 
             <div className="form-group">
-              <label htmlFor="outcome-notes" className="field-label">Shift Observation Notes</label>
+              <label htmlFor="outcome-notes" className="field-label">
+                Shift Observation Notes
+              </label>
               <input
                 id="outcome-notes"
                 type="text"
@@ -308,7 +339,9 @@ export default function OutcomeLogger({
                 <tbody>
                   {history.slice(0, 10).map((item) => (
                     <tr key={item.id}>
-                      <td><strong>{item.service_date}</strong></td>
+                      <td>
+                        <strong>{item.service_date}</strong>
+                      </td>
                       <td>{item.menu_item}</td>
                       <td className="numeric">{item.portions_prepared}</td>
                       <td className="numeric">{item.portions_sold}</td>
@@ -316,11 +349,11 @@ export default function OutcomeLogger({
                         {item.portions_leftover}
                       </td>
                       <td>
-                        <span className="cause-tag">{item.waste_cause || "Over-prep"}</span>
+                        <span className="cause-tag">
+                          {item.waste_cause || "Over-prep"}
+                        </span>
                       </td>
-                      <td className="table-notes-cell">
-                        {item.notes || "—"}
-                      </td>
+                      <td className="table-notes-cell">{item.notes || "—"}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -330,7 +363,10 @@ export default function OutcomeLogger({
             <div className="empty-history-placeholder">
               <ClipboardList size={22} className="muted-icon" />
               <p>No operational outcomes recorded yet.</p>
-              <small>Use the form above to record portions prepared and sold after today's service.</small>
+              <small>
+                Use the form above to record portions prepared and sold after
+                today's service.
+              </small>
             </div>
           )}
         </div>

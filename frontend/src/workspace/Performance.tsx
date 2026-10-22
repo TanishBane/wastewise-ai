@@ -58,7 +58,9 @@ export default function Performance({ revision, navigate }: ScreenProps) {
     const s = parseInt(formSold, 10) || 0;
     const l = parseInt(formLeftover, 10) || 0;
     if (s + l !== p) {
-      setOutcomeError("Prepared portions must equal portions sold plus leftover portions.");
+      setOutcomeError(
+        "Prepared portions must equal portions sold plus leftover portions.",
+      );
       return;
     }
     setSavingOutcome(true);
@@ -496,7 +498,9 @@ export default function Performance({ revision, navigate }: ScreenProps) {
                     <td>{o.portions_sold}</td>
                     <td>{o.portions_leftover}</td>
                     <td>
-                      <span className="cause-tag">{o.waste_cause || "Over-prep"}</span>
+                      <span className="cause-tag">
+                        {o.waste_cause || "Over-prep"}
+                      </span>
                     </td>
                     <td>{o.discarded_kg} kg</td>
                     <td className="muted">{o.notes || "—"}</td>
@@ -609,11 +613,21 @@ export default function Performance({ revision, navigate }: ScreenProps) {
               value={formCause}
               onChange={(e) => setFormCause(e.target.value)}
             >
-              <option value="Over-preparation">Over-preparation (excess initial fire)</option>
-              <option value="Unexpected low footfall">Unexpected low footfall / weather dip</option>
-              <option value="Quality / holding limit">Quality / holding time limit reached</option>
-              <option value="Late replenishment">Replenishment fired too late in shift</option>
-              <option value="Accidental spoilage">Preparation loss / kitchen spill</option>
+              <option value="Over-preparation">
+                Over-preparation (excess initial fire)
+              </option>
+              <option value="Unexpected low footfall">
+                Unexpected low footfall / weather dip
+              </option>
+              <option value="Quality / holding limit">
+                Quality / holding time limit reached
+              </option>
+              <option value="Late replenishment">
+                Replenishment fired too late in shift
+              </option>
+              <option value="Accidental spoilage">
+                Preparation loss / kitchen spill
+              </option>
             </select>
           </div>
           <div style={{ marginBottom: "var(--space-5)" }}>
