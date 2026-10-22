@@ -9,6 +9,7 @@ import {
   RefreshCw,
   X,
 } from "lucide-react";
+import { ScrollReveal, StaggerGroup, StaggerItem } from "../motion";
 
 export function PageHeading({
   title,
@@ -25,13 +26,15 @@ export function PageHeading({
       ?.focus({ preventScroll: true });
   }, []);
   return (
-    <header className="page-heading">
-      <div>
-        <h1 tabIndex={-1}>{title}</h1>
-        <p>{description}</p>
-      </div>
-      <div className="heading-actions">{children}</div>
-    </header>
+    <ScrollReveal direction="up" distance={12} duration={0.45} threshold={0.05}>
+      <header className="page-heading">
+        <div>
+          <h1 tabIndex={-1}>{title}</h1>
+          <p>{description}</p>
+        </div>
+        <div className="heading-actions">{children}</div>
+      </header>
+    </ScrollReveal>
   );
 }
 export function Panel({
@@ -59,19 +62,21 @@ export function Panel({
     );
   };
   return (
-    <section
-      className={`panel interactive-surface ${className}`}
-      onPointerMove={trackPointer}
-    >
-      <header className="panel-heading">
-        <div>
-          <h2>{title}</h2>
-          {description && <p>{description}</p>}
-        </div>
-        {action}
-      </header>
-      {children}
-    </section>
+    <ScrollReveal direction="up" distance={14} duration={0.5} threshold={0.08}>
+      <section
+        className={`panel interactive-surface ${className}`}
+        onPointerMove={trackPointer}
+      >
+        <header className="panel-heading">
+          <div>
+            <h2>{title}</h2>
+            {description && <p>{description}</p>}
+          </div>
+          {action}
+        </header>
+        {children}
+      </section>
+    </ScrollReveal>
   );
 }
 export function Badge({
@@ -120,19 +125,25 @@ export function Stats({
     );
   };
   return (
-    <div
+    <StaggerGroup
       className="stats interactive-surface"
       onPointerMove={trackPointer}
       style={{ "--stat-count": items.length } as React.CSSProperties}
+      staggerDelay={0.07}
     >
       {items.map((item) => (
-        <div className="stat" key={item.label}>
+        <StaggerItem
+          className="stat"
+          key={item.label}
+          distance={12}
+          duration={0.45}
+        >
           <span className="stat-label">{item.label}</span>
           <div className={`stat-value ${item.tone || ""}`}>{item.value}</div>
           <span className="stat-note">{item.note}</span>
-        </div>
+        </StaggerItem>
       ))}
-    </div>
+    </StaggerGroup>
   );
 }
 export function Loading({
@@ -421,8 +432,12 @@ export function BatchStrip({
   return (
     <div className="batch-strip">
       <div className="batch-track" aria-hidden="true">
-        {initial > 0 && <span style={{ flex: initial }} />}
-        {refill > 0 && <span style={{ flex: refill }} />}
+        {initial > 0 && (
+          <span style={{ flex: initial, transition: "flex 0.5s ease-out" }} />
+        )}
+        {refill > 0 && (
+          <span style={{ flex: refill, transition: "flex 0.5s ease-out" }} />
+        )}
       </div>
       <div className="batch-labels">
         <span>

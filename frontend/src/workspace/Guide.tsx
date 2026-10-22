@@ -6,6 +6,7 @@ import {
   ShieldCheck,
 } from "lucide-react";
 import { Badge, Notice, PageHeading, Panel } from "./shared";
+import { ReadingProgressBar } from "../motion";
 import type { Page, ScreenProps } from "./model";
 
 export default function Guide({
@@ -24,6 +25,7 @@ export default function Guide({
         : "The kitchen field guide.";
   return (
     <>
+      <ReadingProgressBar />
       <PageHeading
         title={title}
         description={

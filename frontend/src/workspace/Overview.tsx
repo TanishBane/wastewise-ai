@@ -2,15 +2,22 @@ import MetalButton from "../MetalButton";
 import { useEffect, useState } from "react";
 import {
   ArrowRight,
+  Calendar,
   Check,
   CheckCheck,
   ChefHat,
+  ClipboardList,
+  Clock,
+  Printer,
   Search,
   SlidersHorizontal,
   TriangleAlert,
+  Utensils,
 } from "lucide-react";
 import { fetchOverview } from "../api";
 import { DemandChart } from "./Charts";
+import { AnimatedNumber } from "../motion";
+import PrintKitchenSheet from "./PrintKitchenSheet";
 import {
   Badge,
   BatchStrip,
@@ -23,7 +30,7 @@ import {
   Stats,
   TextLink,
 } from "./shared";
-import { money, number, useResource } from "./model";
+import { money, useResource } from "./model";
 import type { ScreenProps } from "./model";
 
 export default function Overview({ revision, navigate }: ScreenProps) {
@@ -46,7 +53,8 @@ export default function Overview({ revision, navigate }: ScreenProps) {
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState("all");
   const [reviewed, setReviewed] = useState<Record<string, boolean>>({});
-  if (loading) return <Loading />;
+  const [printModalOpen, setPrintModalOpen] = useState(false);
+  if (loading && !data) return <Loading />;
   if (error || !data)
     return (
       <ErrorState message={error || "No overview returned."} retry={retry} />
@@ -59,25 +67,81 @@ export default function Overview({ revision, navigate }: ScreenProps) {
   return (
     <div className={`overview-page ${arrival ? "first-arrival" : ""}`}>
       <PageHeading
-        title="Before the first batch."
-        description={`${data.item_details.length} dishes to plan. Check demand, review the exceptions, then decide what to cook.`}
+        title="Kitchen Command Center"
+        description={`${data.item_details.length} menu items scheduled. Check forecast demand, inspect priority risk items, and review preparation targets before firing the first batch.`}
       >
-        <MetalButton
-          className="button primary"
-          onClick={() => navigate("prep-planner")}
-        >
-          <ChefHat size={17} />
-          Build a preparation plan
-          <ArrowRight size={16} />
-        </MetalButton>
+        <div className="overview-heading-actions">
+          <MetalButton
+            className="button primary"
+            onClick={() => navigate("prep-planner")}
+          >
+            <ChefHat size={16} />
+            Build preparation plan
+            <ArrowRight size={15} />
+          </MetalButton>
+          <MetalButton
+            className="button"
+            onClick={() => setPrintModalOpen(true)}
+            title="Open printable kitchen preparation sheet"
+          >
+            <Printer size={15} />
+            Print kitchen sheet
+          </MetalButton>
+          <MetalButton
+            className="button"
+            onClick={() => navigate("waste-risk")}
+            title="Log shift outcome in surplus rescue"
+          >
+            <ClipboardList size={15} />
+            Log shift outcome
+          </MetalButton>
+        </div>
       </PageHeading>
+      <div
+        className="service-context-bar"
+        aria-label="Service operating parameters"
+      >
+        <div className="service-context-item">
+          <Clock size={13} />
+          <span>
+            Shift: <strong>Lunch Service</strong> (11:30 – 14:00)
+          </span>
+        </div>
+        <div className="service-context-divider">·</div>
+        <div className="service-context-item">
+          <Calendar size={13} />
+          <span>
+            Date: <strong>{data.service_date}</strong>
+          </span>
+        </div>
+        <div className="service-context-divider">·</div>
+        <div className="service-context-item">
+          <Utensils size={13} />
+          <span>
+            Venue: <strong>Campus Green Canteen</strong>
+          </span>
+        </div>
+        <div className="service-context-divider">·</div>
+        <div className="service-context-item">
+          <span className="live-status-dot" />
+          <span>
+            Source:{" "}
+            <strong>
+              {data.is_synthetic ? "Synthetic Demo Data" : "Operator Records"}
+            </strong>
+          </span>
+        </div>
+      </div>
       <Stats
         items={[
           {
             label: "Expected demand",
             value: (
               <>
-                {number(data.kpis.forecast_demand)}
+                <AnimatedNumber
+                  value={data.kpis.forecast_demand}
+                  loading={loading}
+                />
                 <small>portions</small>
               </>
             ),
@@ -87,7 +151,10 @@ export default function Overview({ revision, navigate }: ScreenProps) {
             label: "Suggested preparation",
             value: (
               <>
-                {number(data.kpis.recommended_prep)}
+                <AnimatedNumber
+                  value={data.kpis.recommended_prep}
+                  loading={loading}
+                />
                 <small>portions</small>
               </>
             ),
@@ -97,7 +164,10 @@ export default function Overview({ revision, navigate }: ScreenProps) {
             label: "Potential surplus",
             value: (
               <>
-                {number(data.kpis.potential_surplus)}
+                <AnimatedNumber
+                  value={data.kpis.potential_surplus}
+                  loading={loading}
+                />
                 <small>portions</small>
               </>
             ),
@@ -106,7 +176,13 @@ export default function Overview({ revision, navigate }: ScreenProps) {
           },
           {
             label: "Ingredient cost at risk",
-            value: money(data.kpis.cost_at_risk),
+            value: (
+              <AnimatedNumber
+                value={data.kpis.cost_at_risk}
+                prefix="₹"
+                loading={loading}
+              />
+            ),
             note: "Exposure under the baseline prep policy",
             tone: "warning-ink",
           },
@@ -215,36 +291,46 @@ export default function Overview({ revision, navigate }: ScreenProps) {
               checklist, not a kitchen dispatch.
             </p>
           </div>
-          <MetalButton
-            className="button"
-            disabled={
-              Object.values(reviewed).filter(Boolean).length ===
-              data.item_details.length
-            }
-            onClick={(event) => {
-              setQuery("");
-              setCategory("all");
-              requestAnimationFrame(() => {
-                const next = document.querySelector<HTMLButtonElement>(
-                  ".menu-table .review-button:not(.is-reviewed)",
-                );
-                if (next) {
-                  next.focus({ preventScroll: true });
-                  next.scrollIntoView({
-                    block: "center",
-                    behavior:
-                      event.detail === 0 ||
-                      matchMedia("(prefers-reduced-motion: reduce)").matches
-                        ? "instant"
-                        : "smooth",
-                  });
-                }
-              });
-            }}
-          >
-            Review next dish
-            <ArrowRight size={14} />
-          </MetalButton>
+          <div className="review-actions">
+            <MetalButton
+              className="button"
+              disabled={
+                Object.values(reviewed).filter(Boolean).length ===
+                data.item_details.length
+              }
+              onClick={(event) => {
+                setQuery("");
+                setCategory("all");
+                requestAnimationFrame(() => {
+                  const next = document.querySelector<HTMLButtonElement>(
+                    ".menu-table .review-button:not(.is-reviewed)",
+                  );
+                  if (next) {
+                    next.focus({ preventScroll: true });
+                    next.scrollIntoView({
+                      block: "center",
+                      behavior:
+                        event.detail === 0 ||
+                        matchMedia("(prefers-reduced-motion: reduce)").matches
+                          ? "instant"
+                          : "smooth",
+                    });
+                  }
+                });
+              }}
+            >
+              Review next dish
+              <ArrowRight size={14} />
+            </MetalButton>
+            <MetalButton
+              className="button print-prep-btn"
+              onClick={() => setPrintModalOpen(true)}
+              title="Open printable kitchen preparation sheet"
+            >
+              <Printer size={14} />
+              Print prep sheet
+            </MetalButton>
+          </div>
         </div>
         <div className="table-toolbar">
           <div className="input-search">
@@ -315,6 +401,13 @@ export default function Overview({ revision, navigate }: ScreenProps) {
                       initial={row.initial_batch}
                       total={row.recommended_prep}
                     />
+                    <small className="batch-trigger-hint">
+                      Trigger:{" "}
+                      {row.refill_trigger_label ||
+                        (row.refill_trigger
+                          ? `<${row.refill_trigger} portions`
+                          : "Single batch")}
+                    </small>
                   </td>
                   <td className="numeric">
                     <button
@@ -359,6 +452,13 @@ export default function Overview({ revision, navigate }: ScreenProps) {
           See the evidence
         </TextLink>
       </div>
+
+      <PrintKitchenSheet
+        open={printModalOpen}
+        onClose={() => setPrintModalOpen(false)}
+        serviceDate={data.service_date}
+        items={data.item_details}
+      />
     </div>
   );
 }

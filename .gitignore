@@ -45,6 +45,15 @@ test-results/
 
 # Local tool caches
 .cache/
+data/*.db*
+*.db
+*.db-wal
+*.db-shm
 
 # Local design-tool state
 .taste-skill/
+
+# Agent & local tool state
+.agent/
+.agents/
+.impeccable/

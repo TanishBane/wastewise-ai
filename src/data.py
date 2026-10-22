@@ -6,6 +6,7 @@ Includes CSV validation and sanitization for operator uploads.
 """
 
 import os
+from pathlib import Path
 from datetime import datetime, timedelta
 from typing import Dict, List, Tuple
 import numpy as np
@@ -17,6 +18,9 @@ from src.config import (
     REQUIRED_COLUMNS,
     WEATHER_TYPES,
 )
+
+ROOT_DIR = Path(__file__).resolve().parent.parent
+DATA_DIR = ROOT_DIR / "data"
 
 
 def generate_synthetic_canteen_data(
@@ -157,12 +161,12 @@ def generate_synthetic_canteen_data(
     return df
 
 
-def get_demonstration_data(data_dir: str = "data") -> pd.DataFrame:
+def get_demonstration_data(data_dir: str | Path = DATA_DIR) -> pd.DataFrame:
     """
     Returns the demonstration dataset. Caches to disk as CSV if not already present.
     """
-    csv_path = os.path.join(data_dir, "wastewise_sample_canteen_data.csv")
-    if os.path.exists(csv_path):
+    csv_path = Path(data_dir) / "wastewise_sample_canteen_data.csv"
+    if csv_path.exists():
         try:
             df = pd.read_csv(csv_path)
             # Ensure date is string
@@ -172,7 +176,7 @@ def get_demonstration_data(data_dir: str = "data") -> pd.DataFrame:
             pass
             
     df = generate_synthetic_canteen_data()
-    os.makedirs(data_dir, exist_ok=True)
+    Path(data_dir).mkdir(parents=True, exist_ok=True)
     df.to_csv(csv_path, index=False)
     return df
 
@@ -190,6 +194,11 @@ def validate_dataset(df: pd.DataFrame) -> Tuple[bool, List[str], pd.DataFrame]:
         
     cleaned_df = df.copy()
     cleaned_df.columns = [c.strip().lower() for c in cleaned_df.columns]
+
+    blank_rows = int(cleaned_df.isna().all(axis=1).sum())
+    if blank_rows:
+        cleaned_df = cleaned_df.dropna(how="all").copy()
+        issues.append(f"Ignored {blank_rows} completely blank row(s).")
     
     # Check required columns
     missing_cols = [col for col in REQUIRED_COLUMNS if col not in cleaned_df.columns]
@@ -199,7 +208,11 @@ def validate_dataset(df: pd.DataFrame) -> Tuple[bool, List[str], pd.DataFrame]:
 
     # Date validation
     try:
-        cleaned_df["date"] = pd.to_datetime(cleaned_df["date"]).dt.strftime("%Y-%m-%d")
+        parsed_dates = pd.to_datetime(cleaned_df["date"], errors="coerce")
+        if parsed_dates.isna().any():
+            count = int(parsed_dates.isna().sum())
+            return False, issues + [f"Column 'date' has {count} invalid or missing date value(s)."], cleaned_df
+        cleaned_df["date"] = parsed_dates.dt.strftime("%Y-%m-%d")
     except Exception as e:
         issues.append(f"Failed to parse dates in 'date' column: {str(e)}")
         return False, issues, cleaned_df
@@ -228,6 +241,27 @@ def validate_dataset(df: pd.DataFrame) -> Tuple[bool, List[str], pd.DataFrame]:
     if (cleaned_df["cost_per_portion"] <= 0).any():
         issues.append("Zero or negative values found in 'cost_per_portion'.")
         return False, issues, cleaned_df
+
+    if (cleaned_df["selling_price"] <= 0).any():
+        return False, issues + ["Zero or negative values found in 'selling_price'."], cleaned_df
+    if (~cleaned_df["attendance_index"].between(0.1, 2.0)).any():
+        return False, issues + ["'attendance_index' must be between 0.1 and 2.0."], cleaned_df
+    if (~cleaned_df["campus_event"].isin([0, 1])).any():
+        return False, issues + ["'campus_event' must be 0 or 1."], cleaned_df
+    allowed_days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+    invalid_days = ~cleaned_df["day_of_week"].astype(str).isin(allowed_days)
+    if invalid_days.any():
+        return False, issues + [f"'day_of_week' has {int(invalid_days.sum())} invalid value(s)."], cleaned_df
+    invalid_weather = ~cleaned_df["weather"].astype(str).isin(WEATHER_TYPES)
+    if invalid_weather.any():
+        return False, issues + [f"'weather' has {int(invalid_weather.sum())} unsupported value(s). Use the template labels."], cleaned_df
+    expected_days = pd.to_datetime(cleaned_df["date"]).dt.day_name()
+    mismatched_days = cleaned_df["day_of_week"].astype(str) != expected_days
+    if mismatched_days.any():
+        return False, issues + [f"'day_of_week' does not match 'date' for {int(mismatched_days.sum())} row(s)."], cleaned_df
+    duplicate_rows = int(cleaned_df.duplicated().sum())
+    if duplicate_rows:
+        return False, issues + [f"Found {duplicate_rows} exact duplicate row(s). Remove duplicates before importing."], cleaned_df
         
     # Check minimum history size
     unique_dates = cleaned_df["date"].nunique()

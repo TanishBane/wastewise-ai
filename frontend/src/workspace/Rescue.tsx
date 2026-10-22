@@ -2,6 +2,8 @@ import MetalButton from "../MetalButton";
 import { useState } from "react";
 import { ArrowRight, Check, Search, ShieldCheck } from "lucide-react";
 import { fetchWasteRisks } from "../api";
+import { AnimatedNumber } from "../motion";
+import OutcomeLogger from "./OutcomeLogger";
 import {
   Badge,
   Empty,
@@ -13,10 +15,10 @@ import {
   RiskBadge,
   Stats,
 } from "./shared";
-import { money, number, useResource } from "./model";
+import { money, useResource } from "./model";
 import type { ScreenProps } from "./model";
 
-export default function Rescue({ revision, navigate }: ScreenProps) {
+export default function Rescue({ config, revision, navigate, onDataChange }: ScreenProps) {
   const { data, loading, error, retry } = useResource(
     () => fetchWasteRisks(),
     revision,
@@ -24,7 +26,7 @@ export default function Rescue({ revision, navigate }: ScreenProps) {
   const [tier, setTier] = useState("All");
   const [query, setQuery] = useState("");
   const [reviewed, setReviewed] = useState<Record<string, boolean>>({});
-  if (loading)
+  if (loading && !data)
     return <Loading label="Finding the dishes that need attention…" />;
   if (error || !data)
     return (
@@ -50,13 +52,23 @@ export default function Rescue({ revision, navigate }: ScreenProps) {
         items={[
           {
             label: "High-risk dishes",
-            value: data.summary.high_risk_count,
+            value: (
+              <AnimatedNumber
+                value={data.summary.high_risk_count}
+                loading={loading}
+              />
+            ),
             note: "Review these first",
             tone: data.summary.high_risk_count ? "danger-ink" : "",
           },
           {
             label: "Moderate-risk dishes",
-            value: data.summary.mod_risk_count,
+            value: (
+              <AnimatedNumber
+                value={data.summary.mod_risk_count}
+                loading={loading}
+              />
+            ),
             note: "Watch replenishment closely",
             tone: "warning-ink",
           },
@@ -64,7 +76,10 @@ export default function Rescue({ revision, navigate }: ScreenProps) {
             label: "Potential surplus",
             value: (
               <>
-                {number(data.summary.total_surplus_exposure)}
+                <AnimatedNumber
+                  value={data.summary.total_surplus_exposure}
+                  loading={loading}
+                />
                 <small>portions</small>
               </>
             ),
@@ -72,7 +87,13 @@ export default function Rescue({ revision, navigate }: ScreenProps) {
           },
           {
             label: "Ingredient exposure",
-            value: money(data.summary.total_ingredient_cost_at_risk),
+            value: (
+              <AnimatedNumber
+                value={data.summary.total_ingredient_cost_at_risk}
+                prefix="₹"
+                loading={loading}
+              />
+            ),
             note: "Estimated cost of potential excess",
           },
         ]}
@@ -185,6 +206,14 @@ export default function Rescue({ revision, navigate }: ScreenProps) {
           )}
         </div>
       </Panel>
+
+      {/* Operational Outcome Logger */}
+      <OutcomeLogger
+        config={config}
+        activeDish={rows[0]?.menu_item}
+        onOutcomeLogged={onDataChange}
+      />
+
       <div className="insight-strip">
         <ShieldCheck size={24} />
         <div>

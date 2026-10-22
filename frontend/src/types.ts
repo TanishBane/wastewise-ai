@@ -172,4 +172,63 @@ export interface DataInfoResponse {
   date_max: string;
   columns: string[];
   preview: Record<string, any>[];
+  last_import?: string | null;
+  last_filename?: string | null;
+}
+
+export interface ActualOutcomePayload {
+  service_date: string;
+  target_meal?: string;
+  menu_item: string;
+  portions_prepared: number;
+  portions_sold: number;
+  portions_leftover: number;
+  waste_cause?: string;
+  discarded_kg?: number;
+  donation_kg?: number;
+  waste_cost?: number;
+  notes?: string;
+}
+
+export interface ActualOutcomeItem {
+  id: number;
+  service_date: string;
+  target_meal: string;
+  menu_item: string;
+  portions_prepared: number;
+  portions_sold: number;
+  portions_leftover: number;
+  waste_cause?: string;
+  discarded_kg: number;
+  donation_kg: number;
+  waste_cost: number;
+  notes: string;
+  recorded_at: string;
+}
+
+export interface ForecastHistoryItem {
+  id: number;
+  timestamp: string;
+  menu_item: string;
+  day_of_week: string;
+  attendance_index: number;
+  is_event: number;
+  weather: string;
+  predicted_demand: number;
+  lower_bound: number;
+  upper_bound: number;
+  model_version: string;
+}
+
+export interface PreparationPlanHistoryItem {
+  id: number;
+  service_date: string;
+  target_meal: string;
+  menu_item: string;
+  predicted_demand: number;
+  recommended_total_plan: number;
+  recommended_initial_batch: number;
+  refill_trigger_threshold: number;
+  status: string;
+  created_at: string;
 }

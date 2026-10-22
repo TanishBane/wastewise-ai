@@ -32,3 +32,14 @@ def test_invalid_upload_preserves_model():
         asyncio.run(api.upload_csv(file))
     assert exc.value.status_code == 422
     assert api.state.engine is engine
+
+
+def test_outcome_requires_balanced_portions():
+    with pytest.raises(ValueError, match="Prepared portions"):
+        api.ActualOutcomeRequest(
+            service_date="2026-10-22",
+            menu_item="Pav Bhaji",
+            portions_prepared=20,
+            portions_sold=15,
+            portions_leftover=4,
+        )

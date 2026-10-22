@@ -1,13 +1,13 @@
 /** Palette shared by the workspace and chart rendering. CSS is in index.css. */
 export const palette = {
-  ground: "#eeeae1",
-  surface: "#fffdf7",
-  raised: "#f5f1e8",
-  ink: "#24362d",
-  muted: "#626b60",
-  border: "#deddd0",
-  green: "#24533d",
-  sage: "#7c9076",
+  ground: "#f6f5ef",
+  surface: "#fffefa",
+  raised: "#f0f1e9",
+  ink: "#1d2b24",
+  muted: "#667168",
+  border: "#e3e5dc",
+  green: "#367a59",
+  sage: "#76947f",
   warning: "#885514",
   danger: "#a44537",
 } as const;
@@ -17,7 +17,7 @@ export const chartTokens = {
   labelSize: 12,
   valueSize: 14,
   lineWidth: 2,
-  barRadius: [0, 0, 0, 0] as [number, number, number, number],
+  barRadius: [6, 6, 0, 0] as [number, number, number, number],
   tooltip: {
     background: "var(--surface)",
     border: "none",

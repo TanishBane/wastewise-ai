@@ -1,7 +1,8 @@
 import MetalButton from "./MetalButton";
+import { MotionConfig } from "framer-motion";
+import { PageTransition } from "./motion";
 import {
   Component,
-  Fragment,
   lazy,
   Suspense,
   useEffect,
@@ -16,12 +17,11 @@ import {
   ChartNoAxesCombined,
   ChefHat,
   Database,
-  FlaskConical,
   HelpCircle,
   LayoutDashboard,
-  Leaf,
   Menu,
   RefreshCw,
+  Search,
   ShieldCheck,
   Sprout,
   TriangleAlert,
@@ -36,6 +36,8 @@ import {
 } from "./workspace/shared";
 import { date, downloadCSV, useResource } from "./workspace/model";
 import type { Page, ScreenProps } from "./workspace/model";
+import QuickSearchDialog from "./workspace/QuickSearchDialog";
+import Sidebar from "./Sidebar";
 
 const Overview = lazy(() => import("./workspace/Overview"));
 const Home = lazy(() => import("./workspace/Home"));
@@ -44,6 +46,7 @@ const Rescue = lazy(() => import("./workspace/Rescue"));
 const Performance = lazy(() => import("./workspace/Performance"));
 const Data = lazy(() => import("./workspace/Data"));
 const Guide = lazy(() => import("./workspace/Guide"));
+
 const links = [
   {
     id: "overview",
@@ -82,6 +85,7 @@ const links = [
     description: "Upload and inspect your records",
   },
 ] as const;
+
 const allPages: string[] = [
   "home",
   ...links.map((link) => link.id),
@@ -90,10 +94,12 @@ const allPages: string[] = [
   "terms",
   "transparency",
 ];
+
 const currentHash = (): Page => {
   const hash = window.location.hash.slice(1);
-  return allPages.includes(hash) ? (hash as Page) : "home";
+  return allPages.includes(hash) ? (hash as Page) : "overview";
 };
+
 class ViewBoundary extends Component<
   { children: ReactNode },
   { failed: boolean }
@@ -116,16 +122,59 @@ class ViewBoundary extends Component<
     );
   }
 }
+
 export default function App() {
   const [page, setPage] = useState<Page>(currentHash);
   const [revision, setRevision] = useState(0);
   const config = useResource(fetchConfig, revision);
   const [dish, setDish] = useState("Pav Bhaji");
+  const [searchOpen, setSearchOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [tourOpen, setTourOpen] = useState(false);
   const [tourStep, setTourStep] = useState(0);
   const [exporting, setExporting] = useState(false);
   const [exportError, setExportError] = useState("");
+  const [showScrollBlur, setShowScrollBlur] = useState(false);
+
+  const [collapsed, setCollapsed] = useState(() => {
+    try {
+      return localStorage.getItem("wastewise-sidebar-collapsed") === "true";
+    } catch {
+      return false;
+    }
+  });
+
+  const toggleSidebar = () => {
+    setCollapsed((prev) => {
+      const next = !prev;
+      try {
+        localStorage.setItem("wastewise-sidebar-collapsed", String(next));
+      } catch {
+        // ignore storage errors
+      }
+      return next;
+    });
+  };
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollY = window.scrollY;
+      const windowHeight = window.innerHeight;
+      const docHeight = document.documentElement.scrollHeight;
+      const isOverflowing = docHeight > windowHeight + 32;
+      const isAtBottom = scrollY + windowHeight >= docHeight - 24;
+      setShowScrollBlur(isOverflowing && !isAtBottom);
+    };
+
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener("resize", handleScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", handleScroll);
+    };
+  }, [page, revision]);
+
   const navigate = (next: Page, item?: string) => {
     if (item) setDish(item);
     setPage(next);
@@ -133,14 +182,17 @@ export default function App() {
     setMenuOpen(false);
     window.scrollTo({ top: 0, behavior: "instant" });
   };
+
   useEffect(() => {
     const change = () => setPage(currentHash());
     window.addEventListener("hashchange", change);
     return () => window.removeEventListener("hashchange", change);
   }, []);
+
   useEffect(() => {
-    document.title = `${page === "home" ? "Home" : links.find((link) => link.id === page)?.label || "Help & transparency"} · WasteWise`;
+    document.title = `${page === "home" ? "Home" : links.find((link) => link.id === page)?.label || "Help & transparency"} · WasteWise AI`;
   }, [page]);
+
   useEffect(() => {
     const pointer = () => {
       document.documentElement.dataset.interaction = "pointer";
@@ -155,22 +207,49 @@ export default function App() {
       document.removeEventListener("keydown", keyboard);
     };
   }, []);
+
   useEffect(() => {
     const key = (event: KeyboardEvent) => {
+      const target = event.target as HTMLElement | null;
       if (
-        (event.target as HTMLElement).closest(
-          "input,textarea,select,[contenteditable=true]",
-        )
-      )
+        target &&
+        typeof target.closest === "function" &&
+        target.closest("input,textarea,select,[contenteditable=true]")
+      ) {
         return;
+      }
+
+      if (event.key === "Escape") {
+        if (menuOpen) {
+          event.preventDefault();
+          setMenuOpen(false);
+        }
+        return;
+      }
+
       if (event.key === "?" && !document.querySelector("dialog[open]")) {
         event.preventDefault();
         navigate("help");
       }
+      if (
+        (event.key === "/" || (event.key.toLowerCase() === "k" && (event.metaKey || event.ctrlKey))) &&
+        !document.querySelector("dialog[open]")
+      ) {
+        event.preventDefault();
+        setSearchOpen(true);
+      }
+      if (
+        (event.key === "[" || (event.key.toLowerCase() === "b" && (event.metaKey || event.ctrlKey))) &&
+        !document.querySelector("dialog[open]")
+      ) {
+        event.preventDefault();
+        toggleSidebar();
+      }
     };
-    document.addEventListener("keydown", key);
-    return () => document.removeEventListener("keydown", key);
-  }, []);
+    window.addEventListener("keydown", key);
+    return () => window.removeEventListener("keydown", key);
+  }, [menuOpen]);
+
   const exportReport = async () => {
     setExporting(true);
     setExportError("");
@@ -214,122 +293,7 @@ export default function App() {
       setExporting(false);
     }
   };
-  const nav = (
-    <>
-      <a
-        className="brand"
-        href="#home"
-        aria-label="WasteWise AI home"
-        onClick={(event) => {
-          event.preventDefault();
-          navigate("home");
-        }}
-      >
-        <span className="brand-mark">
-          <img
-            className="brand-logo"
-            src="/brand/wastewise-mark.png"
-            alt=""
-            width="42"
-            height="30"
-          />
-        </span>
-        <span>
-          WasteWise<span className="brand-ai">AI</span>
-          <small>Kitchen intelligence</small>
-        </span>
-      </a>
-      <div className="workspace-name">
-        <span className="workspace-avatar">CG</span>
-        <div>
-          <strong>Campus Green</strong>
-          <small>Demo canteen</small>
-        </div>
-      </div>
-      <a
-        href="#home"
-        className={`nav-link ${page === "home" ? "active" : ""}`}
-        aria-current={page === "home" ? "page" : undefined}
-        onClick={(event) => {
-          event.preventDefault();
-          navigate("home");
-        }}
-      >
-        <Sprout size={18} strokeWidth={1.7} />
-        <span>Home</span>
-        {page === "home" && <span className="nav-active-dot" />}
-      </a>
-      <span className="nav-label">Plan this service</span>
-      <nav aria-label="Main navigation">
-        {links.map(({ id, label, icon: Icon }, index) => (
-          <Fragment key={id}>
-            {index === 4 && (
-              <span className="nav-label nav-group-label">
-                Learn & maintain
-              </span>
-            )}
-            <a
-              key={id}
-              href={`#${id}`}
-              className={`nav-link ${page === id ? "active" : ""}`}
-              aria-current={page === id ? "page" : undefined}
-              onClick={(event) => {
-                event.preventDefault();
-                navigate(id);
-              }}
-            >
-              <Icon size={18} strokeWidth={1.7} />
-              <span>{label}</span>
-              {page === id && <span className="nav-active-dot" />}
-            </a>
-          </Fragment>
-        ))}
-      </nav>
-      <div className="sidebar-bottom">
-        <div className="demo-invite">
-          <FlaskConical size={19} />
-          <strong>See the whole workflow</strong>
-          <p>From a demand forecast to a better kitchen plan.</p>
-          <MetalButton
-            onClick={() => {
-              setTourStep(0);
-              setTourOpen(true);
-              setMenuOpen(false);
-            }}
-          >
-            Take a quick tour
-            <ArrowRight size={15} />
-          </MetalButton>
-        </div>
-        <a
-          className="nav-link"
-          href="#help"
-          onClick={(event) => {
-            event.preventDefault();
-            navigate("help");
-          }}
-        >
-          <HelpCircle size={18} />
-          Help & getting started
-        </a>
-        <a
-          className="nav-link"
-          href="#transparency"
-          onClick={(event) => {
-            event.preventDefault();
-            navigate("transparency");
-          }}
-        >
-          <ShieldCheck size={18} />
-          Model transparency
-        </a>
-        <div className="sidebar-signature">
-          <Leaf size={14} />
-          <span>Make every portion count.</span>
-        </div>
-      </div>
-    </>
-  );
+
   const screen: ScreenProps | null = config.data
     ? {
         config: config.data,
@@ -339,6 +303,7 @@ export default function App() {
         onDataChange: () => setRevision((value) => value + 1),
       }
     : null;
+
   const tour = [
     {
       title: "Start with the kitchen’s day",
@@ -358,218 +323,339 @@ export default function App() {
     {
       title: "Act on surplus, then learn",
       text: "Review rescue priorities and inspect holdout performance. Impact figures are retrospective simulations until measured in a real pilot.",
-      page: "performance" as Page,
+      page: "waste-risk" as Page,
     },
   ];
+
   return (
-    <div className="app-frame">
-      <a
-        className="skip-link"
-        href="#main"
-        onClick={(event) => {
-          event.preventDefault();
-          document.getElementById("main")?.focus();
-        }}
-      >
-        Skip to content
-      </a>
-      <aside className="sidebar">{nav}</aside>
-      <div className="workspace">
-        <header className="workspace-bar">
-          <div className="breadcrumb">
-            <button
-              className="icon-button mobile-menu"
-              aria-label="Open navigation"
-              onClick={() => setMenuOpen(true)}
-            >
-              <Menu size={20} />
-            </button>
-            <a
-              className="mobile-brand"
-              href="#home"
-              aria-label="WasteWise AI home"
-              onClick={(event) => {
-                event.preventDefault();
-                navigate("home");
-              }}
-            >
-              <Sprout size={19} />
-              <span>
-                WasteWise<small>AI</small>
-              </span>
-            </a>
-            <strong>
-              {page === "home"
-                ? "Home"
-                : links.find((link) => link.id === page)?.label || "Resources"}
-            </strong>
-          </div>
-          <div className="workspace-tools">
-            <span className="operator-avatar" title="Local kitchen workspace">
-              CG
-            </span>
-          </div>
-        </header>
-        <main
-          id="main"
-          className={`work-sheet ${page === "home" ? "home-sheet" : ""}`}
-          tabIndex={-1}
+    <MotionConfig reducedMotion="user">
+      <div className={`app-frame ${collapsed ? "sidebar-collapsed" : ""}`}>
+        <a
+          className="skip-link"
+          href="#main"
+          onClick={(event) => {
+            event.preventDefault();
+            document.getElementById("main")?.focus();
+          }}
         >
-          <div className="source-bar">
-            <div>
-              <span
-                className={`status-dot ${config.data?.is_synthetic ? "amber" : ""}`}
-              />
-              <strong>
-                {config.data
-                  ? config.data.is_synthetic
-                    ? "Demo workspace"
-                    : "Operator dataset"
-                  : "Connecting to workspace"}
-              </strong>
-              <span className="source-detail">
-                {config.data?.is_synthetic
-                  ? "Synthetic data · explore without affecting your kitchen"
-                  : config.data
-                    ? "Forecasts from your uploaded service records"
-                    : "Waiting for the local API"}
-              </span>
-            </div>
-            <button
-              className="text-link"
-              onClick={() => navigate("data-model")}
-            >
-              {config.data?.is_synthetic ? "Connect your data" : "Manage data"}
-              <ArrowRight size={14} />
-            </button>
-          </div>
-          <div className="page-tools">
-            <span>
-              <CalendarDays size={15} />
-              Service date: {date(config.data?.latest_date)}
-            </span>
-            <div>
+          Skip to content
+        </a>
+
+        {/* Desktop Sidebar Rail */}
+        <Sidebar
+          page={page}
+          navigate={navigate}
+          collapsed={collapsed}
+          onToggleCollapse={toggleSidebar}
+          onOpenTour={() => {
+            setTourStep(0);
+            setTourOpen(true);
+          }}
+        />
+
+        <div className="workspace">
+          <header className="workspace-bar">
+            <div className="breadcrumb">
               <button
-                className="icon-button"
-                aria-label="Refresh workspace"
-                disabled={config.loading}
-                onClick={() => setRevision((value) => value + 1)}
+                className="icon-button mobile-menu"
+                aria-label="Open navigation drawer"
+                onClick={() => setMenuOpen(true)}
               >
-                <RefreshCw size={16} className={config.loading ? "spin" : ""} />
+                <Menu size={20} />
               </button>
-              <AsyncButton
-                className="button small"
-                onClick={exportReport}
-                disabled={!config.data}
-                busy={exporting}
-                busyLabel="Exporting menu…"
+              <a
+                className="mobile-brand"
+                href="#home"
+                aria-label="WasteWise AI home"
+                onClick={(event) => {
+                  event.preventDefault();
+                  navigate("home");
+                }}
               >
-                <ArrowDownToLine size={15} />
-                {exporting ? "Exporting…" : "Export menu"}
-              </AsyncButton>
+                <img
+                  className="brand-logo mobile-brand-logo"
+                  src="/brand/wastewise-mark.png"
+                  alt="WasteWise Logo"
+                  width="28"
+                  height="20"
+                />
+                <span>
+                  WasteWise<small>AI</small>
+                </span>
+              </a>
+              <strong>
+                {page === "home"
+                  ? "Home"
+                  : links.find((link) => link.id === page)?.label ||
+                    (page === "help"
+                      ? "Help & getting started"
+                      : page === "transparency"
+                        ? "Model transparency"
+                        : "Resources")}
+              </strong>
             </div>
-          </div>
-          {exportError && (
-            <div className="inline-error" role="alert">
-              {exportError}
-              <button className="text-link" onClick={exportReport}>
-                Retry export
+
+            {/* Top-Right Utility Navigation Controls */}
+            <div className="workspace-tools">
+              <button
+                className="utility-button search-trigger"
+                onClick={() => setSearchOpen(true)}
+                title="Quick search dishes and views (Ctrl+K or /)"
+                aria-label="Search dishes and views"
+              >
+                <Search size={15} />
+                <span className="search-label">Search dishes & views…</span>
+                <kbd className="search-kbd">/</kbd>
+              </button>
+
+              <button
+                className={`utility-button icon-label ${page === "help" ? "active" : ""}`}
+                onClick={() => navigate("help")}
+                title="Help & getting started (?)"
+                aria-label="Help & getting started"
+              >
+                <HelpCircle size={16} />
+                <span className="utility-label">Help</span>
+              </button>
+
+              <button
+                className={`utility-button icon-label ${page === "transparency" ? "active" : ""}`}
+                onClick={() => navigate("transparency")}
+                title="Model transparency & limits"
+                aria-label="Model transparency"
+              >
+                <ShieldCheck size={16} />
+                <span className="utility-label">Transparency</span>
+              </button>
+
+              <button
+                className="workspace-profile-pill"
+                onClick={() => navigate("data-model")}
+                title="Campus Green Canteen · Click to inspect dataset"
+                aria-label="Workspace profile"
+              >
+                <span className="operator-avatar">CG</span>
+                <div className="workspace-pill-info">
+                  <strong>Campus Green</strong>
+                  <small>
+                    {config.data?.is_synthetic ? "Demo Data" : "Live CSV"}
+                  </small>
+                </div>
               </button>
             </div>
-          )}
-          <ViewBoundary key={page}>
-            <Suspense fallback={<Loading label="Opening workspace…" />}>
-              {page === "home" ? (
-                <Home navigate={navigate} />
-              ) : config.loading && !config.data ? (
-                <Loading />
-              ) : config.error ? (
-                <ErrorState message={config.error} retry={config.retry} />
-              ) : screen ? (
-                page === "overview" ? (
-                  <Overview {...screen} />
-                ) : page === "demand-forecast" || page === "prep-planner" ? (
-                  <Scenario
-                    key={page + dish + revision}
-                    {...screen}
-                    kind={page}
+          </header>
+
+          <main
+            id="main"
+            className={`work-sheet ${page === "home" ? "home-sheet" : ""}`}
+            tabIndex={-1}
+          >
+            <div className="source-bar">
+              <div>
+                <span
+                  className={`status-dot ${config.data?.is_synthetic ? "amber" : ""}`}
+                />
+                <strong>
+                  {config.data
+                    ? config.data.is_synthetic
+                      ? "Demo workspace"
+                      : "Operator dataset"
+                    : "Connecting to workspace"}
+                </strong>
+                <span className="source-detail">
+                  {config.data?.is_synthetic
+                    ? "Synthetic data · explore without affecting your kitchen"
+                    : config.data
+                      ? "Forecasts from your uploaded service records"
+                      : "Waiting for the local API"}
+                </span>
+              </div>
+              <button
+                className="text-link"
+                onClick={() => navigate("data-model")}
+              >
+                {config.data?.is_synthetic
+                  ? "Connect your data"
+                  : "Manage data"}
+                <ArrowRight size={14} />
+              </button>
+            </div>
+
+            <div className="page-tools">
+              <span>
+                <CalendarDays size={15} />
+                Service date: {date(config.data?.latest_date)}
+              </span>
+              <div>
+                <button
+                  className="icon-button"
+                  aria-label="Refresh workspace"
+                  disabled={config.loading}
+                  onClick={() => setRevision((value) => value + 1)}
+                >
+                  <RefreshCw
+                    size={16}
+                    className={config.loading ? "spin" : ""}
                   />
-                ) : page === "waste-risk" ? (
-                  <Rescue {...screen} />
-                ) : page === "performance" ? (
-                  <Performance {...screen} />
-                ) : page === "data-model" ? (
-                  <Data {...screen} />
-                ) : (
-                  <Guide {...screen} page={page} />
-                )
-              ) : null}
-            </Suspense>
-          </ViewBoundary>
-          <footer className="workspace-footer">
-            <span>
-              <Sprout size={14} />
-              WasteWise AI <span className="footer-divider">/</span> Thoughtful
-              prep. Less waste.
-            </span>
-            <div>
-              <a href="#privacy">Privacy</a>
-              <a href="#terms">Terms</a>
-              <span>ADAPPT 5.0</span>
+                </button>
+                <AsyncButton
+                  className="button small"
+                  onClick={exportReport}
+                  disabled={!config.data}
+                  busy={exporting}
+                  busyLabel="Exporting menu…"
+                >
+                  <ArrowDownToLine size={15} />
+                  {exporting ? "Exporting…" : "Export menu"}
+                </AsyncButton>
+              </div>
             </div>
-          </footer>
-        </main>
-      </div>
-      <Dialog
-        open={menuOpen}
-        title="Workspace navigation"
-        onClose={() => setMenuOpen(false)}
-      >
-        <div className="mobile-navigation">{nav}</div>
-      </Dialog>
-      <Dialog
-        open={tourOpen}
-        onClose={() => setTourOpen(false)}
-        title="A better service, one decision at a time"
-      >
-        <div className="tour-content">
-          <Badge tone="positive">
-            Step {tourStep + 1} of {tour.length}
-          </Badge>
-          <h3>{tour[tourStep].title}</h3>
-          <p>{tour[tourStep].text}</p>
-          <div className="tour-steps" aria-hidden="true">
-            {tour.map((_, index) => (
-              <span
-                key={index}
-                className={index <= tourStep ? "complete" : ""}
-              />
-            ))}
-          </div>
-          <div className="button-row">
-            <MetalButton
-              className="button"
-              onClick={() => {
-                navigate(tour[tourStep].page);
-                setTourOpen(false);
-              }}
-            >
-              Explore this view
-            </MetalButton>
-            <MetalButton
-              className="button primary"
-              onClick={() =>
-                tourStep < tour.length - 1
-                  ? setTourStep((value) => value + 1)
-                  : setTourOpen(false)
-              }
-            >
-              {tourStep < tour.length - 1 ? "Next step" : "Ready to explore"}
-              <ArrowRight size={16} />
-            </MetalButton>
-          </div>
+
+            {exportError && (
+              <div className="inline-error" role="alert">
+                {exportError}
+                <button className="text-link" onClick={exportReport}>
+                  Retry export
+                </button>
+              </div>
+            )}
+
+            <ViewBoundary key={page}>
+              <Suspense fallback={<Loading label="Opening workspace…" />}>
+                <PageTransition pageKey={page}>
+                  {page === "home" ? (
+                    <Home navigate={navigate} />
+                  ) : config.loading && !config.data ? (
+                    <Loading />
+                  ) : config.error ? (
+                    <ErrorState message={config.error} retry={config.retry} />
+                  ) : screen ? (
+                    page === "overview" ? (
+                      <Overview {...screen} />
+                    ) : page === "demand-forecast" ||
+                      page === "prep-planner" ? (
+                      <Scenario
+                        key={page + dish + revision}
+                        {...screen}
+                        kind={page}
+                      />
+                    ) : page === "waste-risk" ? (
+                      <Rescue {...screen} />
+                    ) : page === "performance" ? (
+                      <Performance {...screen} />
+                    ) : page === "data-model" ? (
+                      <Data {...screen} />
+                    ) : (
+                      <Guide {...screen} page={page} />
+                    )
+                  ) : null}
+                </PageTransition>
+              </Suspense>
+            </ViewBoundary>
+
+            <footer className="workspace-footer">
+              <span>
+                <Sprout size={14} />
+                WasteWise AI <span className="footer-divider">/</span>{" "}
+                Thoughtful prep. Less waste.
+              </span>
+              <div>
+                <a href="#privacy">Privacy</a>
+                <a href="#terms">Terms</a>
+                <span>ADAPPT 5.0</span>
+              </div>
+            </footer>
+          </main>
+
+          <div
+            className="scroll-frosted-edge"
+            aria-hidden="true"
+            style={{ opacity: showScrollBlur ? 1 : 0 }}
+          />
         </div>
-      </Dialog>
-    </div>
+
+        {/* Mobile Slide-in Navigation Drawer */}
+        <div
+          className={`mobile-drawer-backdrop ${menuOpen ? "open" : ""}`}
+          onClick={() => setMenuOpen(false)}
+          aria-hidden={!menuOpen}
+        />
+        <div
+          className={`mobile-drawer-container ${menuOpen ? "open" : ""}`}
+          role="dialog"
+          aria-modal="true"
+          aria-label="Navigation drawer"
+          aria-hidden={!menuOpen}
+        >
+          <Sidebar
+            page={page}
+            navigate={navigate}
+            collapsed={false}
+            onToggleCollapse={() => {}}
+            isMobile={true}
+            onCloseMobile={() => setMenuOpen(false)}
+            onOpenTour={() => {
+              setTourStep(0);
+              setTourOpen(true);
+              setMenuOpen(false);
+            }}
+          />
+        </div>
+
+        {/* Guided Tour Modal */}
+        <Dialog
+          open={tourOpen}
+          onClose={() => setTourOpen(false)}
+          title="A better service, one decision at a time"
+        >
+          <div className="tour-content">
+            <Badge tone="positive">
+              Step {tourStep + 1} of {tour.length}
+            </Badge>
+            <h3>{tour[tourStep].title}</h3>
+            <p>{tour[tourStep].text}</p>
+            <div className="tour-steps" aria-hidden="true">
+              {tour.map((_, index) => (
+                <span
+                  key={index}
+                  className={index <= tourStep ? "complete" : ""}
+                />
+              ))}
+            </div>
+            <div className="button-row">
+              <MetalButton
+                className="button"
+                onClick={() => {
+                  navigate(tour[tourStep].page);
+                  setTourOpen(false);
+                }}
+              >
+                Explore this view
+              </MetalButton>
+              <MetalButton
+                className="button primary"
+                onClick={() =>
+                  tourStep < tour.length - 1
+                    ? setTourStep((value) => value + 1)
+                    : setTourOpen(false)
+                }
+              >
+                {tourStep < tour.length - 1 ? "Next step" : "Ready to explore"}
+                <ArrowRight size={16} />
+              </MetalButton>
+            </div>
+          </div>
+        </Dialog>
+
+        {/* Quick Search Dialog */}
+        <QuickSearchDialog
+          open={searchOpen}
+          onClose={() => setSearchOpen(false)}
+          config={config.data}
+          onSelectDish={(selected) => setDish(selected)}
+          onNavigate={(targetPage, targetDish) => navigate(targetPage, targetDish)}
+        />
+      </div>
+    </MotionConfig>
   );
 }

@@ -1,4 +1,12 @@
 @font-face {
+  font-family: "Interwoven";
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url(/fonts/Interwoven.ttf) format("truetype");
+}
+
+@font-face {
   font-family: "Just Sans";
   font-style: normal;
   font-weight: 400;

@@ -7,6 +7,7 @@ import {
   ChefHat,
   CloudRain,
   FlaskConical,
+  Printer,
   RotateCcw,
   Sun,
   Users,
@@ -15,6 +16,8 @@ import { fetchForecast, fetchPlan } from "../api";
 import type { ForecastResponse, PlanResponse } from "../types";
 import { DistributionChart, HistoryChart } from "./Charts";
 import ScenarioCompare from "./ScenarioCompare";
+import { AnimatedNumber } from "../motion";
+import PrintKitchenSheet from "./PrintKitchenSheet";
 import {
   Badge,
   AsyncButton,
@@ -89,6 +92,7 @@ export default function Scenario({
   const [stage, setStage] = useState<"forecast" | "plan">("forecast");
   const [error, setError] = useState("");
   const [saved, setSaved] = useState(false);
+  const [printModalOpen, setPrintModalOpen] = useState(false);
   const [submittedKey, setSubmittedKey] = useState("");
   const request = useRef(0);
   const scenarioKey = JSON.stringify([
@@ -491,7 +495,10 @@ export default function Scenario({
                                   label: "New preparation",
                                   value: (
                                     <>
-                                      {plan.recommended_total_plan}
+                                      <AnimatedNumber
+                                        value={plan.recommended_total_plan}
+                                        loading={busy}
+                                      />
                                       <small>portions</small>
                                     </>
                                   ),
@@ -501,7 +508,10 @@ export default function Scenario({
                                   label: "Cook in the first batch",
                                   value: (
                                     <>
-                                      {plan.recommended_initial_batch}
+                                      <AnimatedNumber
+                                        value={plan.recommended_initial_batch}
+                                        loading={busy}
+                                      />
                                       <small>portions</small>
                                     </>
                                   ),
@@ -511,7 +521,10 @@ export default function Scenario({
                                   label: "Demand estimate",
                                   value: (
                                     <>
-                                      {forecast.predicted_demand}
+                                      <AnimatedNumber
+                                        value={forecast.predicted_demand}
+                                        loading={busy}
+                                      />
                                       <small>portions</small>
                                     </>
                                   ),
@@ -523,7 +536,10 @@ export default function Scenario({
                                   label: "Expected demand",
                                   value: (
                                     <>
-                                      {forecast.predicted_demand}
+                                      <AnimatedNumber
+                                        value={forecast.predicted_demand}
+                                        loading={busy}
+                                      />
                                       <small>portions</small>
                                     </>
                                   ),
@@ -538,7 +554,10 @@ export default function Scenario({
                                   label: "Weekday baseline",
                                   value: (
                                     <>
-                                      {forecast.weekday_baseline}
+                                      <AnimatedNumber
+                                        value={forecast.weekday_baseline}
+                                        loading={busy}
+                                      />
                                       <small>portions</small>
                                     </>
                                   ),
@@ -621,6 +640,15 @@ export default function Scenario({
                             >
                               <ArrowDownToLine size={16} />
                               Export this plan
+                            </MetalButton>
+                            <MetalButton
+                              className="button"
+                              disabled={dirty || !plan}
+                              onClick={() => setPrintModalOpen(true)}
+                              title="Print preparation sheet for this dish"
+                            >
+                              <Printer size={16} />
+                              Print prep sheet
                             </MetalButton>
                             <span className="muted">
                               Review in the kitchen before use.
@@ -771,7 +799,7 @@ export default function Scenario({
                         </Panel>
                         <Panel
                           title="What the model pays attention to"
-                          description="Global model feature importance · not an explanation of this individual prediction"
+                          description="Global model feature importance extracted from fitted Random Forest estimators · not an explanation of this individual prediction"
                         >
                           <div className="feature-list">
                             {forecast.features.map((feature) => (
@@ -799,6 +827,20 @@ export default function Scenario({
           )}
         </div>
       </div>
+
+      {planning && plan && (
+        <PrintKitchenSheet
+          open={printModalOpen}
+          onClose={() => setPrintModalOpen(false)}
+          serviceDate={config.latest_date || new Date().toISOString().slice(0, 10)}
+          singlePlan={{
+            item,
+            category: cfg?.category,
+            plan,
+            stock,
+          }}
+        />
+      )}
     </>
   );
 }

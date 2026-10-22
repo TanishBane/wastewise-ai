@@ -1,11 +1,15 @@
 import {
+  ActualOutcomeItem,
+  ActualOutcomePayload,
   ConfigResponse,
   DataInfoResponse,
+  ForecastHistoryItem,
   ForecastResponse,
   HealthResponse,
   OverviewResponse,
   PerformanceResponse,
   PlanResponse,
+  PreparationPlanHistoryItem,
   WasteRiskResponse,
 } from "./types";
 
@@ -134,4 +138,44 @@ export async function resetDataset(): Promise<{
   return fetchJson<{ status: string; message: string }>("/api/data/reset", {
     method: "POST",
   });
+}
+
+export async function recordOutcome(
+  payload: ActualOutcomePayload,
+): Promise<{ status: string; id: number; message: string }> {
+  return fetchJson<{ status: string; id: number; message: string }>(
+    "/api/outcomes",
+    {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    },
+  );
+}
+
+export async function fetchOutcomes(
+  serviceDate?: string,
+  menuItem?: string,
+): Promise<ActualOutcomeItem[]> {
+  const params = new URLSearchParams();
+  if (serviceDate) params.append("service_date", serviceDate);
+  if (menuItem) params.append("menu_item", menuItem);
+  const qs = params.toString() ? `?${params.toString()}` : "";
+  return fetchJson<ActualOutcomeItem[]>(`/api/outcomes${qs}`);
+}
+
+export async function fetchForecastHistory(
+  limit: number = 30,
+): Promise<ForecastHistoryItem[]> {
+  return fetchJson<ForecastHistoryItem[]>(
+    `/api/forecast/history?limit=${limit}`,
+  );
+}
+
+export async function fetchPlanHistory(
+  limit: number = 30,
+): Promise<PreparationPlanHistoryItem[]> {
+  return fetchJson<PreparationPlanHistoryItem[]>(
+    `/api/plan/history?limit=${limit}`,
+  );
 }
