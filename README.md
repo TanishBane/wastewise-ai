@@ -6,6 +6,7 @@
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.9+-3178C6.svg)](https://www.typescriptlang.org/)
 [![Vite 8](https://img.shields.io/badge/Vite-8-646CFF.svg)](https://vite.dev/)
 [![SQLite](https://img.shields.io/badge/SQLite-SQLAlchemy-367A59.svg)](https://www.sqlite.org/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-367A59.svg)](LICENSE)
 [![Event](https://img.shields.io/badge/Event-ADAPPT%205.0%20FoodTech-E7A32D.svg)](#)
 
 > **Predict smarter. Prepare better. Waste less.**  
@@ -28,6 +29,7 @@
 - [Testing & Quality Assurance](#testing--quality-assurance)
 - [Project Status & Operational Limitations](#project-status--operational-limitations)
 - [Academic Context & Credits](#academic-context--credits)
+- [License](#license)
 
 ---
 
@@ -431,4 +433,13 @@ python scripts/verify_repaired_home.py
 - **Event**: ADAPPT 5.0 — AI in FoodTech
 - **Platform**: WasteWise AI Kitchen Intelligence
 - **Repository**: [https://github.com/TanishBane/wastewise-ai](https://github.com/TanishBane/wastewise-ai)
-- **License**: Private / Academic Innovation Project. All rights reserved.
+- **License**: [MIT License](LICENSE)
+
+---
+
+## License
+
+WasteWise AI is licensed under the MIT License.
+See the [LICENSE](LICENSE) file for the complete license text.
+
+Copyright (c) 2026 Tanish Bane
