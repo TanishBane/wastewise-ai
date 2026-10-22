@@ -59,3 +59,11 @@ def test_validate_dataset_too_short():
     is_valid, issues, _ = validate_dataset(df)
     assert is_valid is False
     assert any("at least 14 days" in i.lower() for i in issues)
+
+
+def test_validate_dataset_rejects_date_and_weekday_mismatch():
+    df = generate_synthetic_canteen_data(num_days=20, random_seed=42)
+    df.loc[0, "day_of_week"] = "Sunday"
+    is_valid, issues, _ = validate_dataset(df)
+    assert is_valid is False
+    assert any("does not match" in issue for issue in issues)

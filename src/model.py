@@ -154,6 +154,9 @@ class DemandForecastingEngine:
         self.baseline_metrics = self._calculate_metrics(y_test, baseline_preds)
         
         # Compute item-level comparison
+        tree_predictions = np.array([tree.predict(X_test) for tree in self.model.estimators_])
+        test_df["lower_bound"] = np.percentile(tree_predictions, 10, axis=0)
+        test_df["upper_bound"] = np.percentile(tree_predictions, 90, axis=0)
         test_df["ml_pred"] = ml_preds
         test_df["baseline_pred"] = baseline_preds
         self.test_records_df = test_df
