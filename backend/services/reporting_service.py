@@ -231,22 +231,24 @@ class ReportingService:
         donation_kg: float = 0.0,
         waste_cost: float = 0.0,
         notes: str = "",
+        organization_id: Optional[str] = None,
+        user_id: Optional[str] = None,
     ) -> Dict[str, Any]:
-        """Records measured post-service kitchen outcome into SQLite."""
+        """Records measured post-service kitchen outcome with multi-tenant isolation."""
+        from backend.models import DEFAULT_ORG_ID
+        effective_org_id = organization_id or DEFAULT_ORG_ID
+
         with get_db_context() as db:
-            existing = (
-                db.query(ActualOutcomeModel)
-                .filter(
-                    ActualOutcomeModel.service_date == service_date,
-                    ActualOutcomeModel.target_meal == target_meal,
-                    ActualOutcomeModel.menu_item == menu_item,
-                )
-                .order_by(ActualOutcomeModel.id.desc())
-                .first()
+            query = db.query(ActualOutcomeModel).filter(
+                ActualOutcomeModel.service_date == service_date,
+                ActualOutcomeModel.target_meal == target_meal,
+                ActualOutcomeModel.menu_item == menu_item,
             )
+            if effective_org_id:
+                query = query.filter(ActualOutcomeModel.organization_id == effective_org_id)
+
+            existing = query.order_by(ActualOutcomeModel.id.desc()).first()
             if existing:
-                # Retrying the same form submission is safe; a changed record
-                # requires an explicit correction workflow rather than a duplicate.
                 same_values = (
                     existing.portions_prepared == portions_prepared
                     and existing.portions_sold == portions_sold
@@ -268,6 +270,8 @@ class ReportingService:
                     detail="An outcome already exists for this dish, meal, and service date. Use a correction workflow instead of adding a duplicate.",
                 )
             record = ActualOutcomeModel(
+                organization_id=effective_org_id,
+                user_id=user_id,
                 service_date=service_date,
                 target_meal=target_meal,
                 menu_item=menu_item,
@@ -292,11 +296,14 @@ class ReportingService:
     def get_outcomes(
         service_date: Optional[str] = None,
         menu_item: Optional[str] = None,
+        organization_id: Optional[str] = None,
         limit: int = 100,
     ) -> List[Dict[str, Any]]:
-        """Queries recorded actual outcomes."""
+        """Queries recorded actual outcomes scoped to organization."""
         with get_db_context() as db:
             query = db.query(ActualOutcomeModel)
+            if organization_id:
+                query = query.filter(ActualOutcomeModel.organization_id == organization_id)
             if service_date:
                 query = query.filter(ActualOutcomeModel.service_date == service_date)
             if menu_item:

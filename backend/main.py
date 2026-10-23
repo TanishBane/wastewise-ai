@@ -20,14 +20,28 @@ FRONTEND_DIST_DIR = ROOT_DIR / "frontend" / "dist"
 if str(ROOT_DIR) not in sys.path:
     sys.path.insert(0, str(ROOT_DIR))
 
-from fastapi import FastAPI, File, HTTPException, UploadFile
+from fastapi import Depends, FastAPI, File, HTTPException, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse, Response
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field, model_validator
+from sqlalchemy.orm import Session
 
-from backend.database import get_db_context, init_db, reset_demo_catalog
-from backend.models import MenuItemModel, UploadHistoryModel
+from backend.auth import (
+    OrgContext,
+    UserIdentity,
+    get_current_user,
+    get_optional_user,
+    require_tenant_context,
+)
+from backend.database import get_db, get_db_context, init_db, reset_demo_catalog
+from backend.models import (
+    MenuItemModel,
+    OrganizationMemberModel,
+    OrganizationModel,
+    UploadHistoryModel,
+    DEFAULT_ORG_ID,
+)
 from backend.services.forecasting_service import ForecastingService
 from backend.services.ingestion_service import IngestionService
 from backend.services.planning_service import PlanningService
@@ -248,8 +262,68 @@ def get_config():
     }
 
 
+# --- Authentication & Tenant Profile Endpoints ---
+@app.get("/api/auth/me")
+def get_auth_me(user: UserIdentity = Depends(get_current_user)):
+    return {
+        "user_id": user.id,
+        "email": user.email,
+        "role": user.role,
+        "full_name": user.user_metadata.get("full_name") or user.email.split("@")[0],
+    }
+
+
+@app.get("/api/auth/organizations")
+def get_user_organizations(
+    user: UserIdentity = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    memberships = (
+        db.query(OrganizationMemberModel)
+        .filter(OrganizationMemberModel.user_id == user.id)
+        .all()
+    )
+    results = []
+    for m in memberships:
+        org = db.query(OrganizationModel).filter(OrganizationModel.id == m.organization_id).first()
+        if org:
+            results.append({
+                "id": org.id,
+                "name": org.name,
+                "slug": org.slug,
+                "role": m.role,
+            })
+    if not results:
+        results.append({
+            "id": DEFAULT_ORG_ID,
+            "name": "ADAPPT Canteen Central",
+            "slug": "adappt-canteen-central",
+            "role": "owner",
+        })
+    return {"organizations": results}
+
+
+def _resolve_identity_context(user: Any, org: Any):
+    if not isinstance(user, UserIdentity):
+        user = UserIdentity(
+            id="00000000-0000-0000-0000-000000000000",
+            email="operator@wastewise.local",
+            role="authenticated",
+        )
+    if not isinstance(org, OrgContext):
+        org = OrgContext(
+            organization_id=DEFAULT_ORG_ID,
+            role="owner",
+        )
+    return user, org
+
+
 @app.get("/api/overview")
-def get_overview():
+def get_overview(
+    user: UserIdentity = Depends(get_current_user),
+    org: OrgContext = Depends(require_tenant_context),
+):
+    user, org = _resolve_identity_context(user, org)
     return reporting_service.get_overview(
         engine=state.engine,
         dataset_df=state.dataset_df,
@@ -258,7 +332,12 @@ def get_overview():
 
 
 @app.post("/api/forecast")
-def predict_forecast(req: ForecastScenarioRequest):
+def predict_forecast(
+    req: ForecastScenarioRequest,
+    user: UserIdentity = Depends(get_current_user),
+    org: OrgContext = Depends(require_tenant_context),
+):
+    user, org = _resolve_identity_context(user, org)
     return forecasting_service.predict_scenario(
         engine=state.engine,
         dataset_df=state.dataset_df,
@@ -267,16 +346,31 @@ def predict_forecast(req: ForecastScenarioRequest):
         attendance_index=req.attendance_index,
         campus_event=req.campus_event,
         weather=req.weather,
+        organization_id=org.organization_id,
+        user_id=user.id,
     )
 
 
 @app.get("/api/forecast/history")
-def get_forecast_history(limit: int = 50):
-    return forecasting_service.get_forecast_history(limit=limit)
+def get_forecast_history(
+    limit: int = 50,
+    user: UserIdentity = Depends(get_current_user),
+    org: OrgContext = Depends(require_tenant_context),
+):
+    user, org = _resolve_identity_context(user, org)
+    return forecasting_service.get_forecast_history(
+        organization_id=org.organization_id,
+        limit=limit,
+    )
 
 
 @app.post("/api/plan")
-def create_preparation_plan(req: PreparationPlanRequest):
+def create_preparation_plan(
+    req: PreparationPlanRequest,
+    user: UserIdentity = Depends(get_current_user),
+    org: OrgContext = Depends(require_tenant_context),
+):
+    user, org = _resolve_identity_context(user, org)
     return planning_service.generate_plan(
         menu_item=req.menu_item,
         predicted_demand=req.predicted_demand,
@@ -289,16 +383,31 @@ def create_preparation_plan(req: PreparationPlanRequest):
         traditional_baseline_prep=req.traditional_baseline_prep,
         service_date=req.service_date,
         target_meal=req.target_meal,
+        organization_id=org.organization_id,
+        user_id=user.id,
     )
 
 
 @app.get("/api/plan/history")
-def get_plan_history(limit: int = 50):
-    return planning_service.get_recent_plans(limit=limit)
+def get_plan_history(
+    limit: int = 50,
+    user: UserIdentity = Depends(get_current_user),
+    org: OrgContext = Depends(require_tenant_context),
+):
+    user, org = _resolve_identity_context(user, org)
+    return planning_service.get_recent_plans(
+        organization_id=org.organization_id,
+        limit=limit,
+    )
 
 
 @app.get("/api/waste-risk")
-def get_waste_risks(risk_tier: Optional[str] = None):
+def get_waste_risks(
+    risk_tier: Optional[str] = None,
+    user: UserIdentity = Depends(get_current_user),
+    org: OrgContext = Depends(require_tenant_context),
+):
+    user, org = _resolve_identity_context(user, org)
     return rescue_service.get_waste_risks(
         engine=state.engine,
         dataset_df=state.dataset_df,
@@ -307,12 +416,21 @@ def get_waste_risks(risk_tier: Optional[str] = None):
 
 
 @app.get("/api/performance")
-def get_performance():
+def get_performance(
+    user: UserIdentity = Depends(get_current_user),
+    org: OrgContext = Depends(require_tenant_context),
+):
+    user, org = _resolve_identity_context(user, org)
     return reporting_service.get_performance(engine=state.engine)
 
 
 @app.post("/api/outcomes")
-def record_outcome(req: ActualOutcomeRequest):
+def record_outcome(
+    req: ActualOutcomeRequest,
+    user: UserIdentity = Depends(get_current_user),
+    org: OrgContext = Depends(require_tenant_context),
+):
+    user, org = _resolve_identity_context(user, org)
     return reporting_service.record_outcome(
         service_date=req.service_date,
         target_meal=req.target_meal,
@@ -325,6 +443,8 @@ def record_outcome(req: ActualOutcomeRequest):
         donation_kg=req.donation_kg,
         waste_cost=req.waste_cost,
         notes=req.notes,
+        organization_id=org.organization_id,
+        user_id=user.id,
     )
 
 
@@ -333,16 +453,24 @@ def get_outcomes(
     service_date: Optional[str] = None,
     menu_item: Optional[str] = None,
     limit: int = 100,
+    user: UserIdentity = Depends(get_current_user),
+    org: OrgContext = Depends(require_tenant_context),
 ):
+    user, org = _resolve_identity_context(user, org)
     return reporting_service.get_outcomes(
         service_date=service_date,
         menu_item=menu_item,
+        organization_id=org.organization_id,
         limit=limit,
     )
 
 
 @app.get("/api/data")
-def get_data_info():
+def get_data_info(
+    user: UserIdentity = Depends(get_current_user),
+    org: OrgContext = Depends(require_tenant_context),
+):
+    user, org = _resolve_identity_context(user, org)
     df = state.dataset_df
     last_upload = None
     with get_db_context() as db:
@@ -377,7 +505,12 @@ def download_csv_template():
 
 
 @app.post("/api/data/upload")
-async def upload_csv(file: UploadFile = File(...)):
+async def upload_csv(
+    file: UploadFile = File(...),
+    user: UserIdentity = Depends(get_current_user),
+    org: OrgContext = Depends(require_tenant_context),
+):
+    user, org = _resolve_identity_context(user, org)
     content = await file.read()
     clean_df, engine, issues = await ingestion_service.process_and_train_csv(
         file_bytes=content,
@@ -396,7 +529,11 @@ async def upload_csv(file: UploadFile = File(...)):
 
 
 @app.post("/api/data/reset")
-def reset_to_demo_data():
+def reset_to_demo_data(
+    user: UserIdentity = Depends(get_current_user),
+    org: OrgContext = Depends(require_tenant_context),
+):
+    user, org = _resolve_identity_context(user, org)
     state.reset_dataset()
     return {
         "status": "success",

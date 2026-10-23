@@ -1,10 +1,11 @@
 """
 WasteWise AI - SQLAlchemy Database Models
-Durable storage for Menu Items, Upload Ingestion History, Forecast Runs,
-Preparation Plans, and Actual Service Outcomes.
+Durable storage for Organizations, Memberships, User Profiles, Menu Items,
+Upload Ingestion History, Forecast Runs, Preparation Plans, and Actual Service Outcomes.
 """
 
 from datetime import datetime, timezone
+import uuid
 from sqlalchemy import (
     Boolean,
     Column,
@@ -21,12 +22,54 @@ def utc_now():
     return datetime.now(timezone.utc)
 
 
+def generate_uuid():
+    return str(uuid.uuid4())
+
+
+DEFAULT_ORG_ID = "00000000-0000-0000-0000-000000000001"
+
+
+class OrganizationModel(Base):
+    """Tenant representing a distinct canteen or dining hall operation."""
+    __tablename__ = "organizations"
+
+    id = Column(String(36), primary_key=True, default=generate_uuid)
+    name = Column(String(100), nullable=False)
+    slug = Column(String(100), unique=True, nullable=False, index=True)
+    created_at = Column(DateTime, default=utc_now)
+    updated_at = Column(DateTime, default=utc_now, onupdate=utc_now)
+
+
+class UserProfileModel(Base):
+    """User profile synced with Supabase auth.users."""
+    __tablename__ = "user_profiles"
+
+    id = Column(String(36), primary_key=True)  # auth.users UUID
+    email = Column(String(255), nullable=False, index=True)
+    full_name = Column(String(100), nullable=True)
+    avatar_url = Column(String(255), nullable=True)
+    created_at = Column(DateTime, default=utc_now)
+    updated_at = Column(DateTime, default=utc_now, onupdate=utc_now)
+
+
+class OrganizationMemberModel(Base):
+    """Associates users with organizations under strict RBAC."""
+    __tablename__ = "organization_members"
+
+    id = Column(String(36), primary_key=True, default=generate_uuid)
+    organization_id = Column(String(36), nullable=False, index=True)
+    user_id = Column(String(36), nullable=False, index=True)
+    role = Column(String(20), default="member", nullable=False)  # 'owner' | 'admin' | 'member'
+    created_at = Column(DateTime, default=utc_now)
+
+
 class MenuItemModel(Base):
-    """Catalog of operational canteen dishes."""
+    """Catalog of operational canteen dishes scoped to an organization."""
     __tablename__ = "menu_items"
 
-    id = Column(Integer, primary_key=True, index=True)
-    name = Column(String(100), unique=True, nullable=False, index=True)
+    id = Column(Integer, primary_key=True, index=True, autoincrement=True)
+    organization_id = Column(String(36), index=True, default=DEFAULT_ORG_ID)
+    name = Column(String(100), nullable=False, index=True)
     category = Column(String(50), nullable=False, index=True)
     cost_price = Column(Float, nullable=False)
     selling_price = Column(Float, nullable=False)
@@ -43,7 +86,9 @@ class UploadHistoryModel(Base):
     """Provenance and audit log of ingested service datasets."""
     __tablename__ = "upload_history"
 
-    id = Column(Integer, primary_key=True, index=True)
+    id = Column(Integer, primary_key=True, index=True, autoincrement=True)
+    organization_id = Column(String(36), index=True, default=DEFAULT_ORG_ID)
+    user_id = Column(String(36), index=True, nullable=True)
     filename = Column(String(255), nullable=False)
     checksum = Column(String(64), nullable=False, index=True)
     row_count = Column(Integer, nullable=False)
@@ -58,7 +103,9 @@ class ForecastRunModel(Base):
     """Execution log of scenario forecasts and model predictions."""
     __tablename__ = "forecast_runs"
 
-    id = Column(Integer, primary_key=True, index=True)
+    id = Column(Integer, primary_key=True, index=True, autoincrement=True)
+    organization_id = Column(String(36), index=True, default=DEFAULT_ORG_ID)
+    user_id = Column(String(36), index=True, nullable=True)
     timestamp = Column(DateTime, default=utc_now, index=True)
     menu_item = Column(String(100), nullable=False, index=True)
     day_of_week = Column(String(20), nullable=False)
@@ -78,7 +125,9 @@ class PreparationPlanModel(Base):
     """Operational batch recommendations generated for canteen kitchens."""
     __tablename__ = "preparation_plans"
 
-    id = Column(Integer, primary_key=True, index=True)
+    id = Column(Integer, primary_key=True, index=True, autoincrement=True)
+    organization_id = Column(String(36), index=True, default=DEFAULT_ORG_ID)
+    user_id = Column(String(36), index=True, nullable=True)
     service_date = Column(String(20), nullable=False, index=True)
     target_meal = Column(String(50), default="Lunch")
     menu_item = Column(String(100), nullable=False, index=True)
@@ -101,7 +150,9 @@ class ActualOutcomeModel(Base):
     """Measured operational outcomes recorded by canteen operators post-service."""
     __tablename__ = "actual_outcomes"
 
-    id = Column(Integer, primary_key=True, index=True)
+    id = Column(Integer, primary_key=True, index=True, autoincrement=True)
+    organization_id = Column(String(36), index=True, default=DEFAULT_ORG_ID)
+    user_id = Column(String(36), index=True, nullable=True)
     service_date = Column(String(20), nullable=False, index=True)
     target_meal = Column(String(50), default="Lunch")
     menu_item = Column(String(100), nullable=False, index=True)

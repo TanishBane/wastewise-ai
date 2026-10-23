@@ -30,6 +30,8 @@ class PlanningService:
         traditional_baseline_prep: Optional[int] = None,
         service_date: Optional[str] = None,
         target_meal: str = "Lunch",
+        organization_id: Optional[str] = None,
+        user_id: Optional[str] = None,
     ) -> Dict[str, Any]:
         """
         Calculates optimized batch preparation sizes, replenishment triggers,
@@ -64,11 +66,16 @@ class PlanningService:
                 "frequency": int(counts[i]),
             })
 
-        # Persist the plan so an operator can inspect the recommendation later.
+        from backend.models import DEFAULT_ORG_ID
+        effective_org_id = organization_id or DEFAULT_ORG_ID
+
+        # Persist the plan with tenant isolation
         try:
             with get_db_context() as db:
                 date_str = service_date or datetime.now(timezone.utc).strftime("%Y-%m-%d")
                 record = PreparationPlanModel(
+                    organization_id=effective_org_id,
+                    user_id=user_id,
                     service_date=date_str,
                     target_meal=target_meal,
                     menu_item=menu_item,
@@ -118,11 +125,17 @@ class PlanningService:
         }
 
     @staticmethod
-    def get_recent_plans(limit: int = 50) -> List[Dict[str, Any]]:
-        """Retrieves stored preparation plans."""
+    def get_recent_plans(
+        organization_id: Optional[str] = None,
+        limit: int = 50,
+    ) -> List[Dict[str, Any]]:
+        """Retrieves stored preparation plans for the specified organization."""
         with get_db_context() as db:
+            query = db.query(PreparationPlanModel)
+            if organization_id:
+                query = query.filter(PreparationPlanModel.organization_id == organization_id)
             plans = (
-                db.query(PreparationPlanModel)
+                query
                 .order_by(PreparationPlanModel.created_at.desc())
                 .limit(limit)
                 .all()
