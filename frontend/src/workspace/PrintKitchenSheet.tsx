@@ -38,7 +38,8 @@ export default function PrintKitchenSheet({
     >
       <div className="print-sheet-toolbar">
         <p className="print-hint">
-          Standard A4 format with high-contrast typography optimized for kitchen clipboards and batch verification.
+          Standard A4 format with high-contrast typography optimized for kitchen
+          clipboards and batch verification.
         </p>
         <div className="print-actions">
           <MetalButton className="button primary" onClick={handlePrint}>
@@ -56,13 +57,21 @@ export default function PrintKitchenSheet({
               <span className="sheet-logo-mark">WW</span>
               <div>
                 <h2>WasteWise AI · Kitchen Operations Sheet</h2>
-                <small>Campus Green Main Canteen · Shift Preparation Schedule</small>
+                <small>
+                  Campus Green Main Canteen · Shift Preparation Schedule
+                </small>
               </div>
             </div>
             <div className="sheet-meta-block">
-              <div><strong>Date:</strong> {serviceDate}</div>
-              <div><strong>Shift:</strong> Lunch Service (11:30 – 14:00)</div>
-              <div><strong>Status:</strong> Approved for Kitchen Prep</div>
+              <div>
+                <strong>Date:</strong> {serviceDate}
+              </div>
+              <div>
+                <strong>Shift:</strong> Lunch Service (11:30 – 14:00)
+              </div>
+              <div>
+                <strong>Status:</strong> Approved for Kitchen Prep
+              </div>
             </div>
           </div>
         </header>
@@ -73,29 +82,45 @@ export default function PrintKitchenSheet({
             <div className="sheet-dish-banner">
               <div>
                 <h3>{singlePlan.item}</h3>
-                <span>{singlePlan.category || "Main Course"} · Fresh preparation</span>
+                <span>
+                  {singlePlan.category || "Main Course"} · Fresh preparation
+                </span>
               </div>
               <div className="sheet-target-badge">
                 <span>Cooking Target:</span>
-                <strong>{singlePlan.plan.recommended_total_plan} portions</strong>
+                <strong>
+                  {singlePlan.plan.recommended_total_plan} portions
+                </strong>
               </div>
             </div>
 
             <div className="sheet-batch-breakdown">
               <div className="batch-box primary">
-                <span className="batch-tag">Initial Batch 1 (Pre-rush fire)</span>
-                <strong className="batch-qty">{singlePlan.plan.recommended_initial_batch} portions</strong>
-                <p>Have hot holding vessels ready &gt;65°C by 11:15 AM before doors open.</p>
+                <span className="batch-tag">
+                  Initial Batch 1 (Pre-rush fire)
+                </span>
+                <strong className="batch-qty">
+                  {singlePlan.plan.recommended_initial_batch} portions
+                </strong>
+                <p>
+                  Have hot holding vessels ready &gt;65°C by 11:15 AM before
+                  doors open.
+                </p>
               </div>
 
               <div className="batch-box secondary">
-                <span className="batch-tag">Replenishment Trigger Threshold</span>
+                <span className="batch-tag">
+                  Replenishment Trigger Threshold
+                </span>
                 <strong className="batch-qty">
                   {singlePlan.plan.refill_trigger_threshold > 0
                     ? `Fire Batch 2 when remaining drops to ≤ ${singlePlan.plan.refill_trigger_threshold} portions`
                     : "Single batch preparation — no replenishment scheduled"}
                 </strong>
-                <p>Do not cook subsequent batches unless demand pace breaches threshold.</p>
+                <p>
+                  Do not cook subsequent batches unless demand pace breaches
+                  threshold.
+                </p>
               </div>
             </div>
 
@@ -110,13 +135,20 @@ export default function PrintKitchenSheet({
               <tbody>
                 <tr>
                   <td>Predicted Demand</td>
-                  <td><strong>{singlePlan.plan.predicted_demand}</strong> portions</td>
+                  <td>
+                    <strong>{singlePlan.plan.predicted_demand}</strong> portions
+                  </td>
                   <td>Ensemble model forecast for today's lunch service</td>
                 </tr>
                 <tr>
                   <td>Forecast Uncertainty (80% Interval)</td>
-                  <td>{singlePlan.plan.lower_bound} – {singlePlan.plan.upper_bound} portions</td>
-                  <td>Expected demand range based on weekday & event signals</td>
+                  <td>
+                    {singlePlan.plan.lower_bound} –{" "}
+                    {singlePlan.plan.upper_bound} portions
+                  </td>
+                  <td>
+                    Expected demand range based on weekday & event signals
+                  </td>
                 </tr>
                 <tr>
                   <td>Current Stock on Hand</td>
@@ -125,8 +157,13 @@ export default function PrintKitchenSheet({
                 </tr>
                 <tr>
                   <td>Net Portions to Prepare</td>
-                  <td><strong>{singlePlan.plan.recommended_total_plan}</strong> portions</td>
-                  <td>Optimal production target balancing stockouts against waste</td>
+                  <td>
+                    <strong>{singlePlan.plan.recommended_total_plan}</strong>{" "}
+                    portions
+                  </td>
+                  <td>
+                    Optimal production target balancing stockouts against waste
+                  </td>
                 </tr>
               </tbody>
             </table>
@@ -149,15 +186,22 @@ export default function PrintKitchenSheet({
               <tbody>
                 {items.map((item) => (
                   <tr key={item.menu_item}>
-                    <td><strong>{item.menu_item}</strong></td>
+                    <td>
+                      <strong>{item.menu_item}</strong>
+                    </td>
                     <td>{item.category}</td>
                     <td className="numeric">{item.predicted_demand}</td>
-                    <td className="numeric">{item.lower_bound}–{item.upper_bound}</td>
+                    <td className="numeric">
+                      {item.lower_bound}–{item.upper_bound}
+                    </td>
                     <td className="numeric highlight">
                       <strong>{item.initial_batch}</strong> port.
                     </td>
                     <td className="numeric">
-                      {item.refill_trigger_label || (item.refill_trigger ? `≤ ${item.refill_trigger}` : "Single batch")}
+                      {item.refill_trigger_label ||
+                        (item.refill_trigger
+                          ? `≤ ${item.refill_trigger}`
+                          : "Single batch")}
                     </td>
                     <td className="numeric strong">
                       <strong>{item.recommended_prep}</strong> port.
@@ -169,7 +213,9 @@ export default function PrintKitchenSheet({
             </table>
           </div>
         ) : (
-          <p className="sheet-empty">No preparation schedule items available for this service date.</p>
+          <p className="sheet-empty">
+            No preparation schedule items available for this service date.
+          </p>
         )}
 
         {/* Operating Rules & Food Handling */}
@@ -178,15 +224,24 @@ export default function PrintKitchenSheet({
           <div className="safety-grid">
             <div className="safety-item">
               <strong>1. Hot Holding Temperature</strong>
-              <p>Keep hot holding wells and bain-maries at &gt;65°C throughout service.</p>
+              <p>
+                Keep hot holding wells and bain-maries at &gt;65°C throughout
+                service.
+              </p>
             </div>
             <div className="safety-item">
               <strong>2. Staggered Batch Replenishment</strong>
-              <p>Do not cook second batches until customer pace drops counter display below Refill Trigger.</p>
+              <p>
+                Do not cook second batches until customer pace drops counter
+                display below Refill Trigger.
+              </p>
             </div>
             <div className="safety-item">
               <strong>3. Post-Service Leftover Audit</strong>
-              <p>At 14:00 cutoff, record unsold portions in WasteWise AI Surplus Rescue before chilling or donation.</p>
+              <p>
+                At 14:00 cutoff, record unsold portions in WasteWise AI Surplus
+                Rescue before chilling or donation.
+              </p>
             </div>
           </div>
         </section>

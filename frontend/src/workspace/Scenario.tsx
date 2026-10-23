@@ -832,7 +832,9 @@ export default function Scenario({
         <PrintKitchenSheet
           open={printModalOpen}
           onClose={() => setPrintModalOpen(false)}
-          serviceDate={config.latest_date || new Date().toISOString().slice(0, 10)}
+          serviceDate={
+            config.latest_date || new Date().toISOString().slice(0, 10)
+          }
           singlePlan={{
             item,
             category: cfg?.category,

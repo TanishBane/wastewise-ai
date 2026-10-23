@@ -1,13 +1,7 @@
 import MetalButton from "./MetalButton";
 import { MotionConfig } from "framer-motion";
 import { PageTransition } from "./motion";
-import {
-  Component,
-  lazy,
-  Suspense,
-  useEffect,
-  useState,
-} from "react";
+import { Component, lazy, Suspense, useEffect, useState } from "react";
 import type { ErrorInfo, ReactNode } from "react";
 import {
   ArrowDownToLine,
@@ -232,14 +226,18 @@ export default function App() {
         navigate("help");
       }
       if (
-        (event.key === "/" || (event.key.toLowerCase() === "k" && (event.metaKey || event.ctrlKey))) &&
+        (event.key === "/" ||
+          (event.key.toLowerCase() === "k" &&
+            (event.metaKey || event.ctrlKey))) &&
         !document.querySelector("dialog[open]")
       ) {
         event.preventDefault();
         setSearchOpen(true);
       }
       if (
-        (event.key === "[" || (event.key.toLowerCase() === "b" && (event.metaKey || event.ctrlKey))) &&
+        (event.key === "[" ||
+          (event.key.toLowerCase() === "b" &&
+            (event.metaKey || event.ctrlKey))) &&
         !document.querySelector("dialog[open]")
       ) {
         event.preventDefault();
@@ -653,7 +651,9 @@ export default function App() {
           onClose={() => setSearchOpen(false)}
           config={config.data}
           onSelectDish={(selected) => setDish(selected)}
-          onNavigate={(targetPage, targetDish) => navigate(targetPage, targetDish)}
+          onNavigate={(targetPage, targetDish) =>
+            navigate(targetPage, targetDish)
+          }
         />
       </div>
     </MotionConfig>

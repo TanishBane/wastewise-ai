@@ -20,11 +20,6 @@ from backend.models import (
 from src.data import DATA_DIR
 
 
-@pytest.fixture(autouse=True)
-def setup_test_db():
-    init_db()
-
-
 def test_menu_catalog_persisted():
     with get_db_context() as db:
         items = db.query(MenuItemModel).all()

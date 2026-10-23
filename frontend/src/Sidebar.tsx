@@ -133,20 +133,39 @@ export default function Sidebar({
           <button
             className="sidebar-toggle-btn"
             onClick={onToggleCollapse}
-            aria-label={isCollapsed ? "Expand sidebar (Ctrl+[)" : "Collapse sidebar (Ctrl+[)"}
-            title={isCollapsed ? "Expand sidebar (Ctrl+[)" : "Collapse sidebar (Ctrl+[)"}
+            aria-label={
+              isCollapsed
+                ? "Expand sidebar (Ctrl+[)"
+                : "Collapse sidebar (Ctrl+[)"
+            }
+            title={
+              isCollapsed
+                ? "Expand sidebar (Ctrl+[)"
+                : "Collapse sidebar (Ctrl+[)"
+            }
           >
-            {isCollapsed ? <PanelLeftOpen size={18} /> : <PanelLeftClose size={18} />}
-            {isCollapsed && <span className="nav-tooltip">Expand sidebar (Ctrl+[)</span>}
+            {isCollapsed ? (
+              <PanelLeftOpen size={18} />
+            ) : (
+              <PanelLeftClose size={18} />
+            )}
+            {isCollapsed && (
+              <span className="nav-tooltip">Expand sidebar (Ctrl+[)</span>
+            )}
           </button>
         )}
       </div>
 
       {/* 2. Workspace Identity Card */}
-      <div className="workspace-card" title="Campus Green · Demo canteen workspace">
+      <div
+        className="workspace-card"
+        title="Campus Green · Demo canteen workspace"
+      >
         <span className="workspace-avatar-wrap">
           <span className="workspace-avatar">CG</span>
-          {isCollapsed && <span className="nav-tooltip">Campus Green · Demo canteen</span>}
+          {isCollapsed && (
+            <span className="nav-tooltip">Campus Green · Demo canteen</span>
+          )}
         </span>
         {!isCollapsed && (
           <div className="workspace-text">

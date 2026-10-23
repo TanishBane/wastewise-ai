@@ -18,7 +18,12 @@ import {
 import { money, useResource } from "./model";
 import type { ScreenProps } from "./model";
 
-export default function Rescue({ config, revision, navigate, onDataChange }: ScreenProps) {
+export default function Rescue({
+  config,
+  revision,
+  navigate,
+  onDataChange,
+}: ScreenProps) {
   const { data, loading, error, retry } = useResource(
     () => fetchWasteRisks(),
     revision,
