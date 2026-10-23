@@ -120,9 +120,15 @@ class DemandForecastingEngine:
         Splits data chronologically (time-based holdout), trains both ML and Baseline,
         and computes MAE, WAPE, RMSE, and per-item metrics.
         """
+        if df is None or df.empty:
+            raise ValueError("Cannot train on an empty dataset.")
+
         sorted_df = df.sort_values("date").reset_index(drop=True)
         unique_dates = sorted_df["date"].unique()
         
+        if len(unique_dates) < 2:
+            raise ValueError("Insufficient data: at least 2 unique dates are required to split into train and test sets.")
+
         if len(unique_dates) <= holdout_days + 7:
             # Fallback for small datasets: 80% train, 20% test split
             split_idx = int(len(unique_dates) * 0.8)
@@ -155,10 +161,10 @@ class DemandForecastingEngine:
         
         # Compute item-level comparison
         tree_predictions = np.array([tree.predict(X_test) for tree in self.model.estimators_])
-        test_df["lower_bound"] = np.percentile(tree_predictions, 10, axis=0)
-        test_df["upper_bound"] = np.percentile(tree_predictions, 90, axis=0)
-        test_df["ml_pred"] = ml_preds
-        test_df["baseline_pred"] = baseline_preds
+        test_df["lower_bound"] = np.maximum(0.0, np.percentile(tree_predictions, 10, axis=0))
+        test_df["upper_bound"] = np.maximum(0.0, np.percentile(tree_predictions, 90, axis=0))
+        test_df["ml_pred"] = np.maximum(0.0, ml_preds)
+        test_df["baseline_pred"] = np.maximum(0.0, baseline_preds)
         self.test_records_df = test_df
         
         self.item_level_metrics = {}
