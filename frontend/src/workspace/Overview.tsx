@@ -363,12 +363,12 @@ export default function Overview({ revision, navigate }: ScreenProps) {
           <table className="menu-table">
             <thead>
               <tr>
-                <th>Menu item</th>
-                <th className="numeric">Forecast</th>
-                <th className="numeric">Estimate range</th>
-                <th className="numeric">Suggested prep</th>
-                <th>Batch allocation</th>
-                <th className="numeric">Review</th>
+                <th scope="col">Menu item</th>
+                <th scope="col" className="numeric">Forecast</th>
+                <th scope="col" className="numeric">Estimate range</th>
+                <th scope="col" className="numeric">Suggested prep</th>
+                <th scope="col">Batch allocation</th>
+                <th scope="col" className="numeric">Review</th>
               </tr>
             </thead>
             <tbody>
@@ -430,7 +430,29 @@ export default function Overview({ revision, navigate }: ScreenProps) {
             </tbody>
           </table>
         </div>
-        {!rows.length && <Empty />}
+        {!rows.length && (
+          <Empty
+            title="No dishes match your filter"
+            text={
+              query || category !== "all"
+                ? `No dishes found matching "${query}" in category "${category}".`
+                : "No dishes currently scheduled for this service."
+            }
+            action={
+              query || category !== "all" ? (
+                <MetalButton
+                  className="button small"
+                  onClick={() => {
+                    setQuery("");
+                    setCategory("all");
+                  }}
+                >
+                  Clear filters
+                </MetalButton>
+              ) : undefined
+            }
+          />
+        )}
         <div className="panel-foot">
           <span>
             <ChefHat size={14} />

@@ -58,7 +58,18 @@ export default function OutcomeLogger({
   };
 
   useEffect(() => {
-    loadHistory();
+    let active = true;
+    fetchOutcomes()
+      .then((records) => {
+        if (active) setHistory(records);
+      })
+      .catch(() => {})
+      .finally(() => {
+        if (active) setLoadingHistory(false);
+      });
+    return () => {
+      active = false;
+    };
   }, []);
 
   // Sync leftover estimate when prepared or sold changes
@@ -327,13 +338,13 @@ export default function OutcomeLogger({
               <table className="menu-table">
                 <thead>
                   <tr>
-                    <th>Date</th>
-                    <th>Dish</th>
-                    <th className="numeric">Prepared</th>
-                    <th className="numeric">Sold</th>
-                    <th className="numeric">Leftover</th>
-                    <th>Waste Cause</th>
-                    <th>Notes</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Dish</th>
+                    <th scope="col" className="numeric">Prepared</th>
+                    <th scope="col" className="numeric">Sold</th>
+                    <th scope="col" className="numeric">Leftover</th>
+                    <th scope="col">Waste Cause</th>
+                    <th scope="col">Notes</th>
                   </tr>
                 </thead>
                 <tbody>

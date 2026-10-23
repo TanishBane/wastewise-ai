@@ -346,6 +346,7 @@ export default function Data({ config, revision, onDataChange }: ScreenProps) {
                     {data.columns.map((column) => (
                       <th
                         key={column}
+                        scope="col"
                         className={
                           [
                             "menu_item",
@@ -385,6 +386,16 @@ export default function Data({ config, revision, onDataChange }: ScreenProps) {
               <Empty
                 title="No recent records match"
                 text="Clear the search to see the latest service records."
+                action={
+                  query ? (
+                    <MetalButton
+                      className="button small"
+                      onClick={() => setQuery("")}
+                    >
+                      Clear search
+                    </MetalButton>
+                  ) : undefined
+                }
               />
             )}
           </Panel>

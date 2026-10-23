@@ -778,6 +778,12 @@ input::placeholder {
   overflow: auto;
   max-width: 100%;
 }
+.table-scroll th {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background: var(--raised);
+}
 table {
   border-collapse: collapse;
   width: 100%;
@@ -1651,14 +1657,29 @@ code {
 .empty-state {
   padding: var(--space-11) var(--space-6);
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.empty-state-icon {
+  color: var(--muted);
+  opacity: 0.65;
+  margin-bottom: var(--space-3);
 }
 .empty-state h3 {
   font-size: var(--text-base);
+  font-weight: var(--weight-semibold);
+  color: var(--ink);
 }
 .empty-state p {
   color: var(--muted);
-  margin-top: var(--space-3);
-  font-size: var(--text-xs);
+  margin-top: var(--space-2);
+  font-size: var(--text-sm);
+  max-width: 42ch;
+}
+.empty-state-action {
+  margin-top: var(--space-5);
 }
 /* Native dialogs provide focus trapping, restoration and Escape. */
 .dialog {

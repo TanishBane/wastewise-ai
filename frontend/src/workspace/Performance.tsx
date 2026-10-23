@@ -477,14 +477,14 @@ export default function Performance({ revision, navigate }: ScreenProps) {
             <table className="menu-table">
               <thead>
                 <tr>
-                  <th>Date</th>
-                  <th>Dish</th>
-                  <th>Prepared</th>
-                  <th>Sold</th>
-                  <th>Leftover</th>
-                  <th>Waste Cause</th>
-                  <th>Discarded</th>
-                  <th>Notes</th>
+                  <th scope="col">Date</th>
+                  <th scope="col">Dish</th>
+                  <th scope="col" className="numeric">Prepared</th>
+                  <th scope="col" className="numeric">Sold</th>
+                  <th scope="col" className="numeric">Leftover</th>
+                  <th scope="col">Waste Cause</th>
+                  <th scope="col" className="numeric">Discarded</th>
+                  <th scope="col">Notes</th>
                 </tr>
               </thead>
               <tbody>

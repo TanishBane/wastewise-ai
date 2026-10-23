@@ -7,6 +7,7 @@ import {
   Check,
   LoaderCircle,
   RefreshCw,
+  Search,
   X,
 } from "lucide-react";
 import { ScrollReveal, StaggerGroup, StaggerItem } from "../motion";
@@ -303,14 +304,24 @@ export function ErrorState({
 export function Empty({
   title = "No dishes match",
   text = "Try another search or clear your filters.",
+  action,
+  icon: Icon,
 }: {
   title?: string;
   text?: string;
+  action?: ReactNode;
+  icon?: React.ComponentType<{ size?: number; className?: string }>;
 }) {
   return (
-    <div className="empty-state">
+    <div className="empty-state" role="status">
+      {Icon ? (
+        <Icon size={32} className="empty-state-icon" />
+      ) : (
+        <Search size={32} className="empty-state-icon" />
+      )}
       <h3>{title}</h3>
       <p>{text}</p>
+      {action && <div className="empty-state-action">{action}</div>}
     </div>
   );
 }

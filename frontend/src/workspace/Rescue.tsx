@@ -205,8 +205,25 @@ export default function Rescue({
           ))}
           {!rows.length && (
             <Empty
-              title="Nothing in this queue"
-              text="Try a different risk level or dish name."
+              title="No dishes in this rescue queue"
+              text={
+                query || tier !== "All"
+                  ? `No dishes found matching "${query}" under ${tier} risk.`
+                  : "All dishes are currently within safe surplus limits."
+              }
+              action={
+                query || tier !== "All" ? (
+                  <MetalButton
+                    className="button small"
+                    onClick={() => {
+                      setQuery("");
+                      setTier("All");
+                    }}
+                  >
+                    Reset filters
+                  </MetalButton>
+                ) : undefined
+              }
             />
           )}
         </div>
