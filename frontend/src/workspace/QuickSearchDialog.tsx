@@ -259,16 +259,24 @@ export default function QuickSearchDialog({
           ) : (
             <div className="search-no-results">
               <p>No pages or menu items match "{query}".</p>
-              <small>Try searching "Forecast", "Planner", "Dal", or "Biryani"</small>
+              <small>
+                Try searching "Forecast", "Planner", "Dal", or "Biryani"
+              </small>
             </div>
           )}
         </div>
 
         {/* Modal footer hints */}
         <div className="quick-search-footer">
-          <span><kbd className="search-kbd">↑↓</kbd> to navigate</span>
-          <span><kbd className="search-kbd">↵</kbd> to select</span>
-          <span><kbd className="search-kbd">esc</kbd> to close</span>
+          <span>
+            <kbd className="search-kbd">↑↓</kbd> to navigate
+          </span>
+          <span>
+            <kbd className="search-kbd">↵</kbd> to select
+          </span>
+          <span>
+            <kbd className="search-kbd">esc</kbd> to close
+          </span>
         </div>
       </div>
     </Dialog>

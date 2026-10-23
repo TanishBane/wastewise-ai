@@ -169,15 +169,24 @@ export default function Home({ navigate }: { navigate: Navigate }) {
                 className="home-stats-strip"
                 title="Reference demonstration scenario benchmarks · Real metrics computed live via API"
               >
-                <span className="stat-pill" title="Demo benchmark: 161 expected portions">
+                <span
+                  className="stat-pill"
+                  title="Demo benchmark: 161 expected portions"
+                >
                   <strong>161</strong>
                   <span>demo portions</span>
                 </span>
-                <span className="stat-pill" title="Holdout evaluation: 8.4% WAPE">
+                <span
+                  className="stat-pill"
+                  title="Holdout evaluation: 8.4% WAPE"
+                >
                   <strong>8.4%</strong>
                   <span>holdout WAPE</span>
                 </span>
-                <span className="stat-pill" title="Baseline risk exposure: ₹887">
+                <span
+                  className="stat-pill"
+                  title="Baseline risk exposure: ₹887"
+                >
                   <strong>₹887</strong>
                   <span>demo exposure</span>
                 </span>
@@ -209,11 +218,15 @@ export default function Home({ navigate }: { navigate: Navigate }) {
               <div className="hud-title-wrap">
                 <span className="live-pulse-dot" aria-hidden="true" />
                 <div className="hud-canteen-meta">
-                  <strong className="hud-canteen-name">Campus Green Demo Canteen</strong>
+                  <strong className="hud-canteen-name">
+                    Campus Green Demo Canteen
+                  </strong>
                   <div className="hud-service-tags">
                     <span className="hud-service-type">Lunch Service</span>
                     <span className="hud-service-sep">·</span>
-                    <span className="hud-service-status">Active Operating Schedule</span>
+                    <span className="hud-service-status">
+                      Active Operating Schedule
+                    </span>
                   </div>
                 </div>
               </div>
@@ -235,7 +248,9 @@ export default function Home({ navigate }: { navigate: Navigate }) {
                   <span className="step-time">06:30</span>
                   <span className="step-node" aria-hidden="true" />
                   <div className="step-content">
-                    <strong className="step-title">Signal Synchronization</strong>
+                    <strong className="step-title">
+                      Signal Synchronization
+                    </strong>
                     <span className="step-desc">
                       Ingest campus attendance (1.0x), mild weather &amp; day
                       baseline
@@ -258,7 +273,9 @@ export default function Home({ navigate }: { navigate: Navigate }) {
                   <span className="step-time">12:30</span>
                   <span className="step-node" aria-hidden="true" />
                   <div className="step-content">
-                    <strong className="step-title">Mid-Service Refill Check</strong>
+                    <strong className="step-title">
+                      Mid-Service Refill Check
+                    </strong>
                     <span className="step-desc">
                       Evaluate refill trigger (&lt;5 portions) before cooking
                       Batch 2
@@ -270,7 +287,9 @@ export default function Home({ navigate }: { navigate: Navigate }) {
                   <span className="step-time">14:30</span>
                   <span className="step-node" aria-hidden="true" />
                   <div className="step-content">
-                    <strong className="step-title">Surplus Audit &amp; Log</strong>
+                    <strong className="step-title">
+                      Surplus Audit &amp; Log
+                    </strong>
                     <span className="step-desc">
                       Record actual outcomes to SQLite &amp; route any excess
                       portions

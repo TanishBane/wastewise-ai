@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: wastewise-api
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn backend.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12
+      - key: WASTEWISE_CORS_ORIGINS
+        sync: false
+      - key: WASTEWISE_DB_PATH
+        value: /data/wastewise.db
+    disk:
+      name: wastewise-data
+      mountPath: /data
+      sizeGB: 1
