@@ -24,10 +24,12 @@ class ForecastingService:
         campus_event: int,
         weather: str,
         target_service: str = "Lunch",
+        organization_id: Optional[str] = None,
+        user_id: Optional[str] = None,
     ) -> Dict[str, Any]:
         """
         Runs the ML ensemble model for a specific operational scenario,
-        saves the forecast run in SQLite, and returns structured predictions.
+        saves the forecast run with tenant context, and returns structured predictions.
         """
         res = engine.predict_scenario(
             menu_item=menu_item,
@@ -71,10 +73,15 @@ class ForecastingService:
             )
         )
 
+        from backend.models import DEFAULT_ORG_ID
+        effective_org_id = organization_id or DEFAULT_ORG_ID
+
         # Persist run to SQLite. A returned forecast must be auditable.
         try:
             with get_db_context() as db:
                 run_record = ForecastRunModel(
+                    organization_id=effective_org_id,
+                    user_id=user_id,
                     menu_item=menu_item,
                     day_of_week=day_of_week,
                     attendance_index=attendance_index,
@@ -110,11 +117,17 @@ class ForecastingService:
         }
 
     @staticmethod
-    def get_forecast_history(limit: int = 50) -> List[Dict[str, Any]]:
-        """Retrieves recent scenario forecast runs for audit and comparison."""
+    def get_forecast_history(
+        organization_id: Optional[str] = None,
+        limit: int = 50,
+    ) -> List[Dict[str, Any]]:
+        """Retrieves recent scenario forecast runs scoped to organization."""
         with get_db_context() as db:
+            query = db.query(ForecastRunModel)
+            if organization_id:
+                query = query.filter(ForecastRunModel.organization_id == organization_id)
             runs = (
-                db.query(ForecastRunModel)
+                query
                 .order_by(ForecastRunModel.timestamp.desc())
                 .limit(limit)
                 .all()

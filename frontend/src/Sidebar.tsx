@@ -7,6 +7,8 @@ import {
   FlaskConical,
   LayoutDashboard,
   Leaf,
+  LogIn,
+  LogOut,
   PanelLeftClose,
   PanelLeftOpen,
   Sprout,
@@ -14,6 +16,7 @@ import {
   X,
 } from "lucide-react";
 import type { Page } from "./workspace/model";
+import { useAuth } from "./context/AuthContext";
 
 const navLinks = [
   {
@@ -62,6 +65,7 @@ interface SidebarProps {
   isMobile?: boolean;
   onCloseMobile?: () => void;
   onOpenTour: () => void;
+  onOpenAuth: () => void;
 }
 
 export default function Sidebar({
@@ -72,7 +76,9 @@ export default function Sidebar({
   isMobile = false,
   onCloseMobile,
   onOpenTour,
+  onOpenAuth,
 }: SidebarProps) {
+  const { user, profile, activeOrg, signOut } = useAuth();
   const isCollapsed = collapsed && !isMobile;
 
   const handleNav = (targetPage: Page) => {
@@ -246,6 +252,68 @@ export default function Sidebar({
 
       {/* 6. Bottom Utility Area */}
       <div className="sidebar-bottom">
+        {/* Auth / Account status */}
+        {!isCollapsed ? (
+          <div className="mb-3 p-2.5 rounded-xl bg-[var(--surface-muted,#eee9de)] border border-[var(--border,#d4cdbf)] text-xs">
+            {user ? (
+              <div className="flex items-center justify-between gap-2">
+                <div className="min-w-0 flex-1">
+                  <p className="font-semibold truncate text-[var(--ink,#1f2923)]">
+                    {activeOrg?.name || "ADAPPT Canteen"}
+                  </p>
+                  <p className="text-[11px] text-[var(--ink-light,#666)] truncate">
+                    {profile?.full_name || user.email}
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => signOut()}
+                  title="Sign out"
+                  className="p-1.5 rounded-lg text-[var(--ink-light,#666)] hover:text-red-700 hover:bg-white transition"
+                  aria-label="Sign out"
+                >
+                  <LogOut size={14} />
+                </button>
+              </div>
+            ) : (
+              <button
+                type="button"
+                onClick={onOpenAuth}
+                className="w-full py-1.5 px-2.5 rounded-lg bg-[var(--primary,#1e4638)] text-white font-medium flex items-center justify-center gap-1.5 hover:opacity-95 transition"
+              >
+                <LogIn size={13} />
+                <span>Sign In / Register</span>
+              </button>
+            )}
+          </div>
+        ) : (
+          <div className="mb-2 flex justify-center">
+            {user ? (
+              <button
+                type="button"
+                onClick={() => signOut()}
+                className="collapsed-utility-btn"
+                title={`Sign out (${user.email})`}
+                aria-label="Sign out"
+              >
+                <LogOut size={16} />
+                <span className="nav-tooltip">Sign out</span>
+              </button>
+            ) : (
+              <button
+                type="button"
+                onClick={onOpenAuth}
+                className="collapsed-utility-btn"
+                title="Sign In / Register"
+                aria-label="Sign In"
+              >
+                <LogIn size={16} />
+                <span className="nav-tooltip">Sign In</span>
+              </button>
+            )}
+          </div>
+        )}
+
         {!isCollapsed ? (
           <div className="demo-invite">
             <div className="demo-invite-content">
