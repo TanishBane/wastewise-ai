@@ -47,7 +47,7 @@ def test_forecast_persists_to_database():
 
     with get_db_context() as db:
         assert db.query(ForecastRunModel).count() == initial_count + 1
-        last_run = db.query(ForecastRunModel).order_by(ForecastRunModel.id.desc()).first()
+        last_run = db.query(ForecastRunModel).order_by(ForecastRunModel.timestamp.desc()).first()
         assert last_run.menu_item == "Pav Bhaji"
         assert last_run.attendance_index == 1.2
         assert last_run.is_event == 1
@@ -70,7 +70,7 @@ def test_preparation_plan_persists_to_database():
 
     with get_db_context() as db:
         assert db.query(PreparationPlanModel).count() == initial_count + 1
-        last_plan = db.query(PreparationPlanModel).order_by(PreparationPlanModel.id.desc()).first()
+        last_plan = db.query(PreparationPlanModel).order_by(PreparationPlanModel.created_at.desc()).first()
         assert last_plan.menu_item == "Pav Bhaji"
         assert last_plan.current_stock == 20
 

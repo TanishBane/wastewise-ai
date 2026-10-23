@@ -58,6 +58,26 @@ SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 Base = declarative_base()
 
 
+def set_session_user(db: Session, user_id: str, role: str = "authenticated"):
+    """
+    Sets request-scoped session configuration for PostgreSQL RLS.
+    In PostgreSQL, this sets 'request.jwt.claim.sub' and 'request.jwt.claim.role'
+    scoped strictly to the current transaction (is_local=true).
+    """
+    if not is_sqlite and user_id:
+        from sqlalchemy import text
+        try:
+            db.execute(
+                text(
+                    "SELECT set_config('request.jwt.claim.sub', :sub, true), "
+                    "set_config('request.jwt.claim.role', :role, true)"
+                ),
+                {"sub": str(user_id), "role": role},
+            )
+        except Exception:
+            pass
+
+
 def get_db() -> Generator[Session, None, None]:
     """FastAPI dependency that yields a database session."""
     db = SessionLocal()
@@ -93,6 +113,26 @@ def init_db():
             with engine.connect() as conn:
                 cursor = conn.connection.cursor()
                 
+                # Check for legacy INTEGER primary keys and migrate table schema
+                legacy_tables = ["menu_items", "actual_outcomes", "preparation_plans", "forecast_runs", "upload_history"]
+                for tbl in legacy_tables:
+                    cursor.execute(f"PRAGMA table_info({tbl})")
+                    cols = cursor.fetchall()
+                    id_col = next((c for c in cols if c[1] == "id"), None)
+                    if id_col and "INT" in str(id_col[2]).upper():
+                        # Migrate old integer PK table to UUID PK
+                        cursor.execute(f"ALTER TABLE {tbl} RENAME TO {tbl}_legacy_int")
+                        Base.metadata.tables[tbl].create(bind=conn)
+                        common_cols = [c[1] for c in cols if c[1] != "id"]
+                        if common_cols:
+                            cols_str = ", ".join(common_cols)
+                            cursor.execute(
+                                f"INSERT INTO {tbl} (id, {cols_str}) "
+                                f"SELECT lower(hex(randomblob(4)) || '-' || hex(randomblob(2)) || '-4' || substr(hex(randomblob(2)),2) || '-a' || substr(hex(randomblob(2)),2) || '-' || hex(randomblob(6))), "
+                                f"{cols_str} FROM {tbl}_legacy_int"
+                            )
+                        cursor.execute(f"DROP TABLE {tbl}_legacy_int")
+
                 # Helper to check and add column if missing
                 def ensure_col(table: str, col: str, col_type: str, default: str = None):
                     cursor.execute(f"PRAGMA table_info({table})")
