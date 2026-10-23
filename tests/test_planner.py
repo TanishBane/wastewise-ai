@@ -75,3 +75,52 @@ def test_partial_stock_preserves_available_supply():
     stocked = planner.generate_plan("Pav Bhaji", 100, 90, 110, current_stock=25)
     assert stocked.wastewise_expected_shortage == without.wastewise_expected_shortage
     assert stocked.wastewise_expected_surplus == without.wastewise_expected_surplus
+
+def test_risk_classification_boundaries():
+    planner = PreparationPlanner()
+
+    # We want to test trad_prep - predicted_demand boundaries: 21, 20, 9, 8
+    # We will use predicted_demand=100, which means:
+    # 121 -> difference 21
+    # 120 -> difference 20
+    # 109 -> difference 9
+    # 108 -> difference 8
+    #
+    # We set lower_bound=100, upper_bound=100 to make implied variance 0,
+    # ensuring the model recommends exactly 100, so surplus_ratio is 0.
+
+    plan_21 = planner.generate_plan(
+        menu_item="Test",
+        predicted_demand=100.0,
+        lower_bound=100.0,
+        upper_bound=100.0,
+        traditional_baseline_prep=121
+    )
+    assert plan_21.risk_classification == "High", f"Expected High, got {plan_21.risk_classification}"
+
+    plan_20 = planner.generate_plan(
+        menu_item="Test",
+        predicted_demand=100.0,
+        lower_bound=100.0,
+        upper_bound=100.0,
+        traditional_baseline_prep=120
+    )
+    assert plan_20.risk_classification == "Moderate", f"Expected Moderate, got {plan_20.risk_classification}"
+
+    plan_9 = planner.generate_plan(
+        menu_item="Test",
+        predicted_demand=100.0,
+        lower_bound=100.0,
+        upper_bound=100.0,
+        traditional_baseline_prep=109
+    )
+    assert plan_9.risk_classification == "Moderate", f"Expected Moderate, got {plan_9.risk_classification}"
+
+    plan_8 = planner.generate_plan(
+        menu_item="Test",
+        predicted_demand=100.0,
+        lower_bound=100.0,
+        upper_bound=100.0,
+        traditional_baseline_prep=108
+    )
+    assert plan_8.risk_classification == "Low", f"Expected Low, got {plan_8.risk_classification}"
