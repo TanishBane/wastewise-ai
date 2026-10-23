@@ -15,7 +15,7 @@ import {
 } from "lucide-react";
 import type { Page } from "./workspace/model";
 
-export const navLinks = [
+const navLinks = [
   {
     id: "overview" as Page,
     label: "Kitchen overview",

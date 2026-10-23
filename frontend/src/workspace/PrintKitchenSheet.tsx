@@ -83,7 +83,7 @@ export default function PrintKitchenSheet({
               <div>
                 <h3>{singlePlan.item}</h3>
                 <span>
-                  {singlePlan.category || "Main Course"} · Fresh preparation
+                  {singlePlan.category || "Main Course"} · Recipe prep target
                 </span>
               </div>
               <div className="sheet-target-badge">
@@ -96,9 +96,7 @@ export default function PrintKitchenSheet({
 
             <div className="sheet-batch-breakdown">
               <div className="batch-box primary">
-                <span className="batch-tag">
-                  Initial Batch 1 (Pre-rush fire)
-                </span>
+                <span className="batch-tag">Batch 1 (Initial Cook)</span>
                 <strong className="batch-qty">
                   {singlePlan.plan.recommended_initial_batch} portions
                 </strong>
@@ -110,7 +108,7 @@ export default function PrintKitchenSheet({
 
               <div className="batch-box secondary">
                 <span className="batch-tag">
-                  Replenishment Trigger Threshold
+                  Mid-Service Refill Decision Gate
                 </span>
                 <strong className="batch-qty">
                   {singlePlan.plan.refill_trigger_threshold > 0
