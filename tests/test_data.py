@@ -67,3 +67,18 @@ def test_validate_dataset_rejects_date_and_weekday_mismatch():
     is_valid, issues, _ = validate_dataset(df)
     assert is_valid is False
     assert any("does not match" in issue for issue in issues)
+
+def test_get_demonstration_data_csv_read_error(tmp_path):
+    from src.data import get_demonstration_data
+
+    # Create an empty file to trigger pandas EmptyDataError
+    csv_path = tmp_path / "wastewise_sample_canteen_data.csv"
+    csv_path.write_text("")
+
+    # The function should catch the exception and return a newly generated synthetic dataset
+    df = get_demonstration_data(data_dir=tmp_path)
+
+    # Validate the generated data
+    assert not df.empty
+    assert "date" in df.columns
+    assert len(df) > 0
