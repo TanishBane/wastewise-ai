@@ -20,6 +20,7 @@ class ReportingService:
         engine,
         dataset_df: pd.DataFrame,
         is_synthetic: bool,
+        organization_id: Optional[str] = None,
     ) -> Dict[str, Any]:
         """
         Derives menu items dynamically, predicts latest day demands,
@@ -30,10 +31,13 @@ class ReportingService:
         if day_df.empty:
             day_df = dataset_df.tail(8)
 
-        # Read active menu catalog from DB or fall back to MENU_ITEMS config
+        # Read active menu catalog from DB scoped to organization or fall back to MENU_ITEMS config
         items_dict = {}
         with get_db_context() as db:
-            db_items = db.query(MenuItemModel).filter(MenuItemModel.active == True).all()
+            query = db.query(MenuItemModel).filter(MenuItemModel.active == True)
+            if organization_id:
+                query = query.filter(MenuItemModel.organization_id == organization_id)
+            db_items = query.all()
             for di in db_items:
                 items_dict[di.name] = di
 
@@ -247,7 +251,7 @@ class ReportingService:
             if effective_org_id:
                 query = query.filter(ActualOutcomeModel.organization_id == effective_org_id)
 
-            existing = query.order_by(ActualOutcomeModel.id.desc()).first()
+            existing = query.order_by(ActualOutcomeModel.recorded_at.desc()).first()
             if existing:
                 same_values = (
                     existing.portions_prepared == portions_prepared

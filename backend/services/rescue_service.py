@@ -17,6 +17,7 @@ class WasteRescueService:
         engine,
         dataset_df: pd.DataFrame,
         risk_tier: Optional[str] = None,
+        organization_id: Optional[str] = None,
     ) -> Dict[str, Any]:
         """
         Calculates dish-level risk tier, potential surplus portions, and operational guidance.
@@ -26,10 +27,13 @@ class WasteRescueService:
         if day_df.empty:
             day_df = dataset_df.tail(8)
 
-        # Get menu items from DB or fallback to config
+        # Get menu items from DB scoped to organization or fallback to config
         items_catalog = {}
         with get_db_context() as db:
-            db_items = db.query(MenuItemModel).filter(MenuItemModel.active == True).all()
+            query = db.query(MenuItemModel).filter(MenuItemModel.active == True)
+            if organization_id:
+                query = query.filter(MenuItemModel.organization_id == organization_id)
+            db_items = query.all()
             for di in db_items:
                 items_catalog[di.name] = di
 
