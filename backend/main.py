@@ -14,6 +14,7 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional
 import numpy as np
 import pandas as pd
+import sentry_sdk
 
 # Add project root to sys.path
 ROOT_DIR = Path(__file__).resolve().parent.parent
@@ -66,6 +67,14 @@ from src.data import (
 )
 from src.model import DemandForecastingEngine
 from src.planner import PreparationPlanner
+
+
+if os.getenv("SENTRY_DSN"):
+    sentry_sdk.init(
+        dsn=os.environ["SENTRY_DSN"],
+        traces_sample_rate=float(os.getenv("SENTRY_TRACES_SAMPLE_RATE", "0.1")),
+        send_default_pii=False,
+    )
 
 
 @asynccontextmanager
@@ -520,6 +529,28 @@ def get_performance(
     user, org = _resolve_context(user, org)
     tenant_state = org_state_registry.get_state(org.organization_id)
     return reporting_service.get_performance(engine=tenant_state.engine)
+
+
+@app.get("/api/monitoring/drift")
+def get_monitoring_drift():
+    """Compare the training period with the holdout period using Evidently."""
+    if state.engine.test_records_df is None:
+        raise HTTPException(status_code=503, detail="Model evaluation data is not available.")
+    try:
+        from evidently import Report
+        from evidently.presets import DataDriftPreset
+
+        reference = state.dataset_df.drop(columns=["portions_sold"], errors="ignore")
+        current = state.engine.test_records_df.drop(
+            columns=["portions_sold", "lower_bound", "upper_bound", "ml_pred", "baseline_pred"],
+            errors="ignore",
+        )
+        report = Report(metrics=[DataDriftPreset()])
+        snapshot = report.run(current_data=current, reference_data=reference)
+        return snapshot.dict()
+    except ImportError as error:
+        sentry_sdk.capture_exception(error)
+        raise HTTPException(status_code=503, detail="Evidently monitoring is not installed.") from error
 
 
 @app.post("/api/outcomes")

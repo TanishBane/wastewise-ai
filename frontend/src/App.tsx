@@ -36,6 +36,7 @@ import { date, downloadCSV, useResource } from "./workspace/model";
 import type { Page, ScreenProps } from "./workspace/model";
 import QuickSearchDialog from "./workspace/QuickSearchDialog";
 import Sidebar from "./Sidebar";
+import { captureException, capturePageView } from "./telemetry";
 
 const Overview = lazy(() => import("./workspace/Overview"));
 const Home = lazy(() => import("./workspace/Home"));
@@ -108,6 +109,7 @@ class ViewBoundary extends Component<
   }
   componentDidCatch(error: Error, info: ErrorInfo) {
     console.error("View error", error, info);
+    captureException(error);
   }
   render() {
     return this.state.failed ? (
@@ -176,6 +178,7 @@ export default function App() {
   };
 
   useEffect(() => {
+    capturePageView(page);
     const handleScroll = () => {
       const scrollY = window.scrollY;
       const windowHeight = window.innerHeight;

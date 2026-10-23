@@ -12,6 +12,7 @@ import {
   PreparationPlanHistoryItem,
   WasteRiskResponse,
 } from "./types";
+import { captureException } from "./telemetry";
 
 const BASE_URL = import.meta.env.VITE_API_BASE_URL || "";
 
@@ -43,6 +44,7 @@ async function fetchJson<T>(url: string, options?: RequestInit): Promise<T> {
       signal: options?.signal || AbortSignal.timeout(60000),
     });
   } catch (error) {
+    captureException(error);
     if (
       error instanceof Error &&
       (error.name === "TimeoutError" || error.name === "AbortError")
