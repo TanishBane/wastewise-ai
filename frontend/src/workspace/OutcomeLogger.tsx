@@ -26,8 +26,8 @@ export default function OutcomeLogger({
       ? activeDish
       : config.menu_item_names[0] || "Pav Bhaji";
 
-  const [date, setDate] = useState(() =>
-    config.latest_date || new Date().toISOString().slice(0, 10)
+  const [date, setDate] = useState(
+    () => config.latest_date || new Date().toISOString().slice(0, 10),
   );
   const [dish, setDish] = useState(defaultDish);
   const [prepared, setPrepared] = useState<number>(60);
