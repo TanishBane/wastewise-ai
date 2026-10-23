@@ -2,6 +2,7 @@
 Unit tests for forecasting model training, baseline, evaluation, and scenario predictions.
 """
 
+import pandas as pd
 import pytest
 from src.data import generate_synthetic_canteen_data
 from src.model import DemandForecastingEngine, WeekdayAverageBaseline
@@ -61,3 +62,25 @@ def test_predict_scenario_uncertainty_interval(sample_dataset):
     # Ensure point estimate is within or near the interval
     assert res.lower_bound <= res.predicted_demand <= res.upper_bound or abs(res.predicted_demand - res.lower_bound) < 5
     assert len(res.feature_contributions) > 0
+from src.model import DemandForecastingEngine
+
+def test_empty_dataset():
+    engine = DemandForecastingEngine()
+    df = pd.DataFrame(columns=["date", "menu_item", "day_of_week", "weather", "attendance_index", "campus_event", "temperature_c", "portions_sold"])
+    with pytest.raises(ValueError):
+        engine.train_and_evaluate(df)
+
+def test_single_row_dataset():
+    engine = DemandForecastingEngine()
+    df = pd.DataFrame([{
+        "date": "2026-05-01",
+        "menu_item": "Pav Bhaji",
+        "day_of_week": "Monday",
+        "weather": "Sunny",
+        "attendance_index": 1.0,
+        "campus_event": 0,
+        "temperature_c": 28.0,
+        "portions_sold": 50.0
+    }])
+    with pytest.raises(ValueError):
+        engine.train_and_evaluate(df)
