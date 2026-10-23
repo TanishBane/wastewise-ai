@@ -13,6 +13,8 @@ import {
   Database,
   HelpCircle,
   LayoutDashboard,
+  LogIn,
+  LogOut,
   Menu,
   RefreshCw,
   Search,
@@ -20,7 +22,9 @@ import {
   Sprout,
   TriangleAlert,
 } from "lucide-react";
-import { fetchConfig, fetchOverview } from "./api";
+import { fetchConfig, fetchOverview, setAuthGetter } from "./api";
+import { useAuth } from "./context/AuthContext";
+import AuthModal from "./workspace/AuthModal";
 import {
   AsyncButton,
   Badge,
@@ -118,6 +122,17 @@ class ViewBoundary extends Component<
 }
 
 export default function App() {
+  const {
+    user,
+    accessToken,
+    profile,
+    activeOrg,
+    organizations,
+    recoveryMode,
+    setActiveOrgId,
+    signOut,
+  } = useAuth();
+
   const [page, setPage] = useState<Page>(currentHash);
   const [revision, setRevision] = useState(0);
   const config = useResource(fetchConfig, revision);
@@ -129,6 +144,16 @@ export default function App() {
   const [exporting, setExporting] = useState(false);
   const [exportError, setExportError] = useState("");
   const [showScrollBlur, setShowScrollBlur] = useState(false);
+  const [authModalOpen, setAuthModalOpen] = useState(false);
+  const [userMenuOpen, setUserMenuOpen] = useState(false);
+
+  // Synchronize authentication tokens with API layer
+  useEffect(() => {
+    setAuthGetter(() => ({
+      token: accessToken,
+      orgId: activeOrg?.id ?? null,
+    }));
+  }, [accessToken, activeOrg]);
 
   const [collapsed, setCollapsed] = useState(() => {
     try {
@@ -349,6 +374,7 @@ export default function App() {
             setTourStep(0);
             setTourOpen(true);
           }}
+          onOpenAuth={() => setAuthModalOpen(true)}
         />
 
         <div className="workspace">
@@ -426,20 +452,108 @@ export default function App() {
                 <span className="utility-label">Transparency</span>
               </button>
 
-              <button
-                className="workspace-profile-pill"
-                onClick={() => navigate("data-model")}
-                title="Campus Green Canteen · Click to inspect dataset"
-                aria-label="Workspace profile"
-              >
-                <span className="operator-avatar">CG</span>
-                <div className="workspace-pill-info">
-                  <strong>Campus Green</strong>
-                  <small>
-                    {config.data?.is_synthetic ? "Demo Data" : "Live CSV"}
-                  </small>
+              {user ? (
+                <div className="relative">
+                  <button
+                    className="workspace-profile-pill"
+                    onClick={() => setUserMenuOpen((prev) => !prev)}
+                    title={`${activeOrg?.name || "ADAPPT Canteen"} · ${user.email}`}
+                    aria-label="User account and organization menu"
+                    aria-expanded={userMenuOpen}
+                  >
+                    <span className="operator-avatar">
+                      {(
+                        profile?.full_name?.slice(0, 2) ||
+                        user.email?.slice(0, 2) ||
+                        "CG"
+                      ).toUpperCase()}
+                    </span>
+                    <div className="workspace-pill-info">
+                      <strong>{activeOrg?.name || "ADAPPT Canteen"}</strong>
+                      <small>
+                        {activeOrg?.role ? `${activeOrg.role} · ` : ""}
+                        {config.data?.is_synthetic ? "Demo Data" : "Live CSV"}
+                      </small>
+                    </div>
+                  </button>
+
+                  {userMenuOpen && (
+                    <div className="absolute right-0 mt-2 w-64 rounded-xl bg-[var(--surface,#fcfaf5)] border border-[var(--border,#d4cdbf)] shadow-2xl p-3 z-50 text-xs text-[var(--ink,#1f2923)]">
+                      <div className="border-b border-[var(--border,#d4cdbf)] pb-2 mb-2">
+                        <p className="font-bold text-sm truncate">
+                          {profile?.full_name || "Canteen Operator"}
+                        </p>
+                        <p className="text-[var(--ink-light,#666)] truncate">
+                          {user.email}
+                        </p>
+                      </div>
+
+                      {organizations.length > 1 && (
+                        <div className="mb-2">
+                          <p className="font-semibold text-[10px] uppercase tracking-wider text-[var(--ink-light,#666)] mb-1">
+                            Switch Canteen
+                          </p>
+                          <div className="space-y-1">
+                            {organizations.map((org) => (
+                              <button
+                                key={org.id}
+                                type="button"
+                                onClick={() => {
+                                  setActiveOrgId(org.id);
+                                  setUserMenuOpen(false);
+                                }}
+                                className={`w-full text-left px-2 py-1.5 rounded-lg flex items-center justify-between transition ${
+                                  org.id === activeOrg?.id
+                                    ? "bg-[var(--surface-muted,#eee9de)] font-semibold text-[var(--primary,#1e4638)]"
+                                    : "hover:bg-[var(--surface-muted,#eee9de)]"
+                                }`}
+                              >
+                                <span className="truncate">{org.name}</span>
+                                <span className="text-[10px] text-[var(--ink-light,#666)] uppercase">
+                                  {org.role}
+                                </span>
+                              </button>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+
+                      <div className="pt-1 flex flex-col gap-1">
+                        <button
+                          type="button"
+                          onClick={() => {
+                            navigate("data-model");
+                            setUserMenuOpen(false);
+                          }}
+                          className="w-full text-left px-2 py-1.5 rounded-lg hover:bg-[var(--surface-muted,#eee9de)] text-[var(--ink,#1f2923)] transition flex items-center gap-1.5"
+                        >
+                          <Database size={13} />
+                          <span>Dataset & Outlets</span>
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            signOut();
+                            setUserMenuOpen(false);
+                          }}
+                          className="w-full text-left px-2 py-1.5 rounded-lg hover:bg-red-50 text-red-700 transition flex items-center gap-1.5 font-medium"
+                        >
+                          <LogOut size={13} />
+                          <span>Sign Out</span>
+                        </button>
+                      </div>
+                    </div>
+                  )}
                 </div>
-              </button>
+              ) : (
+                <MetalButton
+                  onClick={() => setAuthModalOpen(true)}
+                  className="button primary px-3 py-1.5 text-xs font-semibold flex items-center gap-1.5"
+                >
+                  <LogIn size={13} />
+                  <span>Sign In</span>
+                </MetalButton>
+              )}
             </div>
           </header>
 
@@ -597,6 +711,10 @@ export default function App() {
               setTourOpen(true);
               setMenuOpen(false);
             }}
+            onOpenAuth={() => {
+              setAuthModalOpen(true);
+              setMenuOpen(false);
+            }}
           />
         </div>
 
@@ -654,6 +772,12 @@ export default function App() {
           onNavigate={(targetPage, targetDish) =>
             navigate(targetPage, targetDish)
           }
+        />
+
+        {/* Supabase Authentication & Recovery Modal */}
+        <AuthModal
+          open={authModalOpen || recoveryMode}
+          onClose={() => setAuthModalOpen(false)}
         />
       </div>
     </MotionConfig>
