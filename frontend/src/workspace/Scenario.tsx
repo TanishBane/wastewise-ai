@@ -664,30 +664,40 @@ export default function Scenario({
                         <>
                           <div className="forecast-range">
                             <div className="range-end">
-                              <span className="bounds-label">P10 Lower Bound</span>
-                              <strong className="bounds-value danger">{forecast.lower_bound}</strong>
-                              <div className="bounds-risk">Underproduction Risk</div>
+                              <span className="bounds-label">
+                                P10 Lower Bound
+                              </span>
+                              <strong className="bounds-value danger">
+                                {forecast.lower_bound}
+                              </strong>
+                              <div className="bounds-risk">
+                                Underproduction Risk
+                              </div>
                             </div>
                             <div className="range-visual">
                               <span className="gradient-band" />
                               <i
                                 className="bounds-marker-line"
                                 style={{
-                                  left: `${forecast.upper_bound > forecast.lower_bound ? Math.max(0, Math.min(100, ((forecast.predicted_demand - forecast.lower_bound) / (forecast.upper_bound - forecast.lower_bound)) * 100)) : 50}%`
+                                  left: `${forecast.upper_bound > forecast.lower_bound ? Math.max(0, Math.min(100, ((forecast.predicted_demand - forecast.lower_bound) / (forecast.upper_bound - forecast.lower_bound)) * 100)) : 50}%`,
                                 }}
                               />
                               <strong
                                 className="bounds-marker-label"
                                 style={{
-                                  left: `${forecast.upper_bound > forecast.lower_bound ? Math.max(0, Math.min(100, ((forecast.predicted_demand - forecast.lower_bound) / (forecast.upper_bound - forecast.lower_bound)) * 100)) : 50}%`
+                                  left: `${forecast.upper_bound > forecast.lower_bound ? Math.max(0, Math.min(100, ((forecast.predicted_demand - forecast.lower_bound) / (forecast.upper_bound - forecast.lower_bound)) * 100)) : 50}%`,
                                 }}
                               >
                                 P50: {forecast.predicted_demand}
                               </strong>
                             </div>
                             <div className="range-end">
-                              <span className="bounds-label">P90 Upper Bound</span>
-                              <strong className="bounds-value warning">{forecast.upper_bound}</strong>
+                              <span className="bounds-label">
+                                P90 Upper Bound
+                              </span>
+                              <strong className="bounds-value warning">
+                                {forecast.upper_bound}
+                              </strong>
                               <div className="bounds-risk">Food Waste Risk</div>
                             </div>
                           </div>
@@ -836,9 +846,7 @@ export default function Scenario({
         <PrintKitchenSheet
           open={printModalOpen}
           onClose={() => setPrintModalOpen(false)}
-          serviceDate={
-            config.latest_date || new Date().toISOString().slice(0, 10)
-          }
+          serviceDate={config.latest_date || "2024-10-24"}
           singlePlan={{
             item,
             category: cfg?.category,

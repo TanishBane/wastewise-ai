@@ -6552,7 +6552,12 @@ html[data-interaction="keyboard"] .button:active:not(:disabled) {
 .forecast-range .range-visual .gradient-band {
   position: absolute;
   inset: 0;
-  background: linear-gradient(90deg, var(--danger-pale) 0%, var(--green-pale) 50%, var(--warning-pale) 100%);
+  background: linear-gradient(
+    90deg,
+    var(--danger-pale) 0%,
+    var(--green-pale) 50%,
+    var(--warning-pale) 100%
+  );
   border-radius: inherit;
 }
 
