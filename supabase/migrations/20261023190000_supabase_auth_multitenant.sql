@@ -174,6 +174,148 @@ AS $$
   );
 $$;
 
+CREATE OR REPLACE FUNCTION public.is_org_owner(org_id UUID)
+RETURNS BOOLEAN
+LANGUAGE sql
+SECURITY DEFINER
+SET search_path = ''
+STABLE
+AS $$
+  SELECT EXISTS (
+    SELECT 1 FROM public.organization_members
+    WHERE organization_id = org_id
+      AND user_id = (SELECT auth.uid())
+      AND role = 'owner'
+  );
+$$;
+
+-- Trusted organization provisioning function (prevents client-forged roles)
+CREATE OR REPLACE FUNCTION public.create_organization(org_name TEXT, org_slug TEXT DEFAULT NULL)
+RETURNS UUID
+LANGUAGE plpgsql
+SECURITY DEFINER
+SET search_path = ''
+AS $$
+DECLARE
+  calling_user_id UUID;
+  new_org_id UUID;
+  computed_slug TEXT;
+BEGIN
+  calling_user_id := (SELECT auth.uid());
+  IF calling_user_id IS NULL THEN
+    RAISE EXCEPTION 'Authentication required to create an organization';
+  END IF;
+
+  IF org_name IS NULL OR length(trim(org_name)) = 0 THEN
+    RAISE EXCEPTION 'Organization name cannot be empty';
+  END IF;
+
+  IF org_slug IS NULL OR length(trim(org_slug)) = 0 THEN
+    computed_slug := 'org-' || substr(calling_user_id::text, 1, 8) || '-' || extract(epoch from clock_timestamp())::bigint;
+  ELSE
+    computed_slug := lower(regexp_replace(trim(org_slug), '[^a-zA-Z0-9\-]', '-', 'g'));
+  END IF;
+
+  INSERT INTO public.organizations (name, slug)
+  VALUES (trim(org_name), computed_slug)
+  RETURNING id INTO new_org_id;
+
+  INSERT INTO public.organization_members (organization_id, user_id, role)
+  VALUES (new_org_id, calling_user_id, 'owner');
+
+  -- Seed initial standard canteen menu items
+  INSERT INTO public.menu_items (organization_id, name, category, cost_price, selling_price, prep_time_min, prep_batch_size, shelf_life_hours, base_demand)
+  VALUES
+    (new_org_id, 'Pav Bhaji', 'Lunch / Snack', 35.0, 80.0, 30, 20, 4.0, 50.0),
+    (new_org_id, 'Idli Sambar', 'Breakfast / Light', 22.0, 50.0, 20, 25, 3.0, 40.0),
+    (new_org_id, 'Veg Thali', 'Lunch Meals', 65.0, 140.0, 45, 15, 3.5, 45.0),
+    (new_org_id, 'Veg Grilled Sandwich', 'Snack', 28.0, 70.0, 15, 15, 2.0, 35.0),
+    (new_org_id, 'Masala Dosa', 'Breakfast / Snack', 30.0, 75.0, 25, 20, 2.5, 45.0),
+    (new_org_id, 'Chole Bhature', 'Lunch / Special', 45.0, 110.0, 40, 18, 3.0, 40.0),
+    (new_org_id, 'Poha', 'Breakfast', 18.0, 40.0, 15, 30, 3.0, 35.0),
+    (new_org_id, 'Rajma Rice Bowl', 'Lunch Meals', 40.0, 95.0, 35, 20, 4.0, 42.0)
+  ON CONFLICT DO NOTHING;
+
+  RETURN new_org_id;
+END;
+$$;
+
+-- Privacy-conscious member directory function: exposes name/avatar to teammates without exposing full profiles
+CREATE OR REPLACE FUNCTION public.get_organization_members(target_org_id UUID)
+RETURNS TABLE (
+    user_id UUID,
+    role TEXT,
+    full_name TEXT,
+    avatar_url TEXT,
+    joined_at TIMESTAMPTZ
+)
+LANGUAGE sql
+SECURITY DEFINER
+SET search_path = ''
+STABLE
+AS $$
+  SELECT 
+    m.user_id,
+    m.role,
+    p.full_name,
+    p.avatar_url,
+    m.created_at AS joined_at
+  FROM public.organization_members m
+  JOIN public.user_profiles p ON p.id = m.user_id
+  WHERE m.organization_id = target_org_id
+    AND EXISTS (
+      SELECT 1 FROM public.organization_members self_m
+      WHERE self_m.organization_id = target_org_id
+        AND self_m.user_id = (SELECT auth.uid())
+    );
+$$;
+
+-- Trigger function preventing cross-organization ownership/data reassignment
+CREATE OR REPLACE FUNCTION public.prevent_organization_transfer()
+RETURNS TRIGGER
+LANGUAGE plpgsql
+SECURITY DEFINER
+SET search_path = ''
+AS $$
+BEGIN
+  IF NEW.organization_id <> OLD.organization_id THEN
+    RAISE EXCEPTION 'Transferring records across organizations is strictly prohibited';
+  END IF;
+  RETURN NEW;
+END;
+$$;
+
+-- Attach anti-transfer triggers across all tenant-scoped tables
+DROP TRIGGER IF EXISTS trg_prevent_transfer_org_members ON public.organization_members;
+CREATE TRIGGER trg_prevent_transfer_org_members
+  BEFORE UPDATE ON public.organization_members
+  FOR EACH ROW EXECUTE FUNCTION public.prevent_organization_transfer();
+
+DROP TRIGGER IF EXISTS trg_prevent_transfer_menu_items ON public.menu_items;
+CREATE TRIGGER trg_prevent_transfer_menu_items
+  BEFORE UPDATE ON public.menu_items
+  FOR EACH ROW EXECUTE FUNCTION public.prevent_organization_transfer();
+
+DROP TRIGGER IF EXISTS trg_prevent_transfer_actual_outcomes ON public.actual_outcomes;
+CREATE TRIGGER trg_prevent_transfer_actual_outcomes
+  BEFORE UPDATE ON public.actual_outcomes
+  FOR EACH ROW EXECUTE FUNCTION public.prevent_organization_transfer();
+
+DROP TRIGGER IF EXISTS trg_prevent_transfer_prep_plans ON public.preparation_plans;
+CREATE TRIGGER trg_prevent_transfer_prep_plans
+  BEFORE UPDATE ON public.preparation_plans
+  FOR EACH ROW EXECUTE FUNCTION public.prevent_organization_transfer();
+
+DROP TRIGGER IF EXISTS trg_prevent_transfer_forecast_runs ON public.forecast_runs;
+CREATE TRIGGER trg_prevent_transfer_forecast_runs
+  BEFORE UPDATE ON public.forecast_runs
+  FOR EACH ROW EXECUTE FUNCTION public.prevent_organization_transfer();
+
+DROP TRIGGER IF EXISTS trg_prevent_transfer_upload_history ON public.upload_history;
+CREATE TRIGGER trg_prevent_transfer_upload_history
+  BEFORE UPDATE ON public.upload_history
+  FOR EACH ROW EXECUTE FUNCTION public.prevent_organization_transfer();
+
 -- 12. Enable Row Level Security on ALL tables
 ALTER TABLE public.organizations ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.organizations FORCE ROW LEVEL SECURITY;
@@ -207,19 +349,15 @@ CREATE POLICY "org_select_member" ON public.organizations
         WHERE user_id = (SELECT auth.uid())
     ));
 
-CREATE POLICY "org_insert_authenticated" ON public.organizations
-    FOR INSERT TO authenticated
-    WITH CHECK (true);
-
 CREATE POLICY "org_update_admin" ON public.organizations
     FOR UPDATE TO authenticated
     USING (public.is_org_admin(id))
     WITH CHECK (public.is_org_admin(id));
 
--- 14. RLS Policies: User Profiles
-CREATE POLICY "profile_select_authenticated" ON public.user_profiles
+-- 14. RLS Policies: User Profiles (Strict Self-Only Isolation)
+CREATE POLICY "profile_select_self" ON public.user_profiles
     FOR SELECT TO authenticated
-    USING (true);
+    USING ((SELECT auth.uid()) = id);
 
 CREATE POLICY "profile_insert_self" ON public.user_profiles
     FOR INSERT TO authenticated
@@ -235,23 +373,44 @@ CREATE POLICY "org_members_select" ON public.organization_members
     FOR SELECT TO authenticated
     USING (public.is_org_member(organization_id));
 
+-- Prevents self-joining and privilege self-escalation:
+-- Only existing admins can insert members; only owners can invite admins or owners.
 CREATE POLICY "org_members_insert" ON public.organization_members
     FOR INSERT TO authenticated
     WITH CHECK (
-        public.is_org_admin(organization_id) OR
-        (user_id = (SELECT auth.uid()))
+        public.is_org_admin(organization_id)
+        AND (
+            role = 'member'
+            OR (role IN ('admin', 'owner') AND public.is_org_owner(organization_id))
+        )
     );
 
+-- Enforces role change authorization over both existing and resulting membership:
+-- Admins can update member roles; only owners can promote/demote admins or owners.
 CREATE POLICY "org_members_update" ON public.organization_members
     FOR UPDATE TO authenticated
-    USING (public.is_org_admin(organization_id))
-    WITH CHECK (public.is_org_admin(organization_id));
+    USING (
+        public.is_org_admin(organization_id)
+        AND (
+            public.is_org_owner(organization_id)
+            OR role = 'member'
+        )
+    )
+    WITH CHECK (
+        public.is_org_admin(organization_id)
+        AND (
+            public.is_org_owner(organization_id)
+            OR role = 'member'
+        )
+    );
 
+-- Delete policy: Admins can remove members; Owners can remove anyone except self; Members can leave themselves (unless owner)
 CREATE POLICY "org_members_delete" ON public.organization_members
     FOR DELETE TO authenticated
     USING (
-        public.is_org_admin(organization_id) OR
-        (user_id = (SELECT auth.uid()))
+        (user_id = (SELECT auth.uid()) AND role <> 'owner')
+        OR (public.is_org_owner(organization_id) AND user_id <> (SELECT auth.uid()))
+        OR (public.is_org_admin(organization_id) AND role = 'member')
     );
 
 -- 16. RLS Policies: Menu Items
@@ -266,7 +425,7 @@ CREATE POLICY "menu_items_insert" ON public.menu_items
 CREATE POLICY "menu_items_update" ON public.menu_items
     FOR UPDATE TO authenticated
     USING (public.is_org_admin(organization_id))
-    WITH CHECK (public.is_org_member(organization_id));
+    WITH CHECK (public.is_org_admin(organization_id));
 
 CREATE POLICY "menu_items_delete" ON public.menu_items
     FOR DELETE TO authenticated
@@ -287,10 +446,13 @@ CREATE POLICY "actual_outcomes_insert" ON public.actual_outcomes
 CREATE POLICY "actual_outcomes_update" ON public.actual_outcomes
     FOR UPDATE TO authenticated
     USING (
-        public.is_org_admin(organization_id) OR
-        (user_id = (SELECT auth.uid()))
+        public.is_org_member(organization_id) AND
+        (public.is_org_admin(organization_id) OR user_id = (SELECT auth.uid()))
     )
-    WITH CHECK (public.is_org_member(organization_id));
+    WITH CHECK (
+        public.is_org_member(organization_id) AND
+        (public.is_org_admin(organization_id) OR user_id = (SELECT auth.uid()))
+    );
 
 CREATE POLICY "actual_outcomes_delete" ON public.actual_outcomes
     FOR DELETE TO authenticated
@@ -308,7 +470,7 @@ CREATE POLICY "prep_plans_insert" ON public.preparation_plans
 CREATE POLICY "prep_plans_update" ON public.preparation_plans
     FOR UPDATE TO authenticated
     USING (public.is_org_admin(organization_id))
-    WITH CHECK (public.is_org_member(organization_id));
+    WITH CHECK (public.is_org_admin(organization_id));
 
 CREATE POLICY "prep_plans_delete" ON public.preparation_plans
     FOR DELETE TO authenticated
@@ -339,7 +501,7 @@ CREATE POLICY "upload_history_insert" ON public.upload_history
 CREATE POLICY "upload_history_update" ON public.upload_history
     FOR UPDATE TO authenticated
     USING (public.is_org_admin(organization_id))
-    WITH CHECK (public.is_org_member(organization_id));
+    WITH CHECK (public.is_org_admin(organization_id));
 
 -- 21. Automatic New User Setup Trigger
 CREATE OR REPLACE FUNCTION public.handle_new_user()
@@ -366,7 +528,7 @@ BEGIN
   INSERT INTO public.organizations (name, slug)
   VALUES (
     COALESCE(NEW.raw_user_meta_data->>'canteen_name', split_part(NEW.email, '@', 1) || '''s Canteen'),
-    'org-' || substr(NEW.id::text, 1, 8) || '-' || extract(epoch from now())::bigint
+    'org-' || substr(NEW.id::text, 1, 8) || '-' || extract(epoch from clock_timestamp())::bigint
   )
   RETURNING id INTO default_org_id;
 
@@ -400,15 +562,27 @@ CREATE TRIGGER on_auth_user_created
 -- 22. Explicit Least-Privilege Grants
 GRANT USAGE ON SCHEMA public TO anon, authenticated;
 
--- Authenticated role permissions
-GRANT SELECT ON public.organizations TO authenticated;
-GRANT INSERT, UPDATE ON public.organizations TO authenticated;
+-- Organizations: Authenticated users can read their orgs and update if admin.
+-- Creation is restricted to trusted function `create_organization` or `handle_new_user` trigger.
+GRANT SELECT, UPDATE ON public.organizations TO authenticated;
 
+-- User Profiles: Self read and write
 GRANT SELECT, INSERT, UPDATE ON public.user_profiles TO authenticated;
 
+-- Organization Members: Managed via admin/owner policies
 GRANT SELECT, INSERT, UPDATE, DELETE ON public.organization_members TO authenticated;
+
+-- Operational data tables
 GRANT SELECT, INSERT, UPDATE, DELETE ON public.menu_items TO authenticated;
 GRANT SELECT, INSERT, UPDATE, DELETE ON public.actual_outcomes TO authenticated;
 GRANT SELECT, INSERT, UPDATE, DELETE ON public.preparation_plans TO authenticated;
 GRANT SELECT, INSERT, DELETE ON public.forecast_runs TO authenticated;
 GRANT SELECT, INSERT, UPDATE ON public.upload_history TO authenticated;
+
+-- Function execution grants
+REVOKE EXECUTE ON ALL FUNCTIONS IN SCHEMA public FROM PUBLIC, anon;
+GRANT EXECUTE ON FUNCTION public.is_org_member(UUID) TO authenticated;
+GRANT EXECUTE ON FUNCTION public.is_org_admin(UUID) TO authenticated;
+GRANT EXECUTE ON FUNCTION public.is_org_owner(UUID) TO authenticated;
+GRANT EXECUTE ON FUNCTION public.create_organization(TEXT, TEXT) TO authenticated;
+GRANT EXECUTE ON FUNCTION public.get_organization_members(UUID) TO authenticated;
