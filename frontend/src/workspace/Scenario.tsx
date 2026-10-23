@@ -648,7 +648,7 @@ export default function Scenario({
                               title="Print preparation sheet for this dish"
                             >
                               <Printer size={16} />
-                              Print prep sheet
+                              Print Prep Sheet (PDF)
                             </MetalButton>
                             <span className="muted">
                               Review in the kitchen before use.
@@ -664,27 +664,31 @@ export default function Scenario({
                         <>
                           <div className="forecast-range">
                             <div className="range-end">
-                              <span>Lower estimate</span>
-                              <strong>{forecast.lower_bound}</strong>
+                              <span className="bounds-label">P10 Lower Bound</span>
+                              <strong className="bounds-value danger">{forecast.lower_bound}</strong>
+                              <div className="bounds-risk">Underproduction Risk</div>
                             </div>
                             <div className="range-visual">
-                              <span />
+                              <span className="gradient-band" />
                               <i
+                                className="bounds-marker-line"
                                 style={{
-                                  left: `${forecast.upper_bound > forecast.lower_bound ? Math.max(0, Math.min(100, ((forecast.predicted_demand - forecast.lower_bound) / (forecast.upper_bound - forecast.lower_bound)) * 100)) : 50}%`,
+                                  left: `${forecast.upper_bound > forecast.lower_bound ? Math.max(0, Math.min(100, ((forecast.predicted_demand - forecast.lower_bound) / (forecast.upper_bound - forecast.lower_bound)) * 100)) : 50}%`
                                 }}
                               />
                               <strong
+                                className="bounds-marker-label"
                                 style={{
-                                  left: `${forecast.upper_bound > forecast.lower_bound ? Math.max(0, Math.min(100, ((forecast.predicted_demand - forecast.lower_bound) / (forecast.upper_bound - forecast.lower_bound)) * 100)) : 50}%`,
+                                  left: `${forecast.upper_bound > forecast.lower_bound ? Math.max(0, Math.min(100, ((forecast.predicted_demand - forecast.lower_bound) / (forecast.upper_bound - forecast.lower_bound)) * 100)) : 50}%`
                                 }}
                               >
-                                {forecast.predicted_demand}
+                                P50: {forecast.predicted_demand}
                               </strong>
                             </div>
                             <div className="range-end">
-                              <span>Upper estimate</span>
-                              <strong>{forecast.upper_bound}</strong>
+                              <span className="bounds-label">P90 Upper Bound</span>
+                              <strong className="bounds-value warning">{forecast.upper_bound}</strong>
+                              <div className="bounds-risk">Food Waste Risk</div>
                             </div>
                           </div>
                           <p className="panel-caption">
@@ -732,11 +736,11 @@ export default function Scenario({
                           >
                             <dl className="key-values">
                               <div>
-                                <dt>Potential surplus</dt>
+                                <dt>Surplus waste risk</dt>
                                 <dd>{plan.wastewise_expected_surplus}</dd>
                               </div>
                               <div>
-                                <dt>Unmet demand</dt>
+                                <dt>Stockout risk</dt>
                                 <dd>{plan.wastewise_expected_shortage}</dd>
                               </div>
                               <div>

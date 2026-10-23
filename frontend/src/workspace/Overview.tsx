@@ -328,7 +328,7 @@ export default function Overview({ revision, navigate }: ScreenProps) {
               title="Open printable kitchen preparation sheet"
             >
               <Printer size={14} />
-              Print prep sheet
+              Print Prep Sheet (PDF)
             </MetalButton>
           </div>
         </div>
