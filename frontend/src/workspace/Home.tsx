@@ -1,15 +1,12 @@
 import {
   Activity,
   ArrowRight,
-  BarChart3,
   Check,
-  ChefHat,
   Clock,
   Leaf,
   ShieldCheck,
   Sprout,
   TrendingUp,
-  TriangleAlert,
 } from "lucide-react";
 import {
   motion,
@@ -27,6 +24,9 @@ import {
   StaggerItem,
 } from "../motion";
 import type { Navigate } from "./model";
+import CanteenSimulator from "./CanteenSimulator";
+import CanteenBentoGrid from "./CanteenBentoGrid";
+import CanteenWorkflowGallery from "./CanteenWorkflowGallery";
 
 export default function Home({ navigate }: { navigate: Navigate }) {
   const shouldReduceMotion = useReducedMotion();
@@ -63,9 +63,11 @@ export default function Home({ navigate }: { navigate: Navigate }) {
                   }
             }
           >
-            <Sprout size={14} className="kicker-sprout" />
+            <Sprout size={14} className="kicker-sprout" aria-hidden="true" />
             <span>A calmer way to run the canteen</span>
-            <span className="kicker-divider">·</span>
+            <span className="kicker-divider" aria-hidden="true">
+              ·
+            </span>
             <span className="kicker-tag">ADAPPT 5.0</span>
           </motion.div>
 
@@ -127,14 +129,14 @@ export default function Home({ navigate }: { navigate: Navigate }) {
                 onClick={() => navigate("data-model")}
               >
                 Add your workplace
-                <ArrowRight size={16} />
+                <ArrowRight size={16} aria-hidden="true" />
               </MetalButton>
               <MetalButton
                 className="button"
                 onClick={() => navigate("overview")}
               >
                 Explore demo workspace
-                <ArrowRight size={16} />
+                <ArrowRight size={16} aria-hidden="true" />
               </MetalButton>
             </motion.div>
 
@@ -163,7 +165,7 @@ export default function Home({ navigate }: { navigate: Navigate }) {
                 }}
               >
                 See how the system works
-                <ArrowRight size={14} />
+                <ArrowRight size={14} aria-hidden="true" />
               </a>
 
               <div
@@ -190,6 +192,13 @@ export default function Home({ navigate }: { navigate: Navigate }) {
                 >
                   <strong>₹887</strong>
                   <span>demo exposure</span>
+                </span>
+                <span
+                  className="stat-pill"
+                  title="Average food waste reduction: -34%"
+                >
+                  <strong>-34%</strong>
+                  <span>waste cut</span>
                 </span>
               </div>
             </motion.div>
@@ -224,7 +233,9 @@ export default function Home({ navigate }: { navigate: Navigate }) {
                   </strong>
                   <div className="hud-service-tags">
                     <span className="hud-service-type">Lunch Service</span>
-                    <span className="hud-service-sep">·</span>
+                    <span className="hud-service-sep" aria-hidden="true">
+                      ·
+                    </span>
                     <span className="hud-service-status">
                       Active Operating Schedule
                     </span>
@@ -343,6 +354,7 @@ export default function Home({ navigate }: { navigate: Navigate }) {
                 </div>
               </div>
               <button
+                type="button"
                 className="hud-quick-link"
                 onClick={() => navigate("overview")}
                 aria-label="Open Kitchen Overview"
@@ -364,7 +376,7 @@ export default function Home({ navigate }: { navigate: Navigate }) {
         <StaggerItem>
           <div className="proof-card">
             <div className="proof-header">
-              <span className="proof-icon-pill">
+              <span className="proof-icon-pill" aria-hidden="true">
                 <Activity size={18} />
               </span>
               <strong>Unified Kitchen Telemetry</strong>
@@ -378,7 +390,7 @@ export default function Home({ navigate }: { navigate: Navigate }) {
         <StaggerItem>
           <div className="proof-card">
             <div className="proof-header">
-              <span className="proof-icon-pill">
+              <span className="proof-icon-pill" aria-hidden="true">
                 <TrendingUp size={18} />
               </span>
               <strong>Newsvendor Optimization</strong>
@@ -392,7 +404,7 @@ export default function Home({ navigate }: { navigate: Navigate }) {
         <StaggerItem>
           <div className="proof-card">
             <div className="proof-header">
-              <span className="proof-icon-pill">
+              <span className="proof-icon-pill" aria-hidden="true">
                 <ShieldCheck size={18} />
               </span>
               <strong>Human Judgment Preserved</strong>
@@ -405,7 +417,48 @@ export default function Home({ navigate }: { navigate: Navigate }) {
         </StaggerItem>
       </StaggerGroup>
 
-      {/* How It Works: Interactive 3-Step Kitchen Rhythm */}
+      {/* Interactive 21st.dev Canteen Simulator Section */}
+      <section className="home-section" id="home-simulator">
+        <ScrollReveal
+          className="home-section-heading"
+          direction="up"
+          distance={16}
+        >
+          <span className="home-eyebrow">Interactive Operating Simulator</span>
+          <h2>Experience the math before firing the stoves.</h2>
+          <p>
+            Simulate how daily campus attendance swings and weather conditions
+            recalibrate the Newsvendor two-batch hedge in real time.
+          </p>
+        </ScrollReveal>
+
+        <ScrollReveal direction="up" distance={16} threshold={0.08}>
+          <CanteenSimulator navigate={navigate} />
+        </ScrollReveal>
+      </section>
+
+      {/* 21st.dev Bento Grid Feature Showcase with Authentic Photography */}
+      <section className="home-section" id="home-capabilities">
+        <ScrollReveal
+          className="home-section-heading"
+          direction="up"
+          distance={16}
+        >
+          <span className="home-eyebrow">Institutional Scale Engine</span>
+          <h2>Built for the speed and heat of real kitchens.</h2>
+          <p>
+            Four operational pillars designed to eliminate overproduction,
+            protect operating margins, and route unavoidable surplus before food
+            cools.
+          </p>
+        </ScrollReveal>
+
+        <ScrollReveal direction="up" distance={16} threshold={0.08}>
+          <CanteenBentoGrid navigate={navigate} />
+        </ScrollReveal>
+      </section>
+
+      {/* How It Works: Interactive 4-Step Canteen Workflow Gallery */}
       <section className="home-section" id="home-how-it-works">
         <ScrollReveal
           className="home-section-heading"
@@ -421,71 +474,9 @@ export default function Home({ navigate }: { navigate: Navigate }) {
           </p>
         </ScrollReveal>
 
-        <StaggerGroup
-          className="home-steps"
-          staggerDelay={0.1}
-          delayChildren={0.08}
-        >
-          <StaggerItem className="home-step-item">
-            <article className="home-step">
-              <div className="step-badge-row">
-                <span className="home-step-number">01</span>
-                <span className="step-tag">Signals</span>
-              </div>
-              <div className="step-icon-wrap">
-                <BarChart3 size={24} />
-              </div>
-              <h3>See demand clearly</h3>
-              <p>
-                Point forecasts paired with 80% uncertainty bounds across all
-                menu items, calibrated against weather and campus calendar.
-              </p>
-              <button onClick={() => navigate("demand-forecast")}>
-                Explore forecasts <ArrowRight size={14} />
-              </button>
-            </article>
-          </StaggerItem>
-
-          <StaggerItem className="home-step-item">
-            <article className="home-step home-step-featured">
-              <div className="step-badge-row">
-                <span className="home-step-number">02</span>
-                <span className="step-tag highlight">Core Engine</span>
-              </div>
-              <div className="step-icon-wrap">
-                <ChefHat size={24} />
-              </div>
-              <h3>Prepare with intent</h3>
-              <p>
-                Translate demand into an initial prep target, safety stock, and
-                replenishment triggers that prevent mid-service runouts.
-              </p>
-              <button onClick={() => navigate("prep-planner")}>
-                Build a plan <ArrowRight size={14} />
-              </button>
-            </article>
-          </StaggerItem>
-
-          <StaggerItem className="home-step-item">
-            <article className="home-step">
-              <div className="step-badge-row">
-                <span className="home-step-number">03</span>
-                <span className="step-tag">Sustainability</span>
-              </div>
-              <div className="step-icon-wrap">
-                <TriangleAlert size={24} />
-              </div>
-              <h3>Rescue what matters</h3>
-              <p>
-                Identify potential surplus dishes before service ends, routing
-                extra portions to campus cafeteria or NGO donation channels.
-              </p>
-              <button onClick={() => navigate("waste-risk")}>
-                Review surplus <ArrowRight size={14} />
-              </button>
-            </article>
-          </StaggerItem>
-        </StaggerGroup>
+        <ScrollReveal direction="up" distance={16} threshold={0.08}>
+          <CanteenWorkflowGallery navigate={navigate} />
+        </ScrollReveal>
       </section>
 
       {/* Evidence & Integrity Section */}
@@ -497,7 +488,7 @@ export default function Home({ navigate }: { navigate: Navigate }) {
         >
           <div className="home-evidence-mark">
             <div className="evidence-badge-icon">
-              <ShieldCheck size={28} />
+              <ShieldCheck size={28} aria-hidden="true" />
             </div>
             <strong>Built for transparent decisions</strong>
             <p>
@@ -524,7 +515,7 @@ export default function Home({ navigate }: { navigate: Navigate }) {
             </p>
             <ul className="evidence-checklist">
               <li>
-                <span className="check-bullet">
+                <span className="check-bullet" aria-hidden="true">
                   <Check size={14} />
                 </span>
                 <span>
@@ -533,7 +524,7 @@ export default function Home({ navigate }: { navigate: Navigate }) {
                 </span>
               </li>
               <li>
-                <span className="check-bullet">
+                <span className="check-bullet" aria-hidden="true">
                   <Check size={14} />
                 </span>
                 <span>
@@ -542,7 +533,7 @@ export default function Home({ navigate }: { navigate: Navigate }) {
                 </span>
               </li>
               <li>
-                <span className="check-bullet">
+                <span className="check-bullet" aria-hidden="true">
                   <Check size={14} />
                 </span>
                 <span>
@@ -552,10 +543,12 @@ export default function Home({ navigate }: { navigate: Navigate }) {
               </li>
             </ul>
             <button
+              type="button"
               className="home-text-link"
               onClick={() => navigate("transparency")}
             >
-              Read model transparency notes <ArrowRight size={15} />
+              Read model transparency notes{" "}
+              <ArrowRight size={15} aria-hidden="true" />
             </button>
           </div>
         </ScrollReveal>
@@ -566,7 +559,7 @@ export default function Home({ navigate }: { navigate: Navigate }) {
         <section className="home-end">
           <div className="home-end-content">
             <span className="home-end-eyebrow">
-              <Leaf size={14} />
+              <Leaf size={14} aria-hidden="true" />
               Ready when your kitchen is
             </span>
             <h2>Bring your workplace into focus.</h2>
@@ -580,14 +573,14 @@ export default function Home({ navigate }: { navigate: Navigate }) {
                 onClick={() => navigate("data-model")}
               >
                 Add your workplace data
-                <ArrowRight size={16} />
+                <ArrowRight size={16} aria-hidden="true" />
               </MetalButton>
               <MetalButton
                 className="button"
                 onClick={() => navigate("overview")}
               >
                 Launch demo canteen
-                <ArrowRight size={16} />
+                <ArrowRight size={16} aria-hidden="true" />
               </MetalButton>
             </div>
           </div>
