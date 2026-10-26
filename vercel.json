@@ -1,0 +1,49 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "services": {
+    "wastewise-api": {
+      "root": ".",
+      "framework": "fastapi",
+      "entrypoint": "backend/main:app",
+      "buildCommand": "pip install -r requirements.txt"
+    },
+    "frontend": {
+      "root": "frontend",
+      "framework": "vite",
+      "bindings": [
+        {
+          "type": "service",
+          "service": "wastewise-api",
+          "format": "url",
+          "env": "WASTEWISE_API_URL"
+        }
+      ]
+    }
+  },
+  "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": {
+        "service": "wastewise-api"
+      }
+    },
+    {
+      "source": "/docs",
+      "destination": {
+        "service": "wastewise-api"
+      }
+    },
+    {
+      "source": "/openapi.json",
+      "destination": {
+        "service": "wastewise-api"
+      }
+    },
+    {
+      "source": "/(.*)",
+      "destination": {
+        "service": "frontend"
+      }
+    }
+  ]
+}
