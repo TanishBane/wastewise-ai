@@ -57,9 +57,26 @@ def test_public_health_endpoint():
 
 def test_missing_token_on_protected_endpoint():
     """Protected endpoints return 401 when Authorization header is missing."""
-    res = client.get("/api/overview")
+    res = client.get("/api/auth/me")
     assert res.status_code == 401
     assert "Missing Authorization" in res.json()["detail"]
+
+
+def test_unauthenticated_demo_canteen_access():
+    """Unauthenticated users can read public demo canteen operational data."""
+    res = client.get("/api/overview")
+    assert res.status_code == 200
+    assert "item_details" in res.json()
+
+
+def test_unauthenticated_private_org_access_blocked():
+    """Unauthenticated users cannot read private tenant data."""
+    res = client.get(
+        "/api/overview",
+        headers={"X-Organization-Id": str(uuid.uuid4())},
+    )
+    assert res.status_code == 401
+    assert "Authentication required" in res.json()["detail"]
 
 
 def test_invalid_token_signature():

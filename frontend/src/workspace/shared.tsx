@@ -286,6 +286,11 @@ export function ErrorState({
   message: string;
   retry: () => void;
 }) {
+  const isLocal =
+    typeof window !== "undefined" &&
+    (window.location.hostname === "localhost" ||
+      window.location.hostname === "127.0.0.1");
+
   return (
     <div className="error-state" role="alert">
       <AlertCircle size={24} />
@@ -296,7 +301,9 @@ export function ErrorState({
         Try again
       </MetalButton>
       <span className="muted">
-        Check that the backend is running on port 8000.
+        {isLocal
+          ? "Check that the backend is running on port 8000."
+          : "Please check your network connection or try refreshing the view."}
       </span>
     </div>
   );

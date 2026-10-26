@@ -36,8 +36,10 @@ from backend.auth import (
     OrgContext,
     UserIdentity,
     get_current_user,
+    get_current_user_or_demo,
     get_optional_user,
     require_tenant_context,
+    require_tenant_context_or_demo,
 )
 from backend.database import get_db, get_db_context, init_db, reset_demo_catalog
 from backend.models import (
@@ -425,8 +427,8 @@ def _resolve_context(user: Any, org: Any):
 
 @app.get("/api/overview")
 def get_overview(
-    user: Any = Depends(get_current_user),
-    org: Any = Depends(require_tenant_context),
+    user: Any = Depends(get_current_user_or_demo),
+    org: Any = Depends(require_tenant_context_or_demo),
 ):
     user, org = _resolve_context(user, org)
     tenant_state = org_state_registry.get_state(org.organization_id)
@@ -441,8 +443,8 @@ def get_overview(
 @app.post("/api/forecast")
 def predict_forecast(
     req: ForecastScenarioRequest,
-    user: Any = Depends(get_current_user),
-    org: Any = Depends(require_tenant_context),
+    user: Any = Depends(get_current_user_or_demo),
+    org: Any = Depends(require_tenant_context_or_demo),
 ):
     user, org = _resolve_context(user, org)
     tenant_state = org_state_registry.get_state(org.organization_id)
@@ -463,8 +465,8 @@ def predict_forecast(
 @app.get("/api/forecast/history")
 def get_forecast_history(
     limit: int = 50,
-    user: Any = Depends(get_current_user),
-    org: Any = Depends(require_tenant_context),
+    user: Any = Depends(get_current_user_or_demo),
+    org: Any = Depends(require_tenant_context_or_demo),
 ):
     user, org = _resolve_context(user, org)
     return forecasting_service.get_forecast_history(
@@ -476,8 +478,8 @@ def get_forecast_history(
 @app.post("/api/plan")
 def create_preparation_plan(
     req: PreparationPlanRequest,
-    user: Any = Depends(get_current_user),
-    org: Any = Depends(require_tenant_context),
+    user: Any = Depends(get_current_user_or_demo),
+    org: Any = Depends(require_tenant_context_or_demo),
 ):
     user, org = _resolve_context(user, org)
     tenant_state = org_state_registry.get_state(org.organization_id)
@@ -501,8 +503,8 @@ def create_preparation_plan(
 @app.get("/api/plan/history")
 def get_plan_history(
     limit: int = 50,
-    user: Any = Depends(get_current_user),
-    org: Any = Depends(require_tenant_context),
+    user: Any = Depends(get_current_user_or_demo),
+    org: Any = Depends(require_tenant_context_or_demo),
 ):
     user, org = _resolve_context(user, org)
     return planning_service.get_recent_plans(
@@ -515,8 +517,8 @@ def get_plan_history(
 @app.get("/api/rescue", include_in_schema=False)
 def get_waste_risks(
     risk_tier: Optional[str] = None,
-    user: Any = Depends(get_current_user),
-    org: Any = Depends(require_tenant_context),
+    user: Any = Depends(get_current_user_or_demo),
+    org: Any = Depends(require_tenant_context_or_demo),
 ):
     user, org = _resolve_context(user, org)
     tenant_state = org_state_registry.get_state(org.organization_id)
@@ -530,8 +532,8 @@ def get_waste_risks(
 
 @app.get("/api/performance")
 def get_performance(
-    user: Any = Depends(get_current_user),
-    org: Any = Depends(require_tenant_context),
+    user: Any = Depends(get_current_user_or_demo),
+    org: Any = Depends(require_tenant_context_or_demo),
 ):
     user, org = _resolve_context(user, org)
     tenant_state = org_state_registry.get_state(org.organization_id)
@@ -563,8 +565,8 @@ def get_monitoring_drift():
 @app.post("/api/outcomes")
 def record_outcome(
     req: ActualOutcomeRequest,
-    user: Any = Depends(get_current_user),
-    org: Any = Depends(require_tenant_context),
+    user: Any = Depends(get_current_user_or_demo),
+    org: Any = Depends(require_tenant_context_or_demo),
 ):
     user, org = _resolve_context(user, org)
     return reporting_service.record_outcome(
@@ -589,8 +591,8 @@ def get_outcomes(
     service_date: Optional[str] = None,
     menu_item: Optional[str] = None,
     limit: int = 100,
-    user: Any = Depends(get_current_user),
-    org: Any = Depends(require_tenant_context),
+    user: Any = Depends(get_current_user_or_demo),
+    org: Any = Depends(require_tenant_context_or_demo),
 ):
     user, org = _resolve_context(user, org)
     return reporting_service.get_outcomes(
@@ -603,8 +605,8 @@ def get_outcomes(
 
 @app.get("/api/data")
 def get_data_info(
-    user: Any = Depends(get_current_user),
-    org: Any = Depends(require_tenant_context),
+    user: Any = Depends(get_current_user_or_demo),
+    org: Any = Depends(require_tenant_context_or_demo),
 ):
     user, org = _resolve_context(user, org)
     tenant_state = org_state_registry.get_state(org.organization_id)
@@ -645,8 +647,8 @@ def download_csv_template():
 @app.post("/api/data/upload")
 async def upload_csv(
     file: UploadFile = File(...),
-    user: Any = Depends(get_current_user),
-    org: Any = Depends(require_tenant_context),
+    user: Any = Depends(get_current_user_or_demo),
+    org: Any = Depends(require_tenant_context_or_demo),
 ):
     user, org = _resolve_context(user, org)
     content = await file.read()
@@ -667,8 +669,8 @@ async def upload_csv(
 
 @app.post("/api/data/reset")
 def reset_to_demo_data(
-    user: Any = Depends(get_current_user),
-    org: Any = Depends(require_tenant_context),
+    user: Any = Depends(get_current_user_or_demo),
+    org: Any = Depends(require_tenant_context_or_demo),
 ):
     user, org = _resolve_context(user, org)
     org_state_registry.reset_tenant_state(org.organization_id)

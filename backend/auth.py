@@ -223,6 +223,41 @@ async def get_current_user(
     )
 
 
+GUEST_USER_ID = "00000000-0000-0000-0000-000000000000"
+GUEST_USER = UserIdentity(
+    id=GUEST_USER_ID,
+    email="guest@wastewise.local",
+    role="anon",
+    app_metadata={"provider": "demo"},
+    user_metadata={"full_name": "Demo Operator"},
+)
+
+
+async def get_current_user_or_demo(
+    credentials: Optional[HTTPAuthorizationCredentials] = Depends(security_scheme),
+) -> UserIdentity:
+    """
+    Returns verified UserIdentity if credentials provided.
+    If no Authorization header or empty token, returns GUEST_USER for public demo canteen.
+    If token is invalid, expired, or tampered, FAILS CLOSED with 401.
+    """
+    if (
+        not credentials
+        or not credentials.credentials
+        or credentials.credentials in ("null", "undefined")
+    ):
+        return GUEST_USER
+
+    payload = decode_and_verify_token(credentials.credentials)
+    return UserIdentity(
+        id=payload["sub"],
+        email=payload.get("email", ""),
+        role=payload.get("role", "authenticated"),
+        app_metadata=payload.get("app_metadata", {}),
+        user_metadata=payload.get("user_metadata", {}),
+    )
+
+
 async def get_optional_user(
     credentials: Optional[HTTPAuthorizationCredentials] = Depends(security_scheme),
 ) -> Optional[UserIdentity]:
@@ -312,4 +347,33 @@ async def require_tenant_context(
     raise HTTPException(
         status_code=status.HTTP_403_FORBIDDEN,
         detail="Forbidden: You do not belong to any organization. Please join or create an organization.",
+    )
+
+async def require_tenant_context_or_demo(
+    user: UserIdentity = Depends(get_current_user_or_demo),
+    x_organization_id: Optional[str] = Header(None, alias="X-Organization-Id"),
+    db: Session = Depends(get_db),
+) -> OrgContext:
+    """
+    Enforces tenant context for operations.
+    Allows unauthenticated guest users to access the default demo canteen (DEFAULT_ORG_ID).
+    Rejects unauthenticated attempts to access private organizations with 401.
+    Strictly verifies organization membership for authenticated users.
+    """
+    from backend import models
+
+    if user.id == GUEST_USER_ID:
+        if not x_organization_id or x_organization_id == models.DEFAULT_ORG_ID:
+            return OrgContext(
+                organization_id=models.DEFAULT_ORG_ID,
+                role="viewer",
+            )
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail=f"Authentication required to access organization '{x_organization_id}'.",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
+
+    return await require_tenant_context(
+        user=user, x_organization_id=x_organization_id, db=db
     )
