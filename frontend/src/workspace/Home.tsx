@@ -248,6 +248,29 @@ export default function Home({ navigate }: { navigate: Navigate }) {
               </span>
             </div>
 
+            {/* Live Visual Floor Banner */}
+            <div className="hud-hero-image-strip" aria-hidden="true">
+              <picture className="hud-hero-picture">
+                <source
+                  srcSet="/images/canteen/canteen-service.webp"
+                  type="image/webp"
+                />
+                <img
+                  src="/images/canteen/canteen-service.jpg"
+                  alt="Campus Green Canteen service counter"
+                  className="hud-hero-img"
+                  width={480}
+                  height={120}
+                  loading="eager"
+                  decoding="async"
+                />
+              </picture>
+              <div className="hud-hero-img-badge">
+                <span className="live-pulse-dot" aria-hidden="true" />
+                <span>Live Service Floor</span>
+              </div>
+            </div>
+
             {/* Canteen Operational Shift Cadence */}
             <div className="hud-shift-cadence">
               <div className="cadence-header">

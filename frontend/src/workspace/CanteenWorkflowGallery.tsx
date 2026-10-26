@@ -14,8 +14,9 @@ const workflowSteps = [
     title: "Signal Synchronization & Weather Feed",
     role: "Morning Kitchen Briefing",
     desc: "The system ingests updated campus footfall estimates (1.0x baseline), monsoon rain forecasts, and morning class schedules to calculate dish-level demand uncertainty bands.",
-    image: "/images/canteen/fresh-prep.webp",
-    alt: "Fresh vegetables and mise-en-place ingredient preparation in commercial kitchen",
+    webp: "/images/canteen/fresh-prep.webp",
+    jpg: "/images/canteen/fresh-prep.jpg",
+    alt: "Fresh vegetables and culinary mise-en-place preparation in commercial kitchen",
     kpis: [
       { label: "Attendance Feed", val: "1,250 synced" },
       { label: "Weather Shift", val: "Mild / Clear" },
@@ -28,8 +29,9 @@ const workflowSteps = [
     title: "Batch 1 Kettle Production (65% Target)",
     role: "Cooking Station Firing",
     desc: "Chefs fire the primary 65% kettle buffer for high-volume gravies, rice, and main courses, avoiding premature overproduction while guaranteeing zero first-hour stockouts.",
-    image: "/images/canteen/kitchen-prep.webp",
-    alt: "Professional chefs preparing large-scale culinary batches in commercial kitchen",
+    webp: "/images/canteen/kitchen-prep.webp",
+    jpg: "/images/canteen/kitchen-prep.jpg",
+    alt: "Professional culinary chefs batch cooking in commercial kitchen",
     kpis: [
       { label: "Batch 1 Allocation", val: "65% committed" },
       { label: "Reserve Buffer", val: "35% held back" },
@@ -42,7 +44,8 @@ const workflowSteps = [
     title: "Counter Demand Monitoring & Refill Trigger",
     role: "Mid-Service Orchestration",
     desc: "As the lunch rush peaks, counter monitors track consumption velocity. If the steam table drops below the 5-portion safety threshold, the secondary quick-prep batch fires on demand.",
-    image: "/images/canteen/canteen-service.webp",
+    webp: "/images/canteen/canteen-service.webp",
+    jpg: "/images/canteen/canteen-service.jpg",
     alt: "Vibrant cafeteria service counter with hot steam food wells and portion trays",
     kpis: [
       { label: "Refill Threshold", val: "< 5 portions" },
@@ -56,7 +59,8 @@ const workflowSteps = [
     title: "Surplus Audit & Cold-Chain Rescue Dispatch",
     role: "Shift Closure & Sustainability",
     desc: "At service close, kitchen supervisors log actual leftover portions directly to the database. Any safe surplus is instantly dispatched to hostel cafeterias or partner NGOs within the 4-hour window.",
-    image: "/images/canteen/plated-meal.webp",
+    webp: "/images/canteen/plated-meal.webp",
+    jpg: "/images/canteen/plated-meal.jpg",
     alt: "Nutritious balanced plated meal served in sustainable dining hall tray",
     kpis: [
       { label: "Cold-Chain Window", val: "4-hour timer" },
@@ -111,14 +115,20 @@ export default function CanteenWorkflowGallery({
 
       {/* Active Phase Card Presentation */}
       <div className="workflow-stage-card">
-        {/* Left Column: Authentic Photography */}
-        <div className="workflow-stage-media">
-          <img
-            src={currentStep.image}
-            alt={currentStep.alt}
-            className="workflow-stage-img"
-            loading="lazy"
-          />
+        {/* Left Column: Authentic Photography with Picture Fallback & Key Re-render */}
+        <div className="workflow-stage-media" key={currentStep.id}>
+          <picture className="workflow-stage-picture">
+            <source srcSet={currentStep.webp} type="image/webp" />
+            <img
+              src={currentStep.jpg}
+              alt={currentStep.alt}
+              className="workflow-stage-img"
+              width={1200}
+              height={800}
+              loading="eager"
+              decoding="async"
+            />
+          </picture>
           <div className="workflow-stage-badge">
             <Clock size={13} aria-hidden="true" />
             <span>

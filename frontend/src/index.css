@@ -4757,6 +4757,54 @@ html[data-interaction="keyboard"] .button:active:not(:disabled) {
   flex-shrink: 0;
 }
 
+/* Live Canteen Visual Banner in HUD */
+.hud-hero-image-strip {
+  position: relative;
+  width: 100%;
+  height: 120px;
+  border-radius: var(--radius-control);
+  overflow: hidden;
+  border: 1px solid var(--border);
+  background: #14231b;
+}
+
+.hud-hero-picture {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.hud-hero-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.hud-hero-img-badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 9px;
+  background: rgba(18, 38, 28, 0.85);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: var(--radius-pill);
+  font-size: 11px;
+  font-weight: var(--weight-semibold);
+  color: #f0f7f2;
+}
+
+.hud-hero-img-badge .live-pulse-dot {
+  margin-top: 0;
+  width: 7px;
+  height: 7px;
+}
+
 /* B. Today's Operating Cadence */
 .hud-shift-cadence {
   display: flex;
@@ -5507,6 +5555,10 @@ html[data-interaction="keyboard"] .button:active:not(:disabled) {
   min-height: 380px;
 }
 
+.bento-photo-card {
+  background: #14231b;
+}
+
 .bento-card-large {
   grid-column: span 1;
 }
@@ -5518,7 +5570,14 @@ html[data-interaction="keyboard"] .button:active:not(:disabled) {
   overflow: hidden;
 }
 
+.bento-bg-picture {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
 .bento-bg-img {
+  display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -5755,6 +5814,13 @@ html[data-interaction="keyboard"] .button:active:not(:disabled) {
 .workflow-stage-media {
   position: relative;
   min-height: 320px;
+  background: #14231b;
+}
+
+.workflow-stage-picture {
+  display: block;
+  width: 100%;
+  height: 100%;
 }
 
 .workflow-stage-img {

@@ -106,7 +106,7 @@ const allPages: string[] = [
 
 const currentHash = (): Page => {
   const hash = window.location.hash.slice(1);
-  return allPages.includes(hash) ? (hash as Page) : "overview";
+  return allPages.includes(hash) ? (hash as Page) : "home";
 };
 
 class ViewBoundary extends Component<
