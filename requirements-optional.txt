@@ -1,0 +1,4 @@
+# Optional dependencies for legacy Streamlit reference UI and extended ML drift monitoring
+streamlit>=1.36.0,<2.0.0
+plotly>=5.20.0,<8.0.0
+evidently>=0.7.16,<1.0.0
