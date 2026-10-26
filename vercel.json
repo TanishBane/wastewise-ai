@@ -28,13 +28,37 @@
       }
     },
     {
+      "source": "/docs/(.*)",
+      "destination": {
+        "service": "wastewise-api"
+      }
+    },
+    {
       "source": "/docs",
       "destination": {
         "service": "wastewise-api"
       }
     },
     {
+      "source": "/redoc/(.*)",
+      "destination": {
+        "service": "wastewise-api"
+      }
+    },
+    {
+      "source": "/redoc",
+      "destination": {
+        "service": "wastewise-api"
+      }
+    },
+    {
       "source": "/openapi.json",
+      "destination": {
+        "service": "wastewise-api"
+      }
+    },
+    {
+      "source": "/health",
       "destination": {
         "service": "wastewise-api"
       }

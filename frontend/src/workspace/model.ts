@@ -9,6 +9,7 @@ export type Page =
   | "waste-risk"
   | "performance"
   | "data-model"
+  | "backend-api"
   | "privacy"
   | "terms"
   | "transparency"

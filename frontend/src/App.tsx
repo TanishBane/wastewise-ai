@@ -18,6 +18,7 @@ import {
   Menu,
   RefreshCw,
   Search,
+  Server,
   ShieldCheck,
   Sprout,
   TriangleAlert,
@@ -45,6 +46,7 @@ const Rescue = lazy(() => import("./workspace/Rescue"));
 const Performance = lazy(() => import("./workspace/Performance"));
 const Data = lazy(() => import("./workspace/Data"));
 const Guide = lazy(() => import("./workspace/Guide"));
+const BackendApi = lazy(() => import("./workspace/BackendApi"));
 
 const links = [
   {
@@ -82,6 +84,12 @@ const links = [
     label: "Data & model",
     icon: Database,
     description: "Upload and inspect your records",
+  },
+  {
+    id: "backend-api",
+    label: "Backend & Live API",
+    icon: Server,
+    description: "FastAPI service telemetry, live tester & interactive Swagger UI",
   },
 ] as const;
 
@@ -446,6 +454,19 @@ export default function App() {
               </button>
 
               <button
+                className={`utility-button icon-label ${page === "backend-api" ? "active" : ""}`}
+                onClick={() => navigate("backend-api")}
+                title="View live FastAPI backend, Swagger docs & service telemetry"
+                aria-label="Backend & Live API status"
+              >
+                <span className="flex items-center gap-1.5">
+                  <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                  <Server size={15} />
+                  <span className="utility-label font-medium">FastAPI Live</span>
+                </span>
+              </button>
+
+              <button
                 className={`utility-button icon-label ${page === "transparency" ? "active" : ""}`}
                 onClick={() => navigate("transparency")}
                 title="Model transparency & limits"
@@ -660,6 +681,8 @@ export default function App() {
                       <Performance {...screen} />
                     ) : page === "data-model" ? (
                       <Data {...screen} />
+                    ) : page === "backend-api" ? (
+                      <BackendApi {...screen} />
                     ) : (
                       <Guide {...screen} page={page} />
                     )

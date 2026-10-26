@@ -11,6 +11,7 @@ import {
   LogOut,
   PanelLeftClose,
   PanelLeftOpen,
+  Server,
   Sprout,
   TriangleAlert,
   X,
@@ -53,6 +54,12 @@ const navLinks = [
     id: "data-model" as Page,
     label: "Data & model",
     icon: Database,
+    group: "learn" as const,
+  },
+  {
+    id: "backend-api" as Page,
+    label: "Backend & Live API",
+    icon: Server,
     group: "learn" as const,
   },
 ];

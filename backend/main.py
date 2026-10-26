@@ -241,6 +241,7 @@ class CreateOrganizationRequest(BaseModel):
 
 # --- Endpoints ---
 @app.get("/api/health")
+@app.get("/health", include_in_schema=False)
 def get_health():
     default_state = org_state_registry.get_state(DEFAULT_ORG_ID)
     return {
