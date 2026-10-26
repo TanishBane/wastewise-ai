@@ -14,7 +14,10 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional
 import numpy as np
 import pandas as pd
-import sentry_sdk
+try:
+    import sentry_sdk
+except ImportError:
+    sentry_sdk = None
 
 # Add project root to sys.path
 ROOT_DIR = Path(__file__).resolve().parent.parent
@@ -69,7 +72,7 @@ from src.model import DemandForecastingEngine
 from src.planner import PreparationPlanner
 
 
-if os.getenv("SENTRY_DSN"):
+if os.getenv("SENTRY_DSN") and sentry_sdk:
     sentry_sdk.init(
         dsn=os.environ["SENTRY_DSN"],
         traces_sample_rate=float(os.getenv("SENTRY_TRACES_SAMPLE_RATE", "0.1")),

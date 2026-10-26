@@ -141,11 +141,21 @@ export default function ScenarioCompare({
             <thead>
               <tr>
                 <th scope="col">Service scenario</th>
-                <th scope="col" className="numeric">Attendance</th>
-                <th scope="col" className="numeric">Forecast</th>
-                <th scope="col" className="numeric">Estimate range</th>
-                <th scope="col" className="numeric">New prep</th>
-                <th scope="col" className="numeric">First batch</th>
+                <th scope="col" className="numeric">
+                  Attendance
+                </th>
+                <th scope="col" className="numeric">
+                  Forecast
+                </th>
+                <th scope="col" className="numeric">
+                  Estimate range
+                </th>
+                <th scope="col" className="numeric">
+                  New prep
+                </th>
+                <th scope="col" className="numeric">
+                  First batch
+                </th>
               </tr>
             </thead>
             <tbody>

@@ -364,11 +364,19 @@ export default function Overview({ revision, navigate }: ScreenProps) {
             <thead>
               <tr>
                 <th scope="col">Menu item</th>
-                <th scope="col" className="numeric">Forecast</th>
-                <th scope="col" className="numeric">Estimate range</th>
-                <th scope="col" className="numeric">Suggested prep</th>
+                <th scope="col" className="numeric">
+                  Forecast
+                </th>
+                <th scope="col" className="numeric">
+                  Estimate range
+                </th>
+                <th scope="col" className="numeric">
+                  Suggested prep
+                </th>
                 <th scope="col">Batch allocation</th>
-                <th scope="col" className="numeric">Review</th>
+                <th scope="col" className="numeric">
+                  Review
+                </th>
               </tr>
             </thead>
             <tbody>
