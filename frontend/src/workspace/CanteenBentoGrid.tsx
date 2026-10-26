@@ -25,7 +25,7 @@ export default function CanteenBentoGrid({ navigate }: CanteenBentoGridProps) {
       aria-label="WasteWise Capabilities Bento Grid"
     >
       <div className="bento-grid">
-        {/* Bento Tile 1: Demand Uncertainty & Machine Learning Forecaster (Hero Feature Tile) */}
+        {/* Bento Tile 1: Demand Uncertainty & Machine Learning Forecaster */}
         <motion.article
           className="bento-card bento-card-large bento-photo-card"
           whileHover={
@@ -34,14 +34,23 @@ export default function CanteenBentoGrid({ navigate }: CanteenBentoGridProps) {
               : { y: -4, transition: { duration: 0.2 } }
           }
         >
-          {/* Authentic Canteen Photography Background with Gradient Scrim */}
+          {/* Authentic Canteen Photography Background with Gradient Scrim & JPG Fallback */}
           <div className="bento-img-wrap" aria-hidden="true">
-            <img
-              src="/images/canteen/kitchen-prep.webp"
-              alt=""
-              className="bento-bg-img"
-              loading="lazy"
-            />
+            <picture className="bento-bg-picture">
+              <source
+                srcSet="/images/canteen/kitchen-prep.webp"
+                type="image/webp"
+              />
+              <img
+                src="/images/canteen/kitchen-prep.jpg"
+                alt="Chefs preparing culinary batches in commercial kitchen"
+                className="bento-bg-img"
+                width={1200}
+                height={800}
+                loading="lazy"
+                decoding="async"
+              />
+            </picture>
             <div className="bento-scrim" />
           </div>
 
@@ -104,12 +113,21 @@ export default function CanteenBentoGrid({ navigate }: CanteenBentoGridProps) {
           }
         >
           <div className="bento-img-wrap" aria-hidden="true">
-            <img
-              src="/images/canteen/commercial-kitchen.webp"
-              alt=""
-              className="bento-bg-img"
-              loading="lazy"
-            />
+            <picture className="bento-bg-picture">
+              <source
+                srcSet="/images/canteen/commercial-kitchen.webp"
+                type="image/webp"
+              />
+              <img
+                src="/images/canteen/commercial-kitchen.jpg"
+                alt="Stainless steel commercial kitchen steam stations"
+                className="bento-bg-img"
+                width={1200}
+                height={800}
+                loading="lazy"
+                decoding="async"
+              />
+            </picture>
             <div className="bento-scrim" />
           </div>
 
@@ -157,12 +175,21 @@ export default function CanteenBentoGrid({ navigate }: CanteenBentoGridProps) {
           }
         >
           <div className="bento-img-wrap" aria-hidden="true">
-            <img
-              src="/images/canteen/fresh-prep.webp"
-              alt=""
-              className="bento-bg-img"
-              loading="lazy"
-            />
+            <picture className="bento-bg-picture">
+              <source
+                srcSet="/images/canteen/fresh-prep.webp"
+                type="image/webp"
+              />
+              <img
+                src="/images/canteen/fresh-prep.jpg"
+                alt="Fresh vegetable preparation and culinary mise-en-place"
+                className="bento-bg-img"
+                width={1200}
+                height={800}
+                loading="lazy"
+                decoding="async"
+              />
+            </picture>
             <div className="bento-scrim" />
           </div>
 
@@ -209,12 +236,21 @@ export default function CanteenBentoGrid({ navigate }: CanteenBentoGridProps) {
           }
         >
           <div className="bento-img-wrap" aria-hidden="true">
-            <img
-              src="/images/canteen/canteen-service.webp"
-              alt=""
-              className="bento-bg-img"
-              loading="lazy"
-            />
+            <picture className="bento-bg-picture">
+              <source
+                srcSet="/images/canteen/canteen-service.webp"
+                type="image/webp"
+              />
+              <img
+                src="/images/canteen/canteen-service.jpg"
+                alt="Active canteen service counter with portion trays"
+                className="bento-bg-img"
+                width={1200}
+                height={800}
+                loading="lazy"
+                decoding="async"
+              />
+            </picture>
             <div className="bento-scrim" />
           </div>
 

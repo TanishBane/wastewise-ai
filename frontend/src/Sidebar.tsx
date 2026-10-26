@@ -22,6 +22,12 @@ import BrandLogo from "./BrandLogo";
 
 const navLinks = [
   {
+    id: "home" as Page,
+    label: "Product homepage",
+    icon: Sprout,
+    group: "plan" as const,
+  },
+  {
     id: "overview" as Page,
     label: "Kitchen overview",
     icon: LayoutDashboard,
