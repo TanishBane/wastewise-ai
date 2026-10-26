@@ -18,6 +18,7 @@ import {
 } from "lucide-react";
 import type { Page } from "./workspace/model";
 import { useAuth } from "./context/AuthContext";
+import BrandLogo from "./BrandLogo";
 
 const navLinks = [
   {
@@ -115,13 +116,7 @@ export default function Sidebar({
           }}
         >
           <span className="brand-mark">
-            <img
-              className="brand-logo"
-              src="/brand/wastewise-mark.png"
-              alt="WasteWise Logo"
-              width="36"
-              height="26"
-            />
+            <BrandLogo width={36} height={26} />
           </span>
           {!isCollapsed && (
             <span className="sidebar-brand-text">

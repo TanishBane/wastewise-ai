@@ -6,7 +6,5 @@ scripts
 .cache
 .pytest_cache
 scratch
-*.png
-*.jpg
-*.jpeg
+screenshots
 *.mp4

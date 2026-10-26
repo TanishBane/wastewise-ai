@@ -37,6 +37,7 @@ import { date, downloadCSV, useResource } from "./workspace/model";
 import type { Page, ScreenProps } from "./workspace/model";
 import QuickSearchDialog from "./workspace/QuickSearchDialog";
 import Sidebar from "./Sidebar";
+import BrandLogo from "./BrandLogo";
 import { captureException, capturePageView } from "./telemetry";
 
 const Overview = lazy(() => import("./workspace/Overview"));
@@ -408,12 +409,10 @@ export default function App() {
                   navigate("home");
                 }}
               >
-                <img
+                <BrandLogo
                   className="brand-logo mobile-brand-logo"
-                  src="/brand/wastewise-mark.png"
-                  alt="WasteWise Logo"
-                  width="28"
-                  height="20"
+                  width={28}
+                  height={20}
                 />
                 <span>
                   WasteWise<small>AI</small>

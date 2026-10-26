@@ -18,6 +18,7 @@ import {
   useTransform,
 } from "framer-motion";
 import MetalButton from "../MetalButton";
+import BrandLogo from "../BrandLogo";
 import { motionTokens } from "../motionTokens";
 import {
   ReadingProgressBar,
@@ -326,13 +327,11 @@ export default function Home({ navigate }: { navigate: Navigate }) {
             {/* Authenticated Brand Seal & Status Bar */}
             <div className="hud-footer">
               <div className="hud-brand-seal">
-                <img
+                <BrandLogo
                   className="hud-seal-logo"
-                  src="/brand/wastewise-mark.png"
+                  width={38}
+                  height={27}
                   alt="WasteWise"
-                  width="38"
-                  height="27"
-                  loading="lazy"
                 />
                 <div className="hud-seal-text">
                   <span className="brand-title">
