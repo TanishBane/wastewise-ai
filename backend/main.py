@@ -83,8 +83,11 @@ if os.getenv("SENTRY_DSN") and sentry_sdk:
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     # Initialize persistent tables and eagerly prepare default demo state
-    init_db()
-    org_state_registry.get_state(DEFAULT_ORG_ID)
+    try:
+        init_db()
+        org_state_registry.get_state(DEFAULT_ORG_ID)
+    except Exception as e:
+        print(f"Warning during lifespan startup: {e}")
     yield
 
 
@@ -509,6 +512,7 @@ def get_plan_history(
 
 
 @app.get("/api/waste-risk")
+@app.get("/api/rescue", include_in_schema=False)
 def get_waste_risks(
     risk_tier: Optional[str] = None,
     user: Any = Depends(get_current_user),

@@ -12,8 +12,25 @@ from sqlalchemy import create_engine, event
 from sqlalchemy.orm import declarative_base, sessionmaker, Session
 
 ROOT_DIR = Path(__file__).resolve().parent.parent
-DATA_DIR = ROOT_DIR / "data"
-DATA_DIR.mkdir(parents=True, exist_ok=True)
+IS_SERVERLESS = bool(
+    os.environ.get("VERCEL")
+    or os.environ.get("AWS_LAMBDA_FUNCTION_NAME")
+    or os.environ.get("LAMBDA_TASK_ROOT")
+)
+
+if IS_SERVERLESS:
+    DATA_DIR = Path("/tmp/data")
+else:
+    DATA_DIR = ROOT_DIR / "data"
+
+try:
+    DATA_DIR.mkdir(parents=True, exist_ok=True)
+except OSError:
+    DATA_DIR = Path("/tmp/data")
+    try:
+        DATA_DIR.mkdir(parents=True, exist_ok=True)
+    except OSError:
+        pass
 
 # Supabase PostgreSQL or SQLite configuration
 DATABASE_URL = os.environ.get("DATABASE_URL") or os.environ.get("SUPABASE_DB_URL")
@@ -34,8 +51,17 @@ if DATABASE_URL:
     )
     is_sqlite = False
 else:
-    DEFAULT_DB_PATH = DATA_DIR / "wastewise.db"
+    if IS_SERVERLESS:
+        DEFAULT_DB_PATH = Path("/tmp/wastewise.db")
+    else:
+        DEFAULT_DB_PATH = DATA_DIR / "wastewise.db"
+
     DB_PATH = Path(os.environ.get("WASTEWISE_DB_PATH", str(DEFAULT_DB_PATH)))
+    try:
+        DB_PATH.parent.mkdir(parents=True, exist_ok=True)
+    except OSError:
+        DB_PATH = Path("/tmp/wastewise.db")
+
     SQLALCHEMY_DATABASE_URL = f"sqlite:///{DB_PATH.as_posix()}"
 
     engine = create_engine(

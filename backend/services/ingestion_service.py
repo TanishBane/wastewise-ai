@@ -133,10 +133,12 @@ class IngestionService:
 
                 # Persist to tenant-scoped private directory
                 tenant_csv_path = org_state_registry.get_tenant_csv_path(effective_org_id)
-                clean_df.to_csv(tenant_csv_path, index=False)
-
-                if effective_org_id == DEFAULT_ORG_ID:
-                    clean_df.to_csv(DATA_DIR / "active_operator_dataset.csv", index=False)
+                try:
+                    clean_df.to_csv(tenant_csv_path, index=False)
+                    if effective_org_id == DEFAULT_ORG_ID:
+                        clean_df.to_csv(DATA_DIR / "active_operator_dataset.csv", index=False)
+                except OSError:
+                    pass
 
                 # Update in-memory registry state for this tenant
                 org_state_registry.set_tenant_state(

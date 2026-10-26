@@ -20,7 +20,12 @@ from src.config import (
 )
 
 ROOT_DIR = Path(__file__).resolve().parent.parent
-DATA_DIR = ROOT_DIR / "data"
+IS_SERVERLESS = bool(
+    os.environ.get("VERCEL")
+    or os.environ.get("AWS_LAMBDA_FUNCTION_NAME")
+    or os.environ.get("LAMBDA_TASK_ROOT")
+)
+DATA_DIR = Path("/tmp/data") if IS_SERVERLESS else ROOT_DIR / "data"
 
 
 def generate_synthetic_canteen_data(
@@ -165,19 +170,28 @@ def get_demonstration_data(data_dir: str | Path = DATA_DIR) -> pd.DataFrame:
     """
     Returns the demonstration dataset. Caches to disk as CSV if not already present.
     """
-    csv_path = Path(data_dir) / "wastewise_sample_canteen_data.csv"
-    if csv_path.exists():
-        try:
-            df = pd.read_csv(csv_path)
-            # Ensure date is string
-            df["date"] = df["date"].astype(str)
-            return df
-        except Exception:
-            pass
-            
+    candidate_paths = [
+        Path(data_dir) / "wastewise_sample_canteen_data.csv",
+        ROOT_DIR / "data" / "wastewise_sample_canteen_data.csv",
+        Path("/tmp/data/wastewise_sample_canteen_data.csv"),
+    ]
+    for csv_path in candidate_paths:
+        if csv_path.exists():
+            try:
+                df = pd.read_csv(csv_path)
+                # Ensure date is string
+                df["date"] = df["date"].astype(str)
+                return df
+            except Exception:
+                pass
+
     df = generate_synthetic_canteen_data()
-    Path(data_dir).mkdir(parents=True, exist_ok=True)
-    df.to_csv(csv_path, index=False)
+    try:
+        cache_dir = Path("/tmp/data" if IS_SERVERLESS else data_dir)
+        cache_dir.mkdir(parents=True, exist_ok=True)
+        df.to_csv(cache_dir / "wastewise_sample_canteen_data.csv", index=False)
+    except OSError:
+        pass
     return df
 
 

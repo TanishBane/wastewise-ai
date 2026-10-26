@@ -51,13 +51,28 @@ class OrgStateRegistry:
     def __init__(self, base_data_dir: Optional[Path] = None):
         self.data_dir = base_data_dir or DATA_DIR
         self.tenants_dir = self.data_dir / "tenants"
-        self.tenants_dir.mkdir(parents=True, exist_ok=True)
+        try:
+            self.tenants_dir.mkdir(parents=True, exist_ok=True)
+        except OSError:
+            self.data_dir = Path("/tmp/data")
+            self.tenants_dir = self.data_dir / "tenants"
+            try:
+                self.tenants_dir.mkdir(parents=True, exist_ok=True)
+            except OSError:
+                pass
         self._states: Dict[str, OrgState] = {}
         self._registry_lock = threading.Lock()
 
     def get_tenant_dir(self, organization_id: str) -> Path:
         t_dir = self.tenants_dir / organization_id
-        t_dir.mkdir(parents=True, exist_ok=True)
+        try:
+            t_dir.mkdir(parents=True, exist_ok=True)
+        except OSError:
+            t_dir = Path("/tmp/data/tenants") / organization_id
+            try:
+                t_dir.mkdir(parents=True, exist_ok=True)
+            except OSError:
+                pass
         return t_dir
 
     def get_tenant_csv_path(self, organization_id: str) -> Path:
