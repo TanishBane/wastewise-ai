@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import {
   Check,
   Code2,
@@ -9,6 +9,7 @@ import {
   Layers,
   Play,
   RefreshCw,
+  Server,
   Terminal,
 } from "lucide-react";
 import MetalButton from "../MetalButton";
@@ -30,7 +31,7 @@ interface EndpointOption {
   method: "GET" | "POST";
   path: string;
   description: string;
-  payload?: any;
+  payload?: Record<string, unknown>;
 }
 
 const ENDPOINTS: EndpointOption[] = [
@@ -38,37 +39,43 @@ const ENDPOINTS: EndpointOption[] = [
     name: "System Health & ML Status",
     method: "GET",
     path: "/api/health",
-    description: "Evaluates service uptime, Random Forest readiness, and active workspace.",
+    description:
+      "Evaluates service uptime, Random Forest readiness, and active workspace.",
   },
   {
     name: "Catalog Configuration",
     method: "GET",
     path: "/api/config",
-    description: "Returns active canteen dishes, weather factors, and calendar parameters.",
+    description:
+      "Returns active canteen dishes, weather factors, and calendar parameters.",
   },
   {
     name: "Kitchen Command Center Overview",
     method: "GET",
     path: "/api/overview",
-    description: "Aggregates daily revenue targets, waste triage counts, and dish-level demand.",
+    description:
+      "Aggregates daily revenue targets, waste triage counts, and dish-level demand.",
   },
   {
     name: "Surplus Waste Risk Triage",
     method: "GET",
     path: "/api/waste-risk",
-    description: "Categorizes planned dishes into High, Moderate, and Low risk surplus tiers.",
+    description:
+      "Categorizes planned dishes into High, Moderate, and Low risk surplus tiers.",
   },
   {
     name: "Performance & Impact Simulation",
     method: "GET",
     path: "/api/performance",
-    description: "Outputs RMSE/MAE regression metrics and holdout ingredient waste reduction.",
+    description:
+      "Outputs RMSE/MAE regression metrics and holdout ingredient waste reduction.",
   },
   {
     name: "Random Forest Demand Scenario",
     method: "POST",
     path: "/api/forecast",
-    description: "Calculates machine learning demand prediction with lower/upper bounds.",
+    description:
+      "Calculates machine learning demand prediction with lower/upper bounds.",
     payload: {
       menu_item: "Pav Bhaji",
       day_of_week: "Monday",
@@ -82,7 +89,8 @@ const ENDPOINTS: EndpointOption[] = [
     name: "Newsvendor Preparation Plan",
     method: "POST",
     path: "/api/plan",
-    description: "Solves cost-optimal batch preparation balancing shortage vs surplus risk.",
+    description:
+      "Solves cost-optimal batch preparation balancing shortage vs surplus risk.",
     payload: {
       menu_item: "Pav Bhaji",
       predicted_demand: 120,
@@ -97,48 +105,74 @@ const ENDPOINTS: EndpointOption[] = [
 
 export default function BackendApi(_props: ScreenProps) {
   const [health, setHealth] = useState<HealthData | null>(null);
-  const [loadingHealth, setLoadingHealth] = useState(true);
+  const [loadingHealth, setLoadingHealth] = useState(false);
   const [healthError, setHealthError] = useState<string | null>(null);
   const [healthLatency, setHealthLatency] = useState<number | null>(null);
 
-  const [selectedEndpoint, setSelectedEndpoint] = useState<EndpointOption>(ENDPOINTS[0]);
+  const [selectedEndpoint, setSelectedEndpoint] = useState<EndpointOption>(
+    ENDPOINTS[0],
+  );
   const [testLoading, setTestLoading] = useState(false);
   const [testResult, setTestResult] = useState<{
     status: number;
     latency: number;
-    data: any;
+    data: unknown;
   } | null>(null);
   const [copied, setCopied] = useState(false);
   const [iframeKey, setIframeKey] = useState(0);
 
-  const fetchHealthCheck = async () => {
+  const fetchHealthCheck = useCallback(async () => {
     setLoadingHealth(true);
     setHealthError(null);
-    const start = performance.now();
+    const start = Date.now();
     try {
       const res = await fetch("/api/health");
-      const latency = Math.round(performance.now() - start);
+      const latency = Date.now() - start;
       setHealthLatency(latency);
       if (!res.ok) {
         throw new Error(`HTTP ${res.status}: ${res.statusText}`);
       }
       const data = await res.json();
       setHealth(data);
-    } catch (err: any) {
-      setHealthError(err.message || "Failed to reach backend.");
+    } catch (err: unknown) {
+      setHealthError(
+        err instanceof Error ? err.message : "Failed to reach backend.",
+      );
     } finally {
       setLoadingHealth(false);
     }
-  };
+  }, []);
 
   useEffect(() => {
-    fetchHealthCheck();
+    let active = true;
+    const start = Date.now();
+    fetch("/api/health")
+      .then((res) => {
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        return res.json();
+      })
+      .then((data) => {
+        if (active) {
+          setHealthLatency(Date.now() - start);
+          setHealth(data);
+        }
+      })
+      .catch((err) => {
+        if (active) {
+          setHealthError(
+            err instanceof Error ? err.message : "Connection failed",
+          );
+        }
+      });
+    return () => {
+      active = false;
+    };
   }, []);
 
   const runEndpointTest = async (endpoint: EndpointOption) => {
     setTestLoading(true);
     setSelectedEndpoint(endpoint);
-    const start = performance.now();
+    const start = Date.now();
     try {
       const options: RequestInit = {
         method: endpoint.method,
@@ -148,19 +182,21 @@ export default function BackendApi(_props: ScreenProps) {
         options.body = JSON.stringify(endpoint.payload);
       }
       const res = await fetch(endpoint.path, options);
-      const latency = Math.round(performance.now() - start);
+      const latency = Date.now() - start;
       const data = await res.json();
       setTestResult({
         status: res.status,
         latency,
         data,
       });
-    } catch (err: any) {
-      const latency = Math.round(performance.now() - start);
+    } catch (err: unknown) {
+      const latency = Date.now() - start;
       setTestResult({
         status: 0,
         latency,
-        data: { error: err.message || "Network request failed" },
+        data: {
+          error: err instanceof Error ? err.message : "Network request failed",
+        },
       });
     } finally {
       setTestLoading(false);
@@ -214,14 +250,21 @@ export default function BackendApi(_props: ScreenProps) {
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
         <div className="p-4 rounded-xl bg-[var(--surface,#fcfaf5)] border border-[var(--border,#d4cdbf)] shadow-sm">
           <div className="flex items-center justify-between text-xs text-[var(--ink-light,#666)] mb-1">
-            <span className="font-semibold uppercase tracking-wider">FastAPI Service</span>
+            <span className="font-semibold uppercase tracking-wider flex items-center gap-1.5">
+              <Server size={13} />
+              FastAPI Service
+            </span>
             <span className="flex items-center gap-1.5 text-emerald-700 font-medium">
               <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
               {healthLatency !== null ? `${healthLatency}ms` : "Live"}
             </span>
           </div>
           <div className="text-xl font-bold font-serif text-[var(--ink,#1f2923)]">
-            {health?.status === "healthy" ? "Online & Healthy" : healthError ? "Check Connection" : "Connecting..."}
+            {health?.status === "healthy"
+              ? "Online & Healthy"
+              : healthError
+                ? "Check Connection"
+                : "Connecting..."}
           </div>
           <p className="text-xs text-[var(--ink-light,#666)] mt-1">
             Uvicorn · Python 3.14 · Version {health?.version || "1.0"}
@@ -230,7 +273,9 @@ export default function BackendApi(_props: ScreenProps) {
 
         <div className="p-4 rounded-xl bg-[var(--surface,#fcfaf5)] border border-[var(--border,#d4cdbf)] shadow-sm">
           <div className="flex items-center justify-between text-xs text-[var(--ink-light,#666)] mb-1">
-            <span className="font-semibold uppercase tracking-wider">ML Forecasting Engine</span>
+            <span className="font-semibold uppercase tracking-wider">
+              ML Forecasting Engine
+            </span>
             <Cpu size={14} className="text-[var(--primary,#1e4638)]" />
           </div>
           <div className="text-xl font-bold font-serif text-[var(--ink,#1f2923)]">
@@ -243,7 +288,9 @@ export default function BackendApi(_props: ScreenProps) {
 
         <div className="p-4 rounded-xl bg-[var(--surface,#fcfaf5)] border border-[var(--border,#d4cdbf)] shadow-sm">
           <div className="flex items-center justify-between text-xs text-[var(--ink-light,#666)] mb-1">
-            <span className="font-semibold uppercase tracking-wider">Tenant Isolation</span>
+            <span className="font-semibold uppercase tracking-wider">
+              Tenant Isolation
+            </span>
             <Database size={14} className="text-[var(--primary,#1e4638)]" />
           </div>
           <div className="text-xl font-bold font-serif text-[var(--ink,#1f2923)] truncate">
@@ -256,7 +303,9 @@ export default function BackendApi(_props: ScreenProps) {
 
         <div className="p-4 rounded-xl bg-[var(--surface,#fcfaf5)] border border-[var(--border,#d4cdbf)] shadow-sm">
           <div className="flex items-center justify-between text-xs text-[var(--ink-light,#666)] mb-1">
-            <span className="font-semibold uppercase tracking-wider">Vercel Deployment</span>
+            <span className="font-semibold uppercase tracking-wider">
+              Vercel Deployment
+            </span>
             <Layers size={14} className="text-[var(--primary,#1e4638)]" />
           </div>
           <div className="text-xl font-bold font-serif text-[var(--ink,#1f2923)]">
@@ -277,7 +326,9 @@ export default function BackendApi(_props: ScreenProps) {
           {/* Endpoint Selector List */}
           <div className="lg:col-span-5 space-y-2">
             {ENDPOINTS.map((ep) => {
-              const isSelected = selectedEndpoint.path === ep.path && selectedEndpoint.method === ep.method;
+              const isSelected =
+                selectedEndpoint.path === ep.path &&
+                selectedEndpoint.method === ep.method;
               return (
                 <button
                   key={ep.method + ep.path}
@@ -303,7 +354,9 @@ export default function BackendApi(_props: ScreenProps) {
                   </span>
                   <div className="min-w-0 flex-1">
                     <p className="text-sm font-semibold truncate">{ep.name}</p>
-                    <p className={`text-xs font-mono truncate ${isSelected ? "text-emerald-100" : "text-[var(--ink-light,#666)]"}`}>
+                    <p
+                      className={`text-xs font-mono truncate ${isSelected ? "text-emerald-100" : "text-[var(--ink-light,#666)]"}`}
+                    >
                       {ep.path}
                     </p>
                   </div>
@@ -334,7 +387,8 @@ export default function BackendApi(_props: ScreenProps) {
                           : "bg-red-950 text-red-400 border border-red-800"
                       }`}
                     >
-                      {testResult.status} {testResult.status === 200 ? "OK" : ""}
+                      {testResult.status}{" "}
+                      {testResult.status === 200 ? "OK" : ""}
                     </span>
                     <span className="text-slate-400 font-mono text-[11px]">
                       {testResult.latency}ms
@@ -348,7 +402,11 @@ export default function BackendApi(_props: ScreenProps) {
                   title="Copy JSON Response"
                   aria-label="Copy JSON Response"
                 >
-                  {copied ? <Check size={14} className="text-emerald-400" /> : <Copy size={14} />}
+                  {copied ? (
+                    <Check size={14} className="text-emerald-400" />
+                  ) : (
+                    <Copy size={14} />
+                  )}
                 </button>
                 <button
                   onClick={() => runEndpointTest(selectedEndpoint)}
@@ -375,7 +433,10 @@ export default function BackendApi(_props: ScreenProps) {
               ) : (
                 <div className="flex flex-col items-center justify-center h-48 text-slate-500 text-center">
                   <Terminal size={28} className="mb-2 opacity-50" />
-                  <p>Click "Send" above or select any endpoint on the left to inspect live payload.</p>
+                  <p>
+                    Click "Send" above or select any endpoint on the left to
+                    inspect live payload.
+                  </p>
                 </div>
               )}
             </div>
@@ -426,25 +487,43 @@ export default function BackendApi(_props: ScreenProps) {
           <span>Vercel Multi-Service Project Architecture</span>
         </h3>
         <p className="text-xs text-[var(--ink-light,#666)] leading-relaxed mb-4">
-          Both the frontend and backend are deployed and managed together as a unified Vercel project under a single root domain:
+          Both the frontend and backend are deployed and managed together as a
+          unified Vercel project under a single root domain:
         </p>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
           <div className="p-3 rounded-xl bg-white border border-[var(--border,#d4cdbf)]">
-            <strong className="block text-[var(--ink,#1f2923)] mb-1">1. Frontend Service (Vite)</strong>
+            <strong className="block text-[var(--ink,#1f2923)] mb-1">
+              1. Frontend Service (Vite)
+            </strong>
             <p className="text-[var(--ink-light,#666)]">
-              Serves the high-performance React 19 SPA, Lucide icons, Tailwind CSS, and chart components at root <code className="bg-slate-100 px-1 py-0.5 rounded">/</code>.
+              Serves the high-performance React 19 SPA, Lucide icons, Tailwind
+              CSS, and chart components at root{" "}
+              <code className="bg-slate-100 px-1 py-0.5 rounded">/</code>.
             </p>
           </div>
           <div className="p-3 rounded-xl bg-white border border-[var(--border,#d4cdbf)]">
-            <strong className="block text-[var(--ink,#1f2923)] mb-1">2. Backend Service (FastAPI)</strong>
+            <strong className="block text-[var(--ink,#1f2923)] mb-1">
+              2. Backend Service (FastAPI)
+            </strong>
             <p className="text-[var(--ink-light,#666)]">
-              Executes Python Random Forest demand predictions and Newsvendor preparation planning at <code className="bg-slate-100 px-1 py-0.5 rounded">/api/*</code> and <code className="bg-slate-100 px-1 py-0.5 rounded">/docs</code>.
+              Executes Python Random Forest demand predictions and Newsvendor
+              preparation planning at{" "}
+              <code className="bg-slate-100 px-1 py-0.5 rounded">/api/*</code>{" "}
+              and{" "}
+              <code className="bg-slate-100 px-1 py-0.5 rounded">/docs</code>.
             </p>
           </div>
           <div className="p-3 rounded-xl bg-white border border-[var(--border,#d4cdbf)]">
-            <strong className="block text-[var(--ink,#1f2923)] mb-1">3. Shared Domain Rewrites</strong>
+            <strong className="block text-[var(--ink,#1f2923)] mb-1">
+              3. Shared Domain Rewrites
+            </strong>
             <p className="text-[var(--ink-light,#666)]">
-              Managed in root <code className="bg-slate-100 px-1 py-0.5 rounded">vercel.json</code>. Zero CORS issues, shared environment bindings, and atomic deployments.
+              Managed in root{" "}
+              <code className="bg-slate-100 px-1 py-0.5 rounded">
+                vercel.json
+              </code>
+              . Zero CORS issues, shared environment bindings, and atomic
+              deployments.
             </p>
           </div>
         </div>

@@ -89,7 +89,8 @@ const links = [
     id: "backend-api",
     label: "Backend & Live API",
     icon: Server,
-    description: "FastAPI service telemetry, live tester & interactive Swagger UI",
+    description:
+      "FastAPI service telemetry, live tester & interactive Swagger UI",
   },
 ] as const;
 
@@ -462,7 +463,9 @@ export default function App() {
                 <span className="flex items-center gap-1.5">
                   <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
                   <Server size={15} />
-                  <span className="utility-label font-medium">FastAPI Live</span>
+                  <span className="utility-label font-medium">
+                    FastAPI Live
+                  </span>
                 </span>
               </button>
 
