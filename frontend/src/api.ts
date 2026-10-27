@@ -16,26 +16,9 @@ import { captureException } from "./telemetry";
 
 const BASE_URL = import.meta.env.VITE_API_BASE_URL || "";
 
-let authGetter: (() => { token: string | null; orgId: string | null }) | null =
-  null;
-
-export function setAuthGetter(
-  getter: () => { token: string | null; orgId: string | null },
-) {
-  authGetter = getter;
-}
-
 async function fetchJson<T>(url: string, options?: RequestInit): Promise<T> {
   let res: Response;
-  const auth = authGetter ? authGetter() : null;
   const headers = new Headers(options?.headers);
-
-  if (auth?.token && !headers.has("Authorization")) {
-    headers.set("Authorization", `Bearer ${auth.token}`);
-  }
-  if (auth?.orgId && !headers.has("X-Organization-Id")) {
-    headers.set("X-Organization-Id", auth.orgId);
-  }
 
   try {
     res = await fetch(`${BASE_URL}${url}`, {
@@ -200,32 +183,4 @@ export async function fetchPlanHistory(
   return fetchJson<PreparationPlanHistoryItem[]>(
     `/api/plan/history?limit=${limit}`,
   );
-}
-
-export async function fetchAuthMe(): Promise<{
-  user_id: string;
-  email: string;
-  role: string;
-}> {
-  return fetchJson<{ user_id: string; email: string; role: string }>(
-    "/api/auth/me",
-  );
-}
-
-export async function fetchUserOrganizations(): Promise<{
-  organizations: {
-    id: string;
-    name: string;
-    slug: string;
-    role: "owner" | "admin" | "member";
-  }[];
-}> {
-  return fetchJson<{
-    organizations: {
-      id: string;
-      name: string;
-      slug: string;
-      role: "owner" | "admin" | "member";
-    }[];
-  }>("/api/auth/organizations");
 }

@@ -7,17 +7,13 @@ import {
   FlaskConical,
   LayoutDashboard,
   Leaf,
-  LogIn,
-  LogOut,
   PanelLeftClose,
   PanelLeftOpen,
-  Server,
   Sprout,
   TriangleAlert,
   X,
 } from "lucide-react";
 import type { Page } from "./workspace/model";
-import { useAuth } from "./context/AuthContext";
 import BrandLogo from "./BrandLogo";
 
 const navLinks = [
@@ -63,12 +59,6 @@ const navLinks = [
     icon: Database,
     group: "learn" as const,
   },
-  {
-    id: "backend-api" as Page,
-    label: "Backend & Live API",
-    icon: Server,
-    group: "learn" as const,
-  },
 ];
 
 interface SidebarProps {
@@ -79,7 +69,6 @@ interface SidebarProps {
   isMobile?: boolean;
   onCloseMobile?: () => void;
   onOpenTour: () => void;
-  onOpenAuth: () => void;
 }
 
 export default function Sidebar({
@@ -90,9 +79,7 @@ export default function Sidebar({
   isMobile = false,
   onCloseMobile,
   onOpenTour,
-  onOpenAuth,
 }: SidebarProps) {
-  const { user, profile, activeOrg, signOut } = useAuth();
   const isCollapsed = collapsed && !isMobile;
 
   const handleNav = (targetPage: Page) => {
@@ -102,118 +89,71 @@ export default function Sidebar({
     }
   };
 
-  const planLinks = navLinks.filter((l) => l.group === "plan");
-  const learnLinks = navLinks.filter((l) => l.group === "learn");
+  const planLinks = navLinks.filter((link) => link.group === "plan");
+  const learnLinks = navLinks.filter((link) => link.group === "learn");
 
   return (
     <aside
-      className={`sidebar ${isCollapsed ? "collapsed" : "expanded"} ${isMobile ? "mobile-drawer" : ""}`}
-      aria-label="Application navigation"
+      className={`sidebar ${isCollapsed ? "collapsed" : ""} ${isMobile ? "mobile-drawer" : ""}`}
+      aria-label="Sidebar navigation"
     >
-      {/* 1. Brand Header & Collapse Toggle */}
+      {/* 1. Header / Brand */}
       <div className="sidebar-header">
         <a
-          className="sidebar-brand"
           href="#home"
-          aria-label="WasteWise AI Home"
+          className="sidebar-brand-link"
           onClick={(e) => {
             e.preventDefault();
             handleNav("home");
           }}
+          aria-label="WasteWise AI Homepage"
         >
-          <span className="brand-mark">
+          <div className="brand-icon-wrap">
             <BrandLogo width={36} height={26} />
-          </span>
+          </div>
           {!isCollapsed && (
-            <span className="sidebar-brand-text">
-              <span className="brand-title">
-                WasteWise<span className="brand-ai">AI</span>
-              </span>
-              <small className="brand-subtitle">Kitchen intelligence</small>
-            </span>
+            <div className="brand-text-block">
+              <span className="brand-title">WasteWise AI</span>
+              <span className="brand-edition">DEMO EDITION</span>
+            </div>
           )}
         </a>
 
-        {isMobile ? (
+        {/* Mobile close button */}
+        {isMobile && (
           <button
-            className="sidebar-toggle-btn"
+            type="button"
+            className="mobile-close-btn"
             onClick={onCloseMobile}
-            aria-label="Close navigation drawer"
-            title="Close menu"
+            aria-label="Close sidebar"
           >
             <X size={18} />
           </button>
-        ) : (
+        )}
+
+        {/* Desktop collapse toggle */}
+        {!isMobile && (
           <button
-            className="sidebar-toggle-btn"
+            type="button"
+            className="sidebar-collapse-btn"
             onClick={onToggleCollapse}
-            aria-label={
-              isCollapsed
-                ? "Expand sidebar (Ctrl+[)"
-                : "Collapse sidebar (Ctrl+[)"
-            }
-            title={
-              isCollapsed
-                ? "Expand sidebar (Ctrl+[)"
-                : "Collapse sidebar (Ctrl+[)"
-            }
+            aria-label={isCollapsed ? "Expand sidebar" : "Collapse sidebar"}
+            title={isCollapsed ? "Expand sidebar" : "Collapse sidebar"}
           >
             {isCollapsed ? (
-              <PanelLeftOpen size={18} />
+              <PanelLeftOpen size={16} />
             ) : (
-              <PanelLeftClose size={18} />
-            )}
-            {isCollapsed && (
-              <span className="nav-tooltip">Expand sidebar (Ctrl+[)</span>
+              <PanelLeftClose size={16} />
             )}
           </button>
         )}
       </div>
 
-      {/* 2. Workspace Identity Card */}
-      <div
-        className="workspace-card"
-        title="Campus Green · Demo canteen workspace"
-      >
-        <span className="workspace-avatar-wrap">
-          <span className="workspace-avatar">CG</span>
-          {isCollapsed && (
-            <span className="nav-tooltip">Campus Green · Demo canteen</span>
-          )}
-        </span>
+      {/* 2. Primary Navigation Links */}
+      <div className="sidebar-nav-group">
         {!isCollapsed && (
-          <div className="workspace-text">
-            <strong>Campus Green</strong>
-            <small>Demo canteen</small>
-          </div>
+          <span className="sidebar-section-heading">Operational Plan</span>
         )}
-      </div>
-
-      {/* Scrollable Navigation Area */}
-      <div className="sidebar-nav-scroll">
-        {/* 3. Primary Navigation: Home */}
-        <a
-          href="#home"
-          className={`nav-link ${page === "home" ? "active" : ""}`}
-          aria-current={page === "home" ? "page" : undefined}
-          aria-label="Home"
-          onClick={(e) => {
-            e.preventDefault();
-            handleNav("home");
-          }}
-        >
-          <Sprout size={18} strokeWidth={1.8} className="nav-icon" />
-          {!isCollapsed && <span className="nav-text">Home</span>}
-          {isCollapsed && <span className="nav-tooltip">Home</span>}
-        </a>
-
-        {/* 4. Planning Group */}
-        {!isCollapsed ? (
-          <span className="nav-group-title">Plan this service</span>
-        ) : (
-          <div className="nav-group-divider" aria-hidden="true" />
-        )}
-
         {planLinks.map(({ id, label, icon: Icon }) => (
           <a
             key={id}
@@ -231,12 +171,12 @@ export default function Sidebar({
             {isCollapsed && <span className="nav-tooltip">{label}</span>}
           </a>
         ))}
+      </div>
 
-        {/* 5. Learning & Maintenance Group */}
-        {!isCollapsed ? (
-          <span className="nav-group-title">Learn & maintain</span>
-        ) : (
-          <div className="nav-group-divider" aria-hidden="true" />
+      {/* 3. Secondary Navigation Links */}
+      <div className="sidebar-nav-group">
+        {!isCollapsed && (
+          <span className="sidebar-section-heading">Intelligence</span>
         )}
 
         {learnLinks.map(({ id, label, icon: Icon }) => (
@@ -258,67 +198,39 @@ export default function Sidebar({
         ))}
       </div>
 
-      {/* 6. Bottom Utility Area */}
+      {/* 4. Bottom Utility Area */}
       <div className="sidebar-bottom">
-        {/* Auth / Account status */}
+        {/* Demo Mode Badge */}
         {!isCollapsed ? (
-          <div className="mb-3 p-2.5 rounded-xl bg-[var(--surface-muted,#eee9de)] border border-[var(--border,#d4cdbf)] text-xs">
-            {user ? (
-              <div className="flex items-center justify-between gap-2">
-                <div className="min-w-0 flex-1">
-                  <p className="font-semibold truncate text-[var(--ink,#1f2923)]">
-                    {activeOrg?.name || "ADAPPT Canteen"}
-                  </p>
-                  <p className="text-[11px] text-[var(--ink-light,#666)] truncate">
-                    {profile?.full_name || user.email}
-                  </p>
-                </div>
-                <button
-                  type="button"
-                  onClick={() => signOut()}
-                  title="Sign out"
-                  className="p-1.5 rounded-lg text-[var(--ink-light,#666)] hover:text-red-700 hover:bg-white transition"
-                  aria-label="Sign out"
-                >
-                  <LogOut size={14} />
-                </button>
+          <div
+            className="mb-3 p-2.5 rounded-xl bg-[var(--surface-muted,#eee9de)] border border-[var(--border,#d4cdbf)] text-xs"
+            role="status"
+            aria-label="Demonstration environment status"
+          >
+            <div className="flex items-center gap-2">
+              <span
+                className="w-2 h-2 rounded-full bg-emerald-600 animate-pulse"
+                aria-hidden="true"
+              />
+              <div className="min-w-0 flex-1">
+                <p className="font-semibold text-[var(--ink,#1f2923)] tracking-wide">
+                  DEMO ENVIRONMENT
+                </p>
+                <p className="text-[11px] text-[var(--ink-light,#666)] truncate">
+                  Sample canteen data · Public access
+                </p>
               </div>
-            ) : (
-              <button
-                type="button"
-                onClick={onOpenAuth}
-                className="w-full py-1.5 px-2.5 rounded-lg bg-[var(--primary,#1e4638)] text-white font-medium flex items-center justify-center gap-1.5 hover:opacity-95 transition"
-              >
-                <LogIn size={13} />
-                <span>Sign In / Register</span>
-              </button>
-            )}
+            </div>
           </div>
         ) : (
-          <div className="mb-2 flex justify-center">
-            {user ? (
-              <button
-                type="button"
-                onClick={() => signOut()}
-                className="collapsed-utility-btn"
-                title={`Sign out (${user.email})`}
-                aria-label="Sign out"
-              >
-                <LogOut size={16} />
-                <span className="nav-tooltip">Sign out</span>
-              </button>
-            ) : (
-              <button
-                type="button"
-                onClick={onOpenAuth}
-                className="collapsed-utility-btn"
-                title="Sign In / Register"
-                aria-label="Sign In"
-              >
-                <LogIn size={16} />
-                <span className="nav-tooltip">Sign In</span>
-              </button>
-            )}
+          <div
+            className="mb-2 flex justify-center"
+            title="DEMO ENVIRONMENT · Sample Canteen Data"
+          >
+            <span
+              className="w-2.5 h-2.5 rounded-full bg-emerald-600 animate-pulse"
+              aria-label="Demo environment active"
+            />
           </div>
         )}
 
@@ -327,7 +239,7 @@ export default function Sidebar({
             <div className="demo-invite-content">
               <FlaskConical size={16} className="invite-icon" />
               <div>
-                <strong>See the whole workflow</strong>
+                <strong>Explore the workflow</strong>
                 <p>From a demand forecast to a practical kitchen plan.</p>
               </div>
             </div>

@@ -93,11 +93,21 @@ async def lifespan(app: FastAPI):
     yield
 
 
+WASTEWISE_DEMO_MODE = os.environ.get("WASTEWISE_DEMO_MODE", "true").lower() in ("true", "1", "yes")
+ENABLE_API_DOCS = os.environ.get("ENABLE_API_DOCS", "false").lower() in ("true", "1", "yes")
+
+docs_url = "/docs" if (ENABLE_API_DOCS or not WASTEWISE_DEMO_MODE) else None
+redoc_url = "/redoc" if (ENABLE_API_DOCS or not WASTEWISE_DEMO_MODE) else None
+openapi_url = "/openapi.json" if (ENABLE_API_DOCS or not WASTEWISE_DEMO_MODE) else None
+
 app = FastAPI(
     title="WasteWise AI Operational Intelligence API",
     description="Enterprise FoodTech demand forecasting & preparation optimization backend",
     version=VERSION,
     lifespan=lifespan,
+    docs_url=docs_url,
+    redoc_url=redoc_url,
+    openapi_url=openapi_url,
 )
 
 # Enable CORS for React frontend (Vite dev server)
@@ -250,6 +260,7 @@ def get_health():
         "version": VERSION,
         "event": EVENT_NAME,
         "workspace": CANTEEN_NAME,
+        "demo_mode": WASTEWISE_DEMO_MODE,
         "is_synthetic": default_state.is_synthetic,
         "model_trained": default_state.engine.is_trained,
     }
@@ -261,8 +272,19 @@ def get_config(
     x_organization_id: Optional[str] = Header(None, alias="X-Organization-Id"),
     db: Session = Depends(get_db),
 ):
-    effective_org_id = x_organization_id or DEFAULT_ORG_ID
-    if user and not x_organization_id:
+    effective_org_id = DEFAULT_ORG_ID
+    if user and x_organization_id:
+        membership = (
+            db.query(OrganizationMemberModel)
+            .filter(
+                OrganizationMemberModel.user_id == user.id,
+                OrganizationMemberModel.organization_id == x_organization_id,
+            )
+            .first()
+        )
+        if membership:
+            effective_org_id = membership.organization_id
+    elif user and not x_organization_id:
         membership = (
             db.query(OrganizationMemberModel)
             .filter(OrganizationMemberModel.user_id == user.id)

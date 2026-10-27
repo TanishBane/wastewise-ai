@@ -8,13 +8,16 @@
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.9+-3178C6.svg)](https://www.typescriptlang.org/)
 [![Vite 8](https://img.shields.io/badge/Vite-8-646CFF.svg)](https://vite.dev/)
 [![Tailwind CSS v4](https://img.shields.io/badge/Tailwind-v4-38BDF8.svg)](https://tailwindcss.com/)
-[![PostgreSQL & Supabase](https://img.shields.io/badge/PostgreSQL-Supabase%20RLS-3ECF8E.svg)](https://supabase.com/)
+[![Database](https://img.shields.io/badge/Database-SQLite%20%7C%20PostgreSQL-3ECF8E.svg)](data/)
+[![Mode](https://img.shields.io/badge/Mode-Public%20Interactive%20Demo-10B981.svg)](#overview)
 [![scikit-learn](https://img.shields.io/badge/scikit--learn-Random%20Forest-F7931E.svg)](https://scikit-learn.org/)
-[![Tests Passing](https://img.shields.io/badge/Pytest-46%20Passed-brightgreen.svg)](tests/)
+[![Tests Passing](https://img.shields.io/badge/Pytest-59%20Passed-brightgreen.svg)](tests/)
 [![Code Style](https://img.shields.io/badge/Linter-Oxlint-blueviolet.svg)](https://oxc.rs/)
 
 > **Predict smarter. Prepare better. Waste less.**
-> An enterprise-grade canteen operational intelligence platform combining machine-learning demand forecasting with asymmetric Newsvendor preparation planning, proactive surplus triage, and multi-tenant data isolation with PostgreSQL Row-Level Security (RLS).
+> An operational intelligence platform combining machine-learning demand forecasting with asymmetric Newsvendor preparation planning, proactive surplus triage, and interactive canteen workflows.
+>
+> 🌐 **Public Interactive Demo**: This repository is configured to run out-of-the-box in **Public Demo Mode** with zero account creation, zero login screens, and zero cloud database prerequisites. All operational capabilities are immediately accessible using calibrated demonstration data.
 
 ---
 
@@ -36,7 +39,7 @@
 - [Production Deployment Guides](#production-deployment-guides)
   - [Frontend Deployment (Vercel)](#frontend-deployment-vercel)
   - [Backend Deployment (Render)](#backend-deployment-render)
-  - [Database & Auth Deployment (Supabase)](#database--auth-deployment-supabase)
+  - [Database & Optional Enterprise Deployment](#database--optional-enterprise-deployment)
 - [Model Evaluation & Data Provenance](#model-evaluation--data-provenance)
 - [Testing & Quality Assurance](#testing--quality-assurance)
 - [Release Governance & Tagging Criteria](#release-governance--tagging-criteria)
@@ -59,7 +62,7 @@ Traditional fixed-batch cooking relies on guesswork and static historical averag
 2. **Asymmetric Newsvendor Preparation Optimization**: Computes risk-adjusted batch targets by mathematically balancing ingredient spoilage costs ($C_o$) against customer stockout penalties ($C_u$) via the critical fractile ratio.
 3. **Staggered Two-Phase Batching**: Recommends firing a conservative initial buffer (60–65%) while holding mise-en-place for designated mid-shift refill thresholds.
 4. **Proactive Surplus Rescue Protocols**: Identifies at-risk portions hours before shift completion, suggesting discounts, food bank donations, or compost routing based on shelf-life constraints.
-5. **Multi-Tenant Security Architecture**: Enforces organizational data isolation using Supabase JWT authentication, PostgreSQL Row-Level Security (RLS), and an in-memory `OrgStateRegistry` service.
+5. **Multi-Tenant Security & Safe Demo Architecture**: Enforces organizational data isolation using an in-memory `OrgStateRegistry` service, hardened guest tenant scoping (`DEFAULT_ORG_ID`), and optional enterprise PostgreSQL Row-Level Security (RLS).
 6. **Empirical Shift Reconciliation**: Logs physical outcomes (prepared, sold, leftover, waste root cause) into persistent storage to track variance and prevent model drift.
 
 ---
@@ -72,14 +75,14 @@ Traditional fixed-batch cooking relies on guesswork and static historical averag
 flowchart TD
     subgraph Client["Client Layer (Browser)"]
         SPA["React 19 SPA (TypeScript + Vite)"]
-        UI["Tailwind CSS v4 + Framer Motion"]
-        AuthContext["Supabase AuthContext (JWT + OrgContext)"]
+        UI["Tailwind CSS v4 + Motion React"]
+        DemoIndicator["Demo Environment Status Pill & Badges"]
     end
 
-    subgraph Gateway["API Gateway & Auth Verification"]
+    subgraph Gateway["API Gateway & Demo Isolation"]
         FastAPI["FastAPI 0.115+ Gateway"]
-        AuthMiddleware["Fail-Closed JWT Validator (RS256 / ES256 / Local Secret)"]
-        TenantRouter["Multi-Tenant Dependency Injection (X-Organization-Id)"]
+        AuthMiddleware["Demo & JWT Guard (Fail-Closed Org Resolver)"]
+        TenantRouter["Tenant Router (DEFAULT_ORG_ID Pinned for Demo)"]
     end
 
     subgraph CoreEngine["Core Intelligence & Isolation Layer"]
@@ -91,13 +94,12 @@ flowchart TD
     end
 
     subgraph DataStorage["Data Persistence Layer"]
-        Postgres[("Supabase PostgreSQL (Production)")]
-        RLSPolicies["Row-Level Security (Tenant Isolation Policies)"]
-        SQLiteFallback[("SQLite Persistent Storage (Local Fallback)")]
+        SQLiteDB[("SQLite Demonstration DB (data/wastewise.db)")]
+        Postgres[("PostgreSQL / Supabase (Optional Enterprise Mode)")]
+        RLSPolicies["Row-Level Security (Enterprise RLS Migration)"]
     end
 
-    SPA -->|REST API Requests + Bearer Token| FastAPI
-    AuthContext -->|Session Tokens| FastAPI
+    SPA -->|REST API Requests (Zero Auth Required in Demo)| FastAPI
     FastAPI --> AuthMiddleware
     AuthMiddleware --> TenantRouter
     TenantRouter --> Registry
@@ -106,9 +108,9 @@ flowchart TD
     Registry --> RescueService
     Registry --> OutcomeLogger
 
-    Registry -->|SQLAlchemy Sessions| Postgres
+    Registry -->|SQLAlchemy Sessions| SQLiteDB
+    Registry -.->|When DATABASE_URL is configured| Postgres
     Postgres --- RLSPolicies
-    Registry -.->|Fallback when DATABASE_URL is unset| SQLiteFallback
 ```
 
 ### Operational Shift Lifecycle
@@ -120,7 +122,7 @@ sequenceDiagram
     actor Crew as Kitchen Staff
     participant API as WasteWise AI API
     participant ML as Forecasting & Newsvendor Engine
-    participant DB as Supabase PostgreSQL / RLS
+    participant DB as SQLite DB / SQLAlchemy
 
     Note over Mgr,DB: 06:30 — Morning Planning Cadence
     Mgr->>API: Review Daily Context (Weather, Events, Day of Week)
@@ -206,13 +208,13 @@ Rather than treating leftovers as an inevitable end-of-day loss, the Surplus Res
 
 Each recommendation includes calculated financial cost-at-risk based on dish unit production costs.
 
-### 4. Multi-Tenant Data Isolation & Security
+### 4. Multi-Tenant Data Isolation & Demo Security
 
-WasteWise AI is built with an enterprise multi-tenant security architecture:
-- **Supabase PostgreSQL & Row-Level Security (RLS)**: Organizations, members, menu catalogs, forecast runs, preparation plans, and shift outcomes are compartmentalized by `organization_id`. Database RLS policies guarantee that users can never query or manipulate records belonging to another tenant.
-- **Fail-Closed JWT Authentication**: Validates incoming bearer tokens using Supabase Auth public keys (RS256 / ES256) or configured signing secrets. Requests missing valid authentication fail closed with HTTP 401.
-- **`OrgStateRegistry` Isolation**: The Python backend maintains isolated in-memory model instances, active training sets, and operational parameters per organization, preventing cross-tenant model contamination.
-- **Safe Local Development Fallback**: When cloud database environment variables are omitted, the system falls back safely to local persistent SQLite storage using identical SQLAlchemy models.
+WasteWise AI is built with a dual-mode data isolation and security architecture:
+- **Public Demonstration Mode**: In public demo mode (`WASTEWISE_DEMO_MODE=true`), all operational endpoints operate seamlessly without requiring user authentication or registration. Requests are strictly locked to `DEFAULT_ORG_ID`. Any unauthenticated attempt to forge or supply a non-default `X-Organization-Id` header is rejected immediately with HTTP 401.
+- **`OrgStateRegistry` Isolation**: The Python backend maintains isolated in-memory model instances, active training sets, and operational parameters per organization, ensuring complete isolation.
+- **Zero Cloud Database Requirement**: Demonstration state persists reliably to local SQLite storage (`data/wastewise.db`) without requiring external cloud databases or third-party auth services.
+- **Enterprise Multi-Tenancy & PostgreSQL RLS (Historical / Optional)**: For private enterprise multi-tenant deployments, the codebase retains database migrations (`supabase/migrations/`) supporting PostgreSQL Row-Level Security (RLS) policies and cryptographically verified JWT authentication.
 
 ### 5. Physical Shift Outcome Auditing
 
@@ -241,8 +243,8 @@ To maintain accountability and close the feedback loop for model retraining, kit
 | **Backend API** | [FastAPI 0.115+](https://fastapi.tiangolo.com/), [Uvicorn](https://www.uvicorn.org/) | High-performance asynchronous REST API gateway with automatic OpenAPI documentation. |
 | **Machine Learning** | [scikit-learn 1.4+](https://scikit-learn.org/), [pandas 3.0+](https://pandas.pydata.org/), [numpy](https://numpy.org/) | Supervised Random Forest demand forecasting ensemble and feature transformations. |
 | **Decision Optimization** | [SciPy 1.18+](https://scipy.org/) | Asymmetric Newsvendor critical fractile optimization and probability distribution fitting. |
-| **Database & ORM** | [SQLAlchemy 2.0](https://www.sqlalchemy.org/), [psycopg2](https://www.psycopg.org/) | Abstracted persistence layer supporting PostgreSQL (Supabase) and SQLite with additive migrations. |
-| **Authentication & RLS** | [Supabase Auth](https://supabase.com/docs/guides/auth), [PyJWT 2.8+](https://pyjwt.readthedocs.io/) | Multi-tenant organization RBAC, cryptographically verified JWT tokens, and database Row-Level Security. |
+| **Database & ORM** | [SQLite 3](https://sqlite.org/), [SQLAlchemy 2.0](https://www.sqlalchemy.org/) | Embedded demonstration storage (`data/wastewise.db`) with SQLAlchemy ORM models; optional PostgreSQL support. |
+| **Demo Security & Auth** | Guest Scoping (`DEFAULT_ORG_ID`), Fail-Closed Guard | Zero-friction public demonstration access with strict tenant isolation; optional JWT verification for enterprise deployments. |
 | **Monitoring & Telemetry** | [Sentry SDK 2.73+](https://sentry.io/), [PostHog](https://posthog.com/) | Real-time backend and frontend exception tracking, performance tracing, and operational telemetry. |
 | **Testing & QA** | [pytest 9.1+](https://docs.pytest.org/), [Oxlint 1.88+](https://oxc.rs/), [Prettier 3.9+](https://prettier.io/) | 46 automated unit/integration tests, Rust-based ultra-fast JavaScript linting, and formatting checks. |
 
@@ -253,7 +255,7 @@ To maintain accountability and close the feedback loop for model retraining, kit
 ```text
 wastewise-ai/
 ├── backend/                          # FastAPI application & service architecture
-│   ├── auth.py                       # Fail-closed JWT verification & OrgContext resolver
+│   ├── auth.py                       # Demo guest scoping & fail-closed tenant validation
 │   ├── database.py                   # SQLAlchemy engine, session factories & schema migrations
 │   ├── main.py                       # REST routes, CORS middleware, lifespan & static mounting
 │   ├── models.py                     # Multi-tenant SQLAlchemy database models (UUID keys)
@@ -266,7 +268,7 @@ wastewise-ai/
 │       └── rescue_service.py         # Surplus risk triage & financial exposure tracking
 ├── data/                             # Data storage & baseline records
 │   ├── active_operator_dataset.csv   # Currently active operator dataset
-│   ├── wastewise.db                  # Local SQLite database (fallback when DATABASE_URL is unset)
+│   ├── wastewise.db                  # Local SQLite database (primary storage for demo mode)
 │   └── wastewise_sample_canteen_data.csv # 180-day baseline demonstration dataset
 ├── docs/                             # Documentation assets
 │   ├── screenshots/                  # Verified high-resolution interface screenshots
@@ -274,13 +276,14 @@ wastewise-ai/
 ├── frontend/                         # React 19 TypeScript single-page application
 │   ├── public/                       # Favicon, brand marks, and self-hosted fonts
 │   ├── src/
-│   │   ├── api.ts                    # Strongly typed API client with auth injection
-│   │   ├── App.tsx                   # Main layout shell, router & global keyboard listeners
-│   │   ├── context/AuthContext.tsx   # Supabase authentication & tenant state provider
-│   │   ├── Sidebar.tsx               # Collapsible desktop navigation rail & mobile drawer
+│   │   ├── api.ts                    # Strongly typed API client for public demo endpoints
+│   │   ├── App.tsx                   # Main layout shell, router & demo status indicator
+│   │   ├── Sidebar.tsx               # Collapsible navigation rail & demo environment badge
 │   │   ├── tokens.ts                 # Design token palette and spatial layout constants
 │   │   ├── types.ts                  # Shared TypeScript interfaces & API payload schemas
 │   │   └── workspace/                # Primary operational view components
+│   │       ├── CanteenBentoGrid.tsx  # Interactive operational bento grid
+│   │       ├── CanteenWorkflowGallery.tsx # Authentic canteen operational workflow gallery
 │   │       ├── Data.tsx              # Dataset management, schema audit & CSV ingestion
 │   │       ├── Home.tsx              # Landing stage, HUD telemetry & operational cadence
 │   │       ├── Overview.tsx          # Kitchen Command Center dashboard
@@ -298,12 +301,13 @@ wastewise-ai/
 │   ├── metrics.py                    # WAPE, MAE, and economic impact calculations
 │   ├── model.py                      # DemandForecastingEngine (Random Forest Regressor)
 │   └── planner.py                    # PreparationPlanner (Newsvendor buffer optimizer)
-├── supabase/                         # Supabase configuration & database migrations
+├── supabase/                         # Supabase configuration & historical migrations
 │   └── migrations/
-│       └── 20261023190000_supabase_auth_multitenant.sql # Production PostgreSQL RLS migration
+│       └── 20261023190000_supabase_auth_multitenant.sql # Historical PostgreSQL RLS migration
 ├── tests/                            # Automated test suite (pytest)
 │   ├── test_api.py                   # FastAPI endpoint status & schema contract tests
-│   ├── test_auth.py                  # JWT validation, signature verification & RBAC tests
+│   ├── test_auth.py                  # Fail-closed authentication & RBAC tests
+│   ├── test_demo_mode.py             # Public demo access, tenant isolation & forgery rejection
 │   ├── test_data.py                  # CSV ingestion, sanitization & retraining tests
 │   ├── test_database.py              # Schema migrations & UUID model persistence tests
 │   ├── test_metrics.py               # WAPE, MAE & financial exposure calculation tests
@@ -405,21 +409,18 @@ For live code editing with real-time reload:
 
 WasteWise AI is configured through environment variables. For local evaluation, all variables have secure, sensible defaults:
 
-| Variable | Component | Required in Prod? | Default (Local Dev) | Description |
+| Variable | Component | Required for Demo? | Default | Description |
 | :--- | :--- | :--- | :--- | :--- |
-| `DATABASE_URL` | Backend | **Yes** (Supabase) | *Unset* (falls back to SQLite) | PostgreSQL connection string (`postgresql://postgres:[PASSWORD]@[HOST]:5432/postgres`). |
-| `SUPABASE_URL` | Backend | **Yes** (Supabase) | *Unset* | Project URL for Supabase Auth and REST API. |
-| `SUPABASE_SERVICE_ROLE_KEY` | Backend | **Yes** (Supabase) | *Unset* | Service role key for trusted administrative queries and provisioning. |
-| `SUPABASE_JWT_SECRET` | Backend | **Yes** (Supabase) | *Unset* | Secret used to verify HS256/RS256 JWT bearer tokens fail-closed. |
-| `WASTEWISE_CORS_ORIGINS` | Backend | **Yes** (Production) | `http://127.0.0.1:3000,http://localhost:3000` | Comma-separated allowed CORS origins (e.g. `https://wastewise-ai.vercel.app`). |
-| `WASTEWISE_DB_PATH` | Backend | No | `data/wastewise.db` | Local SQLite database file path when `DATABASE_URL` is not provided. |
-| `SENTRY_DSN` | Backend | No | *Unset* | Sentry project DSN for backend exception and performance tracking. |
+| `WASTEWISE_DEMO_MODE` | Backend | No | `true` | Enables public interactive demo mode with synthetic guest tenant isolation (`DEFAULT_ORG_ID`). |
+| `ENABLE_API_DOCS` | Backend | No | `false` | Disables `/docs`, `/redoc`, and `/openapi.json` to prevent public schema exposure in demo mode. |
+| `WASTEWISE_DB_PATH` | Backend | No | `data/wastewise.db` | Local SQLite database file path. |
+| `WASTEWISE_CORS_ORIGINS` | Backend | Yes (Production) | `http://127.0.0.1:3000,http://localhost:3000` | Comma-separated allowed CORS origins (e.g. `https://wastewise-ai.vercel.app`). |
 | `PORT` | Backend | No | `8000` | Port for the Uvicorn ASGI server. |
-| `VITE_API_BASE_URL` | Frontend | **Yes** (Vercel) | `""` (relative `/api`) | Public URL of the FastAPI backend (e.g. `https://wastewise-api.onrender.com`). |
-| `VITE_SUPABASE_URL` | Frontend | **Yes** (Supabase) | *Unset* | Public Supabase project URL for browser auth initialization. |
-| `VITE_SUPABASE_PUBLISHABLE_KEY` | Frontend | **Yes** (Supabase) | *Unset* | Public anonymous API key (`anon` key) for Supabase client. |
-| `VITE_SENTRY_DSN` | Frontend | No | *Unset* | Sentry DSN for React client error monitoring. |
-| `VITE_POSTHOG_KEY` | Frontend | No | *Unset* | PostHog API key for front-end analytics and telemetry. |
+| `VITE_API_BASE_URL` | Frontend | Yes (Split Deploy) | `""` (relative `/api`) | Public URL of the FastAPI backend (e.g. `https://wastewise-api.onrender.com`). |
+| `DATABASE_URL` | Backend | Optional | *Unset* (uses SQLite) | PostgreSQL connection string for optional enterprise deployment. |
+| `SUPABASE_URL` | Backend | Optional | *Unset* | Supabase project URL (enterprise multi-tenant mode only). |
+| `SUPABASE_JWT_SECRET` | Backend | Optional | *Unset* | Secret for JWT validation (enterprise multi-tenant mode only). |
+| `SENTRY_DSN` | Backend | No | *Unset* | Optional Sentry DSN for backend exception tracking. |
 
 ---
 
@@ -438,10 +439,9 @@ The React frontend is designed for seamless deployment to Vercel as a single-pag
    - **Build Command**: `npm run build`
    - **Output Directory**: `dist`
    - **Install Command**: `npm install`
-4. Add Environment Variables:
-   - `VITE_API_BASE_URL`: `https://wastewise-api.onrender.com` (your deployed backend URL)
-   - `VITE_SUPABASE_URL`: `https://[PROJECT-REF].supabase.co`
-   - `VITE_SUPABASE_PUBLISHABLE_KEY`: `[ANON-KEY]`
+4. Add Environment Variables (Optional for split frontend/backend hosting):
+   - `VITE_API_BASE_URL`: `https://wastewise-api.onrender.com` (your deployed backend URL; omit if using unified Vercel rewrite or local proxy).
+   *(Note: No Supabase or auth keys are required for the public demo!)*
 5. Click **Deploy**. The `frontend/vercel.json` rewrite configuration automatically ensures full client-side route hydration without 404 errors on page refresh.
 
 #### Option B — Via Vercel CLI
@@ -464,18 +464,20 @@ The FastAPI backend is pre-configured for Render deployment via `render.yaml`.
    - **Build Command**: `pip install -r requirements.txt`
    - **Start Command**: `uvicorn backend.main:app --host 0.0.0.0 --port $PORT`
 4. In the Render Dashboard, add your environment variables under **Environment**:
-   - `DATABASE_URL`: Your Supabase PostgreSQL pooling connection string.
-   - `SUPABASE_URL`: Your Supabase project URL.
-   - `SUPABASE_JWT_SECRET`: Your Supabase JWT secret.
+   - `WASTEWISE_DEMO_MODE`: `true`
+   - `ENABLE_API_DOCS`: `false`
    - `WASTEWISE_CORS_ORIGINS`: `https://wastewise-ai.vercel.app` (your Vercel frontend URL).
+   *(Optional: If connecting to an enterprise PostgreSQL database, configure `DATABASE_URL`)*.
 
 ---
 
-### Database & Auth Deployment (Supabase)
+### Database & Optional Enterprise Deployment
 
-1. Create a project on [Supabase](https://supabase.com/).
+> 💡 **Public Demo Notice**: The public demo uses SQLite (`data/wastewise.db`) out-of-the-box and does **not** require Supabase or any cloud database setup. The instructions below are only for organizations setting up an isolated private multi-tenant instance.
+
+1. Create a project on [Supabase](https://supabase.com/) or configure a PostgreSQL instance.
 2. Open the **SQL Editor** in the Supabase Dashboard.
-3. Open `supabase/migrations/20261023190000_supabase_auth_multitenant.sql` and run the script. This migration creates:
+3. Open `supabase/migrations/20261023190000_supabase_auth_multitenant.sql` and run the script. This historical migration creates:
    - `organizations` and `organization_members` tables with RBAC roles (`owner`, `admin`, `operator`).
    - Tenant-isolated tables: `menu_items`, `forecast_runs`, `preparation_plans`, `actual_outcomes`, `upload_history`.
    - Comprehensive **Row-Level Security (RLS)** policies restricting read, insert, update, and delete access strictly to authenticated members of the specified organization.
@@ -515,15 +517,16 @@ Model accuracy is evaluated on an unseen 280-record chronological holdout datase
 WasteWise AI enforces a comprehensive automated testing discipline across the entire stack:
 
 ### 1. Backend Automated Test Suite (Pytest)
-Run the 46 automated backend tests covering API contracts, multi-tenant authentication, database migrations, Newsvendor economics, and model intervals:
+Run the 59 automated backend tests covering API contracts, public demo safety, tenant isolation, Newsvendor economics, and model intervals:
 ```bash
 python -m pytest
 ```
-*Current Status: 46 / 46 passing tests.*
+*Current Status: 59 / 59 passing tests (100%).*
 
 Test suite coverage includes:
-- `tests/test_api.py`: FastAPI endpoint statuses, request validation, and OpenAPI schema compliance.
-- `tests/test_auth.py`: JWT signature validation, algorithm mismatch rejection, fail-closed authentication, and tenant authorization.
+- `tests/test_demo_mode.py`: Public demo access without auth, guest tenant isolation (`DEFAULT_ORG_ID`), forgery header rejection, Swagger/OpenAPI disablement, and frontend clean source audit.
+- `tests/test_api.py`: FastAPI endpoint statuses, request validation, and contract compliance.
+- `tests/test_auth.py`: Fail-closed tenant authentication and RBAC authorization.
 - `tests/test_database.py`: SQLAlchemy multi-tenant schema migrations, UUID primary key generation, and query scoping.
 - `tests/test_data.py`: CSV schema validation, sanitization of missing rows, and organization-scoped retraining.
 - `tests/test_planner.py`: Asymmetric Newsvendor critical fractile calculations, inventory deductions, and batch constraints.
@@ -554,14 +557,13 @@ WasteWise AI follows Semantic Versioning (`MAJOR.MINOR.PATCH`).
 
 ### Release Readiness Checklist
 Before tagging and publishing an official production release (e.g. `v0.1.0` or `v1.0.0`):
-- [x] All 46 backend pytest tests passing cleanly on `main`.
+- [x] All 59 backend pytest tests passing cleanly on `feature/demo-only-conversion`.
 - [x] Frontend TypeScript compilation and Vite production build succeeding with zero errors.
 - [x] Code style and linting verified with zero errors.
-- [x] Supabase multi-tenant schema migrations validated with strict RLS policies.
-- [x] Fail-closed authentication verified with signature enforcement.
+- [x] Complete public demo conversion: zero auth dependencies, zero login UI, hardened tenant isolation.
+- [x] Swagger and internal backend diagnostic UI safely removed from public demo interface.
 - [ ] Vercel frontend deployed and accessible with live domain.
 - [ ] Render backend deployed and passing live `/api/health` probes.
-- [ ] Supabase production project connected with production connection string.
 
 ### How to Create an Official Release Tag
 Once live cloud deployments are active and verified by the repository owner:

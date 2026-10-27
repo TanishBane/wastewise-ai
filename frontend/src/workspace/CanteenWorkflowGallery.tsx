@@ -65,7 +65,7 @@ const workflowSteps = [
     kpis: [
       { label: "Cold-Chain Window", val: "4-hour timer" },
       { label: "Direct Landfill Waste", val: "0.0 kg" },
-      { label: "Recorded to DB", val: "SQLite / Supabase" },
+      { label: "Recorded to DB", val: "SQLite Demonstration DB" },
     ],
   },
 ];
