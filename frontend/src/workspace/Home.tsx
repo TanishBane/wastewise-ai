@@ -68,7 +68,7 @@ export default function Home({ navigate }: { navigate: Navigate }) {
             <span className="kicker-divider" aria-hidden="true">
               ·
             </span>
-            <span className="kicker-tag">ADAPPT 5.0</span>
+            <span className="kicker-tag">DEMO ENVIRONMENT</span>
           </motion.div>
 
           {/* Headline */}
@@ -126,16 +126,16 @@ export default function Home({ navigate }: { navigate: Navigate }) {
             >
               <MetalButton
                 className="button primary"
-                onClick={() => navigate("data-model")}
+                onClick={() => navigate("overview")}
               >
-                Add your workplace
+                Explore kitchen overview
                 <ArrowRight size={16} aria-hidden="true" />
               </MetalButton>
               <MetalButton
                 className="button"
-                onClick={() => navigate("overview")}
+                onClick={() => navigate("demand-forecast")}
               >
-                Explore demo workspace
+                Try demand forecast
                 <ArrowRight size={16} aria-hidden="true" />
               </MetalButton>
             </motion.div>

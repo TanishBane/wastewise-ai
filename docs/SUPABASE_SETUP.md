@@ -1,5 +1,10 @@
 # WasteWise AI — Supabase Integration & Multi-Tenant Deployment Setup
 
+> [!NOTE]
+> **Public Demo Notice**: The standard WasteWise AI public demonstration application operates entirely out-of-the-box in **Demo Mode** using local SQLite storage (data/wastewise.db) and requires zero Supabase credentials, auth tokens, or cloud databases.
+>
+> This document is retained for repository reference and for enterprise organizations deploying an isolated private multi-tenant instance of WasteWise AI with Supabase Auth and PostgreSQL Row-Level Security (RLS).
+
 This document outlines the complete setup procedure for connecting **WasteWise AI** to Supabase Auth, PostgreSQL, multi-tenant Row Level Security (RLS), and deploying to staging/production environments (Vercel frontend and Render/Railway backend).
 
 ---

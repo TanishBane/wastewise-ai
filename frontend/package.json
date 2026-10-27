@@ -12,9 +12,8 @@
     "format:check": "prettier --check src index.html vite.config.ts"
   },
   "dependencies": {
-    "@supabase/supabase-js": "^2.49.1",
-    "@tailwindcss/vite": "^4.3.3",
     "@sentry/react": "^10.25.0",
+    "@tailwindcss/vite": "^4.3.3",
     "framer-motion": "^14.6.0",
     "lucide-react": "^1.61.0",
     "posthog-js": "^1.279.0",

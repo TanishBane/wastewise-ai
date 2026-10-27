@@ -22,6 +22,7 @@ SUPABASE_URL = os.environ.get("SUPABASE_URL", "").rstrip("/")
 SUPABASE_JWT_SECRET = os.environ.get("SUPABASE_JWT_SECRET", "")
 SUPABASE_AUTH_ALGORITHM = os.environ.get("SUPABASE_AUTH_ALGORITHM", "HS256").upper()
 AUTH_REQUIRED = os.environ.get("AUTH_REQUIRED", "true").lower() in ("true", "1", "yes")
+WASTEWISE_DEMO_MODE = os.environ.get("WASTEWISE_DEMO_MODE", "true").lower() in ("true", "1", "yes")
 
 # Test signing secret for pytest and automated test suites
 TEST_AUTH_SECRET = os.environ.get("TEST_AUTH_SECRET", "wastewise-test-secret-key-32chars!!")

@@ -13,19 +13,14 @@ import {
   Database,
   HelpCircle,
   LayoutDashboard,
-  LogIn,
-  LogOut,
   Menu,
   RefreshCw,
   Search,
-  Server,
   ShieldCheck,
   Sprout,
   TriangleAlert,
 } from "lucide-react";
-import { fetchConfig, fetchOverview, setAuthGetter } from "./api";
-import { useAuth } from "./context/AuthContext";
-import AuthModal from "./workspace/AuthModal";
+import { fetchConfig, fetchOverview } from "./api";
 import {
   AsyncButton,
   Badge,
@@ -47,7 +42,6 @@ const Rescue = lazy(() => import("./workspace/Rescue"));
 const Performance = lazy(() => import("./workspace/Performance"));
 const Data = lazy(() => import("./workspace/Data"));
 const Guide = lazy(() => import("./workspace/Guide"));
-const BackendApi = lazy(() => import("./workspace/BackendApi"));
 
 const links = [
   {
@@ -86,13 +80,6 @@ const links = [
     icon: Database,
     description: "Upload and inspect your records",
   },
-  {
-    id: "backend-api",
-    label: "Backend & Live API",
-    icon: Server,
-    description:
-      "FastAPI service telemetry, live tester & interactive Swagger UI",
-  },
 ] as const;
 
 const allPages: string[] = [
@@ -106,6 +93,14 @@ const allPages: string[] = [
 
 const currentHash = (): Page => {
   const hash = window.location.hash.slice(1);
+  if (
+    hash === "backend-api" ||
+    hash === "auth" ||
+    hash === "login" ||
+    hash === "register"
+  ) {
+    return "home";
+  }
   return allPages.includes(hash) ? (hash as Page) : "home";
 };
 
@@ -134,17 +129,6 @@ class ViewBoundary extends Component<
 }
 
 export default function App() {
-  const {
-    user,
-    accessToken,
-    profile,
-    activeOrg,
-    organizations,
-    recoveryMode,
-    setActiveOrgId,
-    signOut,
-  } = useAuth();
-
   const [page, setPage] = useState<Page>(currentHash);
   const [revision, setRevision] = useState(0);
   const config = useResource(fetchConfig, revision);
@@ -156,16 +140,6 @@ export default function App() {
   const [exporting, setExporting] = useState(false);
   const [exportError, setExportError] = useState("");
   const [showScrollBlur, setShowScrollBlur] = useState(false);
-  const [authModalOpen, setAuthModalOpen] = useState(false);
-  const [userMenuOpen, setUserMenuOpen] = useState(false);
-
-  // Synchronize authentication tokens with API layer
-  useEffect(() => {
-    setAuthGetter(() => ({
-      token: accessToken,
-      orgId: activeOrg?.id ?? null,
-    }));
-  }, [accessToken, activeOrg]);
 
   const [collapsed, setCollapsed] = useState(() => {
     try {
@@ -198,137 +172,135 @@ export default function App() {
       setShowScrollBlur(isOverflowing && !isAtBottom);
     };
 
-    handleScroll();
     window.addEventListener("scroll", handleScroll, { passive: true });
-    window.addEventListener("resize", handleScroll, { passive: true });
+    window.addEventListener("resize", handleScroll);
+    handleScroll();
+
     return () => {
       window.removeEventListener("scroll", handleScroll);
       window.removeEventListener("resize", handleScroll);
     };
-  }, [page, revision]);
-
-  const navigate = (next: Page, item?: string) => {
-    if (item) setDish(item);
-    setPage(next);
-    window.location.hash = next;
-    setMenuOpen(false);
-    window.scrollTo({ top: 0, behavior: "instant" });
-  };
-
-  useEffect(() => {
-    const change = () => setPage(currentHash());
-    window.addEventListener("hashchange", change);
-    return () => window.removeEventListener("hashchange", change);
-  }, []);
-
-  useEffect(() => {
-    document.title = `${page === "home" ? "Home" : links.find((link) => link.id === page)?.label || "Help & transparency"} · WasteWise AI`;
   }, [page]);
 
   useEffect(() => {
-    const pointer = () => {
-      document.documentElement.dataset.interaction = "pointer";
+    const update = () => {
+      const next = currentHash();
+      setPage(next);
+      window.scrollTo(0, 0);
     };
-    const keyboard = () => {
-      document.documentElement.dataset.interaction = "keyboard";
-    };
-    document.addEventListener("pointerdown", pointer);
-    document.addEventListener("keydown", keyboard);
-    return () => {
-      document.removeEventListener("pointerdown", pointer);
-      document.removeEventListener("keydown", keyboard);
-    };
+    window.addEventListener("hashchange", update);
+    return () => window.removeEventListener("hashchange", update);
   }, []);
 
+  const navigate = (next: Page, nextDish?: string) => {
+    if (nextDish) setDish(nextDish);
+    window.location.hash = next;
+    setPage(next);
+    window.scrollTo(0, 0);
+  };
+
   useEffect(() => {
-    const key = (event: KeyboardEvent) => {
-      const target = event.target as HTMLElement | null;
+    const handleKeyDown = (e: KeyboardEvent) => {
       if (
-        target &&
-        typeof target.closest === "function" &&
-        target.closest("input,textarea,select,[contenteditable=true]")
+        e.target instanceof HTMLInputElement ||
+        e.target instanceof HTMLTextAreaElement ||
+        e.target instanceof HTMLSelectElement
       ) {
         return;
       }
-
-      if (event.key === "Escape") {
-        if (menuOpen) {
-          event.preventDefault();
-          setMenuOpen(false);
-        }
-        return;
-      }
-
-      if (event.key === "?" && !document.querySelector("dialog[open]")) {
-        event.preventDefault();
+      if (e.key === "/" && !e.metaKey && !e.ctrlKey) {
+        e.preventDefault();
+        setSearchOpen(true);
+      } else if (e.key === "?" && e.shiftKey) {
+        e.preventDefault();
         navigate("help");
       }
-      if (
-        (event.key === "/" ||
-          (event.key.toLowerCase() === "k" &&
-            (event.metaKey || event.ctrlKey))) &&
-        !document.querySelector("dialog[open]")
-      ) {
-        event.preventDefault();
-        setSearchOpen(true);
-      }
-      if (
-        (event.key === "[" ||
-          (event.key.toLowerCase() === "b" &&
-            (event.metaKey || event.ctrlKey))) &&
-        !document.querySelector("dialog[open]")
-      ) {
-        event.preventDefault();
-        toggleSidebar();
-      }
     };
-    window.addEventListener("keydown", key);
-    return () => window.removeEventListener("keydown", key);
-  }, [menuOpen]);
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
 
-  const exportReport = async () => {
-    setExporting(true);
-    setExportError("");
+  const handleExportTodayPlan = async () => {
     try {
-      const result = await fetchOverview();
-      downloadCSV(`wastewise-menu-${result.service_date}.csv`, [
-        [
-          "Service date",
-          "Source",
-          "Dish",
-          "Category",
-          "Forecast portions",
-          "Lower estimate",
-          "Upper estimate",
-          "Recommended prep",
-          "Initial batch",
-          "Refill trigger",
-          "Ingredient cost at risk INR",
-        ],
-        ...result.item_details.map((row) => [
-          result.service_date,
-          result.is_synthetic
-            ? "Synthetic demonstration"
-            : "Uploaded operator records",
-          row.menu_item,
-          row.category,
-          row.predicted_demand,
-          row.lower_bound,
-          row.upper_bound,
-          row.recommended_prep,
-          row.initial_batch,
-          row.refill_trigger,
-          row.naive_exposure,
+      setExporting(true);
+      setExportError("");
+      const overview = await fetchOverview();
+      const header = [
+        "Menu Item",
+        "Category",
+        "Predicted Demand",
+        "Recommended Prep",
+        "Initial Batch",
+        "Refill Trigger",
+        "Cost Per Portion (INR)",
+        "Naive Exposure (INR)",
+      ];
+      const rows: (string | number)[][] = [
+        header,
+        ...overview.item_details.map((it) => [
+          it.menu_item,
+          it.category,
+          it.predicted_demand,
+          it.recommended_prep,
+          it.initial_batch,
+          it.refill_trigger,
+          it.cost_per_portion,
+          it.naive_exposure,
         ]),
-      ]);
-    } catch (error) {
-      setExportError(
-        error instanceof Error ? error.message : "Export failed. Try again.",
+      ];
+      downloadCSV(
+        `wastewise_production_plan_${overview.service_date}.csv`,
+        rows,
       );
+    } catch (err: unknown) {
+      const msg =
+        err instanceof Error
+          ? err.message
+          : "Failed to export kitchen production plan.";
+      setExportError(msg);
+      captureException(err);
     } finally {
       setExporting(false);
     }
   };
+
+  const currentLabel =
+    page === "home"
+      ? "WasteWise AI"
+      : links.find((link) => link.id === page)?.label || "Guidance";
+  const currentDescription =
+    page === "home"
+      ? "Food waste triage, dynamic demand forecasting & preparation optimization for Indian canteens."
+      : links.find((link) => link.id === page)?.description ||
+        "Product capabilities, algorithms & methodology";
+
+  const tour = [
+    {
+      page: "home" as Page,
+      title: "WasteWise AI Platform",
+      text: "Explore how machine learning demand forecasting and Newsvendor optimization minimize avoidable food waste in institutional kitchens.",
+    },
+    {
+      page: "overview" as Page,
+      title: "Operational kitchen status",
+      text: "Review today's menu, demand outlook, and prep priorities at a glance before kitchen firing begins.",
+    },
+    {
+      page: "demand-forecast" as Page,
+      title: "Demand forecasting",
+      text: "Examine expected demand and its uncertainty ranges across weather shifts, campus events, and attendance changes.",
+    },
+    {
+      page: "prep-planner" as Page,
+      title: "Preparation planning",
+      text: "Balance stockout risks and surplus waste costs with staged batch production recommendations.",
+    },
+    {
+      page: "waste-risk" as Page,
+      title: "Surplus rescue triage",
+      text: "Classify end-of-service surplus and trigger cold-chain donations or hostel redistribution before food expires.",
+    },
+  ];
 
   const screen: ScreenProps | null = config.data
     ? {
@@ -340,44 +312,17 @@ export default function App() {
       }
     : null;
 
-  const tour = [
-    {
-      title: "Start with the kitchen’s day",
-      text: "The overview brings menu forecasts, preparation targets, and surplus priorities together. All figures reflect the active dataset.",
-      page: "overview" as Page,
-    },
-    {
-      title: "Test a different kind of day",
-      text: "Explore a campus event, changing attendance, or rainy weather in Demand forecast. These are scenarios, not recorded sales.",
-      page: "demand-forecast" as Page,
-    },
-    {
-      title: "Turn demand into a batch plan",
-      text: "Factor in existing stock and the cost of running out. Review what to cook now and what to hold for refill.",
-      page: "prep-planner" as Page,
-    },
-    {
-      title: "Act on surplus, then learn",
-      text: "Review rescue priorities and inspect holdout performance. Impact figures are retrospective simulations until measured in a real pilot.",
-      page: "waste-risk" as Page,
-    },
-  ];
-
   return (
-    <MotionConfig reducedMotion="user">
-      <div className={`app-frame ${collapsed ? "sidebar-collapsed" : ""}`}>
-        <a
-          className="skip-link"
-          href="#main"
-          onClick={(event) => {
-            event.preventDefault();
-            document.getElementById("main")?.focus();
-          }}
-        >
-          Skip to content
+    <MotionConfig
+      reducedMotion="user"
+      transition={{ type: "spring", stiffness: 380, damping: 30 }}
+    >
+      <div className="app-shell">
+        <a href="#main" className="skip-link">
+          Skip to main operational content
         </a>
 
-        {/* Desktop Sidebar Rail */}
+        {/* Responsive Desktop / Mobile Collapsible Sidebar */}
         <Sidebar
           page={page}
           navigate={navigate}
@@ -387,55 +332,49 @@ export default function App() {
             setTourStep(0);
             setTourOpen(true);
           }}
-          onOpenAuth={() => setAuthModalOpen(true)}
         />
 
-        <div className="workspace">
-          <header className="workspace-bar">
-            <div className="breadcrumb">
+        <div className={`page-column ${collapsed ? "expanded" : ""}`}>
+          <header className="top-bar">
+            <div className="top-bar-left">
               <button
-                className="icon-button mobile-menu"
-                aria-label="Open navigation drawer"
+                type="button"
+                className="mobile-menu-trigger"
                 onClick={() => setMenuOpen(true)}
+                aria-label="Open navigation menu"
               >
                 <Menu size={20} />
               </button>
-              <a
-                className="mobile-brand"
-                href="#home"
-                aria-label="WasteWise AI home"
-                onClick={(event) => {
-                  event.preventDefault();
-                  navigate("home");
-                }}
-              >
-                <BrandLogo
-                  className="brand-logo mobile-brand-logo"
-                  width={28}
-                  height={20}
-                />
-                <span>
-                  WasteWise<small>AI</small>
-                </span>
-              </a>
-              <strong>
-                {page === "home"
-                  ? "Home"
-                  : links.find((link) => link.id === page)?.label ||
-                    (page === "help"
-                      ? "Help & getting started"
-                      : page === "transparency"
-                        ? "Model transparency"
-                        : "Resources")}
-              </strong>
+
+              <div className="mobile-brand-wrapper">
+                <a
+                  href="#home"
+                  className="mobile-brand-link"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    navigate("home");
+                  }}
+                  aria-label="WasteWise AI Homepage"
+                >
+                  <BrandLogo width={28} height={20} />
+                  <span className="mobile-brand-title">WasteWise AI</span>
+                </a>
+              </div>
+
+              <div className="title-block">
+                <div className="title-row">
+                  <h1>{currentLabel}</h1>
+                  <span className="header-edition-badge">DEMO</span>
+                </div>
+                <p>{currentDescription}</p>
+              </div>
             </div>
 
-            {/* Top-Right Utility Navigation Controls */}
-            <div className="workspace-tools">
+            <div className="top-bar-actions">
               <button
-                className="utility-button search-trigger"
+                className="search-trigger-button"
                 onClick={() => setSearchOpen(true)}
-                title="Quick search dishes and views (Ctrl+K or /)"
+                title="Search dishes & views (/)"
                 aria-label="Search dishes and views"
               >
                 <Search size={15} />
@@ -454,21 +393,6 @@ export default function App() {
               </button>
 
               <button
-                className={`utility-button icon-label ${page === "backend-api" ? "active" : ""}`}
-                onClick={() => navigate("backend-api")}
-                title="View live FastAPI backend, Swagger docs & service telemetry"
-                aria-label="Backend & Live API status"
-              >
-                <span className="flex items-center gap-1.5">
-                  <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                  <Server size={15} />
-                  <span className="utility-label font-medium">
-                    FastAPI Live
-                  </span>
-                </span>
-              </button>
-
-              <button
                 className={`utility-button icon-label ${page === "transparency" ? "active" : ""}`}
                 onClick={() => navigate("transparency")}
                 title="Model transparency & limits"
@@ -478,108 +402,20 @@ export default function App() {
                 <span className="utility-label">Transparency</span>
               </button>
 
-              {user ? (
-                <div className="relative">
-                  <button
-                    className="workspace-profile-pill"
-                    onClick={() => setUserMenuOpen((prev) => !prev)}
-                    title={`${activeOrg?.name || "ADAPPT Canteen"} · ${user.email}`}
-                    aria-label="User account and organization menu"
-                    aria-expanded={userMenuOpen}
-                  >
-                    <span className="operator-avatar">
-                      {(
-                        profile?.full_name?.slice(0, 2) ||
-                        user.email?.slice(0, 2) ||
-                        "CG"
-                      ).toUpperCase()}
-                    </span>
-                    <div className="workspace-pill-info">
-                      <strong>{activeOrg?.name || "ADAPPT Canteen"}</strong>
-                      <small>
-                        {activeOrg?.role ? `${activeOrg.role} · ` : ""}
-                        {config.data?.is_synthetic ? "Demo Data" : "Live CSV"}
-                      </small>
-                    </div>
-                  </button>
-
-                  {userMenuOpen && (
-                    <div className="absolute right-0 mt-2 w-64 rounded-xl bg-[var(--surface,#fcfaf5)] border border-[var(--border,#d4cdbf)] shadow-2xl p-3 z-50 text-xs text-[var(--ink,#1f2923)]">
-                      <div className="border-b border-[var(--border,#d4cdbf)] pb-2 mb-2">
-                        <p className="font-bold text-sm truncate">
-                          {profile?.full_name || "Canteen Operator"}
-                        </p>
-                        <p className="text-[var(--ink-light,#666)] truncate">
-                          {user.email}
-                        </p>
-                      </div>
-
-                      {organizations.length > 1 && (
-                        <div className="mb-2">
-                          <p className="font-semibold text-[10px] uppercase tracking-wider text-[var(--ink-light,#666)] mb-1">
-                            Switch Canteen
-                          </p>
-                          <div className="space-y-1">
-                            {organizations.map((org) => (
-                              <button
-                                key={org.id}
-                                type="button"
-                                onClick={() => {
-                                  setActiveOrgId(org.id);
-                                  setUserMenuOpen(false);
-                                }}
-                                className={`w-full text-left px-2 py-1.5 rounded-lg flex items-center justify-between transition ${
-                                  org.id === activeOrg?.id
-                                    ? "bg-[var(--surface-muted,#eee9de)] font-semibold text-[var(--primary,#1e4638)]"
-                                    : "hover:bg-[var(--surface-muted,#eee9de)]"
-                                }`}
-                              >
-                                <span className="truncate">{org.name}</span>
-                                <span className="text-[10px] text-[var(--ink-light,#666)] uppercase">
-                                  {org.role}
-                                </span>
-                              </button>
-                            ))}
-                          </div>
-                        </div>
-                      )}
-
-                      <div className="pt-1 flex flex-col gap-1">
-                        <button
-                          type="button"
-                          onClick={() => {
-                            navigate("data-model");
-                            setUserMenuOpen(false);
-                          }}
-                          className="w-full text-left px-2 py-1.5 rounded-lg hover:bg-[var(--surface-muted,#eee9de)] text-[var(--ink,#1f2923)] transition flex items-center gap-1.5"
-                        >
-                          <Database size={13} />
-                          <span>Dataset & Outlets</span>
-                        </button>
-                        <button
-                          type="button"
-                          onClick={() => {
-                            signOut();
-                            setUserMenuOpen(false);
-                          }}
-                          className="w-full text-left px-2 py-1.5 rounded-lg hover:bg-red-50 text-red-700 transition flex items-center gap-1.5 font-medium"
-                        >
-                          <LogOut size={13} />
-                          <span>Sign Out</span>
-                        </button>
-                      </div>
-                    </div>
-                  )}
-                </div>
-              ) : (
-                <MetalButton
-                  onClick={() => setAuthModalOpen(true)}
-                  className="button primary px-3 py-1.5 text-xs font-semibold flex items-center gap-1.5"
-                >
-                  <LogIn size={13} />
-                  <span>Sign In</span>
-                </MetalButton>
-              )}
+              {/* Global Demo Mode Indicator */}
+              <div
+                className="demo-global-pill"
+                role="status"
+                aria-label="Demonstration environment indicator"
+                title="Public demonstration environment using synthetic canteen operational data"
+              >
+                <span className="demo-pill-dot" aria-hidden="true" />
+                <span className="demo-pill-title">DEMO MODE</span>
+                <span className="demo-pill-sep" aria-hidden="true">
+                  ·
+                </span>
+                <span className="demo-pill-text">Sample Canteen Data</span>
+              </div>
             </div>
           </header>
 
@@ -590,71 +426,50 @@ export default function App() {
           >
             <div className="source-bar">
               <div>
-                <span
-                  className={`status-dot ${config.data?.is_synthetic ? "amber" : ""}`}
-                />
-                <strong>
-                  {config.data
-                    ? config.data.is_synthetic
-                      ? "Demo workspace"
-                      : "Operator dataset"
-                    : "Connecting to workspace"}
-                </strong>
-                <span className="source-detail">
-                  {config.data?.is_synthetic
-                    ? "Synthetic data · explore without affecting your kitchen"
-                    : config.data
-                      ? "Forecasts from your uploaded service records"
-                      : "Waiting for the local API"}
+                <span className="status-dot amber" aria-hidden="true" />
+                <strong>Demo workspace</strong>
+                <span>
+                  {config.data ? config.data.workspace : "ADAPPT Canteen"}
                 </span>
+                {config.data?.latest_date && (
+                  <span className="source-bar-date">
+                    <CalendarDays size={13} aria-hidden="true" />
+                    <span>Reference {date(config.data.latest_date)}</span>
+                  </span>
+                )}
               </div>
-              <button
-                className="text-link"
-                onClick={() => navigate("data-model")}
-              >
-                {config.data?.is_synthetic
-                  ? "Connect your data"
-                  : "Manage data"}
-                <ArrowRight size={14} />
-              </button>
-            </div>
 
-            <div className="page-tools">
-              <span>
-                <CalendarDays size={15} />
-                Service date: {date(config.data?.latest_date)}
-              </span>
-              <div>
-                <button
-                  className="icon-button"
-                  aria-label="Refresh workspace"
-                  disabled={config.loading}
-                  onClick={() => setRevision((value) => value + 1)}
-                >
-                  <RefreshCw
-                    size={16}
-                    className={config.loading ? "spin" : ""}
-                  />
-                </button>
+              <div className="source-actions">
                 <AsyncButton
-                  className="button small"
-                  onClick={exportReport}
-                  disabled={!config.data}
-                  busy={exporting}
-                  busyLabel="Exporting menu…"
+                  className="button"
+                  busy={config.loading}
+                  busyLabel="Updating…"
+                  onClick={() => setRevision((value) => value + 1)}
+                  title="Refresh demo workspace state"
                 >
-                  <ArrowDownToLine size={15} />
-                  {exporting ? "Exporting…" : "Export menu"}
+                  <RefreshCw size={14} />
+                  <span>Refresh</span>
                 </AsyncButton>
+
+                {page === "overview" && (
+                  <AsyncButton
+                    className="button"
+                    busy={exporting}
+                    busyLabel="Exporting…"
+                    onClick={handleExportTodayPlan}
+                    title="Export today's kitchen preparation plan to CSV"
+                  >
+                    <ArrowDownToLine size={14} />
+                    <span>Export Plan</span>
+                  </AsyncButton>
+                )}
               </div>
             </div>
 
             {exportError && (
-              <div className="inline-error" role="alert">
-                {exportError}
-                <button className="text-link" onClick={exportReport}>
-                  Retry export
-                </button>
+              <div className="inline-banner alert" role="alert">
+                <TriangleAlert size={16} />
+                <span>{exportError}</span>
               </div>
             )}
 
@@ -683,8 +498,6 @@ export default function App() {
                       <Performance {...screen} />
                     ) : page === "data-model" ? (
                       <Data {...screen} />
-                    ) : page === "backend-api" ? (
-                      <BackendApi {...screen} />
                     ) : (
                       <Guide {...screen} page={page} />
                     )
@@ -697,7 +510,7 @@ export default function App() {
               <span>
                 <Sprout size={14} />
                 WasteWise AI <span className="footer-divider">/</span>{" "}
-                Thoughtful prep. Less waste.
+                Demonstration Environment · Synthetic Canteen Operations
               </span>
               <div>
                 <a href="#privacy">Privacy</a>
@@ -719,13 +532,6 @@ export default function App() {
           className={`mobile-drawer-backdrop ${menuOpen ? "open" : ""}`}
           onClick={() => setMenuOpen(false)}
           aria-hidden={!menuOpen}
-        />
-        <div
-          className={`mobile-drawer-container ${menuOpen ? "open" : ""}`}
-          role="dialog"
-          aria-modal="true"
-          aria-label="Navigation drawer"
-          aria-hidden={!menuOpen}
         >
           <Sidebar
             page={page}
@@ -737,10 +543,6 @@ export default function App() {
             onOpenTour={() => {
               setTourStep(0);
               setTourOpen(true);
-              setMenuOpen(false);
-            }}
-            onOpenAuth={() => {
-              setAuthModalOpen(true);
               setMenuOpen(false);
             }}
           />
@@ -800,12 +602,6 @@ export default function App() {
           onNavigate={(targetPage, targetDish) =>
             navigate(targetPage, targetDish)
           }
-        />
-
-        {/* Supabase Authentication & Recovery Modal */}
-        <AuthModal
-          open={authModalOpen || recoveryMode}
-          onClose={() => setAuthModalOpen(false)}
         />
       </div>
     </MotionConfig>

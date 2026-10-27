@@ -2,7 +2,6 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "./index.css";
 import App from "./App.tsx";
-import { AuthProvider } from "./context/AuthContext.tsx";
 import "./telemetry";
 
 if (typeof document !== "undefined" && "fonts" in document) {
@@ -13,8 +12,6 @@ if (typeof document !== "undefined" && "fonts" in document) {
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <AuthProvider>
-      <App />
-    </AuthProvider>
+    <App />
   </StrictMode>,
 );
