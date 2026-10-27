@@ -45,7 +45,17 @@
 ## Table of Contents
 
 - [Overview & The Kitchen Operator Dilemma](#overview--the-kitchen-operator-dilemma)
-- [Application Screenshot Gallery](#application-screenshot-gallery)
+- [Application Showcase & Interface Walkthrough](#application-showcase--interface-walkthrough)
+  - [1. Botanical Editorial Landing & Telemetry](#1-botanical-editorial-landing--operational-telemetry)
+  - [2. Kitchen Command Center](#2-kitchen-command-center-daily-shift-priorities)
+  - [3. Demand Forecasting Engine](#3-demand-forecasting-engine-probabilistic-quantile-intervals)
+  - [4. Stochastic Preparation Planner](#4-stochastic-preparation-planner-asymmetric-newsvendor-two-batch-hedging)
+  - [5. Proactive Surplus Rescue Queue](#5-proactive-surplus-rescue-queue-4-hour-safety-triage)
+  - [6. Retrospective Model Evaluation](#6-retrospective-model-evaluation-transparent-baseline-comparison)
+  - [7. Operator Dataset Provenance & Ingestion](#7-operator-dataset-provenance--ingestion)
+  - [8. Full-Width Global Search Dialog](#8-full-width-global-search-dialog-instant-navigation)
+  - [9. Botanical Canteen Bento Grid](#9-botanical-canteen-bento-grid-capability-architecture)
+  - [10. Mobile Responsive Ergonomics](#10-mobile-responsive-ergonomics)
 - [System Architecture & Workflow](#system-architecture--workflow)
   - [1. High-Level Architecture](#1-high-level-architecture)
   - [2. Operational Shift Lifecycle](#2-operational-shift-lifecycle)
@@ -91,22 +101,137 @@ Traditional fixed-batch cooking relies on static spreadsheets and kitchen rule-o
 
 ---
 
-## Application Screenshot Gallery
+## Application Showcase & Interface Walkthrough
 
-All screenshots represent verified live renders of the WasteWise AI application running the **Botanical Editorial Design System** across desktop (1440×900) and mobile (390×844) viewports:
+Every screenshot below represents a verified live render of the running WasteWise AI application under the **Botanical Editorial Design System** (`#14392f`, `#f6f5ef`, `#76947f`, `#805142`, Newsreader serif typography, Plus Jakarta Sans), capturing active backend calculations across both desktop (1440×900) and mobile (390×844) viewports.
 
-| Viewport / Screen | Live Interface Preview | Core Operational Capabilities |
-| :--- | :--- | :--- |
-| **Botanical Editorial Hero**<br>`docs/assets/showcase/home-hero.png` | ![Home Desktop Hero](docs/assets/showcase/home-hero.png) | Executive landing stage (1440×900) featuring natural culinary editorial palette (`#14392f`, `#f6f5ef`), real-time operational telemetry pills, and dynamic action controls. |
-| **Kitchen Command Center**<br>`docs/assets/showcase/kitchen-overview.png` | ![Kitchen Command Center](docs/assets/showcase/kitchen-overview.png) | Live shift overview displaying key operational indicators: **161** portions expected demand, **168** recommended prep, **7** portions surplus risk, **₹887** cost-at-risk, and prioritized decision cards. |
-| **Demand Forecasting Engine**<br>`docs/assets/showcase/demand-forecast.png` | ![Demand Forecast](docs/assets/showcase/demand-forecast.png) | Probabilistic demand forecasting with interactive weather/event sliders, historical scatterplots, and 10th–90th percentile uncertainty interval bounds. |
-| **Preparation Planner**<br>`docs/assets/showcase/preparation-planner.png` | ![Preparation Planner](docs/assets/showcase/preparation-planner.png) | Stochastic Newsvendor preparation planner with existing inventory deduction, staggered 65/35 batch allocation, and printable physical kitchen preparation sheet. |
-| **Surplus Rescue Queue**<br>`docs/assets/showcase/surplus-rescue.png` | ![Surplus Rescue](docs/assets/showcase/surplus-rescue.png) | Proactive surplus triage categorized into High, Moderate, and Low risk tiers with 4-hour shelf-life dispatch and direct financial cost-at-risk estimation. |
-| **Holdout Model Evaluation**<br>`docs/assets/showcase/performance-impact.png` | ![Performance & Impact](docs/assets/showcase/performance-impact.png) | Transparent retrospective evaluation on a 280-record chronological holdout set, demonstrating **8.4% WAPE** vs **10.8%** weekday baseline. |
-| **Data Provenance & Upload**<br>`docs/assets/showcase/data-model.png` | ![Data Model & Upload](docs/assets/showcase/data-model.png) | Operator dataset management interface showing active record count, data schema validation checklist, provenance disclaimers, and CSV upload dropzone. |
-| **Full-Width Global Search**<br>`docs/assets/showcase/quick-search-modal.png` | ![Quick Search Modal](docs/assets/showcase/quick-search-modal.png) | Instant keyboard-accessible (`/` or `Ctrl+K`) full-width search dialog with category filters (Dishes, Routes, Actions, Docs) and real-time navigation. |
-| **Canteen Bento Grid**<br>`docs/assets/showcase/canteen-bento.png` | ![Canteen Bento Grid](docs/assets/showcase/canteen-bento.png) | Editorial 6-box bento grid showcasing real kitchen operational realities, HACCP temperature thresholds, and botanical palette styling. |
-| **Mobile Ergonomics**<br>`docs/assets/showcase/mobile-home.png` | <p align="center"><img src="docs/assets/showcase/mobile-home.png" alt="Mobile Ergonomics" width="280" /></p> | Fully responsive mobile viewport (390×844) with single-column layout, touch-optimized ergonomics, and zero horizontal scroll overflow. |
+---
+
+### 1. Botanical Editorial Landing & Operational Telemetry
+The executive landing stage welcomes canteen directors and culinary operations supervisors with the core platform mission, live telemetry health indicators, and immediate entry into the public demonstration canteen.
+
+![Botanical Editorial Hero](docs/assets/showcase/home-hero.png)
+
+- **Culinary Editorial Atmosphere**: Styled in deep forest green (`#14392f`), warm cream (`#f6f5ef`), sage, and terracotta, replacing generic SaaS styling with an unmistakable culinary craft aesthetic.
+- **Real-Time Operational Telemetry**: Dynamic pills display active baseline metrics (**161** portions expected demand, **8.4%** holdout WAPE, **₹887** cost at risk, and **0** unverified dispatches).
+- **Interactive Action Controls**: Liquid metallic action button provides instant access to demo canteen workflows without requiring user accounts or authentication.
+
+---
+
+### 2. Kitchen Command Center (Daily Shift Priorities)
+The central operational cockpit for the morning shift supervisor, summarizing total portion requirements, critical decision alerts, and volume allocations before kitchen staff fire the first cooking kettles.
+
+![Kitchen Command Center](docs/assets/showcase/kitchen-overview.png)
+
+- **Aggregated Operational KPIs**:
+  - **Expected Demand**: **161 portions** across 8 core scheduled menu items.
+  - **Suggested Preparation**: **168 portions** (hedged via Newsvendor stochastic order optimization).
+  - **Potential Surplus Risk**: **7 portions** (+4.2% safety buffer to prevent lunchtime stockouts).
+  - **Ingredient Cost at Risk**: **₹887** baseline exposure across active lunch items.
+- **Demand vs Preparation Volume Bar Chart**: Side-by-side visualization comparing forecast demand against suggested preparation across all dishes (Pav Bhaji, Idli Sambar, Veg Thali, Sandwich, Rajma Rice, Poha, Masala Dosa, Fruit Juice).
+- **Prioritized Decision Queue**: Highlights dishes where preparation quantities exceed demand velocity, suggesting immediate operational actions (e.g. holding Veg Thali and Rajma Rice replenishment).
+
+---
+
+### 3. Demand Forecasting Engine (Probabilistic Quantile Intervals)
+Granular, dish-level demand exploration incorporating campus academic calendar dates, exam schedules, footfall ratios, and local weather patterns.
+
+![Demand Forecasting Engine](docs/assets/showcase/demand-forecast.png)
+
+- **Point Forecast & Uncertainty Interval**: For selected dishes (e.g. Pav Bhaji: **67 portions** point estimate), the 100-tree Random Forest regressor computes empirical 10th and 90th percentile bounds (**59–80 portions**), providing operators with a realistic uncertainty interval.
+- **Scenario Simulation Controls**: Instant toggles for weather conditions (**Normal / Mild**, **Campus Event / Festival**, **Monsoon / Rain**) and attendance adjustments (40% to 120%) recalibrate expectations dynamically.
+- **Historical Sales Trajectory**: Visual trajectory curve of preceding 30 recorded meal services grounds predictive output in empirical performance.
+
+---
+
+### 4. Stochastic Preparation Planner (Asymmetric Newsvendor Two-Batch Hedging)
+Translates uncertain demand forecasts into practical, cost-aware kitchen batching schedules that prevent overproduction while protecting diner satisfaction.
+
+![Preparation Planner](docs/assets/showcase/preparation-planner.png)
+
+- **Net Production Calculation**: Automatically deducts existing food-safe inventory from the target order quantity $q^*$: $\text{Net Prep} = \max(0, q^* - \text{Existing Inventory})$.
+- **Two-Phase Staggered Batching**:
+  - **Batch 1 (Initial Cook)**: Fired before service start (**44 portions**, 65% kettle buffer).
+  - **Batch 2 (Held Mise-en-Place)**: Ingredients prepped and held chilled (**24 portions**, 35% contingency).
+- **Mid-Service Refill Checkpoints**: Explicit operational threshold (e.g. "Check demand when stock reaches 14 portions at 13:15; fire up to 24 portions if sales velocity supports it").
+- **Physical Kitchen Prep Sheet**: One-click generation of print-styled kitchen clip-sheets complete with batch sizes, supervisor sign-offs, and HACCP temperature logging columns.
+
+---
+
+### 5. Proactive Surplus Rescue Queue (4-Hour Safety Triage)
+Identifies at-risk surplus hours before service concludes, dispatching safety-compliant culinary interventions before hot-holding safety windows lapse.
+
+![Surplus Rescue Queue](docs/assets/showcase/surplus-rescue.png)
+
+- **Surplus Risk Stratification**: Continuous classification into High Risk (2 dishes), Moderate Risk (6 dishes), and Low Risk tiers based on sales velocity and unit margin.
+- **Financial Cost-at-Risk Calculation**: Quantifies potential monetary waste based on ingredient production costs (**₹963** total potential excess, **28 portions** across menu).
+- **4-Hour Food Safety Tracking**: Respects HACCP hot-holding display constraints (>65°C), triggering proactive alerts before food safety limits require discarding.
+- **Contextual Rescue Protocols**: Specific guidance per item (e.g. pull back Fresh Fruit Juice initial preparation by 4 portions, flash discount combo offerings, or package for campus food pantry donation).
+
+---
+
+### 6. Retrospective Model Evaluation (Transparent Baseline Comparison)
+Honest, unembellished machine learning validation comparing the Random Forest model against historical moving averages on a chronological holdout dataset.
+
+![Retrospective Model Evaluation](docs/assets/showcase/performance-impact.png)
+
+- **Chronological Holdout Dataset**: Evaluated on **280 unseen observations** across 35 distinct historical service days, starting 24 August 2026.
+- **Weighted Absolute Percentage Error (WAPE)**:
+  - **WasteWise AI Model Error**: **8.4% WAPE**
+  - **Historical Weekday Baseline Error**: **10.8% WAPE**
+  - **Relative Error Reduction**: **22.2% reduction in demand variance**
+- **Mean Absolute Error (MAE)**: **4.8 portions** average deviation per dish per meal service.
+- **Granular Menu Item Accuracy**: Demonstrates specific margin improvements across dishes (Fresh Fruit Juice: -5.5 percentage points error, Poha: -3.7 pp, Rajma Rice: -3.2 pp).
+
+---
+
+### 7. Operator Dataset Provenance & Ingestion
+Transparent dataset governance interface showing dataset provenance, schema integrity, and secure CSV dropzone for operational retraining.
+
+![Operator Dataset Provenance & Ingestion](docs/assets/showcase/data-model.png)
+
+- **Provenance & Coverage Status**: Audits the active 180-day baseline dataset (**1,440 service records**, 9 configured dishes, coverage window 1 Apr 2026 to 27 Sept 2026).
+- **100% Strict Schema Verification**: Automated checklist validating column naming, date ranges, positive integer bounds, and UTF-8 BOM byte normalization.
+- **Async Retraining Pipeline**: Thread-isolated model training guarded by an asynchronous mutex lock (`asyncio.Lock`), ensuring dataset ingestion never blocks HTTP request handling.
+- **Drag-and-Drop Ingestion Dropzone**: Direct CSV upload supporting files up to 10 MB with one-click downloadable sample templates.
+
+---
+
+### 8. Full-Width Global Search Dialog (Instant Navigation)
+High-efficiency keyboard command palette allowing kitchen operators and supervisors to navigate between dishes, operational routes, and settings without touching a mouse.
+
+![Full-Width Global Search Dialog](docs/assets/showcase/quick-search-modal.png)
+
+- **Global Hotkey Activation**: Opens instantly with `/` or `Ctrl+K` from any view with auto-focused search query and `Escape` dismissal.
+- **Categorized Facet Chips**: Filter instantly by **All Items (17)**, **Operations (3)**, **Intelligence (3)**, **Menu Dishes (9)**, and **Resources (2)**.
+- **Live Search & Keyboard Navigation**: Real-time filtering with up/down arrow key selection and direct enter-to-navigate affordances.
+
+---
+
+### 9. Botanical Canteen Bento Grid (Capability Architecture)
+Editorial 6-card bento grid communicating the engineering principles, temperature safety thresholds, and ESG impact of the platform.
+
+![Botanical Canteen Bento Grid](docs/assets/showcase/canteen-bento.png)
+
+- **Card 1 (Sage Surface)**: Machine learning tailored to kitchen reality (8.4% Holdout WAPE, Random Forest Regressor).
+- **Card 2 (Terracotta Surface)**: Two-batch hedging stops overproduction cold (65% Batch 1 buffer, 35% contingency reserve).
+- **Card 3 (Amber/Ochre Surface)**: Shift variance calibrated in real time (161 Expected portions, 168 Hedged prep, ₹887 Cost at risk).
+- **Card 4 (Deep Forest Green Surface)**: Engineered for the speed and heat of real kitchens (Institutional Kitchens, Production Floor).
+- **Card 5 (Deep Umber Surface)**: Surplus rescue before food cools (Zero-Landfill Protocol, 4-Hour Safety Window).
+- **Card 6 (Warm Sand Surface)**: Every kilogram accounted for, every rupee protected (34% Average Waste Cut, 2.5 kg CO2e abated/kg, ₹14,280 Weekly margin saved).
+
+---
+
+### 10. Mobile Responsive Ergonomics
+Touch-first ergonomic layout tailored for commercial kitchen tablets, handheld POS terminals, and smartphones.
+
+<p align="center">
+  <img src="docs/assets/showcase/mobile-home.png" alt="WasteWise AI Mobile Ergonomics" width="380" />
+</p>
+
+- **Zero Horizontal Overflow**: Fluid single-column responsive layout where `scrollWidth === clientWidth` across all screen widths down to 360px.
+- **Ergonomic Touch Targets**: Minimum 44×44px interactive tap zones designed for rapid operation in high-heat commercial kitchen environments.
+- **Accessible Navigation Drawer**: Responsive slide-over drawer providing instant access to all planning, forecasting, and triage modules.
 
 ---
 
