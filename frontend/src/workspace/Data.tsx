@@ -174,28 +174,36 @@ export default function Data({ config, revision, onDataChange }: ScreenProps) {
           <div className="data-trust-banner">
             <div className="trust-item">
               <span className="trust-label">Dataset Provenance</span>
-              <strong>
+              <strong className="trust-val">
                 {data.is_synthetic
                   ? "Synthetic Demonstration (180 Days)"
                   : data.last_filename || "Operator Dataset Active"}
               </strong>
             </div>
-            <div className="trust-divider">·</div>
+            <div className="trust-divider" aria-hidden="true">
+              ·
+            </div>
             <div className="trust-item">
               <span className="trust-label">Coverage Window</span>
-              <strong>
+              <strong className="trust-val">
                 {date(data.date_min)} — {date(data.date_max)}
               </strong>
             </div>
-            <div className="trust-divider">·</div>
+            <div className="trust-divider" aria-hidden="true">
+              ·
+            </div>
             <div className="trust-item">
               <span className="trust-label">Last Synchronization</span>
-              <strong>{data.last_import || "Pre-bundled Synthetic"}</strong>
+              <strong className="trust-val">
+                {data.last_import || "Pre-bundled Synthetic"}
+              </strong>
             </div>
-            <div className="trust-divider">·</div>
+            <div className="trust-divider" aria-hidden="true">
+              ·
+            </div>
             <div className="trust-item">
               <span className="trust-label">Schema Validation</span>
-              <strong className="positive-text">
+              <strong className="trust-val positive-text">
                 100% Strict Schema Verified
               </strong>
             </div>
