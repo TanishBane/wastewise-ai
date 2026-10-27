@@ -10,8 +10,10 @@ import websockets
 
 TARGET_DIR_ASSETS = os.path.abspath("docs/assets/screenshots")
 TARGET_DIR_DOCS = os.path.abspath("docs/screenshots")
+TARGET_DIR_SHOWCASE = os.path.abspath("docs/assets/showcase")
 os.makedirs(TARGET_DIR_ASSETS, exist_ok=True)
 os.makedirs(TARGET_DIR_DOCS, exist_ok=True)
+os.makedirs(TARGET_DIR_SHOWCASE, exist_ok=True)
 
 CHROME_PATH = r"C:\Program Files\Google\Chrome\Application\chrome.exe"
 USER_DATA = r"C:\Users\gmatr\AppData\Local\Temp\chrome_cdp_profile_showcase"
@@ -76,9 +78,12 @@ async def capture_item(ws, file_name, width=1440, height=900, device_scale=1):
             raw_bytes = base64.b64decode(data["result"]["data"])
             path_assets = os.path.join(TARGET_DIR_ASSETS, file_name)
             path_docs = os.path.join(TARGET_DIR_DOCS, file_name)
+            path_showcase = os.path.join(TARGET_DIR_SHOWCASE, file_name)
             with open(path_assets, "wb") as f:
                 f.write(raw_bytes)
             with open(path_docs, "wb") as f:
+                f.write(raw_bytes)
+            with open(path_showcase, "wb") as f:
                 f.write(raw_bytes)
             print(f"Captured {file_name}: {len(raw_bytes)} bytes")
             break
@@ -121,8 +126,7 @@ async def main():
             }))
             await wait_for_view_ready(ws)
             await capture_item(ws, "home-hero.png", 1440, 900)
-            shutil.copyfile(os.path.join(TARGET_DIR_ASSETS, "home-hero.png"), os.path.join(TARGET_DIR_ASSETS, "home-desktop.png"))
-            shutil.copyfile(os.path.join(TARGET_DIR_DOCS, "home-hero.png"), os.path.join(TARGET_DIR_DOCS, "home-desktop.png"))
+            shutil.copyfile(os.path.join(TARGET_DIR_SHOWCASE, "home-hero.png"), os.path.join(TARGET_DIR_SHOWCASE, "home-desktop.png"))
 
             # 2. Kitchen Overview
             print("Capturing 2: kitchen-overview.png...")
@@ -244,8 +248,7 @@ async def main():
             }))
             await wait_for_view_ready(ws)
             await capture_item(ws, "mobile-home.png", 390, 844)
-            shutil.copyfile(os.path.join(TARGET_DIR_ASSETS, "mobile-home.png"), os.path.join(TARGET_DIR_ASSETS, "home-mobile.png"))
-            shutil.copyfile(os.path.join(TARGET_DIR_DOCS, "mobile-home.png"), os.path.join(TARGET_DIR_DOCS, "home-mobile.png"))
+            shutil.copyfile(os.path.join(TARGET_DIR_SHOWCASE, "mobile-home.png"), os.path.join(TARGET_DIR_SHOWCASE, "home-mobile.png"))
 
             print("All screenshots successfully captured with real live backend data!")
 
