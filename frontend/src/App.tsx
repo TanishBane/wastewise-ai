@@ -426,95 +426,97 @@ export default function App() {
             className={`work-sheet ${page === "home" ? "home-sheet" : ""}`}
             tabIndex={-1}
           >
-            <div
-              className="source-bar"
-              role="toolbar"
-              aria-label="Operational workspace controls"
-            >
-              <div className="source-meta-cluster">
-                {/* Live Status Badge */}
-                <span
-                  className="source-badge source-badge-status"
-                  title="Active synthetic canteen environment"
-                >
+            {page !== "home" && (
+              <div
+                className="source-bar"
+                role="toolbar"
+                aria-label="Operational workspace controls"
+              >
+                <div className="source-meta-cluster">
+                  {/* Live Status Badge */}
                   <span
-                    className="status-dot green live-pulse"
-                    aria-hidden="true"
-                  />
-                  <strong>Demo Workspace</strong>
-                </span>
-
-                <span className="source-divider" aria-hidden="true">
-                  /
-                </span>
-
-                {/* Facility Identifier Badge */}
-                <span
-                  className="source-badge source-badge-facility"
-                  title="Simulated dining facility"
-                >
-                  <ChefHat
-                    size={13}
-                    className="source-badge-icon"
-                    aria-hidden="true"
-                  />
-                  <span>
-                    {config.data
-                      ? config.data.workspace
-                      : "Campus Green Demo Canteen"}
-                  </span>
-                </span>
-
-                {/* Reference Timeline Date */}
-                <span className="source-divider" aria-hidden="true">
-                  ·
-                </span>
-                <span
-                  className="source-badge source-badge-date"
-                  title="Historical evaluation benchmark date"
-                >
-                  <CalendarDays
-                    size={13}
-                    className="source-badge-icon"
-                    aria-hidden="true"
-                  />
-                  <span>
-                    Reference:{" "}
-                    <strong>
-                      {config.data?.latest_date
-                        ? date(config.data.latest_date)
-                        : "27 Sept 2026"}
-                    </strong>
-                  </span>
-                </span>
-              </div>
-
-              <div className="source-actions">
-                <AsyncButton
-                  className="source-action-btn source-action-refresh"
-                  busy={config.loading}
-                  busyLabel="Updating…"
-                  onClick={() => setRevision((value) => value + 1)}
-                  title="Refresh demo workspace state"
-                >
-                  <RefreshCw size={13} aria-hidden="true" />
-                  <span>Refresh</span>
-                </AsyncButton>
-
-                {page === "overview" && (
-                  <AsyncButton
-                    className="source-action-btn source-action-export"
-                    busy={exporting}
-                    busyLabel="Exporting…"
-                    onClick={handleExportTodayPlan}
-                    title="Export today's kitchen preparation plan to CSV"
+                    className="source-badge source-badge-status"
+                    title="Active synthetic canteen environment"
                   >
-                    <ArrowDownToLine size={13} aria-hidden="true" />
-                    <span>Export Plan</span>
+                    <span
+                      className="status-dot green live-pulse"
+                      aria-hidden="true"
+                    />
+                    <strong>Demo Workspace</strong>
+                  </span>
+
+                  <span className="source-divider" aria-hidden="true">
+                    /
+                  </span>
+
+                  {/* Facility Identifier Badge */}
+                  <span
+                    className="source-badge source-badge-facility"
+                    title="Simulated dining facility"
+                  >
+                    <ChefHat
+                      size={13}
+                      className="source-badge-icon"
+                      aria-hidden="true"
+                    />
+                    <span>
+                      {config.data
+                        ? config.data.workspace
+                        : "Campus Green Demo Canteen"}
+                    </span>
+                  </span>
+
+                  {/* Reference Timeline Date */}
+                  <span className="source-divider" aria-hidden="true">
+                    ·
+                  </span>
+                  <span
+                    className="source-badge source-badge-date"
+                    title="Historical evaluation benchmark date"
+                  >
+                    <CalendarDays
+                      size={13}
+                      className="source-badge-icon"
+                      aria-hidden="true"
+                    />
+                    <span>
+                      Reference:{" "}
+                      <strong>
+                        {config.data?.latest_date
+                          ? date(config.data.latest_date)
+                          : "27 Sept 2026"}
+                      </strong>
+                    </span>
+                  </span>
+                </div>
+
+                <div className="source-actions">
+                  <AsyncButton
+                    className="source-action-btn source-action-refresh"
+                    busy={config.loading}
+                    busyLabel="Updating…"
+                    onClick={() => setRevision((value) => value + 1)}
+                    title="Refresh demo workspace state"
+                  >
+                    <RefreshCw size={13} aria-hidden="true" />
+                    <span>Refresh</span>
                   </AsyncButton>
-                )}
+
+                  {page === "overview" && (
+                    <AsyncButton
+                      className="source-action-btn source-action-export"
+                      busy={exporting}
+                      busyLabel="Exporting…"
+                      onClick={handleExportTodayPlan}
+                      title="Export today's kitchen preparation plan to CSV"
+                    >
+                      <ArrowDownToLine size={13} aria-hidden="true" />
+                      <span>Export Plan</span>
+                    </AsyncButton>
+                  )}
+                </div>
               </div>
-            </div>
+            )}
 
             {exportError && (
               <div className="inline-banner alert" role="alert">
