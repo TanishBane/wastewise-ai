@@ -25,6 +25,8 @@ interface QuickSearchDialogProps {
   onNavigate: (page: Page, dish?: string) => void;
 }
 
+type ScopeId = "all" | "operations" | "intelligence" | "dishes" | "resources";
+
 export default function QuickSearchDialog({
   open,
   onClose,
@@ -34,6 +36,7 @@ export default function QuickSearchDialog({
 }: QuickSearchDialogProps) {
   const [query, setQuery] = useState("");
   const [selectedIndex, setSelectedIndex] = useState(0);
+  const [activeScope, setActiveScope] = useState<ScopeId>("all");
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -41,6 +44,7 @@ export default function QuickSearchDialog({
       const timer = setTimeout(() => {
         setQuery("");
         setSelectedIndex(0);
+        setActiveScope("all");
         inputRef.current?.focus();
       }, 0);
       return () => clearTimeout(timer);
@@ -126,9 +130,7 @@ export default function QuickSearchDialog({
     "Idli Sambar",
   ];
 
-  const matchingDishes = dishes
-    .filter((d) => d.toLowerCase().includes(q))
-    .slice(0, 6);
+  const matchingDishes = dishes.filter((d) => d.toLowerCase().includes(q));
 
   interface ResultItem {
     type: "view" | "dish";
@@ -141,7 +143,7 @@ export default function QuickSearchDialog({
     dishName?: string;
   }
 
-  const results: ResultItem[] = [
+  const allResults: ResultItem[] = [
     ...matchingViews.map((v) => ({
       type: "view" as const,
       id: `view-${v.id}`,
@@ -163,6 +165,52 @@ export default function QuickSearchDialog({
     })),
   ];
 
+  // Scope filter counts
+  const operationsCount = matchingViews.filter(
+    (v) => v.category === "Operations" || v.category === "Kitchen Planning",
+  ).length;
+  const intelligenceCount = matchingViews.filter(
+    (v) =>
+      v.category === "Intelligence" ||
+      v.category === "Evaluation" ||
+      v.category === "Data",
+  ).length;
+  const dishesCount = matchingDishes.length;
+  const resourcesCount = matchingViews.filter(
+    (v) => v.category === "Resources",
+  ).length;
+
+  const scopes = [
+    { id: "all" as ScopeId, label: "All Items", count: allResults.length },
+    {
+      id: "operations" as ScopeId,
+      label: "Operations",
+      count: operationsCount,
+    },
+    {
+      id: "intelligence" as ScopeId,
+      label: "Intelligence",
+      count: intelligenceCount,
+    },
+    { id: "dishes" as ScopeId, label: "Menu Dishes", count: dishesCount },
+    { id: "resources" as ScopeId, label: "Resources", count: resourcesCount },
+  ];
+
+  const filteredResults = allResults.filter((item) => {
+    if (activeScope === "all") return true;
+    if (activeScope === "operations")
+      return item.badge === "Operations" || item.badge === "Kitchen Planning";
+    if (activeScope === "intelligence")
+      return (
+        item.badge === "Intelligence" ||
+        item.badge === "Evaluation" ||
+        item.badge === "Data"
+      );
+    if (activeScope === "dishes") return item.type === "dish";
+    if (activeScope === "resources") return item.badge === "Resources";
+    return true;
+  });
+
   const handleSelect = (item: ResultItem) => {
     if (item.type === "dish" && item.dishName) {
       onSelectDish(item.dishName);
@@ -176,15 +224,17 @@ export default function QuickSearchDialog({
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === "ArrowDown") {
       e.preventDefault();
-      setSelectedIndex((prev) => (prev + 1) % Math.max(1, results.length));
+      setSelectedIndex((prev) =>
+        prev + 1 >= filteredResults.length ? 0 : prev + 1,
+      );
     } else if (e.key === "ArrowUp") {
       e.preventDefault();
       setSelectedIndex((prev) =>
-        prev <= 0 ? Math.max(0, results.length - 1) : prev - 1,
+        prev <= 0 ? Math.max(0, filteredResults.length - 1) : prev - 1,
       );
     } else if (e.key === "Enter") {
       e.preventDefault();
-      const current = results[selectedIndex];
+      const current = filteredResults[selectedIndex];
       if (current) handleSelect(current);
     } else if (e.key === "Escape") {
       e.preventDefault();
@@ -195,40 +245,81 @@ export default function QuickSearchDialog({
   return (
     <Dialog open={open} onClose={onClose} title="Search Views & Menu Dishes">
       <div className="quick-search-modal quick-search-container">
-        {/* Search input field */}
+        {/* Search input field utilizing the entire bar */}
         <div className="quick-search-input-wrap">
-          <Search size={18} className="search-icon-left" />
+          <div className="search-input-left" aria-hidden="true">
+            <Search size={19} className="search-icon-left" />
+          </div>
           <input
             ref={inputRef}
             type="text"
             className="quick-search-input"
-            placeholder="Type a page or menu dish name (e.g. Overview, Biryani, Pav Bhaji)…"
+            placeholder="Type a page, menu dish name, or keyword (e.g. Overview, Biryani, Forecast)..."
             value={query}
             onChange={(e) => {
               setQuery(e.target.value);
               setSelectedIndex(0);
             }}
             onKeyDown={handleKeyDown}
-            aria-label="Search pages and dishes"
+            aria-label="Search pages and menu dishes"
           />
-          {query && (
+          <div className="search-input-right">
+            {query ? (
+              <>
+                <span className="search-count-badge">
+                  {filteredResults.length}{" "}
+                  {filteredResults.length === 1 ? "match" : "matches"}
+                </span>
+                <button
+                  type="button"
+                  className="quick-search-clear"
+                  onClick={() => {
+                    setQuery("");
+                    inputRef.current?.focus();
+                  }}
+                  aria-label="Clear search input"
+                  title="Clear input"
+                >
+                  <X size={14} />
+                </button>
+              </>
+            ) : (
+              <div className="search-shortcut-hint" aria-hidden="true">
+                <kbd className="search-input-kbd">ESC</kbd>
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* Scope category filter chips */}
+        <div
+          className="quick-search-scopes"
+          role="tablist"
+          aria-label="Category filters"
+        >
+          {scopes.map((s) => (
             <button
-              className="quick-search-clear"
+              key={s.id}
+              type="button"
+              role="tab"
+              aria-selected={activeScope === s.id}
+              className={`search-scope-chip ${activeScope === s.id ? "active" : ""}`}
               onClick={() => {
-                setQuery("");
+                setActiveScope(s.id);
+                setSelectedIndex(0);
                 inputRef.current?.focus();
               }}
-              aria-label="Clear query"
             >
-              <X size={15} />
+              <span>{s.label}</span>
+              <span className="scope-count">{s.count}</span>
             </button>
-          )}
+          ))}
         </div>
 
         {/* Results list */}
         <div className="quick-search-results" role="listbox">
-          {results.length > 0 ? (
-            results.map((item, idx) => {
+          {filteredResults.length > 0 ? (
+            filteredResults.map((item, idx) => {
               const Icon = item.icon;
               const isSelected = idx === selectedIndex;
               return (
@@ -240,8 +331,8 @@ export default function QuickSearchDialog({
                   role="option"
                   aria-selected={isSelected}
                 >
-                  <span className="search-item-icon">
-                    <Icon size={17} />
+                  <span className="search-item-icon" aria-hidden="true">
+                    <Icon size={18} />
                   </span>
                   <div className="search-item-body">
                     <div className="search-item-title-row">
@@ -255,7 +346,11 @@ export default function QuickSearchDialog({
                       <span className="jump-pill">Plan dish</span>
                     </span>
                   )}
-                  <ArrowRight size={14} className="search-item-arrow" />
+                  <ArrowRight
+                    size={15}
+                    className="search-item-arrow"
+                    aria-hidden="true"
+                  />
                 </button>
               );
             })
@@ -263,22 +358,51 @@ export default function QuickSearchDialog({
             <div className="search-no-results">
               <p>No pages or menu items match "{query}".</p>
               <small>
-                Try searching "Forecast", "Planner", "Dal", or "Biryani"
+                Try searching "Forecast", "Planner", "Dal", or click a category
+                chip above.
               </small>
+              <div className="search-suggestions-row">
+                {[
+                  "Kitchen Overview",
+                  "Demand Forecast",
+                  "Pav Bhaji",
+                  "Veg Biryani",
+                  "Surplus Rescue",
+                ].map((sug) => (
+                  <button
+                    key={sug}
+                    type="button"
+                    className="search-sug-pill"
+                    onClick={() => {
+                      setQuery(sug);
+                      setActiveScope("all");
+                      inputRef.current?.focus();
+                    }}
+                  >
+                    {sug}
+                  </button>
+                ))}
+              </div>
             </div>
           )}
         </div>
 
         {/* Modal footer hints */}
         <div className="quick-search-footer">
-          <span>
-            <kbd className="search-kbd">↑↓</kbd> to navigate
-          </span>
-          <span>
-            <kbd className="search-kbd">↵</kbd> to select
-          </span>
-          <span>
-            <kbd className="search-kbd">esc</kbd> to close
+          <div className="footer-keys-group">
+            <span>
+              <kbd className="search-kbd">↑↓</kbd> to navigate
+            </span>
+            <span>
+              <kbd className="search-kbd">↵</kbd> to select
+            </span>
+            <span>
+              <kbd className="search-kbd">esc</kbd> to close
+            </span>
+          </div>
+          <span className="footer-status-count">
+            {filteredResults.length}{" "}
+            {filteredResults.length === 1 ? "item" : "items"} available
           </span>
         </div>
       </div>
