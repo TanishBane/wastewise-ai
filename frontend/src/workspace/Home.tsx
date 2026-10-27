@@ -1,12 +1,16 @@
 import {
   Activity,
   ArrowRight,
+  BarChart3,
+  ChartNoAxesCombined,
   Check,
+  ChefHat,
   Clock,
   Leaf,
   ShieldCheck,
   Sprout,
   TrendingUp,
+  TriangleAlert,
 } from "lucide-react";
 import {
   motion,
@@ -14,7 +18,6 @@ import {
   useScroll,
   useTransform,
 } from "framer-motion";
-import MetalButton from "../MetalButton";
 import BrandLogo from "../BrandLogo";
 import { motionTokens } from "../motionTokens";
 import {
@@ -45,8 +48,27 @@ export default function Home({ navigate }: { navigate: Navigate }) {
     <div className="home-page">
       <ReadingProgressBar />
 
-      {/* Hero Viewport: Balanced 2-column editorial composition */}
+      {/* Hero Viewport: Balanced 2-column editorial composition with botanical ambiance */}
       <section className="home-hero">
+        {/* Botanical Organic Foliage Framing */}
+        <div className="home-botanical-backdrop" aria-hidden="true">
+          <picture className="botanical-foliage-pic">
+            <source
+              srcSet="/images/botanical/leaf-layer-top.webp"
+              type="image/webp"
+            />
+            <img
+              src="/images/botanical/leaf-layer-top.jpg"
+              alt=""
+              className="botanical-foliage-img"
+              width={640}
+              height={360}
+              loading="eager"
+            />
+          </picture>
+          <div className="botanical-backdrop-scrim" />
+        </div>
+
         <div className="home-hero-copy">
           {/* Eyebrow Kicker */}
           <motion.div
@@ -124,20 +146,22 @@ export default function Home({ navigate }: { navigate: Navigate }) {
                     }
               }
             >
-              <MetalButton
-                className="button primary"
+              <button
+                type="button"
+                className="botanical-cta-primary"
                 onClick={() => navigate("overview")}
               >
-                Explore kitchen overview
+                <span>Explore kitchen overview</span>
                 <ArrowRight size={16} aria-hidden="true" />
-              </MetalButton>
-              <MetalButton
-                className="button"
+              </button>
+              <button
+                type="button"
+                className="botanical-cta-secondary"
                 onClick={() => navigate("demand-forecast")}
               >
-                Try demand forecast
+                <span>Try demand forecast</span>
                 <ArrowRight size={16} aria-hidden="true" />
-              </MetalButton>
+              </button>
             </motion.div>
 
             <motion.div
@@ -390,6 +414,102 @@ export default function Home({ navigate }: { navigate: Navigate }) {
         </motion.div>
       </section>
 
+      {/* Botanical 4-Capability Floating Translucent Dark Forest Ribbon */}
+      <section
+        className="botanical-ribbon-container"
+        aria-label="Core operational capabilities"
+      >
+        <div className="botanical-ribbon">
+          <button
+            type="button"
+            className="botanical-ribbon-col"
+            onClick={() => navigate("demand-forecast")}
+          >
+            <div className="ribbon-emblem-wrap">
+              <span className="ribbon-emblem ribbon-emblem-sage">
+                <ChartNoAxesCombined size={18} aria-hidden="true" />
+              </span>
+            </div>
+            <div className="ribbon-col-text">
+              <strong className="ribbon-col-title">Demand Forecasting</strong>
+              <span className="ribbon-col-desc">
+                Random Forest · 80% bounds
+              </span>
+            </div>
+            <ArrowRight
+              size={14}
+              className="ribbon-col-arrow"
+              aria-hidden="true"
+            />
+          </button>
+
+          <button
+            type="button"
+            className="botanical-ribbon-col"
+            onClick={() => navigate("prep-planner")}
+          >
+            <div className="ribbon-emblem-wrap">
+              <span className="ribbon-emblem ribbon-emblem-terracotta">
+                <ChefHat size={18} aria-hidden="true" />
+              </span>
+            </div>
+            <div className="ribbon-col-text">
+              <strong className="ribbon-col-title">Preparation Planning</strong>
+              <span className="ribbon-col-desc">65/35 Newsvendor hedge</span>
+            </div>
+            <ArrowRight
+              size={14}
+              className="ribbon-col-arrow"
+              aria-hidden="true"
+            />
+          </button>
+
+          <button
+            type="button"
+            className="botanical-ribbon-col"
+            onClick={() => navigate("waste-risk")}
+          >
+            <div className="ribbon-emblem-wrap">
+              <span className="ribbon-emblem ribbon-emblem-copper">
+                <TriangleAlert size={18} aria-hidden="true" />
+              </span>
+            </div>
+            <div className="ribbon-col-text">
+              <strong className="ribbon-col-title">Surplus Triage</strong>
+              <span className="ribbon-col-desc">4-hour cold chain rescue</span>
+            </div>
+            <ArrowRight
+              size={14}
+              className="ribbon-col-arrow"
+              aria-hidden="true"
+            />
+          </button>
+
+          <button
+            type="button"
+            className="botanical-ribbon-col"
+            onClick={() => navigate("performance")}
+          >
+            <div className="ribbon-emblem-wrap">
+              <span className="ribbon-emblem ribbon-emblem-moss">
+                <BarChart3 size={18} aria-hidden="true" />
+              </span>
+            </div>
+            <div className="ribbon-col-text">
+              <strong className="ribbon-col-title">
+                Shift Audit &amp; Impact
+              </strong>
+              <span className="ribbon-col-desc">-34% food waste telemetry</span>
+            </div>
+            <ArrowRight
+              size={14}
+              className="ribbon-col-arrow"
+              aria-hidden="true"
+            />
+          </button>
+        </div>
+      </section>
+
       {/* Proof Points: Elevated Editorial Cards */}
       <StaggerGroup
         className="home-proof"
@@ -591,20 +711,22 @@ export default function Home({ navigate }: { navigate: Navigate }) {
               live interactive model with full feature explanations.
             </p>
             <div className="home-end-actions">
-              <MetalButton
-                className="button primary"
+              <button
+                type="button"
+                className="botanical-cta-primary"
                 onClick={() => navigate("data-model")}
               >
-                Add your workplace data
+                <span>Add your workplace data</span>
                 <ArrowRight size={16} aria-hidden="true" />
-              </MetalButton>
-              <MetalButton
-                className="button"
+              </button>
+              <button
+                type="button"
+                className="botanical-cta-secondary"
                 onClick={() => navigate("overview")}
               >
-                Launch demo canteen
+                <span>Launch demo canteen</span>
                 <ArrowRight size={16} aria-hidden="true" />
-              </MetalButton>
+              </button>
             </div>
           </div>
         </section>

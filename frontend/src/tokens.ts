@@ -10,6 +10,13 @@ export const palette = {
   sage: "#76947f",
   warning: "#885514",
   danger: "#a44537",
+  forest: "#14392f",
+  terracotta: "#805142",
+  cream: "#f1e3cd",
+  moss: "#91a578",
+  copper: "#b87d4b",
+  bark: "#3d2b1f",
+  sand: "#dfe8dc",
 } as const;
 
 export const chartTokens = {
