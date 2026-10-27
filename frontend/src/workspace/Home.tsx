@@ -28,6 +28,7 @@ import type { Navigate } from "./model";
 import CanteenSimulator from "./CanteenSimulator";
 import CanteenBentoGrid from "./CanteenBentoGrid";
 import CanteenWorkflowGallery from "./CanteenWorkflowGallery";
+import { ShiveringLiquidButton } from "../components/ui/button-1";
 
 export default function Home({ navigate }: { navigate: Navigate }) {
   const shouldReduceMotion = useReducedMotion();
@@ -553,7 +554,7 @@ export default function Home({ navigate }: { navigate: Navigate }) {
         </div>
       </section>
 
-      {/* Final Call to Action */}
+      {/* Final Call to Action with Dynamic Layout & Vivid Shivering Liquid Button */}
       <ScrollReveal direction="up" distance={18}>
         <section className="home-end">
           <div className="home-end-content">
@@ -562,27 +563,83 @@ export default function Home({ navigate }: { navigate: Navigate }) {
               Ready when your kitchen is
             </span>
             <h2>Bring your workplace into focus.</h2>
-            <p>
+            <p className="home-end-desc">
               Upload your canteen’s historical preparation logs or explore the
               live interactive model with full feature explanations.
             </p>
+
             <div className="home-end-actions">
               <button
                 type="button"
-                className="botanical-cta-primary"
+                className="botanical-cta-secondary"
                 onClick={() => navigate("data-model")}
               >
                 <span>Add your workplace data</span>
                 <ArrowRight size={16} aria-hidden="true" />
               </button>
-              <button
-                type="button"
-                className="botanical-cta-secondary"
+
+              <ShiveringLiquidButton
                 onClick={() => navigate("overview")}
+                className="home-end-liquid-cta"
+                ariaLabel="Launch demo canteen"
               >
-                <span>Launch demo canteen</span>
-                <ArrowRight size={16} aria-hidden="true" />
-              </button>
+                <span className="text-white font-semibold tracking-wide text-[15px] flex items-center gap-2">
+                  Launch demo canteen
+                  <ArrowRight size={16} aria-hidden="true" />
+                </span>
+              </ShiveringLiquidButton>
+            </div>
+
+            {/* Dynamic Live Operational Telemetry Cards utilizing the remaining space */}
+            <div
+              className="home-end-grid"
+              role="region"
+              aria-label="Demo environment highlights"
+            >
+              <div className="home-end-card">
+                <div className="end-card-icon-wrap" aria-hidden="true">
+                  <Sprout size={16} />
+                </div>
+                <div className="end-card-content">
+                  <strong className="end-card-title">
+                    Live Canteen Telemetry
+                  </strong>
+                  <span className="end-card-desc">
+                    Preloaded with 14-day campus attendance &amp; multi-dish
+                    velocity data.
+                  </span>
+                </div>
+              </div>
+
+              <div className="home-end-card">
+                <div className="end-card-icon-wrap" aria-hidden="true">
+                  <ChefHat size={16} />
+                </div>
+                <div className="end-card-content">
+                  <strong className="end-card-title">
+                    65/35 Batch Production
+                  </strong>
+                  <span className="end-card-desc">
+                    Newsvendor hedging prevents overproduction before food
+                    enters kettles.
+                  </span>
+                </div>
+              </div>
+
+              <div className="home-end-card">
+                <div className="end-card-icon-wrap" aria-hidden="true">
+                  <ShieldCheck size={16} />
+                </div>
+                <div className="end-card-content">
+                  <strong className="end-card-title">
+                    Zero-Landfill Protocol
+                  </strong>
+                  <span className="end-card-desc">
+                    4-hour food safety window with automated campus rescue
+                    dispatch.
+                  </span>
+                </div>
+              </div>
             </div>
           </div>
         </section>
