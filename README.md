@@ -509,14 +509,15 @@ The backend exposes typed, versioned REST endpoints documented via OpenAPI 3.1:
 
 | Method | Endpoint | Description | Public Demo Auth | Response Model |
 | :--- | :--- | :--- | :--- | :--- |
-| `GET` | `/api/v1/health` | Service health, model status, and DB readiness | None | `HealthStatusResponse` |
-| `GET` | `/api/v1/overview` | Active canteen KPIs: demand, prep, surplus risk, cost-at-risk | `DEFAULT_ORG_ID` | `KitchenOverviewResponse` |
-| `GET` | `/api/v1/forecast/dishes` | List of catalog dishes available for demand forecasting | `DEFAULT_ORG_ID` | `List[DishItem]` |
-| `POST` | `/api/v1/forecast/predict` | Quantile prediction with weather, event, and calendar features | `DEFAULT_ORG_ID` | `ForecastPredictionResponse` |
-| `POST` | `/api/v1/plan/optimize` | Newsvendor preparation plan with staggered batches & refill triggers | `DEFAULT_ORG_ID` | `PreparationPlanResponse` |
-| `GET` | `/api/v1/rescue/queue` | Prioritized surplus triage queue with financial exposure | `DEFAULT_ORG_ID` | `SurplusRescueQueueResponse` |
-| `POST` | `/api/v1/outcomes/reconcile` | Persist physical shift outcome (cooked, sold, leftovers, waste reason) | `DEFAULT_ORG_ID` | `ShiftOutcomeResponse` |
-| `POST` | `/api/v1/data/upload` | Upload historical CSV sales records for dynamic model retraining | `DEFAULT_ORG_ID` | `DatasetUploadResponse` |
+| `GET` | `/api/health` | Service health, model status, and DB readiness | None | `HealthResponse` |
+| `GET` | `/api/overview` | Active canteen KPIs: demand, prep, surplus risk, cost-at-risk | `DEFAULT_ORG_ID` | `OverviewResponse` |
+| `POST` | `/api/forecast` | Quantile prediction with weather, event, and calendar features | `DEFAULT_ORG_ID` | `ForecastResponse` |
+| `POST` | `/api/plan` | Newsvendor preparation plan with staggered batches & refill triggers | `DEFAULT_ORG_ID` | `PlanResponse` |
+| `GET` | `/api/waste-risk` | Prioritized surplus triage queue with financial exposure | `DEFAULT_ORG_ID` | `WasteRiskResponse` |
+| `GET` | `/api/performance` | Retrospective holdout model evaluation & benchmark metrics | `DEFAULT_ORG_ID` | `PerformanceResponse` |
+| `POST` | `/api/outcomes` | Persist physical shift outcome (cooked, sold, leftovers, waste reason) | `DEFAULT_ORG_ID` | `ActualOutcomeItem` |
+| `GET` | `/api/data` | Active dataset metadata, provenance, and coverage window | `DEFAULT_ORG_ID` | `DataInfoResponse` |
+| `POST` | `/api/data/upload` | Upload historical CSV sales records for dynamic model retraining | `DEFAULT_ORG_ID` | `DatasetUploadResponse` |
 
 ---
 

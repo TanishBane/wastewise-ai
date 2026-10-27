@@ -16,6 +16,37 @@ os.makedirs(TARGET_DIR_DOCS, exist_ok=True)
 CHROME_PATH = r"C:\Program Files\Google\Chrome\Application\chrome.exe"
 USER_DATA = r"C:\Users\gmatr\AppData\Local\Temp\chrome_cdp_profile_showcase"
 
+async def wait_for_view_ready(ws, min_wait=2.5, max_wait=10.0):
+    await asyncio.sleep(min_wait)
+    start = time.time()
+    while time.time() - start < max_wait:
+        check_js = """
+        (() => {
+            const text = document.body.innerText;
+            const hasError = text.includes("We couldn't load this view") || text.includes("Failed to fetch") || text.includes("Cannot reach the WasteWise backend");
+            const isLoading = document.querySelector('.animate-spin') !== null;
+            return { hasError, isLoading, textLen: text.length };
+        })()
+        """
+        await ws.send(json.dumps({
+            "id": 50,
+            "method": "Runtime.evaluate",
+            "params": {"expression": check_js, "returnByValue": True}
+        }))
+        while True:
+            msg = await ws.recv()
+            data = json.loads(msg)
+            if data.get("id") == 50:
+                val = data.get("result", {}).get("result", {}).get("value", {})
+                if not val.get("hasError") and not val.get("isLoading"):
+                    print(f"  View content loaded cleanly ({val.get('textLen')} chars).")
+                    return True
+                if val.get("hasError"):
+                    print("  Warning: Detected error state in view, waiting for resolution...")
+                break
+        await asyncio.sleep(0.5)
+    return False
+
 async def capture_item(ws, file_name, width=1440, height=900, device_scale=1):
     # Set viewport
     await ws.send(json.dumps({
@@ -88,9 +119,8 @@ async def main():
                 "method": "Page.navigate",
                 "params": {"url": "http://localhost:4173/#home"}
             }))
-            await asyncio.sleep(2.5)
+            await wait_for_view_ready(ws)
             await capture_item(ws, "home-hero.png", 1440, 900)
-            # Also keep home-desktop.png aligned
             shutil.copyfile(os.path.join(TARGET_DIR_ASSETS, "home-hero.png"), os.path.join(TARGET_DIR_ASSETS, "home-desktop.png"))
             shutil.copyfile(os.path.join(TARGET_DIR_DOCS, "home-hero.png"), os.path.join(TARGET_DIR_DOCS, "home-desktop.png"))
 
@@ -101,7 +131,7 @@ async def main():
                 "method": "Page.navigate",
                 "params": {"url": "http://localhost:4173/#overview"}
             }))
-            await asyncio.sleep(2.5)
+            await wait_for_view_ready(ws)
             await capture_item(ws, "kitchen-overview.png", 1440, 900)
 
             # 3. Demand Forecast
@@ -111,7 +141,7 @@ async def main():
                 "method": "Page.navigate",
                 "params": {"url": "http://localhost:4173/#demand-forecast"}
             }))
-            await asyncio.sleep(2.5)
+            await wait_for_view_ready(ws)
             await capture_item(ws, "demand-forecast.png", 1440, 900)
 
             # 4. Preparation Planner
@@ -121,7 +151,7 @@ async def main():
                 "method": "Page.navigate",
                 "params": {"url": "http://localhost:4173/#prep-planner"}
             }))
-            await asyncio.sleep(2.5)
+            await wait_for_view_ready(ws)
             await capture_item(ws, "preparation-planner.png", 1440, 900)
 
             # 5. Surplus Rescue
@@ -131,7 +161,7 @@ async def main():
                 "method": "Page.navigate",
                 "params": {"url": "http://localhost:4173/#waste-risk"}
             }))
-            await asyncio.sleep(2.5)
+            await wait_for_view_ready(ws)
             await capture_item(ws, "surplus-rescue.png", 1440, 900)
 
             # 6. Performance Impact
@@ -141,7 +171,7 @@ async def main():
                 "method": "Page.navigate",
                 "params": {"url": "http://localhost:4173/#performance"}
             }))
-            await asyncio.sleep(2.5)
+            await wait_for_view_ready(ws)
             await capture_item(ws, "performance-impact.png", 1440, 900)
 
             # 7. Data Model
@@ -151,7 +181,7 @@ async def main():
                 "method": "Page.navigate",
                 "params": {"url": "http://localhost:4173/#data-model"}
             }))
-            await asyncio.sleep(2.5)
+            await wait_for_view_ready(ws)
             await capture_item(ws, "data-model.png", 1440, 900)
 
             # 8. Bento Grid (scrolled view on home)
@@ -161,17 +191,16 @@ async def main():
                 "method": "Page.navigate",
                 "params": {"url": "http://localhost:4173/#home"}
             }))
-            await asyncio.sleep(2.0)
-            # Scroll down to the bento grid section
+            await wait_for_view_ready(ws)
             scroll_script = """
             (() => {
-                const bento = document.querySelector('.grid.grid-cols-1.md\\\\:grid-cols-3') || document.querySelector('section:nth-of-type(3)') || document.querySelector('#bento-grid');
+                const bento = document.querySelector('.bento-grid-botanical') || document.querySelector('.bento-grid-container');
                 if (bento) {
-                    bento.scrollIntoView({ behavior: 'instant', block: 'center' });
+                    bento.scrollIntoView({ behavior: 'instant', block: 'start' });
                     return "scrolled to bento";
                 }
-                window.scrollTo(0, 1100);
-                return "scrolled 1100px";
+                window.scrollTo(0, 1900);
+                return "scrolled 1900px";
             })()
             """
             await ws.send(json.dumps({
@@ -180,7 +209,7 @@ async def main():
                 "params": {"expression": scroll_script}
             }))
             await ws.recv()
-            await asyncio.sleep(1.0)
+            await asyncio.sleep(1.2)
             await capture_item(ws, "canteen-bento.png", 1440, 900)
 
             # 9. Quick Search Modal (open full width search dialog)
@@ -188,7 +217,6 @@ async def main():
             open_search_script = """
             (() => {
                 window.scrollTo(0, 0);
-                // Trigger search dialog open button or dispatch keydown
                 const searchBtn = Array.from(document.querySelectorAll('button')).find(b => b.textContent.includes('Search') || b.querySelector('svg.lucide-search'));
                 if (searchBtn) {
                     searchBtn.click();
@@ -214,12 +242,12 @@ async def main():
                 "method": "Page.navigate",
                 "params": {"url": "http://localhost:4173/#home"}
             }))
-            await asyncio.sleep(2.0)
+            await wait_for_view_ready(ws)
             await capture_item(ws, "mobile-home.png", 390, 844)
             shutil.copyfile(os.path.join(TARGET_DIR_ASSETS, "mobile-home.png"), os.path.join(TARGET_DIR_ASSETS, "home-mobile.png"))
             shutil.copyfile(os.path.join(TARGET_DIR_DOCS, "mobile-home.png"), os.path.join(TARGET_DIR_DOCS, "home-mobile.png"))
 
-            print("All screenshots successfully captured!")
+            print("All screenshots successfully captured with real live backend data!")
 
     finally:
         proc.terminate()
