@@ -42,31 +42,64 @@ export default function Home({ navigate }: { navigate: Navigate }) {
     shouldReduceMotion ? [0, 0] : [0, 16],
   );
 
+  // Controlled parallax drift & ambient scale for the immersive background landscape
+  const landscapeParallaxY = useTransform(
+    scrollY,
+    [0, 600],
+    shouldReduceMotion ? [0, 0] : [0, 55],
+  );
+
+  const landscapeScale = useTransform(
+    scrollY,
+    [0, 600],
+    shouldReduceMotion ? [1, 1] : [1.02, 1.07],
+  );
+
   const instant = { duration: 0 };
 
   return (
     <div className="home-page">
       <ReadingProgressBar />
 
-      {/* Hero Viewport: Balanced 2-column editorial composition with botanical ambiance */}
+      {/* Hero Viewport: Balanced 2-column editorial composition with immersive blended landscape */}
       <section className="home-hero">
-        {/* Botanical Organic Foliage Framing */}
-        <div className="home-botanical-backdrop" aria-hidden="true">
-          <picture className="botanical-foliage-pic">
-            <source
-              srcSet="/images/botanical/leaf-layer-top.webp"
-              type="image/webp"
-            />
-            <img
-              src="/images/botanical/leaf-layer-top.jpg"
-              alt=""
-              className="botanical-foliage-img"
-              width={640}
-              height={360}
-              loading="eager"
-            />
-          </picture>
-          <div className="botanical-backdrop-scrim" />
+        {/* Immersive Dynamically Blended Landscape Backdrop */}
+        <div className="home-immersive-landscape-backdrop" aria-hidden="true">
+          <motion.div
+            className="immersive-landscape-motion-wrapper"
+            style={{
+              y: landscapeParallaxY,
+              scale: landscapeScale,
+            }}
+            initial={shouldReduceMotion ? false : { opacity: 0, scale: 1.06 }}
+            animate={{ opacity: 1, scale: 1.02 }}
+            transition={
+              shouldReduceMotion
+                ? instant
+                : { duration: 1.4, ease: [0.16, 1, 0.3, 1] }
+            }
+          >
+            <picture className="immersive-landscape-pic">
+              <source
+                srcSet="/images/botanical/immersive-hero-landscape.webp"
+                type="image/webp"
+              />
+              <img
+                src="/images/botanical/immersive-hero-landscape.jpg"
+                alt=""
+                className="immersive-landscape-img"
+                width={1470}
+                height={980}
+                decoding="async"
+                loading="eager"
+              />
+            </picture>
+          </motion.div>
+
+          {/* Dynamic multi-layer gradient blending scrims */}
+          <div className="immersive-landscape-scrim-left" />
+          <div className="immersive-landscape-scrim-bottom" />
+          <div className="immersive-landscape-scrim-radial" />
         </div>
 
         <div className="home-hero-copy">
