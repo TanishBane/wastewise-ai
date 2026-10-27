@@ -623,78 +623,94 @@ export default function Home({ navigate }: { navigate: Navigate }) {
       </section>
 
       {/* Evidence & Integrity Section */}
-      <section className="home-evidence">
-        <ScrollReveal
-          direction="left"
-          distance={16}
-          className="home-evidence-left"
-        >
-          <div className="home-evidence-mark">
-            <div className="evidence-badge-icon">
-              <ShieldCheck size={28} aria-hidden="true" />
-            </div>
-            <strong>Built for transparent decisions</strong>
-            <p>
-              Every operational recommendation discloses its math and
-              assumptions.
-            </p>
-          </div>
-        </ScrollReveal>
+      <section className="home-evidence" aria-labelledby="evidence-heading">
+        <picture className="home-evidence-bg">
+          <source
+            srcSet="/images/botanical/forest-landscape.webp"
+            type="image/webp"
+          />
+          <img
+            src="/images/botanical/forest-landscape.jpg"
+            alt=""
+            aria-hidden="true"
+            className="home-evidence-bg-img"
+            decoding="async"
+          />
+        </picture>
+        <div className="home-evidence-scrim" aria-hidden="true" />
 
-        <ScrollReveal
-          direction="right"
-          distance={16}
-          className="home-evidence-right"
-        >
-          <div>
-            <span className="home-eyebrow">
-              The Useful Kind of Intelligence
-            </span>
-            <h2>Recommendations, not black boxes.</h2>
-            <p>
-              Every screen keeps critical context within view: where a number
-              came from, how confident the model is, and where operator
-              discretion remains paramount.
-            </p>
-            <ul className="evidence-checklist">
-              <li>
-                <span className="check-bullet" aria-hidden="true">
-                  <Check size={14} />
-                </span>
-                <span>
-                  Synthetic demonstration data is explicitly labeled and
-                  unmeasured savings disclosed
-                </span>
-              </li>
-              <li>
-                <span className="check-bullet" aria-hidden="true">
-                  <Check size={14} />
-                </span>
-                <span>
-                  Probabilistic confidence intervals sit alongside single-point
-                  recommendations
-                </span>
-              </li>
-              <li>
-                <span className="check-bullet" aria-hidden="true">
-                  <Check size={14} />
-                </span>
-                <span>
-                  Historical performance metrics measured on realistic holdout
-                  datasets
-                </span>
-              </li>
-            </ul>
-            <button
-              type="button"
-              className="home-text-link"
-              onClick={() => navigate("transparency")}
-            >
-              Read model transparency notes{" "}
-              <ArrowRight size={15} aria-hidden="true" />
-            </button>
-          </div>
-        </ScrollReveal>
+        <div className="home-evidence-grid">
+          <ScrollReveal
+            direction="left"
+            distance={16}
+            className="home-evidence-left"
+          >
+            <div className="home-evidence-mark">
+              <div className="evidence-badge-icon">
+                <ShieldCheck size={32} aria-hidden="true" />
+              </div>
+              <strong>Built for transparent decisions</strong>
+              <div className="evidence-meta-pill">
+                <span>Deterministic & Auditable</span>
+              </div>
+            </div>
+          </ScrollReveal>
+
+          <ScrollReveal
+            direction="right"
+            distance={16}
+            className="home-evidence-right"
+          >
+            <div className="home-evidence-content">
+              <span className="home-eyebrow evidence-eyebrow">
+                The Useful Kind of Intelligence
+              </span>
+              <h2 id="evidence-heading">Recommendations, not black boxes.</h2>
+              <p>
+                Every screen keeps critical context within view: where a number
+                came from, how confident the model is, and where operator
+                discretion remains paramount.
+              </p>
+              <ul className="evidence-checklist">
+                <li>
+                  <span className="check-bullet" aria-hidden="true">
+                    <Check size={14} />
+                  </span>
+                  <span>
+                    Synthetic demonstration data is explicitly labeled and
+                    unmeasured savings disclosed
+                  </span>
+                </li>
+                <li>
+                  <span className="check-bullet" aria-hidden="true">
+                    <Check size={14} />
+                  </span>
+                  <span>
+                    Probabilistic confidence intervals sit alongside
+                    single-point recommendations
+                  </span>
+                </li>
+                <li>
+                  <span className="check-bullet" aria-hidden="true">
+                    <Check size={14} />
+                  </span>
+                  <span>
+                    Historical performance metrics measured on realistic holdout
+                    datasets
+                  </span>
+                </li>
+              </ul>
+              <button
+                type="button"
+                className="home-evidence-cta"
+                onClick={() => navigate("transparency")}
+              >
+                Read model transparency notes{" "}
+                <ArrowRight size={15} aria-hidden="true" />
+              </button>
+            </div>
+          </ScrollReveal>
+        </div>
       </section>
 
       {/* Final Call to Action */}
