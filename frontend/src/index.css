@@ -4681,6 +4681,9 @@ html[data-interaction="keyboard"] .button:active:not(:disabled) {
   align-items: flex-start;
   gap: var(--space-4);
   margin-top: var(--space-7);
+  width: 100%;
+  max-width: 600px;
+  min-width: 0;
 }
 .home-action-buttons {
   display: flex;
@@ -8015,7 +8018,12 @@ html[data-interaction="keyboard"] .button:active:not(:disabled) {
   position: relative;
   overflow: hidden;
   border-radius: 28px;
-  padding: clamp(36px, 5vw, 64px) clamp(24px, 4vw, 56px);
+  min-height: clamp(480px, 60vh, 620px);
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  align-items: flex-start !important;
+  padding: clamp(44px, 5.5vw, 80px) clamp(28px, 4.5vw, 64px) !important;
   margin-top: var(--space-4);
   margin-bottom: var(--space-8);
   background-color: var(--ground);
@@ -8065,10 +8073,10 @@ html[data-interaction="keyboard"] .button:active:not(:disabled) {
   background: linear-gradient(
     90deg,
     var(--ground) 0%,
-    rgba(246, 245, 239, 0.98) 32%,
-    rgba(246, 245, 239, 0.82) 48%,
-    rgba(246, 245, 239, 0.32) 70%,
-    rgba(246, 245, 239, 0.06) 100%
+    rgba(246, 245, 239, 0.98) 28%,
+    rgba(246, 245, 239, 0.82) 44%,
+    rgba(246, 245, 239, 0.28) 68%,
+    rgba(246, 245, 239, 0.04) 100%
   );
   pointer-events: none;
 }
@@ -8103,23 +8111,12 @@ html[data-interaction="keyboard"] .button:active:not(:disabled) {
 }
 
 .home-hero-copy {
+  min-width: 0;
+  max-width: min(660px, 62%);
+  display: flex;
+  flex-direction: column;
   position: relative;
   z-index: 2;
-}
-
-.home-signal {
-  position: relative;
-  z-index: 2;
-}
-
-.home-signal .telemetry-hud-card {
-  background: rgba(255, 255, 255, 0.88);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(120, 163, 149, 0.28);
-  box-shadow:
-    0 24px 48px -12px rgba(20, 57, 47, 0.18),
-    0 4px 12px rgba(0, 0, 0, 0.03);
 }
 
 /* Botanical Signature Buttons */
@@ -8749,9 +8746,8 @@ html[data-interaction="keyboard"] .button:active:not(:disabled) {
     grid-template-columns: 1fr !important;
   }
   .home-hero {
-    grid-template-columns: 1fr !important;
-    padding: var(--space-6) var(--space-4) !important;
-    gap: var(--space-6) !important;
+    min-height: auto !important;
+    padding: var(--space-7) var(--space-5) !important;
   }
   .home-immersive-landscape-backdrop {
     opacity: 0.65;
@@ -8805,29 +8801,41 @@ html[data-interaction="keyboard"] .button:active:not(:disabled) {
     max-width: 100% !important;
     flex-wrap: wrap !important;
   }
+  .home-actions,
+  .home-meta-actions {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    align-items: stretch !important;
+  }
   .home-action-buttons {
     flex-direction: column !important;
     align-items: stretch !important;
     width: 100% !important;
+    max-width: 100% !important;
     gap: var(--space-2) !important;
   }
   .botanical-cta-primary,
   .botanical-cta-secondary {
     width: 100% !important;
+    max-width: 100% !important;
     justify-content: center !important;
     box-sizing: border-box !important;
     font-size: 13.5px !important;
     padding: 10px 14px !important;
+    white-space: normal !important;
   }
   .home-stats-strip {
     display: flex !important;
     flex-wrap: wrap !important;
     gap: 6px !important;
+    width: 100% !important;
     max-width: 100% !important;
   }
   .stat-pill {
     font-size: 10.5px !important;
     padding: 3px 7px !important;
+    flex: 0 1 auto !important;
   }
 }
 

@@ -5,7 +5,6 @@ import {
   ChartNoAxesCombined,
   Check,
   ChefHat,
-  Clock,
   Leaf,
   ShieldCheck,
   Sprout,
@@ -18,7 +17,6 @@ import {
   useScroll,
   useTransform,
 } from "framer-motion";
-import BrandLogo from "../BrandLogo";
 import { motionTokens } from "../motionTokens";
 import {
   ReadingProgressBar,
@@ -34,13 +32,6 @@ import CanteenWorkflowGallery from "./CanteenWorkflowGallery";
 export default function Home({ navigate }: { navigate: Navigate }) {
   const shouldReduceMotion = useReducedMotion();
   const { scrollY } = useScroll();
-
-  // Subtle controlled parallax drift for the interactive telemetry console
-  const consoleParallaxY = useTransform(
-    scrollY,
-    [0, 500],
-    shouldReduceMotion ? [0, 0] : [0, 16],
-  );
 
   // Controlled parallax drift & ambient scale for the immersive background landscape
   const landscapeParallaxY = useTransform(
@@ -261,190 +252,6 @@ export default function Home({ navigate }: { navigate: Navigate }) {
             </motion.div>
           </div>
         </div>
-
-        {/* Right Side: Interactive Kitchen Intelligence & Telemetry Stage */}
-        <motion.div
-          className="home-signal"
-          aria-label="WasteWise kitchen intelligence stage"
-          style={{ y: consoleParallaxY }}
-          initial={shouldReduceMotion ? false : { opacity: 0, scale: 0.96 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={
-            shouldReduceMotion
-              ? instant
-              : {
-                  duration: 0.7,
-                  delay: 0.18,
-                  ease: motionTokens.ease.out,
-                }
-          }
-        >
-          <div className="telemetry-hud-card">
-            {/* Top Bar: Live Service Context */}
-            <div className="hud-header">
-              <div className="hud-title-wrap">
-                <span className="live-pulse-dot" aria-hidden="true" />
-                <div className="hud-canteen-meta">
-                  <strong className="hud-canteen-name">
-                    Campus Green Demo Canteen
-                  </strong>
-                  <div className="hud-service-tags">
-                    <span className="hud-service-type">Lunch Service</span>
-                    <span className="hud-service-sep" aria-hidden="true">
-                      ·
-                    </span>
-                    <span className="hud-service-status">
-                      Active Operating Schedule
-                    </span>
-                  </div>
-                </div>
-              </div>
-              <span className="hud-badge">
-                <Clock size={12} aria-hidden="true" />
-                <span>Shift Cadence</span>
-              </span>
-            </div>
-
-            {/* Live Visual Floor Banner */}
-            <div className="hud-hero-image-strip" aria-hidden="true">
-              <picture className="hud-hero-picture">
-                <source
-                  srcSet="/images/canteen/canteen-service.webp"
-                  type="image/webp"
-                />
-                <img
-                  src="/images/canteen/canteen-service.jpg"
-                  alt="Campus Green Canteen service counter"
-                  className="hud-hero-img"
-                  width={480}
-                  height={120}
-                  loading="eager"
-                  decoding="async"
-                />
-              </picture>
-              <div className="hud-hero-img-badge">
-                <span className="live-pulse-dot" aria-hidden="true" />
-                <span>Live Service Floor</span>
-              </div>
-            </div>
-
-            {/* Canteen Operational Shift Cadence */}
-            <div className="hud-shift-cadence">
-              <div className="cadence-header">
-                <span className="cadence-title">Today's Operating Cadence</span>
-                <span className="cadence-date">Active Kitchen Rhythm</span>
-              </div>
-
-              <div className="cadence-timeline">
-                <div className="cadence-step done">
-                  <span className="step-time">06:30</span>
-                  <span className="step-node" aria-hidden="true" />
-                  <div className="step-content">
-                    <strong className="step-title">
-                      Signal Synchronization
-                    </strong>
-                    <span className="step-desc">
-                      Ingest campus attendance (1.0x), mild weather &amp; day
-                      baseline
-                    </span>
-                  </div>
-                </div>
-
-                <div className="cadence-step active">
-                  <span className="step-time">10:00</span>
-                  <span className="step-node" aria-hidden="true" />
-                  <div className="step-content">
-                    <strong className="step-title">Batch 1 Production</strong>
-                    <span className="step-desc">
-                      Commit initial buffer (110 portions, 65%) to kettles
-                    </span>
-                  </div>
-                </div>
-
-                <div className="cadence-step">
-                  <span className="step-time">12:30</span>
-                  <span className="step-node" aria-hidden="true" />
-                  <div className="step-content">
-                    <strong className="step-title">
-                      Mid-Service Refill Check
-                    </strong>
-                    <span className="step-desc">
-                      Evaluate refill trigger (&lt;5 portions) before cooking
-                      Batch 2
-                    </span>
-                  </div>
-                </div>
-
-                <div className="cadence-step">
-                  <span className="step-time">14:30</span>
-                  <span className="step-node" aria-hidden="true" />
-                  <div className="step-content">
-                    <strong className="step-title">
-                      Surplus Audit &amp; Log
-                    </strong>
-                    <span className="step-desc">
-                      Record actual outcomes to SQLite &amp; route any excess
-                      portions
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Four KPI Telemetry Cards */}
-            <div className="hud-metric-row">
-              <div className="hud-metric-box">
-                <span className="hud-metric-label">Expected Demand</span>
-                <strong className="hud-metric-value">161</strong>
-                <span className="hud-metric-note">Across 8 dishes</span>
-              </div>
-              <div className="hud-metric-box highlight">
-                <span className="hud-metric-label">Suggested Prep</span>
-                <strong className="hud-metric-value">168</strong>
-                <span className="hud-metric-note">+4.3% safety buffer</span>
-              </div>
-              <div className="hud-metric-box">
-                <span className="hud-metric-label">Model Accuracy</span>
-                <strong className="hud-metric-value">8.4%</strong>
-                <span className="hud-metric-note">Holdout WAPE</span>
-              </div>
-              <div className="hud-metric-box">
-                <span className="hud-metric-label">Financial Exposure</span>
-                <strong className="hud-metric-value">₹887</strong>
-                <span className="hud-metric-note">Demo cost-at-risk</span>
-              </div>
-            </div>
-
-            {/* Authenticated Brand Seal & Status Bar */}
-            <div className="hud-footer">
-              <div className="hud-brand-seal">
-                <BrandLogo
-                  className="hud-seal-logo"
-                  width={38}
-                  height={27}
-                  alt="WasteWise"
-                />
-                <div className="hud-seal-text">
-                  <span className="brand-title">
-                    WasteWise Operational Platform
-                  </span>
-                  <span className="brand-sub">
-                    Canteen Decision Support System
-                  </span>
-                </div>
-              </div>
-              <button
-                type="button"
-                className="hud-quick-link"
-                onClick={() => navigate("overview")}
-                aria-label="Open Kitchen Overview"
-              >
-                <span>Launch Overview</span>
-                <ArrowRight size={13} aria-hidden="true" />
-              </button>
-            </div>
-          </div>
-        </motion.div>
       </section>
 
       {/* Botanical 4-Capability Floating Translucent Dark Forest Ribbon */}
