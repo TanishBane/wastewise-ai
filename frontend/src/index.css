@@ -9908,4 +9908,299 @@ html[data-interaction="keyboard"] .button:active:not(:disabled) {
       calc(var(--space-4) + env(safe-area-inset-bottom))
     );
   }
+
+  /* 5. Fluid Responsive Mobile Layout & Zero-Overflow Containment */
+  html,
+  body,
+  #root,
+  .app-shell,
+  .app-frame,
+  .workspace,
+  .page-column,
+  .work-sheet,
+  .page-transition-wrapper,
+  .home-page {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    box-sizing: border-box !important;
+    overflow-x: hidden !important;
+  }
+
+  .home-sheet .source-bar {
+    display: none !important;
+  }
+
+  /* Mobile Hero Section */
+  .home-hero {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    padding: 24px 18px !important;
+    margin: 12px 0 24px !important;
+    border-radius: 20px !important;
+  }
+
+  .home-hero-copy {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+  }
+
+  .home-hero h1 {
+    font-size: clamp(26px, 8vw, 34px) !important;
+    line-height: 1.15 !important;
+    max-width: 100% !important;
+    word-break: normal !important;
+    overflow-wrap: break-word !important;
+  }
+
+  .home-hero-copy > p {
+    font-size: 14.5px !important;
+    line-height: 1.5 !important;
+    max-width: 100% !important;
+    overflow-wrap: break-word !important;
+  }
+
+  .home-actions,
+  .home-action-buttons {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    flex-direction: column !important;
+    gap: 10px !important;
+  }
+
+  .botanical-cta-primary,
+  .botanical-cta-secondary {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-height: 48px !important;
+    padding: 12px 18px !important;
+    font-size: 14px !important;
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    box-sizing: border-box !important;
+    touch-action: manipulation;
+  }
+
+  .home-stats-strip {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 8px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-top: 14px !important;
+  }
+
+  .stat-pill {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+    padding: 10px 12px !important;
+    border-radius: 12px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  .stat-pill strong {
+    font-size: 16px !important;
+    color: var(--forest) !important;
+  }
+
+  .stat-pill span {
+    font-size: 11px !important;
+    color: var(--muted) !important;
+  }
+
+  /* Mobile 4-Capability Floating Ribbon */
+  .botanical-ribbon-container {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  .botanical-ribbon {
+    grid-template-columns: 1fr !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  .botanical-ribbon-col {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Mobile Proof Cards */
+  .home-proof {
+    grid-template-columns: 1fr !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    gap: 12px !important;
+  }
+
+  .proof-card {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Mobile Canteen Simulator Stack */
+  .canteen-sim-card {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    padding: 18px 14px !important;
+  }
+
+  .canteen-sim-body {
+    grid-template-columns: 1fr !important;
+    width: 100% !important;
+    gap: 20px !important;
+  }
+
+  .canteen-sim-controls,
+  .canteen-sim-results {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    padding-right: 0 !important;
+  }
+
+  .sim-kpi-grid {
+    grid-template-columns: repeat(3, 1fr) !important;
+    width: 100% !important;
+    gap: 6px !important;
+  }
+
+  /* Mobile Bento Grid */
+  .bento-grid-botanical {
+    grid-template-columns: 1fr !important;
+    width: 100% !important;
+    gap: 16px !important;
+  }
+
+  .bento-card {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    padding: 20px 16px !important;
+    min-height: auto !important;
+  }
+
+  .bento-metrics-mini,
+  .bento-kpi-row {
+    grid-template-columns: 1fr !important;
+    gap: 8px !important;
+  }
+
+  /* Mobile Workflow Gallery */
+  .workflow-gallery {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  .workflow-tabs {
+    display: flex !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    overscroll-behavior-x: contain !important;
+    gap: 8px !important;
+    padding-bottom: 8px !important;
+    width: 100% !important;
+  }
+
+  .workflow-tab-btn {
+    flex: 0 0 auto !important;
+    padding: 8px 14px !important;
+    min-height: 44px !important;
+  }
+
+  .workflow-stage-card {
+    grid-template-columns: 1fr !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  .workflow-stage-media {
+    height: 220px !important;
+    width: 100% !important;
+  }
+
+  .stage-kpi-row {
+    grid-template-columns: repeat(3, 1fr) !important;
+    width: 100% !important;
+    gap: 6px !important;
+  }
+
+  /* Mobile Evidence Section */
+  .home-evidence {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    margin: 32px 0 !important;
+    border-radius: 20px !important;
+  }
+
+  .home-evidence-grid {
+    grid-template-columns: 1fr !important;
+    gap: 20px !important;
+    padding: 24px 16px !important;
+  }
+
+  /* Mobile End Convergence CTA Section */
+  .home-end {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    padding: 48px 0 32px !important;
+  }
+
+  .home-end-content {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    padding: 24px 16px !important;
+    border-radius: 20px !important;
+  }
+
+  .home-end-grid {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+    width: 100% !important;
+  }
+
+  .home-end-card {
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  .home-end-actions {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    width: 100% !important;
+    gap: 12px !important;
+  }
+
+  .home-end-actions button,
+  .home-end-liquid-cta,
+  .shivering-btn-wrap {
+    width: 100% !important;
+    min-height: 48px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .sim-kpi-grid,
+  .stage-kpi-row {
+    grid-template-columns: 1fr !important;
+    gap: 6px !important;
+  }
 }
