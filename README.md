@@ -226,12 +226,18 @@ Editorial 6-card bento grid communicating the engineering principles, temperatur
 Touch-first ergonomic layout tailored for commercial kitchen tablets, handheld POS terminals, and smartphones.
 
 <p align="center">
-  <img src="docs/assets/showcase/mobile-home.png" alt="WasteWise AI Mobile Ergonomics" width="380" />
+  <img src="docs/assets/showcase/mobile-home.png" alt="WasteWise AI Mobile Home View" width="280" />
+  &nbsp;&nbsp;&nbsp;&nbsp;
+  <img src="docs/assets/showcase/mobile-overview.png" alt="WasteWise AI Mobile Overview" width="280" />
+  &nbsp;&nbsp;&nbsp;&nbsp;
+  <img src="docs/assets/showcase/mobile-drawer.png" alt="WasteWise AI Mobile Navigation Drawer" width="280" />
 </p>
 
-- **Zero Horizontal Overflow**: Fluid single-column responsive layout where `scrollWidth === clientWidth` across all screen widths down to 360px.
-- **Ergonomic Touch Targets**: Minimum 44×44px interactive tap zones designed for rapid operation in high-heat commercial kitchen environments.
-- **Accessible Navigation Drawer**: Responsive slide-over drawer providing instant access to all planning, forecasting, and triage modules.
+- **Zero Horizontal Overflow**: Fluid single-column responsive layout where `scrollWidth === clientWidth` across all screen widths down to 360px (verified on iPhone SE, iPhone 14, and Android Standard).
+- **Ergonomic Touch Targets**: Minimum 44×44px interactive tap zones conforming to WCAG 2.2 Success Criterion 2.5.8 and Apple Human Interface Guidelines for rapid operation in high-heat commercial kitchen environments.
+- **Involuntary Zoom Prevention**: Form inputs, search fields, and selects calibrated with 16px minimum typography to eliminate unwanted viewport zooming on mobile iOS Safari.
+- **Native Safe-Area Insets**: Full notch, Dynamic Island, and navigation bar accommodation via CSS `viewport-fit=cover` and `env(safe-area-inset-*)`.
+- **Accessible Navigation Drawer**: Responsive slide-over drawer with backdrop blur, accessible close controls, and instant access to all planning, forecasting, and triage modules.
 
 ---
 
