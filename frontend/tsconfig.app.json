@@ -23,7 +23,12 @@
     "noFallthroughCasesInSwitch": true,
 
     /* Types */
-    "types": ["vite/client"]
+    "types": ["vite/client"],
+
+    /* Path Aliases */
+    "paths": {
+      "@/*": ["./src/*"]
+    }
   },
   "include": ["src"]
 }

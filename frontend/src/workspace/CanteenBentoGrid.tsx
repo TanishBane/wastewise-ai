@@ -213,43 +213,30 @@ export default function CanteenBentoGrid({ navigate }: CanteenBentoGridProps) {
           </div>
         </motion.article>
 
-        {/* Card 4: Authentic Canteen Photography — Real Kitchen Floor */}
+        {/* Card 4: Deep Botanical Forest — Real Kitchen Floor */}
         <motion.article
-          className="bento-card bento-card-photo"
+          className="bento-card bento-card-forest"
           whileHover={hoverMotion}
         >
-          <div className="bento-img-wrap" aria-hidden="true">
-            <picture className="bento-bg-picture">
-              <source
-                srcSet="/images/canteen/kitchen-prep.webp"
-                type="image/webp"
-              />
-              <img
-                src="/images/canteen/kitchen-prep.jpg"
-                alt="Chefs preparing culinary batches in commercial kitchen"
-                className="bento-bg-img"
-                width={1200}
-                height={800}
-                loading="lazy"
-                decoding="async"
-              />
-            </picture>
-            <div className="bento-scrim bento-scrim-forest" />
-          </div>
-
-          <div className="bento-card-header bento-photo-header">
+          <div className="bento-card-header">
             <div className="bento-badge-row">
-              <span className="bento-pill bento-pill-photo">
+              <span className="bento-pill bento-pill-forest">
                 <ShieldCheck size={12} aria-hidden="true" />
                 <span>Institutional Kitchens</span>
               </span>
-              <span className="bento-stat-pill bento-stat-photo">
+              <span className="bento-stat-pill bento-stat-forest">
                 Production Floor
               </span>
             </div>
+            <div
+              className="bento-emblem bento-emblem-forest"
+              aria-hidden="true"
+            >
+              <Flame size={18} />
+            </div>
           </div>
 
-          <div className="bento-card-body bento-photo-body">
+          <div className="bento-card-body">
             <h3 className="bento-card-title">
               Engineered for the speed and heat of real kitchens.
             </h3>
@@ -258,12 +245,27 @@ export default function CanteenBentoGrid({ navigate }: CanteenBentoGridProps) {
               meal centers. Fast, tactile controls and immediate batch targets
               without complex ERP hurdles.
             </p>
+
+            <div className="bento-signals-strip">
+              <div className="signal-chip signal-chip-forest">
+                <Flame size={13} aria-hidden="true" />
+                <span>High-Volume Dining</span>
+              </div>
+              <div className="signal-chip signal-chip-forest">
+                <ChefHat size={13} aria-hidden="true" />
+                <span>Tactile Line Controls</span>
+              </div>
+              <div className="signal-chip signal-chip-forest">
+                <ShieldCheck size={13} aria-hidden="true" />
+                <span>Zero ERP Complexities</span>
+              </div>
+            </div>
           </div>
 
-          <div className="bento-card-footer bento-photo-footer">
+          <div className="bento-card-footer">
             <button
               type="button"
-              className="bento-cta-btn bento-cta-photo"
+              className="bento-cta-btn bento-cta-forest"
               onClick={() => navigate("overview")}
             >
               <span>Explore Kitchen Floor</span>
