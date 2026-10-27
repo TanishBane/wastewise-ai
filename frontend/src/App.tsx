@@ -317,7 +317,9 @@ export default function App() {
       reducedMotion="user"
       transition={{ type: "spring", stiffness: 380, damping: 30 }}
     >
-      <div className="app-shell">
+      <div
+        className={`app-frame app-shell ${collapsed ? "sidebar-collapsed collapsed" : ""}`}
+      >
         <a href="#main" className="skip-link">
           Skip to main operational content
         </a>
@@ -334,8 +336,8 @@ export default function App() {
           }}
         />
 
-        <div className={`page-column ${collapsed ? "expanded" : ""}`}>
-          <header className="top-bar">
+        <div className={`workspace page-column ${collapsed ? "expanded" : ""}`}>
+          <header className="workspace-bar top-bar">
             <div className="top-bar-left">
               <button
                 type="button"
