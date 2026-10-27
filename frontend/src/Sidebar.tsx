@@ -203,22 +203,17 @@ export default function Sidebar({
         {/* Demo Mode Badge */}
         {!isCollapsed ? (
           <div
-            className="mb-3 p-2.5 rounded-xl bg-[var(--surface-muted,#eee9de)] border border-[var(--border,#d4cdbf)] text-xs"
+            className="sidebar-demo-badge"
             role="status"
             aria-label="Demonstration environment status"
           >
-            <div className="flex items-center gap-2">
-              <span
-                className="w-2 h-2 rounded-full bg-emerald-600 animate-pulse"
-                aria-hidden="true"
-              />
-              <div className="min-w-0 flex-1">
-                <p className="font-semibold text-[var(--ink,#1f2923)] tracking-wide">
-                  DEMO ENVIRONMENT
-                </p>
-                <p className="text-[11px] text-[var(--ink-light,#666)] truncate">
+            <div className="demo-badge-content">
+              <span className="demo-pulse-dot" aria-hidden="true" />
+              <div className="demo-badge-text">
+                <span className="demo-badge-title">DEMO ENVIRONMENT</span>
+                <span className="demo-badge-subtitle">
                   Sample canteen data · Public access
-                </p>
+                </span>
               </div>
             </div>
           </div>
@@ -228,7 +223,7 @@ export default function Sidebar({
             title="DEMO ENVIRONMENT · Sample Canteen Data"
           >
             <span
-              className="w-2.5 h-2.5 rounded-full bg-emerald-600 animate-pulse"
+              className="demo-pulse-dot"
               aria-label="Demo environment active"
             />
           </div>
