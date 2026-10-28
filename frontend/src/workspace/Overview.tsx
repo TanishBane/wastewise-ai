@@ -18,6 +18,8 @@ import { fetchOverview } from "../api";
 import { DemandChart } from "./Charts";
 import { AnimatedNumber } from "../motion";
 import PrintKitchenSheet from "./PrintKitchenSheet";
+import CanteenBentoDashboard from "./CanteenBentoDashboard";
+import { Sparkles } from "lucide-react";
 import {
   Badge,
   BatchStrip,
@@ -50,6 +52,7 @@ export default function Overview({ revision, navigate }: ScreenProps) {
     }
   }, []);
   const { data, loading, error, retry } = useResource(fetchOverview, revision);
+  const [viewMode, setViewMode] = useState<"bento" | "ledger">("bento");
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState("all");
   const [reviewed, setReviewed] = useState<Record<string, boolean>>({});
@@ -132,134 +135,161 @@ export default function Overview({ revision, navigate }: ScreenProps) {
           </span>
         </div>
       </div>
-      <Stats
-        items={[
-          {
-            label: "Expected demand",
-            value: (
-              <>
-                <AnimatedNumber
-                  value={data.kpis.forecast_demand}
-                  loading={loading}
-                />
-                <small>portions</small>
-              </>
-            ),
-            note: `Across ${data.item_details.length} menu items`,
-          },
-          {
-            label: "Suggested preparation",
-            value: (
-              <>
-                <AnimatedNumber
-                  value={data.kpis.recommended_prep}
-                  loading={loading}
-                />
-                <small>portions</small>
-              </>
-            ),
-            note: "Overview estimate · refine in planner",
-          },
-          {
-            label: "Potential surplus",
-            value: (
-              <>
-                <AnimatedNumber
-                  value={data.kpis.potential_surplus}
-                  loading={loading}
-                />
-                <small>portions</small>
-              </>
-            ),
-            note: `${data.kpis.surplus_pct}% of suggested preparation`,
-            tone: data.kpis.potential_surplus > 0 ? "warning-ink" : "",
-          },
-          {
-            label: "Ingredient cost at risk",
-            value: (
-              <AnimatedNumber
-                value={data.kpis.cost_at_risk}
-                prefix="₹"
-                loading={loading}
-              />
-            ),
-            note: "Exposure under the baseline prep policy",
-            tone: "warning-ink",
-          },
-        ]}
-      />
-      <div className="overview-grid">
-        <Panel
-          title="Demand, meet preparation"
-          description="Portions by dish for the active service date"
-          action={
-            <div className="legend">
-              <span>
-                <i className="green" />
-                Forecast
-              </span>
-              <span>
-                <i className="sage" />
-                Suggested prep
-              </span>
-            </div>
-          }
+      <div className="bento-mode-switcher-row">
+        <button
+          type="button"
+          className={`bento-switch-pill ${viewMode === "bento" ? "active" : ""}`}
+          onClick={() => setViewMode("bento")}
+          aria-pressed={viewMode === "bento"}
         >
-          <DemandChart rows={data.item_details} />
-          <div className="panel-foot">
-            <span>Forecasts are estimates, not confirmed orders.</span>
-            <TextLink onClick={() => navigate("demand-forecast")}>
-              Explore forecast
-            </TextLink>
-          </div>
-        </Panel>
-        <Panel
-          title="Needs a kitchen decision"
-          description="Prioritized by ingredient cost at risk"
-          action={
-            <span className="count-label">
-              {data.prioritized_alerts.length} priorities
-            </span>
-          }
-          className="priorities-panel"
+          <Sparkles size={14} />
+          <span>Bento Command Grid</span>
+        </button>
+        <button
+          type="button"
+          className={`bento-switch-pill ${viewMode === "ledger" ? "active" : ""}`}
+          onClick={() => setViewMode("ledger")}
+          aria-pressed={viewMode === "ledger"}
         >
-          <div className="priorities">
-            {data.prioritized_alerts.length ? (
-              data.prioritized_alerts.slice(0, 2).map((item) => (
-                <div className="priority" key={item.menu_item}>
-                  <div className="row-between">
-                    <strong>{item.menu_item}</strong>
-                    <RiskBadge level={item.risk_level} />
-                  </div>
-                  <p>
-                    {item.potential_surplus} potential extra portions{" "}
-                    <span>·</span> {money(item.cost_at_risk)} exposed
-                  </p>
-                  <div className="priority-action">
-                    <TriangleAlert size={15} />
-                    <span>{item.action}</span>
-                  </div>
-                  <TextLink
-                    onClick={() => navigate("prep-planner", item.menu_item)}
-                  >
-                    Review preparation
-                  </TextLink>
-                </div>
-              ))
-            ) : (
-              <Empty
-                title="No active priorities"
-                text="Review the menu plan before service."
-              />
-            )}
-          </div>
-          <div className="panel-foot">
-            <TextLink onClick={() => navigate("waste-risk")}>
-              Open surplus rescue
-            </TextLink>
-          </div>
-        </Panel>
+          <ClipboardList size={14} />
+          <span>Classic Ledger &amp; Targets</span>
+        </button>
       </div>
+
+      {viewMode === "bento" ? (
+        <CanteenBentoDashboard overviewData={data} navigate={navigate} />
+      ) : (
+        <>
+          <Stats
+            items={[
+              {
+                label: "Expected demand",
+                value: (
+                  <>
+                    <AnimatedNumber
+                      value={data.kpis.forecast_demand}
+                      loading={loading}
+                    />
+                    <small>portions</small>
+                  </>
+                ),
+                note: `Across ${data.item_details.length} menu items`,
+              },
+              {
+                label: "Suggested preparation",
+                value: (
+                  <>
+                    <AnimatedNumber
+                      value={data.kpis.recommended_prep}
+                      loading={loading}
+                    />
+                    <small>portions</small>
+                  </>
+                ),
+                note: "Overview estimate · refine in planner",
+              },
+              {
+                label: "Potential surplus",
+                value: (
+                  <>
+                    <AnimatedNumber
+                      value={data.kpis.potential_surplus}
+                      loading={loading}
+                    />
+                    <small>portions</small>
+                  </>
+                ),
+                note: `${data.kpis.surplus_pct}% of suggested preparation`,
+                tone: data.kpis.potential_surplus > 0 ? "warning-ink" : "",
+              },
+              {
+                label: "Ingredient cost at risk",
+                value: (
+                  <AnimatedNumber
+                    value={data.kpis.cost_at_risk}
+                    prefix="₹"
+                    loading={loading}
+                  />
+                ),
+                note: "Exposure under the baseline prep policy",
+                tone: "warning-ink",
+              },
+            ]}
+          />
+          <div className="overview-grid">
+            <Panel
+              title="Demand, meet preparation"
+              description="Portions by dish for the active service date"
+              action={
+                <div className="legend">
+                  <span>
+                    <i className="green" />
+                    Forecast
+                  </span>
+                  <span>
+                    <i className="sage" />
+                    Suggested prep
+                  </span>
+                </div>
+              }
+            >
+              <DemandChart rows={data.item_details} />
+              <div className="panel-foot">
+                <span>Forecasts are estimates, not confirmed orders.</span>
+                <TextLink onClick={() => navigate("demand-forecast")}>
+                  Explore forecast
+                </TextLink>
+              </div>
+            </Panel>
+            <Panel
+              title="Needs a kitchen decision"
+              description="Prioritized by ingredient cost at risk"
+              action={
+                <span className="count-label">
+                  {data.prioritized_alerts.length} priorities
+                </span>
+              }
+              className="priorities-panel"
+            >
+              <div className="priorities">
+                {data.prioritized_alerts.length ? (
+                  data.prioritized_alerts.slice(0, 2).map((item) => (
+                    <div className="priority" key={item.menu_item}>
+                      <div className="row-between">
+                        <strong>{item.menu_item}</strong>
+                        <RiskBadge level={item.risk_level} />
+                      </div>
+                      <p>
+                        {item.potential_surplus} potential extra portions{" "}
+                        <span>·</span> {money(item.cost_at_risk)} exposed
+                      </p>
+                      <div className="priority-action">
+                        <TriangleAlert size={15} />
+                        <span>{item.action}</span>
+                      </div>
+                      <TextLink
+                        onClick={() => navigate("prep-planner", item.menu_item)}
+                      >
+                        Review preparation
+                      </TextLink>
+                    </div>
+                  ))
+                ) : (
+                  <Empty
+                    title="No active priorities"
+                    text="Review the menu plan before service."
+                  />
+                )}
+              </div>
+              <div className="panel-foot">
+                <TextLink onClick={() => navigate("waste-risk")}>
+                  Open surplus rescue
+                </TextLink>
+              </div>
+            </Panel>
+          </div>
+        </>
+      )}
       <Panel
         title="The menu, ready for a second look"
         description="Review suggested batches before the kitchen starts. Review marks stay on this screen."
