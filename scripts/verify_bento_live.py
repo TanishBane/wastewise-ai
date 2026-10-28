@@ -68,7 +68,27 @@ async def verify_bento():
                     print(json.dumps(val, indent=2))
                     break
 
-            # 1. Capture Full Desktop Bento Screenshot
+            # Verify Footer ADAPPT link
+            footer_js = """
+            (() => {
+                const footer = document.querySelector('.workspace-footer');
+                const adappt = footer ? footer.querySelector('a.adappt-footer-link') : null;
+                return {
+                    footerText: footer ? footer.innerText : null,
+                    adapptHref: adappt ? adappt.href : null,
+                    adapptTarget: adappt ? adappt.target : null,
+                    adapptRel: adappt ? adappt.rel : null
+                };
+            })()
+            """
+            await ws.send(json.dumps({'id': 15, 'method': 'Runtime.evaluate', 'params': {'expression': footer_js, 'returnByValue': True}}))
+            while True:
+                msg = await ws.recv()
+                data = json.loads(msg)
+                if data.get('id') == 15:
+                    print("Footer ADAPPT Link Verification:")
+                    print(json.dumps(data.get('result', {}).get('result', {}).get('value'), indent=2))
+                    break
             await ws.send(json.dumps({'id': 20, 'method': 'Page.captureScreenshot', 'params': {'format': 'png', 'captureBeyondViewport': True}}))
             while True:
                 msg = await ws.recv()

@@ -264,16 +264,6 @@ export default function App() {
     }
   };
 
-  const currentLabel =
-    page === "home"
-      ? "WasteWise AI"
-      : links.find((link) => link.id === page)?.label || "Guidance";
-  const currentDescription =
-    page === "home"
-      ? "Food waste triage, dynamic demand forecasting & preparation optimization for Indian canteens."
-      : links.find((link) => link.id === page)?.description ||
-        "Product capabilities, algorithms & methodology";
-
   const tour = [
     {
       page: "home" as Page,
@@ -363,27 +353,21 @@ export default function App() {
                 </a>
               </div>
 
-              <div className="title-block">
-                <div className="title-row">
-                  <h1>{currentLabel}</h1>
-                  <span className="header-edition-badge">DEMO</span>
-                </div>
-                <p>{currentDescription}</p>
-              </div>
-            </div>
-
-            <div className="top-bar-actions">
               <button
-                className="search-trigger-button"
+                className="search-trigger-button extended"
                 onClick={() => setSearchOpen(true)}
                 title="Search dishes & views (/)"
                 aria-label="Search dishes and views"
               >
-                <Search size={15} />
-                <span className="search-label">Search dishes & views…</span>
+                <div className="search-trigger-content">
+                  <Search size={15} />
+                  <span className="search-label">Search dishes & views…</span>
+                </div>
                 <kbd className="search-kbd">/</kbd>
               </button>
+            </div>
 
+            <div className="top-bar-actions">
               <button
                 className={`utility-button icon-label ${page === "help" ? "active" : ""}`}
                 onClick={() => navigate("help")}
@@ -567,7 +551,14 @@ export default function App() {
               <div>
                 <a href="#privacy">Privacy</a>
                 <a href="#terms">Terms</a>
-                <span>ADAPPT 5.0</span>
+                <a
+                  href="https://adappt.ietempstme.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="adappt-footer-link"
+                >
+                  ADAPPT 5.0
+                </a>
               </div>
             </footer>
           </main>

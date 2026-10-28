@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, useCallback } from "react";
+import { useEffect, useRef, useCallback } from "react";
 import {
   ArrowRight,
   Sparkles,
@@ -22,8 +22,6 @@ export default function CanteenBentoDashboard({
   className = "",
 }: CanteenBentoDashboardProps) {
   const rootRef = useRef<HTMLDivElement>(null);
-  const [period, setPeriod] = useState<"1M" | "3M" | "1Y" | "All">("1Y");
-  const [unit, setUnit] = useState<"INR" | "USD">("INR");
 
   const kpis = overviewData.kpis;
   const items = overviewData.item_details;
@@ -804,58 +802,6 @@ export default function CanteenBentoDashboard({
           }
         }
       `}</style>
-
-      {/* Top Controls Bar */}
-      <div className="bento-top-bar">
-        <div>
-          <h2 className="bento-top-title">
-            <Sparkles size={20} color="#153d30" />
-            Kitchen Command Center
-          </h2>
-          <span className="bento-top-sub">
-            Real-time batch hedging, demand forecasting, and inventory risk
-            telemetry
-          </span>
-        </div>
-
-        <div className="bento-top-controls">
-          <div
-            className="bento-seg-group"
-            role="group"
-            aria-label="Service Window"
-          >
-            {(["1M", "3M", "1Y", "All"] as const).map((p) => (
-              <button
-                key={p}
-                type="button"
-                className={`bento-seg-btn ${period === p ? "active" : ""}`}
-                aria-pressed={period === p}
-                onClick={() => setPeriod(p)}
-              >
-                {p}
-              </button>
-            ))}
-          </div>
-
-          <div
-            className="bento-seg-group"
-            role="group"
-            aria-label="Display Currency"
-          >
-            {(["INR", "USD"] as const).map((u) => (
-              <button
-                key={u}
-                type="button"
-                className={`bento-seg-btn ${unit === u ? "active" : ""}`}
-                aria-pressed={unit === u}
-                onClick={() => setUnit(u)}
-              >
-                {u === "INR" ? "₹ INR" : "$ USD"}
-              </button>
-            ))}
-          </div>
-        </div>
-      </div>
 
       {/* 12-Column Grid Layout matching Finance Bento Architecture */}
       <div className="bento-12-grid">
