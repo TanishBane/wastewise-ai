@@ -262,7 +262,20 @@ export default function Sidebar({
 
         <div className={`sidebar-signature ${isCollapsed ? "collapsed" : ""}`}>
           <Leaf size={14} className="leaf-icon" />
-          {!isCollapsed && <span>Make every portion count.</span>}
+          {!isCollapsed && (
+            <div className="sidebar-foot-meta">
+              <span>Make every portion count.</span>
+              <a
+                href="https://adappt.ietempstme.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="sidebar-adappt-badge"
+                title="Visit ADAPPT platform (adappt.ietempstme.com)"
+              >
+                ADAPPT 5.0 ↗
+              </a>
+            </div>
+          )}
         </div>
       </div>
     </aside>

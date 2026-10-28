@@ -179,7 +179,7 @@ def simulate_holdout_impact(
     # UNEP factor: ~2.5 kg CO2e per kg discarded edible food
     co2e_avoided = round(kg_avoided * 2.5, 1)
     
-    total_eval_rows = len(df)
+    total_eval_rows = max(1, len(df))
     stockout_rate_trad = round(float(trad_stockout_count / total_eval_rows * 100), 1)
     stockout_rate_ww = round(float(ww_stockout_count / total_eval_rows * 100), 1)
     

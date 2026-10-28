@@ -9461,14 +9461,43 @@ html[data-interaction="keyboard"] .button:active:not(:disabled) {
 
 .workspace-footer a.adappt-footer-link {
   font-weight: 600;
-  color: var(--muted);
-  text-decoration: none;
-  transition: color 150ms ease;
+  color: var(--forest);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: opacity 150ms ease;
+  cursor: pointer;
 }
 
 .workspace-footer a.adappt-footer-link:hover {
   color: var(--green-dark);
-  text-decoration: underline;
+  opacity: 0.8;
+}
+
+.sidebar-foot-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  font-size: 11px;
+}
+
+.sidebar-adappt-badge {
+  font-size: 10.5px;
+  font-weight: 700;
+  color: var(--forest);
+  background: rgba(21, 61, 48, 0.08);
+  border: 1px solid rgba(21, 61, 48, 0.15);
+  padding: 2px 7px;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: all 150ms ease;
+  cursor: pointer;
+}
+
+.sidebar-adappt-badge:hover {
+  background: var(--forest);
+  color: #ffffff;
+  border-color: var(--forest);
 }
 
 .mobile-menu-trigger,

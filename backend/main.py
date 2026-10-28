@@ -203,59 +203,15 @@ ingestion_service = IngestionService()
 reporting_service = ReportingService()
 
 
-# --- Pydantic Request Models ---
-class ForecastScenarioRequest(BaseModel):
-    menu_item: str
-    day_of_week: str
-    attendance_index: float = Field(default=1.0, ge=0.1, le=1.8)
-    campus_event: int = Field(default=0, ge=0, le=1)
-    weather: str = Field(default="Sunny / Mild")
-    target_service: str = Field(default="Lunch")
-
-
-class PreparationPlanRequest(BaseModel):
-    menu_item: str
-    predicted_demand: float = Field(gt=0)
-    lower_bound: float = Field(ge=0)
-    upper_bound: float = Field(ge=0)
-    current_stock: int = Field(default=0, ge=0)
-    custom_cost_surplus: Optional[float] = None
-    custom_cost_shortage: Optional[float] = None
-    service_level_preference: float = Field(default=0.55, ge=0.01, le=0.99)
-    traditional_baseline_prep: Optional[int] = None
-    service_date: Optional[str] = None
-    target_meal: str = "Lunch"
-
-    @model_validator(mode="after")
-    def validate_bounds(self):
-        if self.lower_bound > self.upper_bound:
-            raise ValueError("lower_bound cannot exceed upper_bound.")
-        return self
-
-
-class ActualOutcomeRequest(BaseModel):
-    service_date: str
-    target_meal: str = "Lunch"
-    menu_item: str
-    portions_prepared: int = Field(ge=0)
-    portions_sold: int = Field(ge=0)
-    portions_leftover: int = Field(ge=0)
-    waste_cause: Optional[str] = Field(default="Over-preparation", max_length=100)
-    discarded_kg: float = Field(default=0.0, ge=0)
-    donation_kg: float = Field(default=0.0, ge=0)
-    waste_cost: float = Field(default=0.0, ge=0)
-    notes: str = Field(default="", max_length=1000)
-
-    @model_validator(mode="after")
-    def quantities_match_service(self):
-        if self.portions_sold + self.portions_leftover != self.portions_prepared:
-            raise ValueError("Prepared portions must equal portions sold plus portions leftover.")
-        return self
-
-
-class CreateOrganizationRequest(BaseModel):
-    name: str = Field(min_length=2, max_length=100)
-    slug: Optional[str] = Field(default=None, max_length=100)
+# --- Modular Request & Response Schemas ---
+from backend.rate_limit import rate_limit_dependency
+from backend.repositories.menu_catalog_repository import MenuCatalogRepository
+from backend.schemas import (
+    ActualOutcomeRequest,
+    CreateOrganizationRequest,
+    ForecastScenarioRequest,
+    PreparationPlanRequest,
+)
 
 
 # --- Endpoints ---
@@ -304,39 +260,10 @@ def get_config(
 
     tenant_state = org_state_registry.get_state(effective_org_id)
 
-    # Read active menu items scoped to this organization
-    items = []
-    names = []
-    db_items = (
-        db.query(MenuItemModel)
-        .filter(MenuItemModel.organization_id == effective_org_id, MenuItemModel.active == True)
-        .all()
-    )
-    if db_items:
-        for it in db_items:
-            items.append({
-                "name": it.name,
-                "category": it.category,
-                "cost_per_portion": it.cost_price,
-                "selling_price": it.selling_price,
-                "prep_batch_size": it.prep_batch_size,
-                "shelf_life_hours": it.shelf_life_hours,
-                "base_demand": it.base_demand,
-            })
-            names.append(it.name)
-
-    if not items:
-        for name, cfg in MENU_ITEMS.items():
-            items.append({
-                "name": cfg.name,
-                "category": cfg.category,
-                "cost_per_portion": cfg.cost_per_portion,
-                "selling_price": cfg.selling_price,
-                "prep_batch_size": cfg.prep_batch_size,
-                "shelf_life_hours": cfg.shelf_life_hours,
-                "base_demand": cfg.base_demand,
-            })
-        names = MENU_ITEM_NAMES
+    # Read active menu catalog dynamically via MenuCatalogRepository
+    catalog_items = MenuCatalogRepository.get_items_dict(organization_id=effective_org_id, db=db)
+    items = [it.to_dict() for it in catalog_items.values()]
+    names = list(catalog_items.keys())
 
     return {
         "menu_items": items,
@@ -472,7 +399,7 @@ def get_overview(
     )
 
 
-@app.post("/api/forecast")
+@app.post("/api/forecast", dependencies=[Depends(rate_limit_dependency)])
 def predict_forecast(
     req: ForecastScenarioRequest,
     user: Any = Depends(get_current_user_or_demo),
@@ -685,7 +612,7 @@ def download_csv_template():
 MAX_UPLOAD_BYTES = 10 * 1024 * 1024
 
 
-@app.post("/api/data/upload")
+@app.post("/api/data/upload", dependencies=[Depends(rate_limit_dependency)])
 async def upload_csv(
     file: UploadFile = File(...),
     user: Any = Depends(get_current_user_or_demo),
