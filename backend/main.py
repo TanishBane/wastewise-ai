@@ -223,6 +223,12 @@ class PreparationPlanRequest(BaseModel):
     service_date: Optional[str] = None
     target_meal: str = "Lunch"
 
+    @model_validator(mode="after")
+    def validate_bounds(self):
+        if self.lower_bound > self.upper_bound:
+            raise ValueError("lower_bound cannot exceed upper_bound.")
+        return self
+
 
 class ActualOutcomeRequest(BaseModel):
     service_date: str
@@ -564,16 +570,21 @@ def get_performance(
 
 
 @app.get("/api/monitoring/drift")
-def get_monitoring_drift():
+def get_monitoring_drift(
+    user: Any = Depends(get_current_user_or_demo),
+    org: Any = Depends(require_tenant_context_or_demo),
+):
     """Compare the training period with the holdout period using Evidently."""
-    if state.engine.test_records_df is None:
+    user, org = _resolve_context(user, org)
+    tenant_state = org_state_registry.get_state(org.organization_id)
+    if tenant_state.engine.test_records_df is None:
         raise HTTPException(status_code=503, detail="Model evaluation data is not available.")
     try:
         from evidently import Report
         from evidently.presets import DataDriftPreset
 
-        reference = state.dataset_df.drop(columns=["portions_sold"], errors="ignore")
-        current = state.engine.test_records_df.drop(
+        reference = tenant_state.dataset_df.drop(columns=["portions_sold"], errors="ignore")
+        current = tenant_state.engine.test_records_df.drop(
             columns=["portions_sold", "lower_bound", "upper_bound", "ml_pred", "baseline_pred"],
             errors="ignore",
         )
@@ -581,7 +592,8 @@ def get_monitoring_drift():
         snapshot = report.run(current_data=current, reference_data=reference)
         return snapshot.dict()
     except ImportError as error:
-        sentry_sdk.capture_exception(error)
+        if sentry_sdk:
+            sentry_sdk.capture_exception(error)
         raise HTTPException(status_code=503, detail="Evidently monitoring is not installed.") from error
 
 
@@ -667,6 +679,9 @@ def download_csv_template():
     )
 
 
+MAX_UPLOAD_BYTES = 10 * 1024 * 1024
+
+
 @app.post("/api/data/upload")
 async def upload_csv(
     file: UploadFile = File(...),
@@ -674,7 +689,20 @@ async def upload_csv(
     org: Any = Depends(require_tenant_context_or_demo),
 ):
     user, org = _resolve_context(user, org)
-    content = await file.read()
+
+    # Stream in chunks up to 10MB to prevent unbounded memory allocation
+    chunks = []
+    total_size = 0
+    while chunk := await file.read(1024 * 1024):  # 1MB chunk
+        total_size += len(chunk)
+        if total_size > MAX_UPLOAD_BYTES:
+            raise HTTPException(status_code=413, detail="CSV files must be 10 MB or smaller.")
+        chunks.append(chunk)
+
+    content = b"".join(chunks)
+    if not content:
+        raise HTTPException(status_code=400, detail="The uploaded CSV is empty.")
+
     clean_df, engine, issues = await ingestion_service.process_and_train_csv(
         file_bytes=content,
         filename=file.filename or "upload.csv",

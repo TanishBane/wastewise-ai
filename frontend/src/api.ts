@@ -147,8 +147,8 @@ export async function resetDataset(): Promise<{
 
 export async function recordOutcome(
   payload: ActualOutcomePayload,
-): Promise<{ status: string; id: number; message: string }> {
-  return fetchJson<{ status: string; id: number; message: string }>(
+): Promise<{ status: string; id: string; message: string }> {
+  return fetchJson<{ status: string; id: string; message: string }>(
     "/api/outcomes",
     {
       method: "POST",

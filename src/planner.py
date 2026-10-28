@@ -50,6 +50,18 @@ class PreparationPlanner:
         pass
 
     @staticmethod
+    def _calculate_expected_loss(supply: float, mu: float, sigma: float) -> tuple[float, float]:
+        """Analytical expected surplus and shortage under normal demand."""
+        if sigma <= 1e-4:
+            return max(0.0, supply - mu), max(0.0, mu - supply)
+        z = (supply - mu) / sigma
+        pdf_z = float(norm.pdf(z))
+        cdf_z = float(norm.cdf(z))
+        expected_surplus = (supply - mu) * cdf_z + sigma * pdf_z
+        expected_shortage = (mu - supply) * (1.0 - cdf_z) + sigma * pdf_z
+        return float(expected_surplus), float(expected_shortage)
+
+    @staticmethod
     def calculate_critical_ratio(
         cost_surplus: float,
         cost_shortage: float,
@@ -124,20 +136,16 @@ class PreparationPlanner:
         available_supply = rec_total + current_stock
         buffer_portions = available_supply - int(round(predicted_demand))
 
-        # Simulation: evaluate expected surplus and shortage for both policies
-        # Monte Carlo simulation over implied normal distribution
-        rng = np.random.default_rng(42)
-        simulated_demands = rng.normal(predicted_demand, implied_sigma, size=1000)
-        simulated_demands = np.clip(simulated_demands, 0, None)
-        
-        # WasteWise policy outcome
-        ww_surplus = np.mean(np.maximum(0, available_supply - simulated_demands))
-        ww_shortage = np.mean(np.maximum(0, simulated_demands - available_supply))
+        # Analytical closed-form evaluation of expected surplus and shortage under Normal demand
+        ww_surplus, ww_shortage = self._calculate_expected_loss(
+            float(available_supply), float(predicted_demand), float(implied_sigma)
+        )
         ww_cost = float(ww_surplus * c_surplus + ww_shortage * c_shortage)
 
         # Traditional policy outcome
-        trad_surplus = np.mean(np.maximum(0, trad_prep + current_stock - simulated_demands))
-        trad_shortage = np.mean(np.maximum(0, simulated_demands - (trad_prep + current_stock)))
+        trad_surplus, trad_shortage = self._calculate_expected_loss(
+            float(trad_prep + current_stock), float(predicted_demand), float(implied_sigma)
+        )
         trad_cost = float(trad_surplus * c_surplus + trad_shortage * c_shortage)
 
         net_cost_avoided = round(trad_cost - ww_cost, 2)
