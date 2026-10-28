@@ -47,15 +47,14 @@ class ForecastingService:
         item_df = dataset_df[dataset_df["menu_item"] == menu_item].sort_values("date").tail(30)
         split_date = engine.train_split_date or "2026-08-23"
 
-        trajectory: List[Dict[str, Any]] = []
-        for _, row in item_df.iterrows():
-            d_str = str(row["date"])
-            is_holdout = d_str > split_date
-            trajectory.append({
-                "date": d_str,
-                "actual_sold": int(row["portions_sold"]),
-                "is_holdout": is_holdout,
-            })
+        trajectory: List[Dict[str, Any]] = [
+            {
+                "date": str(row.date),
+                "actual_sold": int(row.portions_sold),
+                "is_holdout": str(row.date) >= split_date,
+            }
+            for row in item_df.itertuples(index=False)
+        ]
 
         # Model feature contributions extracted directly from fitted model
         features: List[Dict[str, Any]] = []

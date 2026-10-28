@@ -50,10 +50,10 @@ class PlanningService:
         )
 
         # 100-point Monte Carlo distribution curves for comparison chart
-        np.random.seed(42)
+        rng = np.random.default_rng(42)
         span = max(4.0, upper_bound - lower_bound)
         sigma = span / 2.56
-        sim_demands = np.random.normal(predicted_demand, sigma, 600)
+        sim_demands = rng.normal(predicted_demand, sigma, 600)
         sim_demands = np.clip(sim_demands, 0, None)
 
         bins = np.linspace(max(0, predicted_demand - 2.5 * sigma), predicted_demand + 2.5 * sigma, 15)

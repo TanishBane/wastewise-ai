@@ -143,12 +143,13 @@ def simulate_holdout_impact(
     planner = PreparationPlanner()
     df["ww_prep"] = [
         planner.generate_plan(
-            menu_item=row["menu_item"], predicted_demand=row["ml_pred"],
-            lower_bound=row.get("lower_bound", row["ml_pred"] * 0.85),
-            upper_bound=row.get("upper_bound", row["ml_pred"] * 1.15),
+            menu_item=row.menu_item,
+            predicted_demand=row.ml_pred,
+            lower_bound=getattr(row, "lower_bound", row.ml_pred * 0.85),
+            upper_bound=getattr(row, "upper_bound", row.ml_pred * 1.15),
             service_level_preference=0.55,
         ).recommended_total_plan
-        for _, row in df.iterrows()
+        for row in df.itertuples(index=False)
     ]
     
     # True latent demand proxy (observed portions sold or latent_demand if present)
