@@ -25,7 +25,10 @@ AUTH_REQUIRED = os.environ.get("AUTH_REQUIRED", "true").lower() in ("true", "1",
 WASTEWISE_DEMO_MODE = os.environ.get("WASTEWISE_DEMO_MODE", "true").lower() in ("true", "1", "yes")
 
 # Test signing secret for pytest and automated test suites
-TEST_AUTH_SECRET = os.environ.get("TEST_AUTH_SECRET", "wastewise-test-secret-key-32chars!!")
+TEST_AUTH_SECRET = os.environ.get(
+    "TEST_AUTH_SECRET",
+    "wastewise-test-secret-key-64chars-minimum-for-sha512-compliance!!",
+)
 
 
 def is_test_environment() -> bool:
@@ -180,7 +183,7 @@ def decode_and_verify_token(token: str) -> Dict:
 
     # 4. Verify audience claim if present
     aud = payload.get("aud")
-    if aud and aud not in ("authenticated", "anon"):
+    if not aud or aud not in ("authenticated", "anon"):
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail=f"Token audience '{aud}' is not valid for this service.",

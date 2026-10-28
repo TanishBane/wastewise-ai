@@ -191,7 +191,7 @@ export interface ActualOutcomePayload {
 }
 
 export interface ActualOutcomeItem {
-  id: number;
+  id: string;
   service_date: string;
   target_meal: string;
   menu_item: string;
@@ -207,7 +207,7 @@ export interface ActualOutcomeItem {
 }
 
 export interface ForecastHistoryItem {
-  id: number;
+  id: string;
   timestamp: string;
   menu_item: string;
   day_of_week: string;
@@ -221,7 +221,7 @@ export interface ForecastHistoryItem {
 }
 
 export interface PreparationPlanHistoryItem {
-  id: number;
+  id: string;
   service_date: string;
   target_meal: string;
   menu_item: string;

@@ -1,4 +1,4 @@
-import { useEffect, useEffectEvent, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { ConfigResponse } from "../types";
 
 export type Page =
@@ -42,7 +42,10 @@ export const date = (value?: string, compact = false) => {
 };
 
 export function useResource<T>(load: () => Promise<T>, key: string | number) {
-  const execute = useEffectEvent(load);
+  const loadRef = useRef(load);
+  useEffect(() => {
+    loadRef.current = load;
+  });
   const [attempt, setAttempt] = useState(0);
   const requestKey = JSON.stringify([key, attempt]);
   const [state, setState] = useState<{
@@ -52,7 +55,8 @@ export function useResource<T>(load: () => Promise<T>, key: string | number) {
   }>({ key: "", data: null, error: null });
   useEffect(() => {
     let current = true;
-    execute()
+    loadRef
+      .current()
       .then((data) => {
         if (current) setState({ key: requestKey, data, error: null });
       })
@@ -91,6 +95,8 @@ export function downloadCSV(filename: string, rows: (string | number)[][]) {
   const anchor = document.createElement("a");
   anchor.href = url;
   anchor.download = filename;
+  document.body.appendChild(anchor);
   anchor.click();
+  document.body.removeChild(anchor);
   setTimeout(() => URL.revokeObjectURL(url), 1000);
 }

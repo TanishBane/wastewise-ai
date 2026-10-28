@@ -10,6 +10,10 @@ from pathlib import Path
 from typing import Generator
 from sqlalchemy import create_engine, event
 from sqlalchemy.orm import declarative_base, sessionmaker, Session
+from sqlalchemy.pool import NullPool
+import logging
+
+logger = logging.getLogger(__name__)
 
 ROOT_DIR = Path(__file__).resolve().parent.parent
 IS_SERVERLESS = bool(
@@ -40,15 +44,22 @@ if DATABASE_URL:
     if DATABASE_URL.startswith("postgres://"):
         DATABASE_URL = DATABASE_URL.replace("postgres://", "postgresql://", 1)
 
-    # Supabase / PostgreSQL engine with connection pooling and pre-ping
-    engine = create_engine(
-        DATABASE_URL,
-        pool_size=10,
-        max_overflow=20,
-        pool_recycle=300,
-        pool_pre_ping=True,
-        echo=False,
-    )
+    # Supabase / PostgreSQL engine: NullPool for serverless, connection pooling for containers
+    if IS_SERVERLESS:
+        engine = create_engine(
+            DATABASE_URL,
+            poolclass=NullPool,
+            echo=False,
+        )
+    else:
+        engine = create_engine(
+            DATABASE_URL,
+            pool_size=10,
+            max_overflow=20,
+            pool_recycle=300,
+            pool_pre_ping=True,
+            echo=False,
+        )
     is_sqlite = False
 else:
     if IS_SERVERLESS:
@@ -109,6 +120,9 @@ def get_db() -> Generator[Session, None, None]:
     db = SessionLocal()
     try:
         yield db
+    except Exception:
+        db.rollback()
+        raise
     finally:
         db.close()
 
@@ -185,8 +199,8 @@ def init_db():
 
                 conn.connection.commit()
                 cursor.close()
-        except Exception:
-            pass
+        except Exception as exc:
+            logger.warning("Database schema auto-migration notice: %s", exc)
 
     with get_db_context() as db:
         # Seed default demonstration organization

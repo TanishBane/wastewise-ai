@@ -1,5 +1,5 @@
 import MetalButton from "../MetalButton";
-import { useEffect, useEffectEvent, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { FormEvent } from "react";
 import {
   ArrowDownToLine,
@@ -161,12 +161,15 @@ export default function Scenario({
       if (id === request.current) setBusy(false);
     }
   };
-  const loadInitial = useEffectEvent(() => {
-    void generate();
+  const generateRef = useRef(generate);
+  useEffect(() => {
+    generateRef.current = generate;
   });
   useEffect(() => {
     // Cancel the StrictMode probe before starting a duplicate forecast request.
-    const timer = window.setTimeout(loadInitial, 0);
+    const timer = window.setTimeout(() => {
+      void generateRef.current();
+    }, 0);
     return () => {
       window.clearTimeout(timer);
       request.current += 1;
