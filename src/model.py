@@ -92,6 +92,7 @@ class DemandForecastingEngine:
         self.baseline = WeekdayAverageBaseline()
         
         # Stored evaluation results
+        self.known_menu_items: set = set()
         self.train_split_date: Optional[str] = None
         self.ml_metrics: Optional[EvaluationMetrics] = None
         self.baseline_metrics: Optional[EvaluationMetrics] = None
@@ -136,6 +137,7 @@ class DemandForecastingEngine:
         else:
             split_date = unique_dates[-holdout_days]
             
+        self.known_menu_items = set(sorted_df["menu_item"].unique())
         self.train_split_date = str(split_date)
         train_df = sorted_df[sorted_df["date"] < split_date].copy()
         test_df = sorted_df[sorted_df["date"] >= split_date].copy()
@@ -268,3 +270,51 @@ class DemandForecastingEngine:
             model_name="Random Forest Regressor (Ensemble Quantile)",
             feature_contributions=contributions,
         )
+
+    def save(self, filepath: Any) -> None:
+        """
+        Serializes the trained Random Forest ensemble, OneHotEncoder,
+        and evaluation metrics to disk with level-3 compression.
+        """
+        import joblib
+        payload = {
+            "model": self.model,
+            "encoder": self.encoder,
+            "feature_names": self.feature_names,
+            "is_trained": self.is_trained,
+            "baseline": self.baseline,
+            "known_menu_items": getattr(self, "known_menu_items", set()),
+            "train_split_date": self.train_split_date,
+            "ml_metrics": self.ml_metrics,
+            "baseline_metrics": self.baseline_metrics,
+            "item_level_metrics": self.item_level_metrics,
+            "test_records_df": self.test_records_df,
+            "n_estimators": self.n_estimators,
+            "random_state": self.random_state,
+        }
+        joblib.dump(payload, filepath, compress=3)
+
+    @classmethod
+    def load(cls, filepath: Any) -> "DemandForecastingEngine":
+        """
+        Loads a serialized forecasting engine artifact from disk.
+        """
+        import joblib
+        payload = joblib.load(filepath)
+        engine = cls(
+            n_estimators=payload.get("n_estimators", 100),
+            random_state=payload.get("random_state", 42),
+        )
+        engine.model = payload["model"]
+        engine.encoder = payload["encoder"]
+        engine.feature_names = payload["feature_names"]
+        engine.is_trained = payload["is_trained"]
+        engine.baseline = payload["baseline"]
+        engine.known_menu_items = payload.get("known_menu_items", set())
+        engine.train_split_date = payload["train_split_date"]
+        engine.ml_metrics = payload["ml_metrics"]
+        engine.baseline_metrics = payload["baseline_metrics"]
+        engine.item_level_metrics = payload["item_level_metrics"]
+        engine.test_records_df = payload["test_records_df"]
+        return engine
+

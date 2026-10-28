@@ -11,6 +11,7 @@ from fastapi import HTTPException
 from backend.database import get_db_context
 from backend.models import ForecastRunModel, MenuItemModel
 from src.config import MENU_ITEMS
+from backend.repositories.menu_catalog_repository import MenuCatalogRepository
 
 
 class ForecastingService:
@@ -39,8 +40,10 @@ class ForecastingService:
             weather=weather,
         )
 
-        item_cfg = MENU_ITEMS.get(menu_item)
-        price = item_cfg.selling_price if item_cfg else 60.0
+        from backend.models import DEFAULT_ORG_ID
+        effective_org_id = organization_id or DEFAULT_ORG_ID
+        catalog_item = MenuCatalogRepository.get_item(menu_item, organization_id=effective_org_id)
+        price = catalog_item.selling_price
         gross_value = round(res.predicted_demand * price)
 
         # Historical trajectory (last 30 observed days)

@@ -71,9 +71,10 @@ class WasteRescueService:
             if risk_tier and risk_tier.lower() != "all" and act.risk_level.lower() != risk_tier.lower():
                 continue
 
+            cat_item = items_catalog.get(act.menu_item)
             cfg = MENU_ITEMS.get(act.menu_item)
-            category = cfg.category if cfg else "Main"
-            shelf_life = cfg.shelf_life_hours if cfg else 4.0
+            category = cat_item.category if cat_item else (cfg.category if cfg else "Main")
+            shelf_life = cat_item.shelf_life_hours if cat_item else (cfg.shelf_life_hours if cfg else 4.0)
 
             items.append({
                 "menu_item": act.menu_item,
