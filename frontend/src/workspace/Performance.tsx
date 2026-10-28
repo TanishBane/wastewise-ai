@@ -47,9 +47,15 @@ export default function Performance({ revision, navigate }: ScreenProps) {
   const [outcomeError, setOutcomeError] = useState("");
 
   useEffect(() => {
+    let active = true;
     fetchOutcomes()
-      .then(setOutcomes)
+      .then((data) => {
+        if (active) setOutcomes(data);
+      })
       .catch(() => {});
+    return () => {
+      active = false;
+    };
   }, [revision]);
 
   const handleSaveOutcome = async (e: React.FormEvent) => {

@@ -121,13 +121,13 @@ export default function QuickSearchDialog({
 
   const dishes = config?.menu_item_names || [
     "Pav Bhaji",
-    "Dal Tadka & Rice",
-    "Paneer Butter Masala",
-    "Chole Bhature",
-    "Veg Biryani",
-    "Rajma Chawal",
-    "Masala Dosa",
     "Idli Sambar",
+    "Veg Thali",
+    "Veg Grilled Sandwich",
+    "Rajma Rice Bowl",
+    "Poha",
+    "Masala Dosa",
+    "Fresh Fruit Juice",
   ];
 
   const matchingDishes = dishes.filter((d) => d.toLowerCase().includes(q));
@@ -366,7 +366,7 @@ export default function QuickSearchDialog({
                   "Kitchen Overview",
                   "Demand Forecast",
                   "Pav Bhaji",
-                  "Veg Biryani",
+                  "Veg Thali",
                   "Surplus Rescue",
                 ].map((sug) => (
                   <button
