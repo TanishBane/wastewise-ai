@@ -10296,7 +10296,45 @@ html[data-interaction="keyboard"] .button:active:not(:disabled) {
 .bento-12-grid {
   display: grid;
   grid-template-columns: repeat(12, minmax(0, 1fr));
-  gap: 14px;
+  gap: 16px;
+  width: 100%;
+}
+
+/* Explicit Desktop 12-Column Spans (Prevents Squeezed Noodles) */
+#canteen-nw,
+.bento-12-grid .bento-span-8 {
+  grid-column: span 8 !important;
+  min-height: 380px;
+}
+
+#canteen-alloc,
+.bento-12-grid .bento-span-4 {
+  grid-column: span 4 !important;
+  min-height: 380px;
+}
+
+.bento-12-grid .bento-kpi,
+.bento-12-grid .bento-span-3 {
+  grid-column: span 3 !important;
+  min-height: 180px;
+}
+
+#canteen-flow,
+.bento-12-grid .bento-span-5 {
+  grid-column: span 5 !important;
+  min-height: 340px;
+}
+
+#canteen-dishes,
+.bento-12-grid .bento-span-4-dishes {
+  grid-column: span 4 !important;
+  min-height: 340px;
+}
+
+#canteen-volume,
+.bento-12-grid .bento-span-3-vol {
+  grid-column: span 3 !important;
+  min-height: 340px;
 }
 
 .bento-card-block {
