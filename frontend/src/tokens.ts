@@ -1,24 +1,33 @@
-/** Palette shared by the workspace and chart rendering. CSS is in index.css. */
+/** Premium operational SaaS palette for WasteWise AI — built on the botanical editorial foundation.
+ *  60% Structural Ground & Canvas  30% Secondary Surfaces & Framing  10% Intentional Accents
+ */
 export const palette = {
+  /* 60% Structural Ground & Canvas */
   ground: "#f6f5ef",
   surface: "#fffefa",
   raised: "#f0f1e9",
-  ink: "#1d2b24",
-  muted: "#667168",
-  border: "#e3e5dc",
-  green: "#367a59",
+
+  /* 30% Secondary Surfaces & Framing */
   sage: "#76947f",
-  warning: "#885514",
-  danger: "#a44537",
+  moss: "#91a578",
+  cream: "#f1e3cd",
+  sand: "#dfe8dc",
+
+  /* 10% Intentional Accents */
   forest: "#14392f",
   terracotta: "#805142",
-  cream: "#f1e3cd",
-  moss: "#91a578",
   copper: "#b87d4b",
-  bark: "#3d2b1f",
-  sand: "#dfe8dc",
+
+  /* Semantic */
+  ink: "#181d19",
+  muted: "#667168",
+  border: "#e3e5dc",
+  warning: "#d97736",
+  danger: "#c25438",
+  success: "#3c674c",
 } as const;
 
+/** Chart-specific tokens with improved readability and accessibility */
 export const chartTokens = {
   fontFamily: "var(--font-body)",
   labelSize: 12,
@@ -27,9 +36,9 @@ export const chartTokens = {
   barRadius: [6, 6, 0, 0] as [number, number, number, number],
   tooltip: {
     background: "var(--surface)",
-    border: "none",
+    border: "1px solid var(--border)",
     borderRadius: "var(--radius-control)",
-    padding: "var(--space-4)",
+    padding: "var(--space-3)",
     fontSize: "var(--text-sm)",
     boxShadow: "var(--shadow-floating)",
     fontFamily: "var(--font-body)",

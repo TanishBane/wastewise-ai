@@ -51,6 +51,7 @@ export default function MetalButton({
       onPointerMove={handlePointerMove}
       onMouseMove={handleMouseMove}
       onPointerDown={handlePointerDown}
+      className="button"
       {...props}
     >
       <span className="metal-rim-motion" aria-hidden="true">
