@@ -110,17 +110,20 @@ export function downloadCSV(filename: string, rows: (string | number)[][]) {
 }
 
 /** Premium hero section for the WasteWise AI homepage */
-function HomeHero({ shouldReduceMotion, navigate }: { shouldReduceMotion: boolean; navigate: Navigate }) {
+function HomeHero({
+  shouldReduceMotion,
+  navigate,
+}: {
+  shouldReduceMotion: boolean;
+  navigate: Navigate;
+}) {
   const instant = { duration: 0 };
 
   return (
     <motion.section className="home-hero">
       {/* Immersive blended landscape backdrop */}
       <div className="home-immersive-landscape-backdrop" aria-hidden="true">
-        <div
-          className="immersive-landscape-scrim-left"
-          aria-hidden="true"
-        />
+        <div className="immersive-landscape-scrim-left" aria-hidden="true" />
         <div className="immersive-landscape-scrim-bottom" aria-hidden="true" />
         <div className="immersive-landscape-scrim-radial" aria-hidden="true" />
       </div>
@@ -143,7 +146,9 @@ function HomeHero({ shouldReduceMotion, navigate }: { shouldReduceMotion: boolea
         >
           <Leaf size={14} className="kicker-sprout" aria-hidden="true" />
           <span>A calmer way to run the canteen</span>
-          <span className="kicker-divider" aria-hidden="true">·</span>
+          <span className="kicker-divider" aria-hidden="true">
+            ·
+          </span>
           <span className="kicker-tag">DEMO ENVIRONMENT</span>
         </motion.div>
 
@@ -179,9 +184,9 @@ function HomeHero({ shouldReduceMotion, navigate }: { shouldReduceMotion: boolea
           }
         >
           WasteWise turns daily canteen demand signals into high-confidence
-          preparation decisions—so kitchen teams cook exactly what students
-          and staff consume, eliminate food waste before it happens, and
-          preserve margins.
+          preparation decisions—so kitchen teams cook exactly what students and
+          staff consume, eliminate food waste before it happens, and preserve
+          margins.
         </motion.p>
 
         {/* Action Buttons */}
@@ -219,7 +224,7 @@ function HomeHero({ shouldReduceMotion, navigate }: { shouldReduceMotion: boolea
 
         <motion.div
           className="home-meta-actions"
-          initial={shouldReduceMotion ? false : { opacity: 0}}
+          initial={shouldReduceMotion ? false : { opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={
             shouldReduceMotion
@@ -256,17 +261,11 @@ function HomeHero({ shouldReduceMotion, navigate }: { shouldReduceMotion: boolea
               <strong>161</strong>
               <span>demo portions</span>
             </span>
-            <span
-              className="stat-pill"
-              title="Holdout evaluation: 8.4% WAPE"
-            >
+            <span className="stat-pill" title="Holdout evaluation: 8.4% WAPE">
               <strong>8.4%</strong>
               <span>holdout WAPE</span>
             </span>
-            <span
-              className="stat-pill"
-              title="Baseline risk exposure: ₹887"
-            >
+            <span className="stat-pill" title="Baseline risk exposure: ₹887">
               <strong>₹887</strong>
               <span>demo exposure</span>
             </span>
@@ -385,13 +384,11 @@ function ProofPoints() {
   const staggerDelay = 0.08;
 
   return (
-    <section
-      className="home-proof"
-      aria-label="WasteWise core capabilities"
-    >
+    <section className="home-proof" aria-label="WasteWise core capabilities">
       <div
         className="proof-card"
-        style={{ animationDelay: '0s', transitionDelay: staggerDelay + 's' }}      >
+        style={{ animationDelay: "0s", transitionDelay: staggerDelay + "s" }}
+      >
         <div className="proof-header">
           <span className="proof-icon-pill" aria-hidden="true">
             <Activity size={18} />
@@ -399,14 +396,18 @@ function ProofPoints() {
           <strong>Unified Kitchen Telemetry</strong>
         </div>
         <span>
-          Real-time synthesis of student attendance, exam schedules,
-          weather, and historical dish sales into one calm forecast.
+          Real-time synthesis of student attendance, exam schedules, weather,
+          and historical dish sales into one calm forecast.
         </span>
       </div>
 
       <div
         className="proof-card"
-        style={{ animationDelay: staggerDelay + 's', transitionDelay: staggerDelay * 2 + 's' }}      >
+        style={{
+          animationDelay: staggerDelay + "s",
+          transitionDelay: staggerDelay * 2 + "s",
+        }}
+      >
         <div className="proof-header">
           <span className="proof-icon-pill" aria-hidden="true">
             <TrendingUp size={18} />
@@ -421,7 +422,11 @@ function ProofPoints() {
 
       <div
         className="proof-card"
-        style={{ animationDelay: staggerDelay * 2 + 's', transitionDelay: staggerDelay * 3 + 's' }}      >
+        style={{
+          animationDelay: staggerDelay * 2 + "s",
+          transitionDelay: staggerDelay * 3 + "s",
+        }}
+      >
         <div className="proof-header">
           <span className="proof-icon-pill" aria-hidden="true">
             <ShieldCheck size={18} />
@@ -429,8 +434,8 @@ function ProofPoints() {
           <strong>Human Judgment Preserved</strong>
         </div>
         <span>
-          Transparent 80% uncertainty bounds. Kitchen managers review,
-          adjust, and confirm every batch before service begins.
+          Transparent 80% uncertainty bounds. Kitchen managers review, adjust,
+          and confirm every batch before service begins.
         </span>
       </div>
     </section>
@@ -460,9 +465,8 @@ function HomeBentoGrid({ navigate }: { navigate: Navigate }) {
       <span className="home-eyebrow">Institutional Scale Engine</span>
       <h2>Built for the speed and heat of real kitchens.</h2>
       <p>
-        Four operational pillars designed to eliminate overproduction,
-        protect operating margins, and route unavoidable surplus before food
-        cools.
+        Four operational pillars designed to eliminate overproduction, protect
+        operating margins, and route unavoidable surplus before food cools.
       </p>
 
       <CanteenBentoGrid navigate={navigate} />
@@ -478,8 +482,8 @@ function HomeWorkflowGallery({ navigate }: { navigate: Navigate }) {
       <h2>Less searching. More deciding.</h2>
       <p>
         The workspace follows the cadence your kitchen already thinks in:
-        understand expected footfall, calibrate batch cooking sizes, and
-        rescue any remaining portions before they turn to waste.
+        understand expected footfall, calibrate batch cooking sizes, and rescue
+        any remaining portions before they turn to waste.
       </p>
 
       <CanteenWorkflowGallery navigate={navigate} />
@@ -490,10 +494,7 @@ function HomeWorkflowGallery({ navigate }: { navigate: Navigate }) {
 /** Evidence & integrity section */
 function HomeEvidence({ navigate }: { navigate: Navigate }) {
   return (
-    <section
-      className="home-evidence"
-      aria-labelledby="evidence-heading"
-    >
+    <section className="home-evidence" aria-labelledby="evidence-heading">
       <picture className="home-evidence-bg">
         <source
           srcSet="/images/botanical/forest-landscape.webp"
@@ -528,9 +529,9 @@ function HomeEvidence({ navigate }: { navigate: Navigate }) {
           </span>
           <h2 id="how-it-works">Recommendations, not black boxes.</h2>
           <p>
-            Every screen keeps critical context within view: where a number
-            came from, how confident the model is, and where operator
-            discretion remains paramount.
+            Every screen keeps critical context within view: where a number came
+            from, how confident the model is, and where operator discretion
+            remains paramount.
           </p>
           <ul className="evidence-checklist">
             <li>
@@ -547,8 +548,8 @@ function HomeEvidence({ navigate }: { navigate: Navigate }) {
                 <Check size={14} />
               </span>
               <span>
-                Probabilistic confidence intervals sit alongside
-                single-point recommendations
+                Probabilistic confidence intervals sit alongside single-point
+                recommendations
               </span>
             </li>
             <li>
@@ -578,7 +579,7 @@ function HomeEvidence({ navigate }: { navigate: Navigate }) {
 /** Final CTA section */
 function HomeEndCTA({ navigate }: { navigate: Navigate }) {
   return (
-    <section className="home-end" style={{ animationDelay: '0s' }}>
+    <section className="home-end" style={{ animationDelay: "0s" }}>
       <div className="home-end-content">
         <span className="home-end-eyebrow">
           <Leaf size={14} aria-hidden="true" />
@@ -586,8 +587,8 @@ function HomeEndCTA({ navigate }: { navigate: Navigate }) {
         </span>
         <h2>Bring your workplace into focus.</h2>
         <p className="home-end-desc">
-          Upload your canteen's historical preparation logs or explore the
-          live interactive model with full feature explanations.
+          Upload your canteen's historical preparation logs or explore the live
+          interactive model with full feature explanations.
         </p>
 
         <div className="home-end-actions">
@@ -625,8 +626,8 @@ function HomeEndCTA({ navigate }: { navigate: Navigate }) {
             <div className="end-card-content">
               <strong className="end-card-title">Live Canteen Telemetry</strong>
               <span className="end-card-desc">
-                Preloaded with 14-day campus attendance & multi-dish
-                velocity data.
+                Preloaded with 14-day campus attendance & multi-dish velocity
+                data.
               </span>
             </div>
           </div>
@@ -638,8 +639,8 @@ function HomeEndCTA({ navigate }: { navigate: Navigate }) {
             <div className="end-card-content">
               <strong className="end-card-title">65/35 Batch Production</strong>
               <span className="end-card-desc">
-                Newsvendor hedging prevents overproduction before food
-                enters kettles.
+                Newsvendor hedging prevents overproduction before food enters
+                kettles.
               </span>
             </div>
           </div>
@@ -651,8 +652,7 @@ function HomeEndCTA({ navigate }: { navigate: Navigate }) {
             <div className="end-card-content">
               <strong className="end-card-title">Zero-Landfill Protocol</strong>
               <span className="end-card-desc">
-                4-hour food safety window with automated campus rescue
-                dispatch.
+                4-hour food safety window with automated campus rescue dispatch.
               </span>
             </div>
           </div>
