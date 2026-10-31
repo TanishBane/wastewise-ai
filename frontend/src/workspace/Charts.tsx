@@ -14,7 +14,7 @@ import { date } from "./model";
 
 import { chartTokens, palette } from "../tokens";
 
-const green = palette.green;
+const green = palette.moss;
 const tick = {
   fill: palette.muted,
   fontSize: chartTokens.labelSize,

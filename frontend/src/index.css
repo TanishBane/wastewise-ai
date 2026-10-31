@@ -10,19 +10,26 @@
   --surface: #fffefa;
   --raised: #f0f1e9;
   --active: #e5e9db;
-  --ink: #1d2b24;
+  --ink: #181d19;
   --muted: #667168;
   --border: #e3e5dc;
   --rule: #ebe7dc;
   --control: #bdc2af;
+  --forest: #14392f;
+  --terracotta: #805142;
+  --copper: #b87d4b;
+  --sage-text: #76947f;
+  --warning-ink: #d97736;
+  --danger-ink: #c25438;
   --green: #367a59;
   --green-dark: #1b3d2e;
   --green-pale: #eaf0e3;
   --sage: #76947f;
-  --warning: #885514;
+  --warning: #d97736;
   --warning-pale: #f9eed7;
-  --danger: #a44537;
+  --danger: #c25438;
   --danger-pale: #f9eae3;
+  --success: #3c674c;
   --rail: #14392f;
   --rail-active: #1d4a3b;
   --rail-rule: #355442;
@@ -260,16 +267,34 @@ small {
   font-size: var(--text-xs);
 }
 ::selection {
-  background: var(--selection);
-  color: var(--green);
+  background: #14392f;
+  color: #fbf9f4;
 }
 :focus-visible {
-  outline: 2px solid var(--green);
-  outline-offset: 3px;
+  outline: 2px solid #e07a5f;
+  outline-offset: 2px;
+}
+html {
+  scroll-padding-top: 80px;
 }
 input,
 textarea {
-  caret-color: var(--green);
+  caret-color: #e07a5f;
+}
+/* Tabular figures for data density per Craft Floor & UI Pro Max */
+.tabular-nums,
+.bento-big-kpi,
+.alloc-pct,
+.alloc-val,
+.stream-main-stat,
+.stream-delta,
+.stat-value,
+.metric-num,
+.badge,
+.sheet-meta-block strong,
+.batch-qty,
+table td {
+  font-variant-numeric: tabular-nums lining-nums;
 }
 .visually-hidden {
   position: absolute;
@@ -10704,4 +10729,43 @@ html[data-interaction="keyboard"] .button:active:not(:disabled) {
   color: #ffffff;
   border-color: var(--forest);
   box-shadow: 0 4px 12px -2px rgba(21, 61, 48, 0.25);
+}
+
+/* Custom Themed Scrollbar per Craft Floor */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #2a3c33;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #3e564a;
+}
+
+/* Ergonomic Touch Targets (>=44px) on Mobile Devices */
+@media (max-width: 768px) {
+  .mobile-menu-trigger,
+  .search-trigger-button,
+  .utility-button,
+  .bento-switch-pill,
+  .source-action-btn {
+    min-height: 44px;
+  }
+}
+
+/* Inclusive Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
