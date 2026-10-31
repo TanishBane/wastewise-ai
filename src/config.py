@@ -16,25 +16,31 @@ EVENT_NAME = "ADAPPT 5.0 — AI in FoodTech"
 CANTEEN_NAME = "Campus Green Demo Canteen"
 TARGET_PERIOD = "Lunch & All-Day Service"
 
-# Color Palette - Professional FoodTech Operations (Restrained enterprise aesthetic)
+# Color Palette - Botanical Editorial Design System (ADAPPT 5.0)
+# 60% Structural Ground & Canvas  |  30% Secondary Surfaces & Framing  |  10% Intentional Accents
 THEME_COLORS = {
-    "page_bg": "#F5F7F8",           # Cool Neutral Grey Canvas
-    "card_bg": "#FFFFFF",           # Pure Surface White
-    "text_primary": "#17212B",      # Dark Charcoal-Blue
-    "text_secondary": "#64748B",    # Slate Grey
-    "brand_primary": "#246B53",     # Operational Forest Green
-    "brand_muted": "#E5F0E8",       # Subtle Mint Background
-    "border": "#E2E8F0",            # Cool Neutral Border
-    "border_subtle": "#EEF1F5",     # Ultra-light separator
-    "warning_text": "#8A5B14",      # Restrained Amber Text
-    "warning_bg": "#FDF8EE",        # Amber Alert Surface
-    "warning_border": "#EFE2C5",    # Amber Border
-    "danger_text": "#9E2A2B",      # Muted Critical Red
-    "danger_bg": "#FDF2F2",         # Red Alert Surface
-    "danger_border": "#F4CECE",     # Red Border
-    "success_text": "#1E5E3A",      # Accessible Forest Green
-    "success_bg": "#EEF6F0",        # Green Pill Surface
-    "success_border": "#C6E7D2",    # Green Pill Border
+    # 60% Structural Ground & Canvas
+    "page_bg": "#F8F1E5",           # Ground — Warm Cream Canvas
+    "card_bg": "#FFFFFF",           # Surface Card — Pure White
+
+    # 30% Secondary Surfaces & Framing
+    "text_primary": "#181D19",      # Ink — Primary Text on light surface
+    "text_secondary": "#667168",    # Muted — Secondary text, captions
+    "border": "#E3DCCF",            # Border Subtle — 60% distribution border
+    "border_subtle": "#E8E4DC",     # Border Extra Subtle — divider lines
+
+    # 10% Intentional Accents
+    "brand_primary": "#1B4D3E",     # Forest Primary — primary actions, nav accents
+    "brand_muted": "#EEF1F5",       # Sage Muted — secondary backgrounds, pills inactive
+    "warning_text": "#D97736",      # Terracotta Warning — warnings, alerts
+    "warning_bg": "#FDF8EE",        # Terracotta Surface — warning cards
+    "warning_border": "#EFE2C5",    # Terracotta Border — warning borders
+    "danger_text": "#C25438",       # Copper Critical — error states
+    "danger_bg": "#FDF2F2",         # Copper Surface — error cards
+    "danger_border": "#F4CECE",     # Copper Border — error borders
+    "success_text": "#3C674C",      # Sage Success — positive actions
+    "success_bg": "#EEF6F0",        # Sage Surface — success cards
+    "success_border": "#C6E7D2",    # Sage Border — success borders
 }
 
 @dataclass(frozen=True)

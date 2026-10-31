@@ -614,6 +614,7 @@ export default function App() {
             <div className="button-row">
               <MetalButton
                 className="button"
+                kind="secondary"
                 onClick={() => {
                   navigate(tour[tourStep].page);
                   setTourOpen(false);
@@ -623,6 +624,7 @@ export default function App() {
               </MetalButton>
               <MetalButton
                 className="button primary"
+                kind="primary"
                 onClick={() =>
                   tourStep < tour.length - 1
                     ? setTourStep((value) => value + 1)
