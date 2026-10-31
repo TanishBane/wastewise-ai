@@ -498,7 +498,8 @@ export default function CanteenBentoDashboard({
           background: rgba(0, 0, 0, 0.24);
           color: #ffffff;
           font-size: 11px;
-          font-family: monospace;
+          font-family: var(--font-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+          font-variant-numeric: tabular-nums lining-nums;
           font-weight: 600;
         }
 
@@ -507,7 +508,7 @@ export default function CanteenBentoDashboard({
           align-items: center;
           justify-content: center;
           gap: 6px;
-          height: 32px;
+          height: 34px;
           padding: 0 14px;
           border-radius: 9999px;
           font-size: 12px;
@@ -524,6 +525,11 @@ export default function CanteenBentoDashboard({
         }
         .bento-cta-btn:active {
           transform: translateY(0);
+        }
+        .bento-cta-btn:focus-visible,
+        .bento-seg-btn:focus-visible {
+          outline: 2px solid #e07a5f;
+          outline-offset: 2px;
         }
         .cta-forest-on-mint {
           background: #153d30;
@@ -558,18 +564,20 @@ export default function CanteenBentoDashboard({
           font-size: clamp(26px, 2.8vw, 36px);
           font-weight: 700;
           letter-spacing: -0.03em;
-          font-family: monospace;
+          font-family: var(--font-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+          font-variant-numeric: tabular-nums lining-nums;
           line-height: 1;
         }
         .stream-delta {
           font-size: 13px;
           font-weight: 700;
           color: #e0a96d;
-          font-family: monospace;
+          font-family: var(--font-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+          font-variant-numeric: tabular-nums lining-nums;
         }
         .stream-sub {
           font-size: 12px;
-          opacity: 0.75;
+          opacity: 0.92;
           margin-top: 2px;
         }
 
@@ -578,7 +586,7 @@ export default function CanteenBentoDashboard({
           gap: 12px;
           font-size: 11.5px;
           font-weight: 600;
-          opacity: 0.85;
+          opacity: 0.92;
         }
         .bento-stream-legend span {
           display: inline-flex;
@@ -629,13 +637,15 @@ export default function CanteenBentoDashboard({
           font-weight: 600;
         }
         .alloc-pct {
-          font-family: monospace;
-          opacity: 0.75;
+          font-family: var(--font-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+          font-variant-numeric: tabular-nums lining-nums;
+          opacity: 0.92;
           width: 36px;
           text-align: right;
         }
         .alloc-val {
-          font-family: monospace;
+          font-family: var(--font-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+          font-variant-numeric: tabular-nums lining-nums;
           font-weight: 700;
           width: 85px;
           text-align: right;
@@ -646,11 +656,12 @@ export default function CanteenBentoDashboard({
           font-weight: 700;
           letter-spacing: -0.04em;
           line-height: 1;
-          font-family: monospace;
+          font-family: var(--font-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+          font-variant-numeric: tabular-nums lining-nums;
         }
         .bento-kpi-sub {
           font-size: 12px;
-          opacity: 0.8;
+          opacity: 0.92;
           margin-top: 4px;
         }
 
@@ -776,6 +787,11 @@ export default function CanteenBentoDashboard({
             flex-direction: column !important;
             align-items: flex-start !important;
             gap: 8px !important;
+          }
+          .bento-cta-btn {
+            min-height: 40px !important;
+            padding: 0 16px !important;
+            font-size: 13px !important;
           }
           .bento-stream-legend {
             flex-wrap: wrap !important;
