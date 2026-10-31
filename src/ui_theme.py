@@ -1,7 +1,7 @@
 """
-WasteWise AI - Enterprise UI Theme & Design System
-Professional FoodTech operational intelligence styling inspired by Linear, Stripe,
-and modern analytics dashboards. Clean typography, restrained palette, and high information density.
+WasteWise AI - Botanical Editorial UI Theme & Design System
+ADAPPT 5.0: AI in FoodTech | Styling per DESIGN.md botanical editorial design system.
+60% Structural Ground & Canvas  |  30% Secondary Surfaces & Framing  |  10% Intentional Accents
 """
 
 from typing import Optional

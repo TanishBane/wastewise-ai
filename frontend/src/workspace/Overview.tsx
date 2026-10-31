@@ -76,6 +76,7 @@ export default function Overview({ revision, navigate }: ScreenProps) {
         <div className="overview-heading-actions">
           <MetalButton
             className="button primary"
+            kind="primary"
             onClick={() => navigate("prep-planner")}
           >
             <ChefHat size={16} />
@@ -84,6 +85,7 @@ export default function Overview({ revision, navigate }: ScreenProps) {
           </MetalButton>
           <MetalButton
             className="button"
+            kind="secondary"
             onClick={() => setPrintModalOpen(true)}
             title="Open printable kitchen preparation sheet"
           >
@@ -92,6 +94,7 @@ export default function Overview({ revision, navigate }: ScreenProps) {
           </MetalButton>
           <MetalButton
             className="button"
+            kind="secondary"
             onClick={() => navigate("waste-risk")}
             title="Log shift outcome in surplus rescue"
           >
@@ -324,6 +327,7 @@ export default function Overview({ revision, navigate }: ScreenProps) {
           <div className="review-actions">
             <MetalButton
               className="button"
+              kind="secondary"
               disabled={
                 Object.values(reviewed).filter(Boolean).length ===
                 data.item_details.length
@@ -354,6 +358,7 @@ export default function Overview({ revision, navigate }: ScreenProps) {
             </MetalButton>
             <MetalButton
               className="button print-prep-btn"
+              kind="secondary"
               onClick={() => setPrintModalOpen(true)}
               title="Open printable kitchen preparation sheet"
             >

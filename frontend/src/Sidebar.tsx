@@ -16,6 +16,7 @@ import {
 import type { Page } from "./workspace/model";
 import BrandLogo from "./BrandLogo";
 
+/* Nav link groups — matched to DESIGN.md 60-30-10 distribution */
 const navLinks = [
   {
     id: "home" as Page,

@@ -1,0 +1,62 @@
+/* ============================================================
+   Botanical Editorial Design System — CSS Tokens
+   60% Structural Ground & Canvas  |  30% Secondary Surfaces & Framing  |  10% Intentional Accents
+   ============================================================ */
+
+:root {
+  /* ========== Brand Botanical ========== */
+  --color-brand-forest-950: #14392f;
+  --color-brand-forest-900: #1d4a3b;
+  --color-brand-primary: #1b4d3e;
+  --color-brand-sage: #78a395;
+  --color-brand-moss: #91a578;
+  --color-brand-terracotta: #805142;
+  --color-brand-copper: #b87d4b;
+  --color-brand-bark: #3d2b1f;
+
+  /* ========== Surfaces & Canvases (60% of palette) ========== */
+  --color-surface-ground: #f8f1e5;
+  --color-surface-card: #fffdf8;
+  --color-surface-raised: #f4efe6;
+  --color-surface-cream-pill: #f1e3cd;
+  --color-surface-sage: #dfe8dc;
+  --color-surface-dark-glass: rgba(20, 57, 47, 0.88);
+
+  /* ========== Typography ========== */
+  --color-text-ink: #181d19;
+  --color-text-muted: #667168;
+  --color-text-ivory: #f8f1e5;
+  --color-text-cream: #f1e3cd;
+
+  /* ========== Boundaries & Elevations ========== */
+  --color-border-subtle: #e3dccf;
+  --color-border-forest: rgba(120, 163, 149, 0.25);
+  --color-focus-ring: #f1e3cd;
+}
+
+/* Application of the 60-30-10 distribution in component contexts:
+   - 60%: --color-surface-ground for page backgrounds, --color-surface-card for cards
+   - 30%: --color-surface-sage for secondary surfaces, --color-border-subtle for borders
+   - 10%: --color-brand-primary for primary actions, --color-brand-terracotta for warnings
+*/
+
+/* ============================================================
+   Focus Ring — Accessibility Enhancement
+   ============================================================ */
+*:focus-visible {
+  outline: 2px var(--color-focus-ring) solid;
+  outline-offset: 2px;
+}
+
+/* ============================================================
+   Reduced Motion — Global Respect
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
